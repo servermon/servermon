@@ -7,6 +7,7 @@ class Host(models.Model):
 
 class Package(models.Model):
     name = models.CharField(max_length=200)
+    hosts = models.ManyToManyField(Host, through='Update')
 
 class Update(models.Model):
     package = models.ForeignKey(Package)
