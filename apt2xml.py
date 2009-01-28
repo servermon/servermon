@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 from socket import gethostname
+import warnings
+warnings.filterwarnings('ignore')
 import apt
 from xml.dom.minidom import Document
 

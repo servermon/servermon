@@ -4,7 +4,7 @@ from models import *
 def index(request):
     hoststanza = ""
     for host in Host.objects.all():
-        hoststanza += "<li><a href=\"%s\">%s</a>: %d updates</li>" % (host.hostname,host.hostname, Update.objects.filter(host=host).count())
+        hoststanza += "<li><a href=\"%s\">%s</a>: %d updates (last visited: %s)</li>" % (host.hostname,host.hostname, Update.objects.filter(host=host).count(), host.lastvisited.strftime("%d/%m/%Y - %H:%M"))
 
     html = "<html><body><ul>%s</ul></body></html>" % hoststanza
     return HttpResponse(html)
