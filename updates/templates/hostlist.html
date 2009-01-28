@@ -10,4 +10,8 @@
 <tr><td><a href="/hosts/{{ host.hostname }}">{{ host.hostname }}</a></td>	<td>{{ host.update_set.count }} updates</td>	<td><em><small>{{ host.lastvisit }}</small></em></td></tr>
 {% endfor %}
 </table>
+
+<div class="instructions">
+Click on a hostname to see all pending package updates for that host.
+</div>
 {% endblock %}

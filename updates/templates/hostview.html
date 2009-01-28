@@ -10,6 +10,12 @@
 <tr><td><a href="/packages/{{ update.package.name }}">{{ update.package.name }}</a></td>	<td>{{ update.installedVersion }}</td>	<td class="changelog"><a href="http://changelogs.debian.net/{{ update.package.sourcename }}#{{ update.candidateVersion }}" target="_blank">{{ update.candidateVersion }}</a></td></tr>
 {% endfor %}
 </table>
+<div class="instructions">
+<ul>
+<li>Click on the available version number to view the package's changelog for that version</li>
+<li>Click on a package name to see all hosts with pending updates on that package</li>
+</ul>
+</div>
 
 <h2>Host information</h2>
 <div class="hostinfo">

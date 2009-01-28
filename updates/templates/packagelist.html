@@ -10,4 +10,9 @@
 <tr><td><a href="{{ package.name }}">{{ package.name }}</a></td>	<td>{{ package.hosts.count }} hosts</td></tr>
 {% endfor %}
 </table>
+
+<div class="instructions">
+Click on a package name to see the list of all hosts with a pending update on that package.
+</div>
+
 {% endblock %}

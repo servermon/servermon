@@ -68,3 +68,13 @@ td {
 .changelog {
 	font-style: italic;
 }
+
+.instructions {
+	font-size: small;
+	font-style: italic;
+	color: gray;
+	width: 40em;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
