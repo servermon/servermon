@@ -1,21 +1,27 @@
 from django.http import HttpResponse
+from django.shortcuts import render_to_response
 from models import *
+import ldap
 
-def index(request):
-    hoststanza = ""
-    for host in Host.objects.all():
-        hoststanza += "<li><a href=\"%s\">%s</a>: %d updates (last visited: %s)</li>" % (host.hostname,host.hostname, Update.objects.filter(host=host).count(), host.lastvisited.strftime("%d/%m/%Y - %H:%M"))
+def hostlist(request):
+    return render_to_response('hostlist.html', {'hosts': Host.objects.order_by('hostname')})
 
-    html = "<html><body><ul>%s</ul></body></html>" % hoststanza
-    return HttpResponse(html)
+def packagelist(request):
+    return render_to_response('packagelist.html', {'packages': Package.objects.order_by('name')})
         
     
 def host(request,hostname):
     host = Host.objects.filter(hostname=hostname)[0]
-    
-    updatestanza = ""
-    for update in host.update_set.all():
-        updatestanza += "<li>%s: %s -> %s" % (update.package.name, update.installedVersion, update.candidateVersion)
-    html = "<html><body><ul>%s</ul></body></html>" % updatestanza
-    return HttpResponse(html)
-        
+    ds = ldap.initialize("ldap://" + settings.LDAP_HOST)
+    results = ds.search_s(settings.LDAP_BASE,ldap.SCOPE_SUBTREE,"(cn=%s)" % host.hostname)
+    del ds
+    ldapinfo = results[0][1]
+    ipaddrs = ", ".join(ldapinfo['ipHostNumber'])
+    puppetclasses = ", ".join(ldapinfo['puppetclass'])
+    updates = host.update_set.order_by('package__name')
+    return render_to_response('hostview.html', {'host': host, 'puppetclasses': puppetclasses, 'ipaddrs': ipaddrs, 'updates': updates})
+
+def package(request,packagename):
+    package = Package.objects.filter(name=packagename)[0]
+    updates = package.update_set.order_by('host__hostname')
+    return render_to_response('packageview.html', {'package': package, 'updates': updates})

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Updates for {{ host.hostname }}{% endblock %}
+{% block heading %}Updates for {{ host.hostname }}{% endblock %}
+
+{% block content %}
+<table>
+<tr><th>Package name</th>	<th>Installed Version</th>	<th>Available Version</th></tr>
+{% for update in updates %}
+<tr><td><a href="/packages/{{ update.package.name }}">{{ update.package.name }}</a></td>	<td>{{ update.installedVersion }}</td>	<td class="changelog"><a href="http://changelogs.debian.net/{{ update.package.sourcename }}#{{ update.candidateVersion }}" target="_blank">{{ update.candidateVersion }}</a></td></tr>
+{% endfor %}
+</table>
+
+<h2>Host information</h2>
+<div class="hostinfo">
+<table>
+<tr><th>Puppet classes</th><td>{{ puppetclasses }}</td></tr>
+<tr><th>IP Addresses</th><td>{{ ipaddrs }}</td></tr>
+<tr><th>Last visited</th><td>{{ host.lastvisit }}</td></tr>
+</table>
+</div>
+
+{% endblock %}

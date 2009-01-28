@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>{% block title %}{% endblock %} -- updates</title>
+<link type="text/css" rel="stylesheet" href="/static/updates.css" />
+</head>
+
+<body>
+<div id="nav">
+<a href="/hosts">Host list</a> | <a href="/packages">Package list</a>
+</div>
+<h1>{% block heading %}{% endblock %}</h1>
+{% block content %}
+{% endblock %}
+
+<div id="footer">
+<a href="http://www.djangoproject.com/"><img src="/static/django.gif" alt="A Django site" title="A Django site" border=0 /></a>
+</div>
+</body>
+</html>

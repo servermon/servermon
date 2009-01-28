@@ -17,7 +17,7 @@ ds = ldap.initialize(settings.LDAP_HOST)
 puppethosts = ds.search_s(settings.LDAP_BASE,ldap.SCOPE_SUBTREE,'(objectClass=puppetClient)')
 
 client = paramiko.SSHClient()
-client.load_system_host_keys()
+client.load_host_keys("/etc/ssh/ssh_known_hosts")
 
 for puppethost in puppethosts:
     hostname = puppethost[1]['cn'][0]
@@ -64,13 +64,14 @@ for puppethost in puppethosts:
         name = update.getAttribute("name")
         cv = update.getAttribute("current_version")
         nv = update.getAttribute("new_version")
+        sn = update.getAttribute("source_name")
 
         try: 
             p = Package.objects.filter(name=name)[0]
         except IndexError:
             p = None
         if not p:
-            p = Package(name=name)
+            p = Package(name=name, sourcename=sn)
             p.save()
         u = Update(host=host, package=p, installedVersion=cv, candidateVersion=nv)
         u.save()

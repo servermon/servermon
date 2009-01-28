@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Hosts for package {{ package.name }}{% endblock %}
+{% block heading %}Hosts with pending updates for {{ package.name }}{% endblock %}
+
+{% block content %}
+<table>
+<tr><th>Hostname</th>	<th>Installed Version</th>	<th>Available Version</th></tr>
+{% for update in updates %}
+<tr><td><a href="/hosts/{{ update.host.hostname }}">{{ update.host.hostname }}</a></td>	<td>{{ update.installedVersion }}</td>	<td class="changelog"><a href="http://changelogs.debian.net/{{ update.package.sourcename }}#{{ update.candidateVersion }}" target="_blank">{{ update.candidateVersion }}</a></td></tr>
+{% endfor %}
+</table>
+
+{% endblock %}

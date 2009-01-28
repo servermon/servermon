@@ -13,7 +13,10 @@ urlpatterns = patterns('',
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
+    (r'^$', 'updates.views.hostlist'),
     (r'^admin/(.*)', admin.site.root),
-    (r'hosts/$', 'updates.views.index'),
-    (r'hosts/(.*)','updates.views.host'),
+    (r'^hosts/$', 'updates.views.hostlist'),
+    (r'^hosts/(.*)','updates.views.host'),
+    (r'^packages/$','updates.views.packagelist'),
+    (r'^packages/(.*)','updates.views.package'),
 )
