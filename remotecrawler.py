@@ -79,3 +79,5 @@ for puppethost in puppethosts:
     # Update the host's last-visited timestamp
     host.save()
 
+# Delete orphaned packages from previous runs
+Package.objects.filter(hosts__isnull=True).delete()
