@@ -1,22 +1,5 @@
 from django.db import models
-
-class Host(models.Model):
-    hostname = models.CharField(max_length=200)
-    sshkey = models.CharField(max_length=500,blank=True)
-    description = models.CharField(max_length=200)
-    lastvisited = models.DateTimeField(auto_now=True)
-
-    class Meta:
-	ordering = ('hostname',)
-
-    def __unicode__(self):
-        if self.description:
-            return "%s (%s)" % (self.hostname, self.description)
-        else:
-            return self.hostname
-
-    def lastvisit(self):
-        return self.lastvisited.strftime("%d/%m/%Y - %H:%M")
+from puppet.models import Host
 
 class Package(models.Model):
     name = models.CharField(max_length=200)
@@ -34,5 +17,5 @@ class Update(models.Model):
     source = models.CharField(max_length=200)
 
     def __unicode__(self):
-        return "%s@%s: %s -> %s" % (self.package.name, self.host.hostname, self.installedVersion, self.candidateVersion)
+        return "%s@%s: %s -> %s" % (self.package.name, self.host.name, self.installedVersion, self.candidateVersion)
         

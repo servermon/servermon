@@ -9,7 +9,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 DATABASE_NAME = ''             # Or path to database file if using sqlite3.
 DATABASE_USER = ''             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
@@ -63,7 +63,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
-ROOT_URLCONF = 'updatemgr.urls'
+ROOT_URLCONF = 'servermon.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -77,5 +77,6 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'updatemgr.updates',
+    'servermon.updates',
+    'servermon.puppet',
 )

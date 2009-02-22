@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style type="text/css">
+.inventory {
+	text-align: center;
+}
+
+.inventory tr td {
+	padding-bottom: 0.2em;
+	padding-right: 0.3em;
+	padding-left: 0.3em;
+	border-bottom: 1px solid #eaeaea;
+}
+
+.mono {
+	font-family: monospace;
+}
+
+.even {
+	background-color: #eaeaea;
+}
+</style>
+
+<table align="center" class="inventory">
+<tr><th>Hostname</th><th>Vendor</th><th>Model</th><th># of CPUs</th><th>Arch</th><th>Bios Date</th><th>Bios Version</th><th>Serial Nr.</th></tr>
+{% for host in hosts %}
+<tr class="{% cycle 'odd' 'even' %}"><td><a href="{% url puppet.views.host host.name %}">{{ host.name }}</a></td><td>{{ host.vendor }}</td><td>{{ host.model }}</td><td>{{ host.cpus }}</td><td>{{ host.arch }}</td><td class="mono">{{ host.biosdate }}</td><td class="mono">{{ host.biosversion }}</td><td class="mono">{{ host.serial }}</td></tr>
+{% endfor %}
+</table>
+
+{% endblock %}

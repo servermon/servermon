@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{ host.name }}</h1>
+<h2>System</h2>
+<table align="center">
+{% for attr in system|dictsort:"name" %}
+{% if attr.value %}<tr><th align="right">{{ attr.name }}:</th><td>{{ attr.value }}</td></tr>{% endif %}
+{% endfor %}
+</table>
+
+<h2>Network</h2>
+<table align="center">
+<tr><th>Interface name</th><th>IP Address</th><th>MAC Address</th></tr>
+{% for iface in interfaces %}
+<tr><td>{{iface.iface}}</td><td class="ip">{% if iface.ipaddr %}{{iface.ipaddr}}{% else %}&mdash;{% endif %}</td><td class="ip">{% if iface.mac %}{{iface.mac}}{% else %}&mdash;{% endif %}</td></tr>
+{% endfor %}
+</table>
+
+<h2>Misc</h2>
+
+{% endblock %}
