@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block heading %}Search results for &quot;{{ search }}&quot;{% endblock %}
+
+{% block content %}
+{% if matches %}
+<div id="results">
+{% regroup matches by attribute as attrlist %}
+
+{% for attr in attrlist %}
+<h3>by {{ attr.grouper }}</h3>
+<ul>
+{% for item in attr.list %}
+<li><a href="{% url views.host item.name %}">{{ item.name }}</a> ({{ item.value|safe }})</li>
+{% endfor %}
+</ul>
+{% endfor %}
+</div>
+{% else %}
+<h2>Your search produced no results, please try again</h2>
+{% endif %}
+{% endblock %}

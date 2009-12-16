@@ -61,8 +61,12 @@ td {
 
 .hostinfo td {
 	padding-left: 0.5em;
-	font-weight: bold;
+	/*font-weight: bold; */
 	text-align: left;
+}
+
+.mono {
+	font-family: monospace;
 }
 
 .changelog {
@@ -78,3 +82,14 @@ td {
 	margin-right: auto;
 	text-align: center;
 }
+
+#search {
+	text-align: right;
+}
+
+#results {
+	max-width: 40em;
+	margin-left: auto;
+	margin-right: auto;
+}
+

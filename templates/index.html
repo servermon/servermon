@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block heading %}Overview{% endblock %}
+
+{% block content %}
+<div id="statistics">
+<h2>Statistics</h2>
+<table class="hostinfo">
+<tr><th>Hosts</th><td>{{ hosts.count }}</td></tr>
+<tr><th>Facts</th><td>{{ factcount }}</td></tr>
+<tr><th>Fact entries</th><td>{{ factvaluecount }}</td></tr>
+<tr><th>Hosts pending update</th><td><a href="{% url updates.views.hostlist %}">{{ updatecount }}</a></td></tr>
+<tr><th>Packages pending update</th><td><a href="{% url updates.views.packagelist %}">{{ packagecount }}</a></td></tr>
+</table>
+</div>
+
+<div id="issues">
+<h2>Problematic hosts</h2>
+<div class="instructions">The following hosts have not contacted puppetmaster during the past hour:</div>
+<table>
+<tr><th>Hostname</th><th>Last update</th></tr>
+{% for host in problemhosts %}
+<tr><td><a href="{% url views.host host.name %}">{{ host.name }}</a></td><td>{{ host.updated_at|date }}</td></tr>
+{% endfor %}
+</table>
+
+{% endblock %}

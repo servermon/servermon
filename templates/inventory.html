@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block heading %}Hardware Inventory{% endblock %}
+{% block content %}
+<style type="text/css">
+.inventory {
+	text-align: center;
+}
+
+.inventory tr td {
+	padding-bottom: 0.2em;
+	padding-right: 0.3em;
+	padding-left: 0.3em;
+}
+
+.inventory tr td img {
+	float: right;
+	right: 0px;
+}
+
+.mono {
+	font-family: monospace;
+}
+
+.even {
+	background-color: #eaeaea;
+}
+
+.inventory tr td.filter:hover {
+	background-color: #eeffcc;
+	cursor: crosshair;
+}
+
+.inventory th {
+	cursor: s-resize;
+}
+</style>
+
+<script type="text/javascript" src="/static/jquery.js"></script>
+<script type="text/javascript" src="/static/jquery.tablesorter.min.js"></script>
+<script type="text/javascript" src="/static/jquery.tablefilter.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $table = $("#inventory")
+        .tablesorter({widthFixed: true, widgets: ['zebra']});
+    FilterText = "";
+    ColumnArray = ["Vendor","Model","Arch","BIOS Date","BIOS Version"];
+    for (i=0;i<ColumnArray.length;i++) {
+	var th = $("#inventory thead tr").find("th:contains(" + ColumnArray[i] + ")");
+	var ind = $("#inventory thead tr th").index(th);
+        $("#inventory tbody tr").find("td:eq(" + ind + ")").click( function() {
+            clickedText = $(this).text();
+            FilterText = ((FilterText == clickedText) ? "" : clickedText );
+            $.uiTableFilter( $table, FilterText, ColumnArray[i]);
+        });
+    }
+});
+</script>
+
+<div class="instructions">
+Click on a cell to filter by its value; click on a column header to change sorting
+</div>
+<table align="center" class="inventory" id="inventory">
+<thead>
+<tr><th>Hostname</th><th>Vendor</th><th>Model</th><th># of CPUs</th><th>Arch</th><th>BIOS Date</th><th>BIOS Version</th><th>Serial Nr.</th></tr>
+</thead>
+<tbody>
+{% for host in hosts %}
+<tr><td><a href="{% url views.host host.name %}">{{ host.name }}</a></td><td class="filter">{{ host.vendor }}</td><td class="filter">{{ host.model }}</td><td>{{ host.cpus }}</td><td class="filter">{{ host.arch }}</td><td class="filter"><span class="mono">{{ host.biosdate }}</span></td><td class="filter"><span class="mono">{{ host.biosversion }}</span></td><td class="mono">{{ host.serial }}</td></tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}
