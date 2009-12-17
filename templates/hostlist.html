@@ -7,7 +7,7 @@
 <table>
 <tr><th>Hostname</th>	<th>Update count</th>	<th>Last updated</th></tr>
 {% for host in hosts %}
-<tr><td><a href="{% url views.host host.name %}">{{ host.name }}</a></td>	<td>{{ host.update_set.count }} updates</td>	<td><em><small>{{ host.updated_at|date }}</small></em></td></tr>
+<tr><td><a href="{% url views.host host.name %}">{{ host.name }}</a></td>	<td>{% if host.update_set.count %}{{ host.update_set.count }} update{{ host.update_set.count|pluralize }}{% else %}&mdash;{% endif %}</td>	<td><em><small>{{ host.updated_at|date }}</small></em></td></tr>
 {% endfor %}
 </table>
 
