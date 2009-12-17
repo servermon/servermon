@@ -18,4 +18,7 @@ class Update(models.Model):
 
     def __unicode__(self):
         return "%s@%s: %s -> %s" % (self.package.name, self.host.name, self.installedVersion, self.candidateVersion)
+
+    def get_changelog_url(self):
+        return "http://packages.debian.org/changelogs/pool/main/%(initial)s/%(source)s/%(source)s_%(version)s/changelog#versionversion%(slug)s" % {'initial': self.package.sourcename[0], 'source': self.package.sourcename, 'version': self.candidateVersion, 'slug': self.candidateVersion.replace('+','_') }
         
