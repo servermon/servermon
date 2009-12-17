@@ -29,5 +29,3 @@ def gen_host_updates(host):
         u = Update(host=host, package=p, installedVersion=cv, candidateVersion=nv)
         u.save()
 
-    # Update the host's last-visited timestamp
-    host.save()
