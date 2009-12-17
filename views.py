@@ -55,6 +55,9 @@ def host(request,host):
     system.append({ 'name': 'Processors',
         'value': host.get_fact_value('processorcount')
         })
+    system.append({ 'name': 'Processor type',
+        'value': ", ".join([ p['value'] for p in host.factvalue_set.filter(fact_name__name__startswith='processor').exclude(fact_name__name='processorcount').values('value').distinct() ]),
+	})
     system.append({ 'name': 'Architecture',
         'value': host.get_fact_value('architecture')
         })
@@ -95,7 +98,7 @@ def inventory(request):
 
 def index(request):
     hosts = Host.objects.all()
-    problemhosts = Host.objects.filter(updated_at__lte=(datetime.now() - timedelta(seconds=36000))).order_by('name')
+    problemhosts = Host.objects.filter(updated_at__lte=(datetime.now() - timedelta(seconds=3600))).order_by('name')
     factcount = Fact.objects.count()
     factvaluecount = FactValue.objects.count()
     updatecount = Host.objects.filter(package__isnull=False).distinct().count()
