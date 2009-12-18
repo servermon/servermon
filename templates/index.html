@@ -7,16 +7,16 @@
 <div id="statistics">
 <h2>Statistics</h2>
 <table class="hostinfo">
-<tr><th>Hosts</th><td>{{ hosts.count }}</td></tr>
-<tr><th>Facts</th><td>{{ factcount }}</td></tr>
-<tr><th>Fact entries</th><td>{{ factvaluecount }}</td></tr>
-<tr><th>Hosts pending update</th><td><a href="{% url updates.views.hostlist %}">{{ updatecount }}</a></td></tr>
-<tr><th>Packages pending update</th><td><a href="{% url updates.views.packagelist %}">{{ packagecount }}</a></td></tr>
+<tr><th>Hosts</th><td>{{ hosts.count }}</td><th>Virtual Machines</th><td><a href="{% url views.vmlist %}">{{ vmcount }}</a></td></tr>
+<tr><th>Facts</th><td>{{ factcount }}</td><th>Virtualization Clusters</th><td>{{ clustercount }}</td></tr>
+<tr><th>Fact entries</th><td>{{ factvaluecount }}</td><th>Virtualization Nodes</th><td>{{ nodecount }}</td></tr>
+<tr><th>Hosts pending update</th><td><a href="{% url updates.views.hostlist %}">{{ updatecount }}</a></td><th>Packages pending update</th><td><a href="{% url updates.views.packagelist %}">{{ packagecount }}</a></td></tr>
 </table>
 </div>
 
 <div id="issues">
-<h2>Problematic hosts</h2>
+{% if problemhosts %}
+<h2>Problematic puppetized hosts</h2>
 <div class="instructions">The following hosts have not contacted puppetmaster during the past hour:</div>
 <table>
 <tr><th>Hostname</th><th>Last update</th></tr>
@@ -24,5 +24,19 @@
 <tr><td><a href="{% url views.host host.name %}">{{ host.name }}</a></td><td>{{ host.updated_at|date }}</td></tr>
 {% endfor %}
 </table>
+{% endif %}
+
+{% if problemvms %}
+<h2>Problematic virtual machines</h2>
+<div class="instructions">The following virtual machines have probably failed:</div>
+<table>
+<tr><th>Hostname</th><th>Last update</th></tr>
+{% for host in problemvms %}
+<tr><td>{{ host.name }}</a></td><td>{{ host.last_seen|date }}</td></tr>
+{% endfor %}
+</table>
+{% endif %}
+
+</div><!-- issues -->
 
 {% endblock %}

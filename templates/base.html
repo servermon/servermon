@@ -2,11 +2,12 @@
 <head>
 <title>{% block title %}{% endblock %} -- updates</title>
 <link type="text/css" rel="stylesheet" href="/static/updates.css" />
+<script type="text/javascript" src="/static/jquery.js"></script>
 </head>
 
 <body>
 <div id="nav">
-<a href="{% url views.index %}">Overview</a> | <a href="{% url updates.views.hostlist %}">Host list</a> | <a href="{% url updates.views.packagelist %}">Package list</a> | <a href="{% url views.inventory %}">Hardware Inventory</a>
+<a href="{% url views.index %}">Overview</a> | <a href="{% url updates.views.hostlist %}">Host list</a> | <a href="{% url updates.views.packagelist %}">Package list</a> | <a href="{% url views.inventory %}">Hardware Inventory</a> | <a href="{% url views.vmlist %}">VM List</a>
 </div>
 <div id="search">
 <form method="POST" action="/search">

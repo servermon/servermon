@@ -80,7 +80,11 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'servermon.updates',
     'servermon.puppet',
+    'servermon.virt',
 )
 
 DATE_FORMAT = "d/m/Y H:i"
 DATETIME_FORMAT = "d/m/Y H:i"
+
+VM_TIMEOUT = 720
+HOST_TIMEOUT = 1800

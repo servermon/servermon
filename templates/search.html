@@ -3,7 +3,7 @@
 {% block heading %}Search results for &quot;{{ search }}&quot;{% endblock %}
 
 {% block content %}
-{% if matches %}
+{% if matches or vms %}
 <div id="results">
 {% regroup matches by attribute as attrlist %}
 
@@ -15,6 +15,14 @@
 {% endfor %}
 </ul>
 {% endfor %}
+{% if vms %}
+<h3>Virtual machines</h3>
+<ul>
+{% for vm in vms %}
+<li>{{ vm.name }} ({{ vm.node.hostname }}{% if vm.node.cluster %}@{{ vm.node.cluster.name }}{% endif %})</li>
+{% endfor %}
+</ul>
+{% endif %}
 </div>
 {% else %}
 <h2>Your search produced no results, please try again</h2>

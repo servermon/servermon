@@ -1,4 +1,5 @@
 from puppet.models import Host, Fact, FactValue
+from virt.models import Domain, Cluster, Node
 from updates.models import *
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -75,7 +76,19 @@ def host(request,host):
     #return render_to_response("host.html", { 'host': host, 'interfaces': interfaces, 'system': system })
 
     updates = host.update_set.order_by('package__name')
-    return render_to_response('hostview.html', {'host': host, 'updates': updates, 'interfaces': interfaces, 'system': system })
+
+    contacts = []
+    vms = []
+    node = None
+    if host.node_set.all():
+        node = host.node_set.all()[0]
+        vms =  Domain.objects.filter(node=node)
+        for vm in vms:
+            contacts.extend([ { 'contact': c, 'vm': vm } for c in vm.domaincontact_set.all() ])
+        contacts.sort(cmp=lambda x,y: cmp(x['contact'].name, y['contact'].name))
+
+
+    return render_to_response('hostview.html', {'host': host, 'updates': updates, 'interfaces': interfaces, 'system': system, 'vms': vms, 'contacts': contacts, 'node': node })
 
 
 def inventory(request):
@@ -103,14 +116,22 @@ def index(request):
     factvaluecount = FactValue.objects.count()
     updatecount = Host.objects.filter(package__isnull=False).distinct().count()
     packagecount = Package.objects.count()
+    problemvms = Domain.objects.filter(last_seen__lte=(datetime.now() - timedelta(seconds=1200))).order_by('name')
+    vmcount = Domain.objects.count()
+    clustercount = Cluster.objects.count()
+    nodecount = Node.objects.count()
 
     return render_to_response("index.html", {
         'problemhosts': problemhosts, 
+        'problemvms': problemvms,
         'hosts': hosts,
         'factcount': factcount,
         'factvaluecount': factvaluecount,
         'updatecount': updatecount,
         'packagecount': packagecount,
+        'vmcount': vmcount,
+        'clustercount': clustercount,
+        'nodecount': nodecount,
         })
 
 def search(request):
@@ -125,4 +146,12 @@ def search(request):
         for r in res:
             matches.append({'name': r.host.name, 'attribute': name, 'value': regex.sub(r'<strong>\1</strong>', r.value)})
 
-    return render_to_response("search.html", {'matches': matches , 'search': request.POST['search'] })
+    vms = Domain.objects.filter(name__icontains=request.POST['search'])
+
+    return render_to_response("search.html", {'matches': matches , 'search': request.POST['search'], 'vms': vms })
+
+
+def vmlist(request):
+    vms = Domain.objects.all()
+
+    return render_to_response("vmlist.html", {'vms': vms})

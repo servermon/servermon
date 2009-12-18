@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}VM List{% endblock %}
+{% block heading %}VM List{% endblock %}
+{% block content %}
+<style type="text/css">
+.inventory {
+	text-align: center;
+	min-width: 80em;
+}
+
+.inventory tr td {
+	padding-bottom: 0.2em;
+	padding-right: 0.3em;
+	padding-left: 0.3em;
+}
+
+.mono {
+	font-family: monospace;
+}
+
+.even {
+	background-color: #eaeaea;
+}
+
+.inventory tr td.filter:hover {
+	background-color: #eeffcc;
+	cursor: crosshair;
+}
+
+.inventory th {
+	cursor: s-resize;
+}
+
+.error {
+	color: red;
+	font-weight: bold;
+}
+</style>
+
+<script type="text/javascript" src="/static/jquery.tablesorter.min.js"></script>
+<script type="text/javascript" src="/static/jquery.tablefilter.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $table = $("#inventory")
+        .tablesorter({widthFixed: true, widgets: ['zebra']});
+    FilterText = "";
+    ColumnArray = ["Cluster","Node","Type","Variant","Memory","Puppetized"];
+    for (i=0;i<ColumnArray.length;i++) {
+	var th = $("#inventory thead tr").find("th:contains(" + ColumnArray[i] + ")");
+	var ind = $("#inventory thead tr th").index(th);
+	$("#inventory tbody tr").find("td:eq(" + ind + ")").addClass("filter");
+        $("#inventory tbody tr").find("td:eq(" + ind + ")").click( function() {
+            clickedText = $(this).text();
+            FilterText = ((FilterText == clickedText) ? "" : clickedText );
+            $.uiTableFilter( $table, FilterText, ColumnArray[i]);
+        });
+    }
+});
+</script>
+
+<div class="instructions">
+Click on a cell to filter by its value; click on a column header to change sorting
+</div>
+<table align="center" class="inventory" id="inventory">
+<thead>
+<tr><th>Hostname</th><th>Cluster</th><th>Node</th><th>Type</th><th>Variant</th><th>vCPUs</th><th>Memory</th><th>Puppetized</th><th>Status</th></tr>
+</thead>
+<tbody>
+{% for vm in vms %}
+<tr><td>{% if vm.puppetized %}<a href="{% url views.host vm.name %}">{{ vm.name }}</a>{% else %}{{ vm.name }}{% endif %}</td><td>{{ vm.cluster.name|default:"&mdash;" }}</td><td>{% if not vm.node.reachable %}<span class="error">{% endif %}<a href="{% url views.host vm.node.hostname %}">{{ vm.node.hostname }}</a>{% if not vm.node.reachable %}</span>{% endif %}</td><td>{{ vm.get_type_display }}</td><td>{{ vm.get_os_type_display }}</td><td>{{ vm.number_of_vcpus }}</td><td>{{ vm.memory }}</td><td>{{ vm.puppetized|yesno:"Yes,No" }}</td><td>{% if not vm.node.reachable %}Hardware node unreachable{% else %}{% if not vm.is_alive %}Down, last seen: {{ vm.last_seen|date }} on {{ vm.node.hostname }}{% else %}<img src="/static/status-ok.gif" alt="OK" />{% endif %}{% endif %}</td></tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}

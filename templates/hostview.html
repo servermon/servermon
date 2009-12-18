@@ -13,13 +13,34 @@
 </table>
 </div>
 
-<h2>Network information</h2>
-<table>
+<h2>Network information<div class="control"><a href="#" onclick="javascript:$('#netinfo').toggle();">Toggle</a></div></h2>
+<table id="netinfo">
 <tr><th>Interface name</th><th>IP Address</th><th>MAC Address</th></tr>
 {% for iface in interfaces %}
 <tr><td>{{iface.iface}}</td><td class="mono">{% if iface.ipaddr %}{{iface.ipaddr}}{% else %}&mdash;{% endif %}</td><td class="mono">{% if iface.mac %}{{iface.mac}}{% else %}&mdash;{% endif %}</td></tr>
 {% endfor %}
 </table>
+
+{% if contacts %}
+<h2>Virtual machine contacts</h2>
+{% if node.reachable %}
+<p>This is the list of contacts for the currently running virtual machines on this host.</p>
+{% else %}
+<p>The host's virtualization hypervisor is <span class="error">unreachable</span><br />
+This is the list of contacts for virtual machines last seen running when the host was up and not currently running elsewhere.</p>
+{% endif %}
+{% regroup contacts by contact as contact_list %}
+<table>
+{% for contact in contact_list %}
+<tr><th>{{ contact.grouper }}</th></tr>
+<tr><td>
+	{% for vm in contact.list %}
+	{{ vm.vm.name }}<br />
+	{% endfor %}
+</td></tr>
+{% endfor %}
+</table>
+{% endif %}
 
 <h2>Available package updates</h2>
 {% if updates %}
