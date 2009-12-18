@@ -24,6 +24,7 @@ class Host(models.Model):
 
     class Meta:
         db_table = u'hosts'
+        ordering = ['name',]
 
     def __unicode__(self):
         return self.name
