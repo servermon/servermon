@@ -5,6 +5,7 @@ from puppet.models import Host
 from django.contrib.auth.models import User
 from xml.dom.minidom import parseString
 from datetime import datetime, timedelta
+from settings import VM_TIMEOUT
 import uuid
 
 class Cluster(models.Model):
@@ -235,7 +236,7 @@ class Domain(models.Model):
         return False
 
     def is_alive(self):
-        if datetime.now() - self.last_seen < timedelta(seconds=100):
+        if datetime.now() - self.last_seen < timedelta(seconds=VM_TIMEOUT):
             return True
         return False
 

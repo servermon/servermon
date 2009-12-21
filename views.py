@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from datetime import datetime, timedelta
 from django.db.models import Q
+from settings import VM_TIMEOUT, HOST_TIMEOUT
 from IPy import IP
 import re
 
@@ -111,12 +112,12 @@ def inventory(request):
 
 def index(request):
     hosts = Host.objects.all()
-    problemhosts = Host.objects.filter(updated_at__lte=(datetime.now() - timedelta(seconds=3600))).order_by('name')
+    problemhosts = Host.objects.filter(updated_at__lte=(datetime.now() - timedelta(seconds=HOST_TIMEOUT))).order_by('name')
     factcount = Fact.objects.count()
     factvaluecount = FactValue.objects.count()
     updatecount = Host.objects.filter(package__isnull=False).distinct().count()
     packagecount = Package.objects.count()
-    problemvms = Domain.objects.filter(last_seen__lte=(datetime.now() - timedelta(seconds=1200))).order_by('name')
+    problemvms = Domain.objects.filter(last_seen__lte=(datetime.now() - timedelta(seconds=VM_TIMEOUT))).order_by('name')
     vmcount = Domain.objects.count()
     clustercount = Cluster.objects.count()
     nodecount = Node.objects.count()
