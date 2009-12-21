@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from xml.dom.minidom import parseString
 from datetime import datetime, timedelta
 from settings import VM_TIMEOUT
+import xml.etree.ElementTree as et
 import uuid
 
 class Cluster(models.Model):
@@ -192,6 +193,7 @@ class Domain(models.Model):
     node = models.ForeignKey(Node)
     puppet_host = models.ForeignKey(Host, null=True, blank=True)
     last_seen = models.DateTimeField(auto_now=True)
+    xml = models.TextField(blank=True)
     #luns = models.ManyToManyField(Filer, through='DomainLUN', blank=True)
     #vlans = models.ManyToManyField(VLAN, blank=True)
 
@@ -534,6 +536,37 @@ class Domain(models.Model):
         if not self.uuid:
             self.uuid = str(uuid.uuid4())
         super(Domain, self).save(force_insert, force_update)
+
+    def get_disks(self):
+        tree = et.fromstring(self.xml)
+        disks = []
+        for disk in tree.findall('devices/disk'):
+            d = {}
+            d['type'] = disk.get('type')
+            d['device'] = disk.get('device')
+            try:
+                d['source'] = disk.find('source').get('dev')
+            except:
+                pass
+            try:
+                d['target'] = disk.find('target').get('dev')
+            except:
+                pass
+            disks.append(d)
+        return disks
+
+    def get_interfaces(self):
+        tree = et.fromstring(self.xml)
+        ifaces = []
+        for iface in tree.findall('devices/interface'):
+            i = {}
+            i['type'] = iface.get('type')
+            i['mac'] = iface.find('mac').get('address')
+            if i['type'] == 'bridge':
+                i['bridge'] = iface.find('source').get('bridge')
+                i['name'] = iface.find('target').get('dev')
+            ifaces.append(i)
+        return ifaces
 
     class Meta:
         ordering = 'name',

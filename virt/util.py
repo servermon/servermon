@@ -30,6 +30,7 @@ def sync_vms():
             domain.current_memory = vm.maxMemory() / 1024
             domain.number_of_vcpus = vm.info()[3]
             domain.os_type = vm.OSType()
+            domain.xml = vm.XMLDesc(0)
             domain.type = 'xen'
             domain.active = True
             domain.cluster = node.cluster

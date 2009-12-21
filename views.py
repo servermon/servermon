@@ -2,94 +2,120 @@ from puppet.models import Host, Fact, FactValue
 from virt.models import Domain, Cluster, Node
 from updates.models import *
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from datetime import datetime, timedelta
 from django.db.models import Q
 from settings import VM_TIMEOUT, HOST_TIMEOUT
 from IPy import IP
 import re
 
-def host(request,host):
-    host = get_object_or_404(Host, name=host)
-
-    iflist = host.factvalue_set.get(fact_name__name='interfaces').value.split(',')
-    interfaces = []
-    for iface in iflist:
-        iface1 = iface.replace(':','_')
-        try:
-            mac = host.factvalue_set.get(fact_name__name='macaddress_%s' % iface1).value
-        except:
-            mac = None
-        try:
-            ip = host.factvalue_set.get(fact_name__name='ipaddress_%s' % iface1).value
-            netmask = host.factvalue_set.get(fact_name__name='netmask_%s' % iface1).value
-        except:
-            ip = None
-            netmask = None
-
-        interfaces.append({
-            'iface': iface,
-            'mac': mac,
-        })
-
-        if netmask and ip:
-            interfaces[-1]['ipaddr'] = "%s/%d" % (ip, IP(ip).make_net(netmask).prefixlen())
-        
-    system = []
-    system.append({ 'name': 'BIOS Date',
-        'value': host.get_fact_value('bios_date')
-        })
-    system.append({ 'name': 'BIOS Version',
-        'value': host.get_fact_value('bios_version')
-        })
-    system.append({ 'name': 'System Vendor',
-        'value': host.get_fact_value('manufacturer')
-        })
-    system.append({ 'name': 'Model',
-        'value': host.get_fact_value('productname')
-        })
-    system.append({ 'name': 'Serial Nr',
-        'value': host.get_fact_value('serialnumber')
-        })
-    system.append({ 'name': 'Memory',
-        'value': "%s (%s free)" % (host.get_fact_value('memorysize'), host.get_fact_value('memoryfree'))
-        })
-    system.append({ 'name': 'Processors',
-        'value': host.get_fact_value('processorcount')
-        })
-    system.append({ 'name': 'Processor type',
-        'value': ", ".join([ p['value'] for p in host.factvalue_set.filter(fact_name__name__startswith='processor').exclude(fact_name__name='processorcount').values('value').distinct() ]),
-	})
-    system.append({ 'name': 'Architecture',
-        'value': host.get_fact_value('architecture')
-        })
-    system.append({ 'name': 'Operating System',
-        'value': "%s %s" % (host.get_fact_value('operatingsystem'), host.get_fact_value('operatingsystemrelease'))
-        })
-    system.append({ 'name': 'Machine type',
-        'value': host.get_fact_value('virtual')
-        })
-
-    system.append({ 'name': 'Puppet classes',
-        'value': ", ".join([ f.value for f in  host.factvalue_set.filter(fact_name__name='puppetclass') ])
-        })
-
-    #return render_to_response("host.html", { 'host': host, 'interfaces': interfaces, 'system': system })
-
-    updates = host.update_set.order_by('package__name')
-
-    contacts = []
+def host(request,hostname):
+    host = None
+    isvm = False
+    ispuppet = False
+    vmdisks = []
+    vmifaces = []
+    updates = []
     vms = []
+    system = []
+    contacts = []
     node = None
-    if host.node_set.all():
-        node = host.node_set.all()[0]
-        vms =  Domain.objects.filter(node=node)
-        for vm in vms:
-            contacts.extend([ { 'contact': c, 'vm': vm } for c in vm.domaincontact_set.all() ])
-        contacts.sort(cmp=lambda x,y: cmp(x['contact'].name, y['contact'].name))
+    # First try and see if this is a puppet host
+    try:
+        host = Host.objects.get(name=hostname)
+        ispuppet = True
+    except:
+        pass
+
+    if host:
+        for vm in host.domain_set.all():
+            isvm = True
+            vmdisks = vm.get_disks()
+            vmifaces = vm.get_interfaces()
+            break
+        
+    
+    else:
+        try:
+            host = Domain.objects.get(puppet_host__isnull=True, name=hostname)
+            vmdisks = host.get_disks()
+            vmifaces = host.get_interfaces()
+            isvm = True
+        except:
+            raise Http404
 
 
-    return render_to_response('hostview.html', {'host': host, 'updates': updates, 'interfaces': interfaces, 'system': system, 'vms': vms, 'contacts': contacts, 'node': node })
+    if ispuppet:
+        iflist = host.factvalue_set.get(fact_name__name='interfaces').value.split(',')
+        interfaces = []
+        for iface in iflist:
+            d = {}
+            iface1 = iface.replace(':','_')
+            try:
+                mac = host.factvalue_set.get(fact_name__name='macaddress_%s' % iface1).value
+            except:
+                mac = None
+            try:
+                ip = host.factvalue_set.get(fact_name__name='ipaddress_%s' % iface1).value
+                netmask = host.factvalue_set.get(fact_name__name='netmask_%s' % iface1).value
+            except:
+                ip = None
+                netmask = None
+
+            d = { 'iface': iface,
+                  'mac': mac }
+
+            for vmif in filter(lambda x: x['mac'] == d['mac'], vmifaces):
+                try:
+                    d['bridge'] = vmif['bridge']
+                    d['hostif'] = vmif['name']
+                except:
+                    pass
+                break
+
+            interfaces.append(d)
+
+            if netmask and ip:
+                interfaces[-1]['ipaddr'] = "%s/%d" % (ip, IP(ip).make_net(netmask).prefixlen())
+            
+        system = []
+        for fact, label in [
+            ('bios_date', 'BIOS Date'),  ('bios_version', 'BIOS Version'),
+            ('manufacturer', 'System Vendor'), ('productname', 'Model'),
+            ('serialnumber', 'Serial Nr'), ('processorcount', 'Processors'),
+            ('architecture', 'Architecture'), ('virtual', 'Machine Type')]:
+            system.append({ 'name': label, 'value': host.get_fact_value(fact) })
+
+        system.append({ 'name': 'Processor type',
+            'value': ", ".join([ p['value'] for p in host.factvalue_set.filter(fact_name__name__startswith='processor').exclude(fact_name__name='processorcount').values('value').distinct() ]),
+        })
+
+        system.append({ 'name': 'Operating System',
+            'value': "%s %s" % (host.get_fact_value('operatingsystem'), host.get_fact_value('operatingsystemrelease'))
+            })
+        system.append({ 'name': 'Memory',
+            'value': "%s (%s free)" % (host.get_fact_value('memorysize'), host.get_fact_value('memoryfree'))
+            })
+
+        system.append({ 'name': 'Puppet classes',
+            'value': ", ".join([ f.value for f in  host.factvalue_set.filter(fact_name__name='puppetclass') ])
+            })
+
+        #return render_to_response("host.html", { 'host': host, 'interfaces': interfaces, 'system': system })
+
+        updates = host.update_set.order_by('package__name')
+
+        if host.node_set.all():
+            node = host.node_set.all()[0]
+            vms =  Domain.objects.filter(node=node)
+            for vm in vms:
+                contacts.extend([ { 'contact': c, 'vm': vm } for c in vm.domaincontact_set.all() ])
+            contacts.sort(cmp=lambda x,y: cmp(x['contact'].name, y['contact'].name))
+
+    else:
+        interfaces = vmifaces
+
+    return render_to_response('hostview.html', {'host': host, 'updates': updates, 'interfaces': interfaces, 'system': system, 'vms': vms, 'contacts': contacts, 'node': node, 'vmdisks': vmdisks, 'isvm': isvm, 'ispuppet': ispuppet })
 
 
 def inventory(request):

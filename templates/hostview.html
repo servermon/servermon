@@ -9,17 +9,27 @@
 {% for attr in system|dictsort:"name" %}
 {% if attr.value %}<tr><th>{{ attr.name }}</th><td>{{ attr.value }}</td></tr>{% endif %}
 {% endfor %}
-<tr><th>Last updated</th><td>{{ host.updated_at|date }}</td></tr>
+{% if ispuppet %}<tr><th>Last updated</th><td>{{ host.updated_at|date }}</td></tr>{% endif %}
 </table>
 </div>
 
 <h2>Network information<div class="control"><a href="#" onclick="javascript:$('#netinfo').toggle();">Toggle</a></div></h2>
 <table id="netinfo">
-<tr><th>Interface name</th><th>IP Address</th><th>MAC Address</th></tr>
+<tr><th>Interface name</th><th>IP Address</th><th>MAC Address</th>{% if isvm %}<th>Host interface</th><th>Bridge</th>{% endif %}</tr>
 {% for iface in interfaces %}
-<tr><td>{{iface.iface}}</td><td class="mono">{% if iface.ipaddr %}{{iface.ipaddr}}{% else %}&mdash;{% endif %}</td><td class="mono">{% if iface.mac %}{{iface.mac}}{% else %}&mdash;{% endif %}</td></tr>
+<tr><td>{{iface.iface}}</td><td class="mono">{% if iface.ipaddr %}{{iface.ipaddr}}{% else %}&mdash;{% endif %}</td><td class="mono">{% if iface.mac %}{{iface.mac}}{% else %}&mdash;{% endif %}</td>{% if isvm %}<td>{{ iface.hostif }}</td><td>{{ iface.bridge }}</td>{% endif %}</tr>
 {% endfor %}
 </table>
+
+{% if vmdisks %}
+<h2>Disks</h2>
+<table>
+<tr><th>Guest device</th><th>Host device</th></tr>
+{% for disk in vmdisks %}
+<tr><td class="mono">{{ disk.target }}</td><td class="mono">{{ disk.source }}</td></tr>
+{% endfor %}
+</table>
+{% endif %}
 
 {% if contacts %}
 <h2>Virtual machine contacts</h2>
@@ -42,6 +52,7 @@ This is the list of contacts for virtual machines last seen running when the hos
 </table>
 {% endif %}
 
+{% if ispuppet %}
 <h2>Available package updates</h2>
 {% if updates %}
 <table>
@@ -60,5 +71,6 @@ This is the list of contacts for virtual machines last seen running when the hos
 <div align="center">
 <strong>No updated versions found for packages on {{ host.name }}</strong>
 </div>
+{% endif %}
 {% endif %}
 {% endblock %}
