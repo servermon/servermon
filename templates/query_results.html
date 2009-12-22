@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block heading %}Custom fact query{% endblock %}
+
+{% block content %}
+<script type="text/javascript" src="/static/jquery.js"></script>
+<script type="text/javascript" src="/static/jquery.tablesorter.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $table = $("#factreport")
+        .tablesorter({widthFixed: true, widgets: ['zebra']}); })
+</script>
+<style type="text/css">
+	.even {
+		background-color: #eaeaea;
+	}
+	th:hover {
+		cursor: s-resize;
+	}
+</style>
+<table id="factreport">
+<thead>
+<tr><th>Hostname</th>{% for fact in facts %}<th>{{ fact }}</th>{% endfor %}</tr>
+</thead>
+<tbody>
+{% for res in results %}
+<tr><td><a href="{% url views.host res.host.name %}">{{ res.host }}</a></td>{% for fact in res.facts %}<td>{% if fact %}{{ fact }}{% else %}&mdash;{% endif %}</td>{% endfor %}</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

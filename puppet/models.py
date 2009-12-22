@@ -7,6 +7,7 @@ class Fact(models.Model):
     created_at = models.DateTimeField(null=True, blank=True)
     class Meta:
         db_table = u'fact_names'
+        ordering = [ 'name' ]
 
     def __unicode__(self):
         return self.name.replace('_',' ').rstrip()

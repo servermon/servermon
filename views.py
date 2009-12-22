@@ -5,6 +5,8 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, Http404
 from datetime import datetime, timedelta
 from django.db.models import Q
+from django.contrib.admin.widgets import FilteredSelectMultiple
+from django import forms
 from settings import VM_TIMEOUT, HOST_TIMEOUT
 from IPy import IP
 import re
@@ -182,3 +184,40 @@ def vmlist(request):
     vms = Domain.objects.all()
 
     return render_to_response("vmlist.html", {'vms': vms})
+
+def query(request):
+    class MatrixForm(forms.Form):
+        hosts = forms.ModelMultipleChoiceField(queryset=Host.objects.all(), widget=FilteredSelectMultiple("hosts", is_stacked=False))
+        facts = forms.ModelMultipleChoiceField(queryset=Fact.objects.exclude(name__startswith='macaddress').exclude(name__startswith='ipaddress').exclude(name__startswith='netmask'), widget=FilteredSelectMultiple("parameters", is_stacked=False))
+
+    if request.method == 'GET':
+        f = MatrixForm(label_suffix='')
+
+        return render_to_response("query.html", { 'form': f })
+
+    else:
+        f = MatrixForm(request.POST)
+        if f.is_valid():
+            results = []
+            facts = []
+            for fact in f.cleaned_data['facts']:
+                facts.append(fact.name)
+            facts.sort()
+
+            for host in f.cleaned_data['hosts']:
+                d = {}
+                row = []
+                values = host.factvalue_set.filter(fact_name__in=f.cleaned_data['facts'])
+                for val in values:
+                    if val.fact_name.name in d:
+                        d[val.fact_name.name] += ", %s" % val.value
+                    else:
+                        d[val.fact_name.name] = val.value
+
+                for fact in facts:
+                    row.append(d.get(fact,None))
+                results.append({'host': host, 'facts': row })
+                    
+            return render_to_response("query_results.html", { 'facts': facts, 'results': results })
+        else:
+            return render_to_response("query.html", { 'form': f })
