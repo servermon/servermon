@@ -1,11 +1,11 @@
 import libvirt
 
 from django.db import models
-from puppet.models import Host
+from servermon.puppet.models import Host
 from django.contrib.auth.models import User
 from xml.dom.minidom import parseString
 from datetime import datetime, timedelta
-from settings import VM_TIMEOUT
+from django.conf import settings
 import xml.etree.ElementTree as et
 import uuid
 
@@ -238,7 +238,7 @@ class Domain(models.Model):
         return False
 
     def is_alive(self):
-        if datetime.now() - self.last_seen < timedelta(seconds=VM_TIMEOUT):
+        if datetime.now() - self.last_seen < timedelta(seconds=settings.VM_TIMEOUT):
             return True
         return False
 

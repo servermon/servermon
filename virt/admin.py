@@ -1,4 +1,4 @@
-from virt.models import *
+from servermon.virt.models import *
 from django.contrib import admin
 
 class NodeInline(admin.TabularInline):

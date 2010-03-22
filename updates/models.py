@@ -1,5 +1,6 @@
 from django.db import models
-from puppet.models import Host
+from servermon.puppet.models import Host
+import re
 
 class Package(models.Model):
     name = models.CharField(max_length=200)
@@ -20,5 +21,4 @@ class Update(models.Model):
         return "%s@%s: %s -> %s" % (self.package.name, self.host.name, self.installedVersion, self.candidateVersion)
 
     def get_changelog_url(self):
-        return "http://packages.debian.org/changelogs/pool/main/%(initial)s/%(source)s/%(source)s_%(version)s/changelog#versionversion%(slug)s" % {'initial': self.package.sourcename[0], 'source': self.package.sourcename, 'version': self.candidateVersion, 'slug': self.candidateVersion.replace('+','_') }
-        
+        return "http://packages.debian.org/changelogs/pool/main/%(initial)s/%(source)s/%(source)s_%(version)s/changelog#versionversion%(slug)s" % {'initial': self.package.sourcename[0], 'source': self.package.sourcename, 'version': re.sub(r'[0-9]+:', '', self.candidateVersion), 'slug': self.candidateVersion.replace('+','_') }
