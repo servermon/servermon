@@ -10,6 +10,8 @@ from django import forms
 from settings import VM_TIMEOUT, HOST_TIMEOUT
 from IPy import IP
 import re
+from simplejson import JSONDecoder
+import urllib2
 
 def host(request,hostname):
     host = None
@@ -181,9 +183,34 @@ def search(request):
 
 
 def vmlist(request):
-    vms = Domain.objects.all()
+    d = JSONDecoder()
+    gntvms_test = d.decode(urllib2.urlopen('https://gnt.example.com:5080/2/instances?bulk=1').read())
+    gntvms_test2 = d.decode(urllib2.urlopen('https://gnt.example.com:5080/2/instances?bulk=1').read())
+    gntvms_test3 = d.decode(urllib2.urlopen('https://gnt.example.com:5080/2/instances?bulk=1').read())
 
-    return render_to_response("vmlist.html", {'vms': vms})
+    for vm in gntvms_test:
+        vm['cluster'] = 'Ganeti Testbed'
+
+    for vm in gntvms_test2:
+        vm['cluster'] = 'Ganeti Testbed'
+
+    for vm in gntvms_test3:
+        vm['cluster'] = 'Ganeti Testbed'
+
+
+    vms = gntvms_test2 + gntvms_test + gntvms_test3
+    for vm in vms:
+        if vm['status'] == 'ADMIN_down':
+            vm['status'] = 'admin down'
+        try:
+            Host.objects.get(name=vm['name'])
+            vm['puppetized'] = True
+        except:
+            vm['puppetized'] = False
+
+    return render_to_response("vmlist.html", {
+        'vms': vms,
+    })
 
 def query(request):
     class MatrixForm(forms.Form):
