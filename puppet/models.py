@@ -30,11 +30,11 @@ class Host(models.Model):
     def __unicode__(self):
         return self.name
 
-    def get_fact_value(self, fact):
+    def get_fact_value(self, fact, default=None):
         try:
             return self.factvalue_set.get(fact_name__name=fact).value
         except:
-            return None
+            return default
 
 
 class FactValue(models.Model):
