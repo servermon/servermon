@@ -21,6 +21,5 @@ urlpatterns = patterns('',
     (r'^packages/(.*)','updates.views.package'),
     (r'^inventory/?$','views.inventory'),
     (r'^search/?$', 'views.search'),
-    (r'^vms/?$', 'views.vmlist'),
     (r'^query/?$', 'views.query'),
 )

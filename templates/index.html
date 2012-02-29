@@ -7,7 +7,7 @@
 <div id="statistics">
 <h2>Statistics</h2>
 <table class="hostinfo">
-<tr><th>Hosts</th><td>{{ hosts.count }}</td><th>Virtual Machines</th><td><a href="{% url views.vmlist %}">{{ vmcount }}</a></td></tr>
+<tr><th>Hosts</th><td>{{ hosts.count }}</td><th>Virtual Machines</th><td>{{ vmcount }}</td></tr>
 <tr><th>Facts</th><td>{{ factcount }}</td><th>Virtualization Clusters</th><td>{{ clustercount }}</td></tr>
 <tr><th>Fact entries</th><td>{{ factvaluecount }}</td><th>Virtualization Nodes</th><td>{{ nodecount }}</td></tr>
 <tr><th>Hosts pending update</th><td><a href="{% url updates.views.hostlist %}">{{ updatecount }}</a></td><th>Packages pending update</th><td><a href="{% url updates.views.packagelist %}">{{ packagecount }}</a></td></tr>
