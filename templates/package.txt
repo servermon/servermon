@@ -1,0 +1,2 @@
+{% for update in updates %}{{ update.host.name }}	{{ update.installedVersion }}	{{ update.candidateVersion }}
+{% endfor %}
