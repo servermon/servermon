@@ -134,6 +134,7 @@ def inventory(request):
             'biosdate': host.get_fact_value('bios_date'),
             'biosversion': host.get_fact_value('bios_version'),
             'serial': host.get_fact_value('serialnumber'),
+            'board_serial': host.get_fact_value('board_serial_number', ""),
             'arch': host.get_fact_value('architecture'),
             'cpus': host.get_fact_value('processorcount'),
             })
