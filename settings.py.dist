@@ -65,6 +65,18 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'servermon.urls'
 
+AUTHENTICATION_BACKENDS = (
+    'servermon.djangobackends.ldapBackend.ldapBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+LDAP_AUTH_SETTINGS = (
+    { 'url': 'ldap://ldap.example.org/', 'base': 'ou=People,dc=example,dc=org' },
+)
+
+LDAP_AUTH_GROUP = 'not-auth'
+LDAP_AUTH_IS_STAFF = True
+
 TEMPLATE_DIRS = (
     '/servermon/templates/',
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
