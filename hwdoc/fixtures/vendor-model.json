@@ -1,0 +1,57 @@
+[
+  {
+    "pk": 1, 
+    "model": "hwdoc.vendor", 
+    "fields": {
+      "name": "HP"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "hwdoc.vendor", 
+    "fields": {
+      "name": "Fujitsu"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "hwdoc.vendor", 
+    "fields": {
+      "name": "IBM"
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "hwdoc.vendor", 
+    "fields": {
+      "name": "Dell"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "hwdoc.model", 
+    "fields": {
+      "u": 2, 
+      "vendor": 1, 
+      "name": "DL380 G7"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "hwdoc.model", 
+    "fields": {
+      "u": 2, 
+      "vendor": 1, 
+      "name": "DL385 G7"
+    }
+  },
+  {
+    "pk": 3, 
+    "model": "hwdoc.model", 
+    "fields": {
+      "u": 2, 
+      "vendor": 1, 
+      "name": "DS2600"
+    }
+  }
+]
