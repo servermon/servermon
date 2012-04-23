@@ -10,6 +10,8 @@ class ServerManagementInline(admin.StackedInline):
     model = ServerManagement
 
 class EquipmentAdmin(admin.ModelAdmin):
+    search_fields = ['rack', 'unit', 'serial',]
+
     def mgmt_method(obj):
         return obj.servermanagement.get_method_display()
     mgmt_method.short_description = 'OOB Method'
@@ -29,9 +31,9 @@ class EquipmentAdmin(admin.ModelAdmin):
     list_display = ('purpose', 'model', 'serial',
             'rack', 'unit', model_u,
             mgmt_method, mgmt_username, mgmt_password,
-            'comments', 'updated')
+            'comments', 'updated', 'state')
     list_display_links = ('serial',)
-    list_filter = ('model', 'rack')
+    list_filter = ('model', 'rack','state',)
     ordering = ('rack', 'unit',)
     inlines = [ ServerManagementInline, ]
 

@@ -17,6 +17,14 @@ class Model(models.Model):
         return "%s %s" % (self.vendor, self.name)
 
 class Equipment(models.Model):
+    STATE = (
+            ('0', 'WORKING - OK'),
+            ('1', 'WORKING - RMA'),
+            ('2', 'NOT-WORKING - RMA'),
+            ('3', 'NOT-WORKING - CHECKING'),
+            ('4', 'INACTIVE'),
+            ('5', 'UNKNOWN'),
+        )
     model = models.ForeignKey(Model)
     serial = models.CharField(max_length=80)
     rack = models.PositiveIntegerField(null=True, blank=True)
@@ -25,6 +33,7 @@ class Equipment(models.Model):
     comments = models.TextField(null=True, blank=True)
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    state = models.CharField(choices=STATE,null=True, blank=True, max_length=20)
 
     def __unicode__(self):
         out = ""
@@ -51,6 +60,7 @@ class ServerManagement(models.Model):
     username = models.CharField(max_length=80, null=True, blank=True)
     password = models.CharField(max_length=80, null=True, blank=True)
     license = models.CharField(max_length=80, null=True, blank=True)
+    raid_license = models.CharField(max_length=80, null=True, blank=True)
     mac = models.CharField(max_length=17, null=True, blank=True)
 
     def __unicode__(self):
