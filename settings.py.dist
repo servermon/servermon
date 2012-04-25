@@ -1,4 +1,4 @@
-# Django settings for updatemgr project.
+# Django settings for servermon project.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
