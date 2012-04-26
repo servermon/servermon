@@ -85,13 +85,14 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.admin',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'servermon.updates',
-    'servermon.puppet',
+#    'django.contrib.auth',
+#    'django.contrib.admin',
+#    'django.contrib.contenttypes',
+#    'django.contrib.sessions',
+#    'django.contrib.sites',
+#    'servermon.updates',
+#    'servermon.puppet',
+#    'servermon.hwdoc',
 )
 
 DATE_FORMAT = "d/m/Y H:i"
