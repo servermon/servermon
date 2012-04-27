@@ -100,3 +100,10 @@ DATETIME_FORMAT = "d/m/Y H:i"
 
 VM_TIMEOUT = 720
 HOST_TIMEOUT = 1800
+
+# Django extensions (apt-get install python-django-extensions)
+try:
+    import django_extensions
+    INSTALLED_APPS = INSTALLED_APPS + ('django_extensions',)
+except ImportError:
+        pass
