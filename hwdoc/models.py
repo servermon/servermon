@@ -80,3 +80,38 @@ class ServerManagement(models.Model):
 
     def __unicode__(self):
         return "%s for %s" % (self.get_method_display(), self.equipment)
+
+    def __sm__(self, action, username, password):
+        if username is None:
+            username = self.username
+        if password is None:
+            password = self.password
+
+        try:
+            sm = __import__('hwdoc.vendor.' + self.method, fromlist=['hwdoc.vendor']) 
+        except ImportError as e:
+            # TODO: Log the error. For now just print 
+            print e
+            return
+        
+        try:
+            getattr(sm, action)(self.hostname, username, password)
+        except AttributeError as e:
+            # TODO: Log the error. For now just print 
+            print e
+            return
+
+    def power_on(self, username=None, password=None):
+        self.__sm__('power_on', username, password)
+
+    def power_off(self, username=None, password=None):
+        self.__sm__('power_off', username, password)
+
+    def power_cycle(self, username=None, password=None):
+        self.__sm__('power_cycle', username, password)
+
+    def power_reset(self, username=None, password=None):
+        self.__sm__('power_reset', username, password)
+
+    def power_off_acpi(self, username=None, password=None):
+        self.__sm__('power_off_acpi', username, password)
