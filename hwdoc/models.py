@@ -102,16 +102,16 @@ class ServerManagement(models.Model):
             return
 
     def power_on(self, username=None, password=None):
-        self.__sm__('power_on', username, password)
+        return self.__sm__('power_on', username, password)
 
     def power_off(self, username=None, password=None):
-        self.__sm__('power_off', username, password)
+        return self.__sm__('power_off', username, password)
 
     def power_cycle(self, username=None, password=None):
-        self.__sm__('power_cycle', username, password)
+        return self.__sm__('power_cycle', username, password)
 
     def power_reset(self, username=None, password=None):
-        self.__sm__('power_reset', username, password)
+        return self.__sm__('power_reset', username, password)
 
     def power_off_acpi(self, username=None, password=None):
-        self.__sm__('power_off_acpi', username, password)
+        return self.__sm__('power_off_acpi', username, password)

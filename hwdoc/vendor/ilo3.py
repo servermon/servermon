@@ -49,10 +49,7 @@ def __send__(hostname, username, password, command):
                         body = body,
                         headers = { 'TE': 'chunked', 'Connection': 'close'}
                     )
-
-    pprint.pprint(body)
-    pprint.pprint(resp)
-    pprint.pprint(content)
+    return (resp, content)
 
 def __power_on_command__():
     command = '''
