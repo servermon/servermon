@@ -19,6 +19,10 @@ from servermon.hwdoc.models import Equipment, ServerManagement
 from django.db.models import Q
 
 def search(key):
+    '''
+    TODO: Fill this in
+    '''
+
     if key is None:
         return None
     if key.upper().replace('R','').replace('U','').isdigit():
