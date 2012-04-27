@@ -15,30 +15,11 @@
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
 
-from servermon.hwdoc.models import Equipment, ServerManagement
+from hwdoc.models import Equipment, ServerManagement
 from django.db.models import Q
+from hwdoc import functions
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-
-def __search(key):
-    if key is None:
-        return None
-    if key.upper().replace('R','').replace('U','').isdigit():
-        rackunit = key.upper().replace('R','').replace('U','')
-        if len(rackunit) < 3:
-            result=Equipment.objects.filter(
-                                        Q(rack=rackunit)|
-                                        Q(unit=rackunit)
-                                        )
-        else:
-            result=Equipment.objects.filter(rack=rackunit[0:2], unit=rackunit[2:4])
-    else:
-        result=Equipment.objects.filter(
-                                        Q(serial=key)|
-                                        Q(servermanagement__mac__icontains=key)|
-                                        Q(servermanagement__hostname__icontains=key)
-                                        )
-    return result
 
 def search(request):
     if u'key' in request.GET:
@@ -47,6 +28,6 @@ def search(request):
         key = None
 
     return render_to_response('search.txt',
-            { 'results': __search(key), },
+            { 'results': functions.search(key), },
             mimetype='text/plain',
             context_instance=RequestContext(request))
