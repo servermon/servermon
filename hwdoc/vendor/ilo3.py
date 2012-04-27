@@ -19,19 +19,19 @@ import httplib2
 import pprint
 
 def power_on(hostname, username, password):
-    __send__(hostname, username, password, __power_on_command__())
+    return __send__(hostname, username, password, __power_on_command__())
 
 def power_off(hostname, username, password):
-    __send__(hostname, username, password, __power_off_command__())
+    return __send__(hostname, username, password, __power_off_command__())
 
 def power_off_acpi(hostname, username, password):
-    __send__(hostname, username, password, __power_off_acpi_command__())
+    return __send__(hostname, username, password, __power_off_acpi_command__())
 
 def power_cycle(hostname, username, password):
-    __send__(hostname, username, password, __power_on_command__())
+    return __send__(hostname, username, password, __power_on_command__())
 
 def power_reset(hostname, username, password):
-    __send__(hostname, username, password, __power_on_command__())
+    return __send__(hostname, username, password, __power_on_command__())
 
 def __send__(hostname, username, password, command):
     h = httplib2.Http(disable_ssl_certificate_validation=True)
@@ -43,12 +43,17 @@ def __send__(hostname, username, password, command):
 
     body = str(body)
 
-    resp, content = h.request(
-                        'https://%s/ribcl' % str(hostname),
-                        'POST',
-                        body = body,
-                        headers = { 'TE': 'chunked', 'Connection': 'close'}
-                    )
+    try:
+        resp, content = h.request(
+                            'https://%s/ribcl' % str(hostname),
+                            'POST',
+                            body = body,
+                            headers = { 'TE': 'chunked', 'Connection': 'close'}
+                        )
+    except httplib2.ServerNotFoundError as e:
+        # TODO: Log this. For now just print
+        print e
+        return
     return (resp, content)
 
 def __power_on_command__():
