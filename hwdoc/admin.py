@@ -21,6 +21,36 @@ from servermon.hwdoc.models import *
 admin.site.register(Vendor)
 admin.site.register(Model)
 
+def shutdown(modeladmin, request, queryset):
+    for obj in queryset:
+        try:
+            obj.servermanagement
+        except ServerManagement.DoesNotExist:
+            continue
+        obj.servermanagement.power_off_acpi()
+
+shutdown.short_description = 'Shuts down an equipment'
+
+def startup(modeladmin, request, queryset):
+    for obj in queryset:
+        try:
+            obj.servermanagement
+        except ServerManagement.DoesNotExist:
+            continue
+        obj.servermanagement.power_on()
+
+startup.short_description = 'Starts up an equipment'
+
+def shutdown_force(modeladmin, request, queryset):
+    for obj in queryset:
+        try:
+            obj.servermanagement
+        except ServerManagement.DoesNotExist:
+            continue
+        obj.servermanagement.power_off()
+
+shutdown_force.short_description = 'Force a shutdown of an equipment'
+
 class ServerManagementInline(admin.StackedInline):
     model = ServerManagement
 
@@ -51,5 +81,6 @@ class EquipmentAdmin(admin.ModelAdmin):
     list_filter = ('model', 'rack','state',)
     ordering = ('rack', 'unit',)
     inlines = [ ServerManagementInline, ]
+    actions = [ shutdown, startup, shutdown_force ]
 
 admin.site.register(Equipment, EquipmentAdmin)
