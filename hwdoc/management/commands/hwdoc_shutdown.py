@@ -54,6 +54,10 @@ class Command(BaseCommand):
             return
 
         for e in es:
+            try:
+                e.servermanagement
+            except ServerManagement.DoesNotExist: 
+                continue
             if options['verbosity'] > 1:
                 print e
             if options['force']:
