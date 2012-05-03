@@ -31,11 +31,11 @@ class Command(BaseCommand):
     label = search.__doc__
 
     option_list = BaseCommand.option_list + (
-                make_option('--acpi',
+                make_option('--force',
                     action='store_true',
-                    dest='acpi',
+                    dest='force',
                     default=False,
-                    help='Send an ACPI shutdown signal instead of simple power off'),
+                    help='Force shutdown instead of sending an ACPI power off signal'),
             )
 
     def handle(self, *args, **options):
@@ -56,8 +56,8 @@ class Command(BaseCommand):
         for e in es:
             if options['verbosity'] > 1:
                 print e
-            if options['acpi']:
-                e.servermanagement.power_off_acpi()
-            else:
+            if options['force']:
                 e.servermanagement.power_off()
+            else:
+                e.servermanagement.power_off_acpi()
 
