@@ -49,6 +49,10 @@ class Command(BaseCommand):
             sys.exit(1)
 
         es = search(key)
+        if es.count() == 0:
+            print "No Equipment found"
+            return
+
         for e in es:
             if options['verbosity'] > 1:
                 print e
