@@ -95,7 +95,7 @@ class ServerManagement(models.Model):
             return
         
         try:
-            getattr(sm, action)(self.hostname, username, password)
+            return getattr(sm, action)(self.hostname, username, password)
         except AttributeError as e:
             # TODO: Log the error. For now just print 
             print e

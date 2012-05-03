@@ -54,7 +54,7 @@ def __send__(hostname, username, password, command):
         # TODO: Log this. For now just print
         print e
         return
-    return (resp, content)
+    return content
 
 def __power_on_command__():
     command = '''
