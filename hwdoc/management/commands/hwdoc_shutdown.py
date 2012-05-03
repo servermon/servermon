@@ -70,10 +70,12 @@ class Command(BaseCommand):
                 e.servermanagement
             except ServerManagement.DoesNotExist: 
                 continue
-            if options['verbosity'] > 1:
+            if int(options['verbosity']) > 1:
                 print e
             if options['force']:
-                e.servermanagement.power_off(options['username'], options['password'])
+                result = e.servermanagement.power_off(options['username'], options['password'])
             else:
-                e.servermanagement.power_off_acpi(options['username'], options['password'])
-
+                result = e.servermanagement.power_off_acpi(options['username'], options['password'])
+            #TODO: Figure out what to do with this
+            if int(options['verbosity']) > 1:
+                print result
