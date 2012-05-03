@@ -28,10 +28,10 @@ def power_off_acpi(hostname, username, password):
     return __send__(hostname, username, password, __power_off_acpi_command__())
 
 def power_cycle(hostname, username, password):
-    return __send__(hostname, username, password, __power_on_command__())
+    return __send__(hostname, username, password, __power_cycle_command__())
 
 def power_reset(hostname, username, password):
-    return __send__(hostname, username, password, __power_on_command__())
+    return __send__(hostname, username, password, __power_reset_command__())
 
 def __send__(hostname, username, password, command):
     h = httplib2.Http(disable_ssl_certificate_validation=True)
