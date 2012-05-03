@@ -33,6 +33,12 @@ def power_cycle(hostname, username, password):
 def power_reset(hostname, username, password):
     return __send__(hostname, username, password, __power_reset_command__())
 
+def pass_change(hostname, username, password, **kwargs):
+    if 'change_username' not in kwargs or 'newpass' not in kwargs:
+        raise RuntimeError('Username and/or password to changed not given')
+    return __send__(hostname, username, password, __pass_change_command__(
+        kwargs['change_username'], kwargs['newpass']))
+
 def __send__(hostname, username, password, command):
     h = httplib2.Http(disable_ssl_certificate_validation=True)
 
@@ -96,8 +102,7 @@ def __power_reset_command__():
     '''
     return command.strip()
 
-# TODO: Implement these too and figure out differences
-def __password_change_command__(username, newpass):
+def __pass_change_command__(username, newpass):
     command = '''
     <USER_INFO MODE="write">
         <MOD_USER USER_LOGIN="%s">
@@ -107,6 +112,7 @@ def __password_change_command__(username, newpass):
     ''' % (username, newpass)
     return command.strip()
 
+# TODO: Implement these too and figure out differences
 def __power_reset_command__():
     command = '''
     <SERVER_INFO MODE="write">
