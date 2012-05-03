@@ -36,6 +36,18 @@ class Command(BaseCommand):
                     dest='force',
                     default=False,
                     help='Force shutdown instead of sending an ACPI power off signal'),
+                make_option('-u', '--username',
+                    action='store',
+                    type='string',
+                    dest='username',
+                    default=None,
+                    help='Provide username used to login to BMC'),
+                make_option('-p', '--password',
+                    action='store',
+                    type='string',
+                    dest='password',
+                    default=None,
+                    help='Provide password used to login to BMC'),
             )
 
     def handle(self, *args, **options):
@@ -61,7 +73,7 @@ class Command(BaseCommand):
             if options['verbosity'] > 1:
                 print e
             if options['force']:
-                e.servermanagement.power_off()
+                e.servermanagement.power_off(options['username'], options['password'])
             else:
-                e.servermanagement.power_off_acpi()
+                e.servermanagement.power_off_acpi(options['username'], options['password'])
 
