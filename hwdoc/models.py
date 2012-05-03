@@ -81,7 +81,7 @@ class ServerManagement(models.Model):
     def __unicode__(self):
         return "%s for %s" % (self.get_method_display(), self.equipment)
 
-    def __sm__(self, action, username, password):
+    def __sm__(self, action, username, password, **kwargs):
         if username is None:
             username = self.username
         if password is None:
@@ -95,7 +95,7 @@ class ServerManagement(models.Model):
             return
         
         try:
-            return getattr(sm, action)(self.hostname, username, password)
+            return getattr(sm, action)(self.hostname, username, password, **kwargs)
         except AttributeError as e:
             # TODO: Log the error. For now just print 
             print e
@@ -115,3 +115,6 @@ class ServerManagement(models.Model):
 
     def power_off_acpi(self, username=None, password=None):
         return self.__sm__('power_off_acpi', username, password)
+
+    def pass_change(self, username=None, password=None, **kwargs):
+        return self.__sm__('pass_change', username, password, **kwargs)
