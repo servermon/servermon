@@ -28,10 +28,9 @@ def search(key):
     if key.upper().replace('R','').replace('U','').isdigit():
         rackunit = key.upper().replace('R','').replace('U','')
         if len(rackunit) < 3:
-            result=Equipment.objects.filter(
-                                        Q(rack=rackunit)|
-                                        Q(unit=rackunit)
-                                        )
+            result=Equipment.objects.filter(rack=rackunit)
+        elif len(rackunit) == 3:
+            raise RuntimeError('Search key is ambiguous. Perhaps has a length of 3?')
         else:
             result=Equipment.objects.filter(rack=rackunit[0:2], unit=rackunit[2:4])
     else:
