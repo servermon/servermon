@@ -41,10 +41,16 @@ def pass_change(hostname, username, password, **kwargs):
         kwargs['change_username'], kwargs['newpass']))
 
 def set_settings(hostname, username, password, **kwargs):
-    return __send__(hostname, username, password, __mod_global_settings__(**kwargs) + __mod_network_settings__(**kwargs))
+    print __mod_global_settings_command__(**kwargs) + \
+            __mod_network_settings_command__(**kwargs) + \
+            __power_on_delay_command__(**kwargs)
+    return __send__(hostname, username, password,
+            __mod_global_settings_command__(**kwargs) +
+            __mod_network_settings_command__(**kwargs) +
+            __power_on_delay_command__(**kwargs))
 
 def boot_order(hostname, username, password, **kwargs):
-    return __send__(hostname, username, password, __boot_order__(**kwargs))
+    return __send__(hostname, username, password, __boot_order_command__(**kwargs))
 
 def __send__(hostname, username, password, command):
     h = httplib2.Http(disable_ssl_certificate_validation=True)
@@ -119,7 +125,7 @@ def __pass_change_command__(username, newpass):
     ''' % (username, newpass)
     return command.strip()
 
-def __mod_network_settings__(**kwargs):
+def __mod_network_settings_command__(**kwargs):
     # TODO: This has not yet been exported to any django management command.
     # As a result only defaults are used, but are good enough for now.
     kwargs.setdefault('dhcp_enable', 'Yes')
@@ -213,7 +219,7 @@ def __mod_network_settings__(**kwargs):
     return command
 
 
-def __mod_global_settings__(**kwargs):
+def __mod_global_settings_command__(**kwargs):
     kwargs.setdefault('session_timeout','30')
     kwargs.setdefault('ilo_enabled','Y')
     kwargs.setdefault('f8_prompt_enabled','Y')
@@ -251,13 +257,12 @@ def __mod_global_settings__(**kwargs):
         <AUTHENTICATION_FAILURE_LOGGING VALUE="%(auth_fail_logging)s"/>
         <RBSU_POST_IP VALUE="%(rbsu_post_ip)s"/>
         <ENFORCE_AES VALUE="%(enforce_aes)s"/>
-        <HIGH_PERFORMANCE_MOUSE value="%(high_perf_mouse)s" />
     </MOD_GLOBAL_SETTINGS>
 </RIB_INFO>
     ''' % kwargs
     return command
 
-def __boot_order__(**kwargs):
+def __boot_order_command__(**kwargs):
     if kwargs['once']:
         command = '''
         <SERVER_INFO MODE="write">
@@ -275,6 +280,16 @@ def __boot_order__(**kwargs):
             </SET_PERSISTENT_BOOT>
         </SERVER_INFO>
         ''' % boot_list
+    return command
+
+def __power_on_delay_command__(**kwargs):
+    kwargs.setdefault('delay', 'Random')
+
+    command = '''
+    <SERVER_INFO MODE="write">
+        <SERVER_AUTO_PWR VALUE="%(delay)s" />
+    </SERVER_INFO>
+    ''' % kwargs
     return command
 
 # TODO: Implement these too and figure out differences

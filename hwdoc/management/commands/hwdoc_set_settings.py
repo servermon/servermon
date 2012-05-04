@@ -49,7 +49,6 @@ class Command(BaseCommand):
                 make_option('--auth_fail_logging', action='store', type='string', dest='auth_fail_logging', help='Authentication failure logging. Valid values: 0,1,2,3,5. iLO3 backend support only'),
                 make_option('--rbsu_post_ip', action='store', type='string', dest='rbsu_post_ip', help='Show BMC IP during POST. Valid values: Y,N. iLO3 backend support only'),
                 make_option('--enforce_aes', action='store', type='string', dest='enforce_aes', help='Set AES encyption in BMC. Valid values: Y,N. iLO3 backend support only'),
-                make_option('--high_perf_mouse', action='store', type='string', dest='high_perf_mouse', help='Set high performance mouse. Valid values: Yes,No. iLO3 backend support only)'),
                 make_option('-u', '--username',
                     action='store',
                     type='string',
