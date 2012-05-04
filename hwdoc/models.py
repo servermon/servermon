@@ -122,5 +122,8 @@ class ServerManagement(models.Model):
     def set_settings(self, username=None, password=None, **kwargs):
         return self.__sm__('set_settings', username, password, **kwargs)
 
+    def set_ldap_settings(self, username=None, password=None, **kwargs):
+        return self.__sm__('set_ldap_settings', username, password, **kwargs)
+
     def boot_order(self, username=None, password=None, **kwargs):
         return self.__sm__('boot_order', username, password, **kwargs)
