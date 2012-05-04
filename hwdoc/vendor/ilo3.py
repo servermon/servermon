@@ -41,7 +41,7 @@ def pass_change(hostname, username, password, **kwargs):
         kwargs['change_username'], kwargs['newpass']))
 
 def set_settings(hostname, username, password, **kwargs):
-    return __send__(hostname, username, password, __mod_global_settings__(**kwargs))
+    return __send__(hostname, username, password, __mod_global_settings__(**kwargs) + __mod_network_settings__(**kwargs))
 
 def __send__(hostname, username, password, command):
     h = httplib2.Http(disable_ssl_certificate_validation=True)
@@ -116,6 +116,100 @@ def __pass_change_command__(username, newpass):
     ''' % (username, newpass)
     return command.strip()
 
+def __mod_network_settings__(**kwargs):
+    # TODO: This has not yet been exported to any django management command.
+    # As a result only defaults are used, but are good enough for now.
+    kwargs.setdefault('dhcp_enable', 'Yes')
+
+    kwargs.setdefault('enable_nic', 'Yes')
+    kwargs.setdefault('shared_network', 'N')
+    kwargs.setdefault('vlan_enabled', 'N')
+    kwargs.setdefault('vlan_id', '0')
+    kwargs.setdefault('speed_auto', 'Y')
+    kwargs.setdefault('nic_speed', '10')
+    kwargs.setdefault('full_duplex', 'N')
+    kwargs.setdefault('reg_wins', 'Y')
+    kwargs.setdefault('reg_ddns', 'Y')
+    kwargs.setdefault('ping_gateway', 'Y')
+    kwargs.setdefault('timezone', 'Europe/Athens')
+    kwargs.setdefault('static_route1_dest', '0.0.0.0')
+    kwargs.setdefault('static_route1_mask', '0.0.0.0')
+    kwargs.setdefault('static_route1_gw', '0.0.0.0')
+    kwargs.setdefault('static_route2_dest', '0.0.0.0')
+    kwargs.setdefault('static_route2_mask', '0.0.0.0')
+    kwargs.setdefault('static_route2_gw', '0.0.0.0')
+    kwargs.setdefault('static_route3_dest', '0.0.0.0')
+    kwargs.setdefault('static_route3_mask', '0.0.0.0')
+    kwargs.setdefault('static_route3_gw', '0.0.0.0')
+
+    if 'dhcp_enable' in kwargs:
+        kwargs.setdefault('dhcp_gateway', 'Yes')
+        kwargs.setdefault('dhcp_dns', 'Yes')
+        kwargs.setdefault('dhcp_wins', 'Yes')
+        kwargs.setdefault('dhcp_static_route', 'Yes')
+        kwargs.setdefault('dhcp_domain_name', 'Yes')
+        kwargs.setdefault('dhcp_sntp', 'Yes')
+        networksettings = '''
+        <DHCP_ENABLE VALUE="%(dhcp_enable)s"/>
+        <DHCP_GATEWAY VALUE="%(dhcp_gateway)s"/>
+        <DHCP_DNS_SERVER VALUE="%(dhcp_dns)s"/>
+        <DHCP_WINS_SERVER VALUE="%(dhcp_wins)s"/>
+        <DHCP_STATIC_ROUTE VALUE="%(dhcp_static_route)s"/>
+        <DHCP_DOMAIN_NAME VALUE="%(dhcp_domain_name)s"/>
+        <DHCP_SNTP_SETTINGS VALUE="%(dhcp_sntp)s"/>
+''' % kwargs
+    else:
+        kwargs.setdefault('ip_address', '10.0.0.2')
+        kwargs.setdefault('subnet_mask', '255.255.255.0')
+        kwargs.setdefault('gw_ip   ', '10.0.0.1')
+        kwargs.setdefault('dns_name', 'demo')
+        kwargs.setdefault('domain  ', 'example.com')
+        kwargs.setdefault('dns_server1', '10.0.0.10')
+        kwargs.setdefault('dns_server2', '10.0.0.20')
+        kwargs.setdefault('dns_server3', '10.0.0.30')
+        kwargs.setdefault('wins_server1', '10.0.0.40')
+        kwargs.setdefault('wins_server2', '10.0.0.50')
+        networksettings = '''
+            <IP_ADDRESS value="%(ip_address)s"/>
+            <SUBNET_MASK value="%(subnet_mask)s"/>
+            <GATEWAY_IP_ADDRESS value="%(gw_ip)s"/>
+            <DNS_NAME value="%(dns_name)s"/>
+            <DOMAIN_NAME value="%(domain)s"/>
+            <PRIM_DNS_SERVER value="%(dns_server1)s"/>
+            <SEC_DNS_SERVER value="%(dns_server2)s"/>
+            <TER_DNS_SERVER value="%(dns_server3)s"/>
+            <PRIM_WINS_SERVER value="%(wins_server1)s"/>
+            <SEC_WINS_SERVER value="%(wins_server2)s"/>
+''' % kwargs
+
+    othersettings = '''
+        <ENABLE_NIC VALUE="%(enable_nic)s"/>
+        <SHARED_NETWORK_PORT VALUE="%(shared_network)s"/>
+        <VLAN_ENABLED VALUE="%(vlan_enabled)s"/>
+        <VLAN_ID VALUE="%(vlan_id)s"/>
+        <SPEED_AUTOSELECT VALUE="%(speed_auto)s"/>
+        <NIC_SPEED VALUE="%(nic_speed)s"/>
+        <FULL_DUPLEX VALUE="%(full_duplex)s"/>
+        <REG_WINS_SERVER VALUE="%(reg_wins)s"/>
+        <REG_DDNS_SERVER VALUE="%(reg_ddns)s"/>
+        <PING_GATEWAY VALUE="%(ping_gateway)s"/>
+        <TIMEZONE VALUE="%(timezone)s"/>
+        <STATIC_ROUTE_1 DEST="%(static_route1_dest)s" MASK="%(static_route1_mask)s" GATEWAY="%(static_route1_gw)s"/>
+        <STATIC_ROUTE_2 DEST="%(static_route2_dest)s" MASK="%(static_route2_mask)s" GATEWAY="%(static_route2_gw)s"/>
+        <STATIC_ROUTE_3 DEST="%(static_route3_dest)s" MASK="%(static_route3_mask)s" GATEWAY="%(static_route3_gw)s"/>
+    ''' % kwargs
+
+    command = '''
+<RIB_INFO mode="write">
+    <MOD_NETWORK_SETTINGS>
+    %s
+    %s
+    </MOD_NETWORK_SETTINGS>
+</RIB_INFO>
+    ''' % (networksettings, othersettings)
+    return command
+
+
 def __mod_global_settings__(**kwargs):
     kwargs.setdefault('session_timeout','30')
     kwargs.setdefault('ilo_enabled','Y')
@@ -158,7 +252,6 @@ def __mod_global_settings__(**kwargs):
     </MOD_GLOBAL_SETTINGS>
 </RIB_INFO>
     ''' % kwargs
-    print command
     return command
 
 # TODO: Implement these too and figure out differences
