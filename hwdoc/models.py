@@ -118,3 +118,6 @@ class ServerManagement(models.Model):
 
     def pass_change(self, username=None, password=None, **kwargs):
         return self.__sm__('pass_change', username, password, **kwargs)
+
+    def set_settings(self, username=None, password=None, **kwargs):
+        return self.__sm__('set_settings', username, password, **kwargs)
