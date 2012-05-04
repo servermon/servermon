@@ -16,6 +16,7 @@
 # OF THIS SOFTWARE.
 
 import httplib2
+import socket
 import pprint
 
 def power_on(hostname, username, password):
@@ -59,7 +60,7 @@ def __send__(hostname, username, password, command):
                             body = body,
                             headers = { 'TE': 'chunked', 'Connection': 'close'}
                         )
-    except httplib2.ServerNotFoundError as e:
+    except (httplib2.ServerNotFoundError, socket.error) as e:
         # TODO: Log this. For now just print
         print e
         return
