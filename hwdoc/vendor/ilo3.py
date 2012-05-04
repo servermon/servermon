@@ -17,7 +17,6 @@
 
 import httplib2
 import socket
-import pprint
 
 def power_on(hostname, username, password):
     return __send__(hostname, username, password, __power_on_command__())
@@ -41,13 +40,14 @@ def pass_change(hostname, username, password, **kwargs):
         kwargs['change_username'], kwargs['newpass']))
 
 def set_settings(hostname, username, password, **kwargs):
-    print __mod_global_settings_command__(**kwargs) + \
-            __mod_network_settings_command__(**kwargs) + \
-            __power_on_delay_command__(**kwargs)
     return __send__(hostname, username, password,
             __mod_global_settings_command__(**kwargs) +
             __mod_network_settings_command__(**kwargs) +
             __power_on_delay_command__(**kwargs))
+
+def set_ldap_settings(hostname, username, password, **kwargs):
+    return __send__(hostname, username, password,
+            __mod_directory_command__(**kwargs))
 
 def boot_order(hostname, username, password, **kwargs):
     return __send__(hostname, username, password, __boot_order_command__(**kwargs))
@@ -291,6 +291,83 @@ def __power_on_delay_command__(**kwargs):
     </SERVER_INFO>
     ''' % kwargs
     return command
+
+def __mod_directory_command__(**kwargs):
+    kwargs.setdefault('ldap_enable', 'No')
+    kwargs.setdefault('local_users_enable', 'Yes')
+    kwargs.setdefault('ldap_server', '')
+    kwargs.setdefault('lom_dn', '')
+    kwargs.setdefault('lom_password', '')
+    kwargs.setdefault('ldap_group_enable', 'yes')
+    kwargs.setdefault('kerberos_enable', 'N')
+    kwargs.setdefault('kerberos_realm', '')
+    kwargs.setdefault('kdc_ip', '')
+    kwargs.setdefault('kdc_port', '88')
+
+    # TODO: Fix this.
+    # Now this is gonna be ugly. Normally we should read the current config
+    # and edit it. Unfortunately iLO3 returns unparsable output. So we fall
+    # back to always setting the entire configuration for now
+
+    # Contexts handling
+    kwargs.setdefault('contexts', ())
+    i = 0
+    contexts_command = ''
+    for context in kwargs['contexts']:
+        contexts_command += '<DIR_USER_CONTEXT_%s VALUE="%s"/>' % (i+1, kwargs['contexts'][i])
+        i = i + 1
+
+    # Group names handling
+    kwargs.setdefault('groupnames', ())
+    i = 0
+    groupnames_command = ''
+    for groupname in kwargs['groupnames']:
+        groupnames_command += '<DIR_GRPACCT%s_NAME VALUE="%s"/>' % (i+1, kwargs['groupnames'][i])
+        i = i + 1
+        
+    # Group PRIVs handling
+    kwargs.setdefault('groupprivs', ())
+    i = 0
+    groupprivs_command = ''
+    for grouppriv in kwargs['groupprivs']:
+        groupprivs_command += '<DIR_GRPACCT%s_PRIV VALUE="%s"/>' % (i+1, kwargs['groupprivs'][i])
+        i = i + 1
+
+    # Group SIDs handling
+    kwargs.setdefault('groupsids', ())
+    i = 0
+    groupsids_command = ''
+    for groupsid in kwargs['groupsids']:
+        groupsids_command += '<DIR_GRPACCT%s_SID VALUE="%s"/>' % (i+1, kwargs['groupsids'][i])
+        i = i + 1
+
+    othersettings = '''
+            <DIR_AUTHENTICATION_ENABLED VALUE="%(ldap_enable)s"/>
+            <DIR_LOCAL_USER_ACCT VALUE="%(local_users_enable)s"/>
+            <DIR_SERVER_ADDRESS VALUE="%(ldap_server)s"/>
+            <DIR_SERVER_PORT VALUE="636"/>
+            <DIR_OBJECT_DN VALUE="%(lom_dn)s"/>
+            <DIR_OBJECT_PASSWORD VALUE="%(lom_password)s"/>
+            <DIR_ENABLE_GRP_ACCT VALUE="%(ldap_group_enable)s"/>
+            <DIR_KERBEROS_ENABLED VALUE="%(kerberos_enable)s"/>
+            <DIR_KERBEROS_REALM VALUE="%(kerberos_realm)s"/>
+            <DIR_KERBEROS_KDC_ADDRESS VALUE="%(kdc_ip)s"/>
+            <DIR_KERBEROS_KDC_PORT VALUE="%(kdc_port)s"/>
+    ''' % kwargs
+
+    command = '''
+    <DIR_INFO mode="write">
+        <MOD_DIR_CONFIG>
+        %s
+        %s
+        %s
+        %s
+        %s
+        </MOD_DIR_CONFIG>
+    </DIR_INFO>
+    ''' % (othersettings, contexts_command, groupnames_command, groupprivs_command, groupsids_command) 
+    return command
+
 
 # TODO: Implement these too and figure out differences
 def __power_reset_command__():
