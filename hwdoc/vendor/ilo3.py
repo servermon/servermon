@@ -43,6 +43,9 @@ def pass_change(hostname, username, password, **kwargs):
 def set_settings(hostname, username, password, **kwargs):
     return __send__(hostname, username, password, __mod_global_settings__(**kwargs) + __mod_network_settings__(**kwargs))
 
+def boot_order(hostname, username, password, **kwargs):
+    return __send__(hostname, username, password, __boot_order__(**kwargs))
+
 def __send__(hostname, username, password, command):
     h = httplib2.Http(disable_ssl_certificate_validation=True)
 
@@ -252,6 +255,26 @@ def __mod_global_settings__(**kwargs):
     </MOD_GLOBAL_SETTINGS>
 </RIB_INFO>
     ''' % kwargs
+    return command
+
+def __boot_order__(**kwargs):
+    if kwargs['once']:
+        command = '''
+        <SERVER_INFO MODE="write">
+            <SET_ONE_TIME_BOOT value = "%s" />
+        </SERVER_INFO>
+        ''' % kwargs['boot_list'][0]
+    else:
+        boot_list = ''
+        for b in kwargs['boot_list']:
+            boot_list = boot_list + '<DEVICE VALUE = "%s" />' % b
+        command = '''
+        <SERVER_INFO MODE="write">
+            <SET_PERSISTENT_BOOT>
+            %s
+            </SET_PERSISTENT_BOOT>
+        </SERVER_INFO>
+        ''' % boot_list
     return command
 
 # TODO: Implement these too and figure out differences
