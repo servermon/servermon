@@ -127,3 +127,6 @@ class ServerManagement(models.Model):
 
     def boot_order(self, username=None, password=None, **kwargs):
         return self.__sm__('boot_order', username, password, **kwargs)
+
+    def license_set(self, username=None, password=None, **kwargs):
+        return self.__sm__('license_set', username, password, **kwargs)
