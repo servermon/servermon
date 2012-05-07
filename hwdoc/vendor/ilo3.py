@@ -53,8 +53,7 @@ def boot_order(hostname, username, password, **kwargs):
     return __send__(hostname, username, password, __boot_order_command__(**kwargs))
 
 def license_set(hostname, username, password, **kwargs):
-    if 'license' not in kwargs:
-        raise RuntimeError('License not given')
+    print __license_set_command__(**kwargs)
     return __send__(hostname, username, password, __license_set_command__(**kwargs))
 
 # Beneath this line iLO3 specifics start

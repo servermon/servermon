@@ -86,6 +86,8 @@ class ServerManagement(models.Model):
             username = self.username
         if password is None:
             password = self.password
+        if 'license' not in kwargs or kwargs['license'] is None:
+            kwargs['license'] = self.license
 
         try:
             sm = __import__('hwdoc.vendor.' + self.method, fromlist=['hwdoc.vendor']) 
