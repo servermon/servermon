@@ -35,7 +35,7 @@ def power_reset(hostname, username, password):
 
 def pass_change(hostname, username, password, **kwargs):
     if 'change_username' not in kwargs or 'newpass' not in kwargs:
-        raise RuntimeError('Username and/or password to changed not given')
+        raise RuntimeError('Username and/or password to be changed not given')
     return __send__(hostname, username, password, __pass_change_command__(
         kwargs['change_username'], kwargs['newpass']))
 
@@ -52,6 +52,12 @@ def set_ldap_settings(hostname, username, password, **kwargs):
 def boot_order(hostname, username, password, **kwargs):
     return __send__(hostname, username, password, __boot_order_command__(**kwargs))
 
+def license_set(hostname, username, password, **kwargs):
+    if 'license' not in kwargs:
+        raise RuntimeError('License not given')
+    return __send__(hostname, username, password, __license_set_command__(**kwargs))
+
+# Beneath this line iLO3 specifics start
 def __send__(hostname, username, password, command):
     h = httplib2.Http(disable_ssl_certificate_validation=True)
 
@@ -289,6 +295,16 @@ def __power_on_delay_command__(**kwargs):
     <SERVER_INFO MODE="write">
         <SERVER_AUTO_PWR VALUE="%(delay)s" />
     </SERVER_INFO>
+    ''' % kwargs
+    return command
+
+def __license_set_command__(**kwargs):
+    command = '''
+    <RIB_INFO MODE="write">
+        <LICENSE>
+        <ACTIVATE KEY="%(license)s"/>
+        </LICENSE>
+    </RIB_INFO>
     ''' % kwargs
     return command
 
