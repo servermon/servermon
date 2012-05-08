@@ -119,6 +119,8 @@ class ServerManagement(models.Model):
         return self.__sm__('power_off_acpi', username, password)
 
     def pass_change(self, username=None, password=None, **kwargs):
+        if 'change_username' not in kwargs or 'newpass' not in kwargs:
+            raise RuntimeError('Username and/or password to be changed not given')
         return self.__sm__('pass_change', username, password, **kwargs)
 
     def set_settings(self, username=None, password=None, **kwargs):

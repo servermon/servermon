@@ -34,8 +34,6 @@ def power_reset(hostname, username, password):
     return __send__(hostname, username, password, __power_reset_command__())
 
 def pass_change(hostname, username, password, **kwargs):
-    if 'change_username' not in kwargs or 'newpass' not in kwargs:
-        raise RuntimeError('Username and/or password to be changed not given')
     return __send__(hostname, username, password, __pass_change_command__(
         kwargs['change_username'], kwargs['newpass']))
 
@@ -53,7 +51,6 @@ def boot_order(hostname, username, password, **kwargs):
     return __send__(hostname, username, password, __boot_order_command__(**kwargs))
 
 def license_set(hostname, username, password, **kwargs):
-    print __license_set_command__(**kwargs)
     return __send__(hostname, username, password, __license_set_command__(**kwargs))
 
 # Beneath this line iLO3 specifics start
