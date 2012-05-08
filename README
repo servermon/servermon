@@ -1,0 +1,63 @@
+==========
+
+Servermon is a Django project with the aim of facilitating server monitoring and management.
+
+At this point it offers two applications
+
+1) A Web frontend to the puppet database.
+2) A simple datacenter hardware documentation database
+
+===========
+1. Tool requirements
+
+* A working puppet infrastructure
+* python-django
+* python-django-extensions
+* python-mysqldb
+* mysql-client-5.1
+* python-django-south
+* An application server. gunicorn should work, apache+mod_wsgi works, django runserver works
+
+===========
+2. Tool architecture
+
+* hwdoc is a very simple web frontend to a database created and managed by django
+
+* servermon is an app visualizing information from the puppet database.
+
+===========
+3. Operational requirements
+
+None for now
+
+===========
+4. Installation Procedure
+
+4.1 Pre-installation
+Configure web server
+Configure mysql puppet server for access from app
+Copy settings.py.dist to settings.py and urls.py.dist to urls.py.
+In settings.py set the following according to your configuration:
+* DATABASES (to point to your local database)
+* STATIC_URL (static media directory) 
+* TEMPLATE_DIRS
+* INSTALLED_APPS (uncomment needed apps). django admin apps are a must for hwdoc
+
+4.2 Branding
+
+4.2.1 Logos
+
+Inside the static folder you will find the standard django logo. Change it with
+your organization's if you wish
+
+4.3 Installation
+
+* Run:
+	./manage.py syncdb
+	to create all the necessary tables in the database. 
+	Note: The above should be done without servermon.puppet uncommented in INSTALLED_APPS.
+	After that you can uncomment it.
+* Then to allow for south migrations:
+	./manage.py migrate
+* Via the admin interface, modify as required the existing (example.com) Site instance
+
