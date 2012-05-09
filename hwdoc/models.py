@@ -67,6 +67,7 @@ class ServerManagement(models.Model):
             ('ilo3', 'HP iLO 3'),
             ('irmc', 'Fujitsu iRMC'),
             ('ipmi', 'Generic IPMI'),
+            ('dummy', 'Dummy Method Backend'),
         )
     method = models.CharField(choices=METHODS, max_length=10)
     added = models.DateTimeField(auto_now_add=True)
