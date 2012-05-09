@@ -94,7 +94,7 @@ INSTALLED_APPS = (
 #    'django.contrib.sites',
 #    'servermon.updates',
 #    'servermon.puppet',
-#    'servermon.hwdoc',
+    'south',
 )
 
 DATE_FORMAT = "d/m/Y H:i"
