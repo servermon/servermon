@@ -53,6 +53,9 @@ def boot_order(hostname, username, password, **kwargs):
 def license_set(hostname, username, password, **kwargs):
     return __send__(hostname, username, password, __license_set_command__(**kwargs))
 
+def bmc_reset(hostname, username, password, **kwargs):
+    return __send__(hostname, username, password, __reset_rib_command__())
+
 # Beneath this line iLO3 specifics start
 def __send__(hostname, username, password, command):
     h = httplib2.Http(disable_ssl_certificate_validation=True)
@@ -380,6 +383,13 @@ def __mod_directory_command__(**kwargs):
     ''' % (othersettings, contexts_command, groupnames_command, groupprivs_command, groupsids_command) 
     return command
 
+def __reset_rib_command__():
+    command = '''
+    <RIB_INFO MODE="write">
+        <RESET_RIB/>
+    </RIB_INFO>
+    '''
+    return command.strip()
 
 # TODO: Implement these too and figure out differences
 def __power_reset_command__():
@@ -387,14 +397,6 @@ def __power_reset_command__():
     <SERVER_INFO MODE="write">
         <RESET_SERVER/>
     </SERVER_INFO>
-    '''
-    return command.strip()
-
-def __reset_rib_command__():
-    command = '''
-    <RIB_INFO MODE="write">
-        <RESET_RIB/>
-    </RIB_INFO>
     '''
     return command.strip()
 
