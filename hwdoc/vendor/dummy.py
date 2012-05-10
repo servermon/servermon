@@ -45,3 +45,6 @@ def boot_order(hostname, username, password, **kwargs):
 def license_set(hostname, username, password, **kwargs):
     return True
 
+def bmc_reset(hostname, username, password, **kwargs):
+    return True
+

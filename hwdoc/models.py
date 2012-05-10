@@ -135,3 +135,6 @@ class ServerManagement(models.Model):
 
     def license_set(self, username=None, password=None, **kwargs):
         return self.__sm__('license_set', username, password, **kwargs)
+
+    def bmc_reset(self, username=None, password=None, **kwargs):
+        return self.__sm__('bmc_reset', username, password, **kwargs)
