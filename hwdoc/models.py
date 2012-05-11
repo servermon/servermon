@@ -87,7 +87,7 @@ class ServerManagement(models.Model):
             username = self.username
         if password is None:
             password = self.password
-        if 'license' not in kwargs or kwargs['license'] is None:
+        if action == 'license_set' and ( 'license' not in kwargs or kwargs['license'] is None):
             kwargs['license'] = self.license
 
         try:
