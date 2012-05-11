@@ -94,6 +94,7 @@ INSTALLED_APPS = (
 #    'django.contrib.sites',
 #    'servermon.updates',
 #    'servermon.puppet',
+#	'servermon.hwdoc',
     'south',
 )
 
