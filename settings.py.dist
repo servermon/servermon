@@ -100,7 +100,6 @@ INSTALLED_APPS = (
 DATE_FORMAT = "d/m/Y H:i"
 DATETIME_FORMAT = "d/m/Y H:i"
 
-VM_TIMEOUT = 720
 HOST_TIMEOUT = 1800
 
 # Django extensions (apt-get install python-django-extensions)

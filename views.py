@@ -23,7 +23,7 @@ from datetime import datetime, timedelta
 from django.db.models import Q
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django import forms
-from settings import VM_TIMEOUT, HOST_TIMEOUT
+from settings import HOST_TIMEOUT
 from IPy import IP
 import re
 
