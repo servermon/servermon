@@ -48,3 +48,6 @@ def license_set(hostname, username, password, **kwargs):
 def bmc_reset(hostname, username, password, **kwargs):
     return True
 
+def bmc_factory_defaults(hostname, username, password, **kwargs):
+    return True
+

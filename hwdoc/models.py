@@ -138,3 +138,6 @@ class ServerManagement(models.Model):
 
     def bmc_reset(self, username=None, password=None, **kwargs):
         return self.__sm__('bmc_reset', username, password, **kwargs)
+
+    def bmc_factory_defaults(self, username=None, password=None, **kwargs):
+        return self.__sm__('bmc_factory_defaults', username, password, **kwargs)
