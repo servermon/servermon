@@ -56,6 +56,9 @@ def license_set(hostname, username, password, **kwargs):
 def bmc_reset(hostname, username, password, **kwargs):
     return __send__(hostname, username, password, __reset_rib_command__())
 
+def bmc_factory_defaults(hostname, username, password, **kwargs):
+    return __send__(hostname, username, password, __factory_defaults_command__())
+
 # Beneath this line iLO3 specifics start
 def __send__(hostname, username, password, command):
     h = httplib2.Http(disable_ssl_certificate_validation=True)
@@ -387,6 +390,14 @@ def __reset_rib_command__():
     command = '''
     <RIB_INFO MODE="write">
         <RESET_RIB/>
+    </RIB_INFO>
+    '''
+    return command.strip()
+
+def __factory_defaults_command__():
+    command = '''
+    <RIB_INFO MODE="write">
+        <FACTORY_DEFAULTS/>
     </RIB_INFO>
     '''
     return command.strip()
