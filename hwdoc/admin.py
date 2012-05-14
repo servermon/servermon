@@ -20,6 +20,11 @@ from servermon.hwdoc.models import *
 
 admin.site.register(Vendor)
 admin.site.register(Model)
+admin.site.register(Email)
+admin.site.register(Phone)
+admin.site.register(Person)
+admin.site.register(Project)
+admin.site.register(Role)
 
 def shutdown(modeladmin, request, queryset):
     for obj in queryset:
@@ -73,7 +78,11 @@ class EquipmentAdmin(admin.ModelAdmin):
         return obj.model.u
     model_u.short_description = 'Unit Height'
 
-    list_display = ('purpose', 'model', 'serial',
+    def allocation(obj):
+        return obj.allocation.name
+    allocation.short_description = 'Allocation'
+
+    list_display = ('purpose', allocation, 'model', 'serial',
             'rack', 'unit', model_u,
             mgmt_method, mgmt_username, mgmt_password,
             'comments', 'updated', 'state')
