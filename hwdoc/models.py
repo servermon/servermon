@@ -20,18 +20,40 @@ from django.db import models
 class Email(models.Model):
     email = models.CharField(max_length=80)
 
+    def __unicode__(self):
+        return self.email
+
 class Phone(models.Model):
     number = models.CharField(max_length=80)
+
+    def __unicode__(self):
+        return self.number
 
 class Person(models.Model):
     name = models.CharField(max_length=80)
     surname = models.CharField(max_length=80)
-    phones = models.ManyToManyField(Phone)
     emails = models.ManyToManyField(Email)
+    phones = models.ManyToManyField(Phone)
+
+    def __unicode__(self):
+        result =  '%s %s ' % (self.name, self.surname)
+        if self.emails.count() > 0:
+            result += '<%s> ' % ', '.join(map(lambda x: x[0], self.emails.values_list('email')))
+        if self.phones.count() > 0:
+            result += '%s' % ', '.join(map(lambda x: x[0], self.phones.values_list('number')))
+        return result
 
 class Project(models.Model):
     name = models.CharField(max_length=80)
     contacts = models.ManyToManyField(Person, through='Role')
+
+    def __unicode__(self):
+        result =  'Project: %s ' % self.name
+        if self.contacts.count() > 0:
+            result += 'Contacts: '
+            for role in  self.role_set.all():
+                result += '%s Role: %s ' % (role.person.__unicode__(), role.role)
+        return result
 
 class Role(models.Model):
     ROLES = (
@@ -41,6 +63,9 @@ class Role(models.Model):
     role = models.CharField(max_length=80, choices=ROLES)
     project = models.ForeignKey(Project)
     person = models.ForeignKey(Person)
+
+    def __unicode__(self):
+        return 'Role: %s Project: %s, Person: %s %s' % (self.role, self.project.name, self.person.name, self.person.surname)
 
 #################################
 class Vendor(models.Model):
