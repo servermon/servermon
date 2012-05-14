@@ -17,6 +17,32 @@
 
 from django.db import models
 
+class Email(models.Model):
+    email = models.CharField(max_length=80)
+
+class Phone(models.Model):
+    number = models.CharField(max_length=80)
+
+class Person(models.Model):
+    name = models.CharField(max_length=80)
+    surname = models.CharField(max_length=80)
+    phones = models.ManyToManyField(Phone)
+    emails = models.ManyToManyField(Email)
+
+class Project(models.Model):
+    name = models.CharField(max_length=80)
+    contacts = models.ManyToManyField(Person, through='Role')
+
+class Role(models.Model):
+    ROLES = (
+                ( 'manager', 'Manager' ),
+                ('technical', 'Techinal Person'), 
+            )
+    role = models.CharField(max_length=80, choices=ROLES)
+    project = models.ForeignKey(Project)
+    person = models.ForeignKey(Person)
+
+#################################
 class Vendor(models.Model):
     name = models.CharField(max_length=80)
 
@@ -41,6 +67,7 @@ class Equipment(models.Model):
             ('5', 'UNKNOWN'),
         )
     model = models.ForeignKey(Model)
+    allocation = models.ForeignKey(Project, null=True, blank=True)
     serial = models.CharField(max_length=80)
     rack = models.PositiveIntegerField(null=True, blank=True)
     unit = models.PositiveIntegerField(null=True, blank=True)
