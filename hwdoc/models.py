@@ -17,6 +17,7 @@
 
 from django.db import models
 
+# Allocation models #
 class Email(models.Model):
     email = models.CharField(max_length=80)
 
@@ -48,12 +49,7 @@ class Project(models.Model):
     contacts = models.ManyToManyField(Person, through='Role')
 
     def __unicode__(self):
-        result =  'Project: %s ' % self.name
-        if self.contacts.count() > 0:
-            result += 'Contacts: '
-            for role in  self.role_set.all():
-                result += '%s Role: %s ' % (role.person.__unicode__(), role.role)
-        return result
+        return self.name
 
 class Role(models.Model):
     ROLES = (
@@ -67,7 +63,7 @@ class Role(models.Model):
     def __unicode__(self):
         return 'Role: %s Project: %s, Person: %s %s' % (self.role, self.project.name, self.person.name, self.person.surname)
 
-#################################
+# Equipment models #
 class Vendor(models.Model):
     name = models.CharField(max_length=80)
 
