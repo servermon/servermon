@@ -20,9 +20,6 @@ from servermon.hwdoc.models import *
 
 admin.site.register(Vendor)
 admin.site.register(Model)
-admin.site.register(Email)
-admin.site.register(Phone)
-admin.site.register(Person)
 admin.site.register(Project)
 admin.site.register(Role)
 
@@ -56,12 +53,23 @@ def shutdown_force(modeladmin, request, queryset):
 
 shutdown_force.short_description = 'Force a shutdown of an equipment'
 
+class PersonAdmin(admin.ModelAdmin):
+    search_fields = ('name', 'surname')
+    filter_horizontal = ('emails', 'phones')
+    fieldsets = (
+            ('Identity', {
+                'fields': ('name', 'surname')
+            }),
+            ('Contact Info', {
+                'fields': ('emails', 'phones'),
+            }),
+    )
+admin.site.register(Person, PersonAdmin)
+
 class ServerManagementInline(admin.StackedInline):
     model = ServerManagement
 
 class EquipmentAdmin(admin.ModelAdmin):
-    search_fields = ['rack', 'unit', 'serial',]
-
     def mgmt_method(obj):
         return obj.servermanagement.get_method_display()
     mgmt_method.short_description = 'OOB Method'
@@ -76,18 +84,15 @@ class EquipmentAdmin(admin.ModelAdmin):
 
     def model_u(obj):
         return obj.model.u
-    model_u.short_description = 'Unit Height'
+    model_u.short_description = 'Us'
 
-    def allocation(obj):
-        return obj.allocation.name
-    allocation.short_description = 'Allocation'
-
-    list_display = ('purpose', allocation, 'model', 'serial',
+    list_display = ('allocation', 'model', 'serial',
             'rack', 'unit', model_u,
             mgmt_method, mgmt_username, mgmt_password,
-            'comments', 'updated', 'state')
+            'purpose', 'state')
     list_display_links = ('serial',)
     list_filter = ('model', 'rack','state',)
+    search_fields = ['rack', 'unit', 'serial', 'allocation__name']
     ordering = ('rack', 'unit',)
     inlines = [ ServerManagementInline, ]
     actions = [ shutdown, startup, shutdown_force ]
