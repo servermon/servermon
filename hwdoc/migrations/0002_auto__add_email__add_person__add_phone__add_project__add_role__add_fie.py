@@ -23,14 +23,6 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('hwdoc', ['Person'])
 
-        # Adding M2M table for field phones on 'Person'
-        db.create_table('hwdoc_person_phones', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('person', models.ForeignKey(orm['hwdoc.person'], null=False)),
-            ('phone', models.ForeignKey(orm['hwdoc.phone'], null=False))
-        ))
-        db.create_unique('hwdoc_person_phones', ['person_id', 'phone_id'])
-
         # Adding M2M table for field emails on 'Person'
         db.create_table('hwdoc_person_emails', (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
@@ -38,6 +30,14 @@ class Migration(SchemaMigration):
             ('email', models.ForeignKey(orm['hwdoc.email'], null=False))
         ))
         db.create_unique('hwdoc_person_emails', ['person_id', 'email_id'])
+
+        # Adding M2M table for field phones on 'Person'
+        db.create_table('hwdoc_person_phones', (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('person', models.ForeignKey(orm['hwdoc.person'], null=False)),
+            ('phone', models.ForeignKey(orm['hwdoc.phone'], null=False))
+        ))
+        db.create_unique('hwdoc_person_phones', ['person_id', 'phone_id'])
 
         # Adding model 'Phone'
         db.create_table('hwdoc_phone', (
