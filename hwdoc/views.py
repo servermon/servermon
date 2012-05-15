@@ -19,7 +19,15 @@ from hwdoc.models import Equipment, ServerManagement
 from django.db.models import Q
 from hwdoc import functions
 from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
+
+def equipment(request, equipment_id):
+    template = 'equipment.html'
+
+    equipment = get_object_or_404(Equipment,pk=equipment_id)
+    return render_to_response(template,
+            { 'equipment': equipment, },
+            context_instance=RequestContext(request))
 
 def search(request):
     if u'key' in request.GET:
