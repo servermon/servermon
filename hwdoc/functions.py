@@ -17,6 +17,7 @@
 
 from servermon.hwdoc.models import Equipment, ServerManagement
 from django.db.models import Q
+from socket import gethostbyaddr,herror,gaierror
 
 def search(key):
     '''
@@ -34,9 +35,14 @@ def search(key):
         else:
             result=Equipment.objects.filter(rack=rackunit[0:2], unit=rackunit[2:4])
     else:
+        try:
+            key = gethostbyaddr(key)[0]
+        except (herror, gaierror, IndexError):
+            pass
         result=Equipment.objects.filter(
                                         Q(serial=key)|
-                                        Q(model__name=key)|
+                                        Q(model__name__icontains=key)|
+                                        Q(allocation__name__icontains=key)|
                                         Q(servermanagement__mac__icontains=key)|
                                         Q(servermanagement__hostname__icontains=key.split('.')[0])
                                         )
