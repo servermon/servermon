@@ -18,6 +18,38 @@
 from django.contrib import admin
 from servermon.hwdoc.models import *
 
+class RoleInline(admin.TabularInline):
+    model = Role
+    extra = 1
+
+class ProjectAdmin(admin.ModelAdmin):
+    inlines = (RoleInline, )
+
+
+class EmailInline(admin.TabularInline):
+    model = Person.emails.through
+    extra = 1
+
+class PhoneInline(admin.TabularInline):
+    model = Person.phones.through
+    extra = 1
+        
+class EmailAdmin(admin.ModelAdmin):
+    inlines = [ EmailInline ]
+
+class PhoneAdmin(admin.ModelAdmin):
+    inlines = [ PhoneInline ]
+
+class PersonAdmin(admin.ModelAdmin):
+    inlines = [ EmailInline, PhoneInline, RoleInline]
+    search_fields = ('name', 'surname')
+    exclude = ('phones', 'emails')
+
+admin.site.register(Email, EmailAdmin)
+admin.site.register(Phone, PhoneAdmin)
+admin.site.register(Person, PersonAdmin)
+admin.site.register(Project, ProjectAdmin)
+
 admin.site.register(Vendor)
 admin.site.register(Model)
 
@@ -55,8 +87,6 @@ class ServerManagementInline(admin.StackedInline):
     model = ServerManagement
 
 class EquipmentAdmin(admin.ModelAdmin):
-    search_fields = ['rack', 'unit', 'serial',]
-
     def mgmt_method(obj):
         return obj.servermanagement.get_method_display()
     mgmt_method.short_description = 'OOB Method'
@@ -71,14 +101,15 @@ class EquipmentAdmin(admin.ModelAdmin):
 
     def model_u(obj):
         return obj.model.u
-    model_u.short_description = 'Unit Height'
+    model_u.short_description = 'Us'
 
-    list_display = ('purpose', 'model', 'serial',
+    list_display = ('allocation', 'model', 'serial',
             'rack', 'unit', model_u,
             mgmt_method, mgmt_username, mgmt_password,
-            'comments', 'updated', 'state')
+            'purpose', 'state')
     list_display_links = ('serial',)
     list_filter = ('model', 'rack','state',)
+    search_fields = ['rack', 'unit', 'serial', 'allocation__name']
     ordering = ('rack', 'unit',)
     inlines = [ ServerManagementInline, ]
     actions = [ shutdown, startup, shutdown_force ]

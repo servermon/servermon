@@ -17,6 +17,53 @@
 
 from django.db import models
 
+# Allocation models #
+class Email(models.Model):
+    email = models.CharField(max_length=80)
+
+    def __unicode__(self):
+        return self.email
+
+class Phone(models.Model):
+    number = models.CharField(max_length=80)
+
+    def __unicode__(self):
+        return self.number
+
+class Person(models.Model):
+    name = models.CharField(max_length=80)
+    surname = models.CharField(max_length=80)
+    emails = models.ManyToManyField(Email)
+    phones = models.ManyToManyField(Phone)
+
+    def __unicode__(self):
+        result =  '%s %s ' % (self.name, self.surname)
+        if self.emails.count() > 0:
+            result += '<%s> ' % ', '.join(map(lambda x: x[0], self.emails.values_list('email')))
+        if self.phones.count() > 0:
+            result += '%s' % ', '.join(map(lambda x: x[0], self.phones.values_list('number')))
+        return result
+
+class Project(models.Model):
+    name = models.CharField(max_length=80)
+    contacts = models.ManyToManyField(Person, through='Role')
+
+    def __unicode__(self):
+        return self.name
+
+class Role(models.Model):
+    ROLES = (
+                ( 'manager', 'Manager' ),
+                ('technical', 'Techinal Person'), 
+            )
+    role = models.CharField(max_length=80, choices=ROLES)
+    project = models.ForeignKey(Project)
+    person = models.ForeignKey(Person)
+
+    def __unicode__(self):
+        return 'Role: %s Project: %s, Person: %s %s' % (self.role, self.project.name, self.person.name, self.person.surname)
+
+# Equipment models #
 class Vendor(models.Model):
     name = models.CharField(max_length=80)
 
@@ -41,6 +88,7 @@ class Equipment(models.Model):
             ('5', 'UNKNOWN'),
         )
     model = models.ForeignKey(Model)
+    allocation = models.ForeignKey(Project, null=True, blank=True)
     serial = models.CharField(max_length=80)
     rack = models.PositiveIntegerField(null=True, blank=True)
     unit = models.PositiveIntegerField(null=True, blank=True)
