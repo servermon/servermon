@@ -18,10 +18,32 @@
 from django.contrib import admin
 from servermon.hwdoc.models import *
 
+class EmailInline(admin.TabularInline):
+    model = Person.emails.through
+    extra = 1
+
+class PhoneInline(admin.StackedInline):
+    model = Person.phones.through
+    extra = 1
+        
+class EmailAdmin(admin.ModelAdmin):
+    inlines = [ EmailInline ]
+
+class PhoneAdmin(admin.ModelAdmin):
+    inlines = [ PhoneInline ]
+
+class PersonAdmin(admin.ModelAdmin):
+    inlines = [ EmailInline, PhoneInline ]
+    search_fields = ('name', 'surname')
+    exclude = ('phones', 'emails')
+
+admin.site.register(Email)
+admin.site.register(Phone)
+
+admin.site.register(Person, PersonAdmin)
+
 admin.site.register(Vendor)
 admin.site.register(Model)
-admin.site.register(Project)
-admin.site.register(Role)
 
 def shutdown(modeladmin, request, queryset):
     for obj in queryset:
@@ -52,19 +74,6 @@ def shutdown_force(modeladmin, request, queryset):
         obj.servermanagement.power_off()
 
 shutdown_force.short_description = 'Force a shutdown of an equipment'
-
-class PersonAdmin(admin.ModelAdmin):
-    search_fields = ('name', 'surname')
-    filter_horizontal = ('emails', 'phones')
-    fieldsets = (
-            ('Identity', {
-                'fields': ('name', 'surname')
-            }),
-            ('Contact Info', {
-                'fields': ('emails', 'phones'),
-            }),
-    )
-admin.site.register(Person, PersonAdmin)
 
 class ServerManagementInline(admin.StackedInline):
     model = ServerManagement
