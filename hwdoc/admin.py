@@ -18,11 +18,19 @@
 from django.contrib import admin
 from servermon.hwdoc.models import *
 
+class RoleInline(admin.TabularInline):
+    model = Role
+    extra = 1
+
+class ProjectAdmin(admin.ModelAdmin):
+    inlines = (RoleInline, )
+
+
 class EmailInline(admin.TabularInline):
     model = Person.emails.through
     extra = 1
 
-class PhoneInline(admin.StackedInline):
+class PhoneInline(admin.TabularInline):
     model = Person.phones.through
     extra = 1
         
@@ -33,14 +41,14 @@ class PhoneAdmin(admin.ModelAdmin):
     inlines = [ PhoneInline ]
 
 class PersonAdmin(admin.ModelAdmin):
-    inlines = [ EmailInline, PhoneInline ]
+    inlines = [ EmailInline, PhoneInline, RoleInline]
     search_fields = ('name', 'surname')
     exclude = ('phones', 'emails')
 
-admin.site.register(Email)
-admin.site.register(Phone)
-
+admin.site.register(Email, EmailAdmin)
+admin.site.register(Phone, PhoneAdmin)
 admin.site.register(Person, PersonAdmin)
+admin.site.register(Project, ProjectAdmin)
 
 admin.site.register(Vendor)
 admin.site.register(Model)
