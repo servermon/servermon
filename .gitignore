@@ -1,6 +1,6 @@
 *.pyc
 settings.py
 *.swp
-urls.py
+/urls.py
 *.sqlite*
 *.db
