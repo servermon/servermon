@@ -1,0 +1,33 @@
+{% extends "generic.html" %} 
+{% block heading %}{{ project }}{% endblock %}
+{% block content %}
+<div id="project" class="hostinfo">
+	<h3>Project Info</h3>
+	<table>
+		<tbody>
+			<tr><th>Name:</th><td>{{ project.name }}</td></tr>
+		</tbody>
+	</table>
+	<h3>Contact Info</h3>
+	<table>
+		<tbody>
+		<tr>
+			<th>Role</th>
+			<th>Name</th>
+			<th>Surname</th>
+			<th>Emails</th>
+			<th>Phones</th>
+		</tr>
+		{% for contact in project.role_set.all %}
+		<tr>
+			<td>{{ contact.role }}</td>
+			<td>{{ contact.person.name }}</td>
+			<td>{{ contact.person.surname }}</td>
+			<td>{% for email in contact.person.emails.all %}{{ email.email }}{% if not forloop.last %},{% endif %}{%endfor %}</td>
+			<td>{% for phone in contact.person.phones.all %}{{ phone.number }}{% if not forloop.last %},{% endif %}{%endfor %}</td>
+		</tr>
+		{% endfor %}
+		<tbody>
+	</table>
+</div>
+{% endblock %}

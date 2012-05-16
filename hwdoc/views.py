@@ -15,7 +15,7 @@
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
 
-from hwdoc.models import Equipment, ServerManagement
+from hwdoc.models import Project, Equipment, ServerManagement
 from django.db.models import Q
 from hwdoc import functions
 from django.template import RequestContext
@@ -27,6 +27,14 @@ def equipment(request, equipment_id):
     equipment = get_object_or_404(Equipment,pk=equipment_id)
     return render_to_response(template,
             { 'equipment': equipment, },
+            context_instance=RequestContext(request))
+
+def project(request, project_id):
+    template = 'project.html'
+
+    project = get_object_or_404(Project,pk=project_id)
+    return render_to_response(template,
+            { 'project': project, },
             context_instance=RequestContext(request))
 
 def search(request):
