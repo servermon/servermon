@@ -61,7 +61,7 @@ class Role(models.Model):
     person = models.ForeignKey(Person)
 
     def __unicode__(self):
-        return 'Role: %s Project: %s, Person: %s %s' % (self.role, self.project.name, self.person.name, self.person.surname)
+        return 'Project: %s, Person: %s %s, Role: %s' % (self.project.name, self.person.name, self.person.surname, self.role)
 
 # Equipment models #
 class Vendor(models.Model):
