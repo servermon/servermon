@@ -1,7 +1,7 @@
 {% extends "generic.html" %} 
 {% block heading %}Search results{% endblock %}
 {% block content %}
-<div id="results">
+<div> 
 	<h3>Results</h3>
 	<table>
 		<tbody>
@@ -21,7 +21,7 @@
 			<td class="mono">{% if result.allocation %}{{ result.allocation.name }}{% else %}&mdash;{% endif %}</td>
 		</tr>
 		{% endfor %}
-		<tbody>
+		</tbody>
 	</table>
 </div>
 {% endblock %}

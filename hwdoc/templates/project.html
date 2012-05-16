@@ -27,7 +27,7 @@
 			<td>{% for phone in contact.person.phones.all %}{{ phone.number }}{% if not forloop.last %},{% endif %}{%endfor %}</td>
 		</tr>
 		{% endfor %}
-		<tbody>
+		</tbody>
 	</table>
 </div>
 {% endblock %}
