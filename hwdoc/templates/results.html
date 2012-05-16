@@ -1,7 +1,7 @@
 {% extends "generic.html" %} 
 {% block heading %}Search results{% endblock %}
 {% block content %}
-<div id="results" class="hostinfo">
+<div id="results">
 	<h3>Results</h3>
 	<table>
 		<tbody>
@@ -9,12 +9,14 @@
 			<th>Serial</th>
 			<th>RackUnit</th>
 			<th>Hostname</th>
+			<th>Project</th>
 		</tr>
 		{% for result in results %}
 		<tr>
-			<td>{{ result.serial }}</td>
-			<td>{{ result.rack|stringformat:"02d" }}{{ result.unit|stringformat:"02d" }}</td>
-			<td>{{ result.servermanagement.hostname }}</td>
+			<td class="mono">{{ result.serial }}</td>
+			<td class="mono">{{ result.rack|stringformat:"02d" }}{{ result.unit|stringformat:"02d" }}</td>
+			<td class="mono">{{ result.servermanagement.hostname }}</td>
+			<td class="mono">{% if result.allocation %}{{ result.allocation.name }}{% else %}&mdash;{% endif %}</td>
 		</tr>
 		{% endfor %}
 		<tbody>
