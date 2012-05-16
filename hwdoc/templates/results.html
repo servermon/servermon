@@ -1,0 +1,23 @@
+{% extends "generic.html" %} 
+{% block heading %}Search results{% endblock %}
+{% block content %}
+<div id="results" class="hostinfo">
+	<h3>Results</h3>
+	<table>
+		<tbody>
+		<tr>
+			<th>Serial</th>
+			<th>RackUnit</th>
+			<th>Hostname</th>
+		</tr>
+		{% for result in results %}
+		<tr>
+			<td>{{ result.serial }}</td>
+			<td>{{ result.rack|stringformat:"02d" }}{{ result.unit|stringformat:"02d" }}</td>
+			<td>{{ result.servermanagement.hostname }}</td>
+		</tr>
+		{% endfor %}
+		<tbody>
+	</table>
+</div>
+{% endblock %}

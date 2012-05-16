@@ -38,12 +38,19 @@ def project(request, project_id):
             context_instance=RequestContext(request))
 
 def search(request):
-    if u'key' in request.GET:
-        key = request.GET['key']
+    if u'txt' in request.GET:
+        template = 'results.txt'
+        mimetype = 'text/plain'
+    else:
+        template = 'results.html'
+        mimetype = 'text/html'
+
+    if u'q' in request.GET:
+        key = request.GET['q']
     else:
         key = None
 
-    return render_to_response('search.txt',
+    return render_to_response(template,
             { 'results': functions.search(key), },
-            mimetype='text/plain',
+            mimetype=mimetype,
             context_instance=RequestContext(request))
