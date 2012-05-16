@@ -1,0 +1,20 @@
+{% extends "generic.html" %} 
+{% block heading %}Advanced Search{% endblock %}
+{% block content %}
+<div> 
+	<h3>Advanced Search</h3>
+	<form method="POST" action="{% url hwdoc.views.search %}">
+		<table>
+			<tbody>
+				<tr>
+					<td><textarea name="qarea" cols="50" rows="30" />
+Insert your free text to be searched here. For example nmap output
+					</textarea>
+					</td>
+					<td><input type="submit" name="search" /></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</div>
+{% endblock %}

@@ -54,3 +54,7 @@ def search(request):
             { 'results': functions.search(key), },
             mimetype=mimetype,
             context_instance=RequestContext(request))
+
+def advancedsearch(request):
+    return render_to_response('advancedsearch.html',
+            context_instance=RequestContext(request))
