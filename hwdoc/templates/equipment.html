@@ -4,7 +4,7 @@
 <div id="equipment" class="hostinfo">
 	<table>
 		<tbody>
-		<tr><th>Project:</th><td>{% if equipment.allocation %}<a href="{% url hwdoc.views.project equipment.allocation.pk %}">{{ equipment.allocation.name }}</a>{% endif %}</td></tr>
+			<tr><th>Project:</th><td>{% if equipment.allocation %}<a href="{% url hwdoc.views.project equipment.allocation.pk %}">{{ equipment.allocation.name }}</a>{% else %}-{% endif %}</td></tr>
 		<tr><th>Model:</th><td>{{ equipment.model }}</td></tr>
 		<tr><th>Serial:</th><td>{{ equipment.serial }}</td></tr>
 		<tr><th>Rack Unit:</th><td>{{ equipment.rack|stringformat:"02d" }}{{ equipment.unit|stringformat:"02d" }}</td></tr>

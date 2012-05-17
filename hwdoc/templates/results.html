@@ -14,11 +14,11 @@
 		</tr>
 		{% for result in results %}
 		<tr>
-			<td class="mono">{{ result.serial }}</td>
+			<td class="mono"><a href="{% url hwdoc.views.equipment result.pk %}">{{ result.serial }}</a></td>
 			<td class="mono">{{ result.model.vendor }}&nbsp;{{ result.model.name }}</td>
 			<td class="mono">{{ result.rack|stringformat:"02d" }}{{ result.unit|stringformat:"02d" }}</td>
 			<td class="mono">{{ result.servermanagement.hostname }}</td>
-			<td class="mono">{% if result.allocation %}{{ result.allocation.name }}{% else %}&mdash;{% endif %}</td>
+			<td class="mono">{% if result.allocation %}<a href="{% url hwdoc.views.project result.allocation.pk %}">{{ result.allocation.name }}</a>{% else %}&mdash;{% endif %}</td>
 		</tr>
 		{% endfor %}
 		</tbody>
