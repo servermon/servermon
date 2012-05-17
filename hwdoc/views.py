@@ -47,6 +47,8 @@ def search(request):
 
     if u'q' in request.GET:
         key = request.GET['q']
+    elif u'qarea' in request.POST:
+        key = functions.get_search_terms(request.POST['qarea'])
     else:
         key = None
 
