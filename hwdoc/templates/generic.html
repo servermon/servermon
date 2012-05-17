@@ -14,6 +14,9 @@
 		<input type="text" name="q" />
 		<input type="submit" value="Search" />
 	</form> 
+	<div>
+	or:<a href="{% url hwdoc.views.advancedsearch %}">Advanced Search</a>
+	</div>
 </div>
 <h1>{% block heading %}{% endblock %}</h1>
 {% block content %}{% endblock %}
