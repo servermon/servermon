@@ -18,32 +18,69 @@
 from servermon.hwdoc.models import Equipment, ServerManagement
 from django.db.models import Q
 from socket import gethostbyaddr,herror,gaierror
+from whoosh.analysis import SpaceSeparatedTokenizer, StopFilter
+import re
 
-def search(key):
+def search(q):
+    '''
+    TODO: Fill this in
+    '''
+    if q is None:
+        return None
+
+    # Working on iterables. However in case we are not given one it is cheaper
+    # to create one than fail
+    try:
+        q.__iter__()
+    except AttributeError:
+        q = (q,)
+
+    ids = []
+
+    for key in q:
+        if key.upper().replace('R','').replace('U','').isdigit():
+            rackunit = key.upper().replace('R','').replace('U','')
+            if len(rackunit) < 3:
+                result = Equipment.objects.filter(rack=rackunit)
+            elif len(rackunit) == 3:
+                result = Equipment.objects.none()
+            else:
+                result = Equipment.objects.filter(rack=rackunit[0:2], unit=rackunit[2:4])
+        else:
+            try:
+                key = gethostbyaddr(key)[0]
+            except (herror, gaierror, IndexError):
+                pass
+            result = Equipment.objects.filter(
+                                            Q(serial=key)|
+                                            Q(model__name__icontains=key)|
+                                            Q(allocation__name__icontains=key)|
+                                            Q(servermanagement__mac__icontains=key)|
+                                            Q(servermanagement__hostname__icontains=key.split('.')[0])
+                                            )
+        ids.extend(result.distinct().values_list('id', flat=True))
+        ids = list(set(ids))
+    try:
+        return Equipment.objects.filter(pk__in=ids).distinct()
+    except DatabaseError as e:
+        raise RuntimeError('An error occured while querying db: %s' % e)
+
+def get_search_terms(text):
     '''
     TODO: Fill this in
     '''
 
-    if key is None:
-        return None
-    if key.upper().replace('R','').replace('U','').isdigit():
-        rackunit = key.upper().replace('R','').replace('U','')
-        if len(rackunit) < 3:
-            result=Equipment.objects.filter(rack=rackunit)
-        elif len(rackunit) == 3:
-            raise RuntimeError('Search key is ambiguous. Perhaps has a length of 3?')
-        else:
-            result=Equipment.objects.filter(rack=rackunit[0:2], unit=rackunit[2:4])
-    else:
-        try:
-            key = gethostbyaddr(key)[0]
-        except (herror, gaierror, IndexError):
-            pass
-        result=Equipment.objects.filter(
-                                        Q(serial=key)|
-                                        Q(model__name__icontains=key)|
-                                        Q(allocation__name__icontains=key)|
-                                        Q(servermanagement__mac__icontains=key)|
-                                        Q(servermanagement__hostname__icontains=key.split('.')[0])
-                                        )
-    return result
+    stoplist = ['and', 'is', 'it', 'an', 'as', 'at', 'have', 'in', 'yet', 'if',
+            'from', 'for', 'when', 'by', 'to', 'you', 'be', 'we', 'that', 'may',
+            'not', 'with', 'tbd', 'a', 'on', 'your', 'this', 'of', 'us', 'will',
+            'can', 'the', 'or', 'are', 'up', 'down', 'ip',]
+
+    analyzer = SpaceSeparatedTokenizer() | StopFilter(stoplist=stoplist)
+
+    tokens = set([x.text for x in analyzer(text)])
+
+    # TODO: When we go to whoosh 2.x we can drop the following and use a whoosh
+    # SubstitutionFilter to the analyzer above
+    tokens = set([re.sub('[\(\)/]','',x) for x in tokens])
+
+    return tokens
