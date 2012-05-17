@@ -3,6 +3,7 @@
 from django.conf.urls.defaults import *
 
 urlpatterns = patterns('servermon.hwdoc.views',
+            (r'^$', 'index'),
             (r'^project/(?P<project_id>[\d]+)/$', 'project'),
             (r'^equipment/(?P<equipment_id>[\d]+)/$', 'equipment'),
             (r'^search/$', 'search'),
