@@ -53,5 +53,14 @@
       "vendor": 1, 
       "name": "DS2600"
     }
+  },
+  {
+    "pk": 4, 
+    "model": "hwdoc.model", 
+    "fields": {
+      "u": 1, 
+      "vendor": 2, 
+      "name": "PRIMERGY RX200 S5"
+    }
   }
 ]
