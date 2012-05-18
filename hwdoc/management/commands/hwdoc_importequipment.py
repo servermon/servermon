@@ -48,6 +48,8 @@ class Command(BaseCommand):
                     eq = 'DS'
                 elif eq.startswith('SC'):
                     eq = 'SC'
+                elif eq.startswith('HN'):
+                    eq = 'HN'
                 else:
                     continue
 
@@ -68,18 +70,25 @@ class Command(BaseCommand):
                 elif eq == 'DS':
                     e.model = Model.objects.get(name="DS2600")
                     e.purpose = eq
+                elif eq == 'HN':
+                    e.model = Model.objects.get(name="PRIMERGY RX200 S5")
+                    e.purpose = eq
 
                 e.serial = sn
                 e.rack = rack
                 e.unit = unit
                 e.save()
 
-                if eq == 'VMC' or eq == 'SC':
+                if eq == 'VMC' or eq == 'SC' or eq == 'HN':
                     s = ServerManagement()
                     s.equipment = e
-                    s.method = "ilo3"
+                    if eq == 'HN':
+                        s.method = "irmc"
+                        s.username = "admin"
+                    elif eq == 'VMC' or eq == 'SC':
+                        s.method = "ilo3"
+                        s.username = "Administrator"
                     s.hostname = dns
-                    s.username = "Administrator"
                     s.password = passwd
                     s.mac = mac
                     s.save()
