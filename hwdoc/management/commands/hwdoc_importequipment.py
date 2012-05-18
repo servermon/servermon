@@ -40,7 +40,7 @@ class Command(BaseCommand):
         with open(csvname, 'rb') as f:
             reader = csv.reader(f)
             for row in reader:
-                (aa, eq, sn, dns, passwd, rack, unit) = row[:7]
+                (aa, eq, sn, dns, passwd, rack, unit, pdua, pdub, mac) = row[:10]
 
                 if eq.startswith('VMC'):
                     eq = 'VMC'
@@ -51,7 +51,7 @@ class Command(BaseCommand):
                 else:
                     continue
 
-                if len(dns) != 13 and eq != 'DS':
+                if len(dns) != 29 and eq != 'DS':
                     print "ERROR: Row: %s has wrong ILODNS row" % (row)
                     continue
 
@@ -81,6 +81,7 @@ class Command(BaseCommand):
                     s.hostname = dns
                     s.username = "Administrator"
                     s.password = passwd
+                    s.mac = mac
                     s.save()
 
                 print "OK: %s %s" % (eq, sn)
