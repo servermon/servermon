@@ -56,7 +56,7 @@ def search(q):
                                             Q(model__name__icontains=key)|
                                             Q(allocation__name__icontains=key)|
                                             Q(servermanagement__mac__icontains=key)|
-                                            Q(servermanagement__hostname__icontains=key.split('.')[0])
+                                            Q(servermanagement__hostname__icontains=key)
                                             )
         ids.extend(result.distinct().values_list('id', flat=True))
         ids = list(set(ids))
