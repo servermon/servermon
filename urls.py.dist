@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     (r'^inventory/?$','views.inventory'),
     (r'^search/?$', 'views.search'),
     (r'^query/?$', 'views.query'),
+    (r'^hwdoc/', include('servermon.hwdoc.urls')),
 )
 
 # Static files
