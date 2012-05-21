@@ -15,14 +15,22 @@
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
 
-from hwdoc.models import Project, Equipment, ServerManagement
+from hwdoc.models import Project, Model, Equipment, ServerManagement
 from django.db.models import Q
 from hwdoc import functions
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 
 def index(request):
+    racks = Equipment.objects.values_list('rack', flat=True).distinct()
+    projects = Project.objects.all()
+    models = Model.objects.all()
+    
     return render_to_response('hwdocindex.html',
+            {   'racks': racks,
+                'projects': projects,
+                'models': models,
+            },
             context_instance=RequestContext(request))
 
 def equipment(request, equipment_id):
