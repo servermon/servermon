@@ -1,3 +1,57 @@
 ===========
+0.2 Release
+
+b4b7e32 Allocation and state in hwdoc admin interface
+3ea2e87 Add hwdoc to urls.py
+54b26d4 Index page for hwdoc
+49d15e7 Remove some erroneus code causing too many results in searches
+0488f66 Show number of results in hwdoc search
+d2ee772 Some more minor changes in hwdoc importequipment command
+c29275c Add a fujitsu model to fixtures
+8065414 Some changes to importequipment hwdoc command
+07ee09b First hwdoc index page draft
+0f87d0b Minor stylistic changes in templates
+dbe39b8 Advanced search link in all pages
+0c6645b search now implements free text search from previous commit
+333caf8 Freetext search implemented in hwdoc
+097471d Advanced search view added
+47af734 Fixed error causing hwdoc/urls.py ommision
+7ca209d Presentation and well-formedness fixes
+43af422 Minor results page changes
+bdc4b7d Search fields now works with our search
+95c8ba5 Minor results page updates
+699eca2 hwdoc search results pages first draft
+2936b84 Link from equipment to project
+62b0bc2 Add a project view/template
+66a078d A better __unicode__ attr for Role
+0954d63 Add equipment view for hwdoc
+a29fa07 Various search finetunings
+fabf977 Add 500 error page
+dc361d9 Change field order in hwdoc models
+b0af284 Merge branch 'allocations'
+670f34f Minor model cleanups for hwdoc
+6d31efe Add Role, Project in admin site
+e409953 Persons, emails, phones in one admin form
+534e565 Changes in the admin page for equipment. Person admin page added
+61de112 Minor changes to admin interface for hwdoc allocations feature
+7f72fa2 Some __unicode__ functions for our new objects
+6eb833d Allocations support added
+4c090ea Whitespace cleanup
+06aea30 Fixed issue with keyword argument license passed in all calls
+9da70a6 Added a unittest first draft for hwdoc
+42b36ce Bringing settings.py to 1.2 django version format
+2267c48 Add servermon.hwdoc to settings.py
+69e49c8 Removed deprecated VM_TIMEOUT setting
+0b6436f iLO3 implentation for factory defaults command
+7659223 Implemented bmc factory defaults django command
+cd233d9 Add a 404 page
+1265138 Implemented iLO3 BMC reset command
+8df51bd Add a BMC reset command
+156d6b5 dummy backend method to facilitate development added
+eec901f South migrations for hwdoc
+1825cd3 Static media files url handled by django when in debug mode
+3714d25 Move the python encoding directive in the correct place
+
+===========
 0.1 Release
 

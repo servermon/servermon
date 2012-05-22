@@ -1,0 +1,14 @@
+==========
+0.1 => 0.2
+
+In order to upgrade from 0.1 to 0.2 you should perform the following
+
+* Install prerequisites: 
+ * south (For debian based distros aptitude install python-django-south should be enough)
+ * whoosh (For debian based distros aptitude install python-whoosh)
+* Untar new version (backup the old one first)
+* Merge urls.py with new urls.py.dist
+* Merge settings.py with new settings.py.dist (make sure south is in INSTALLED_APPS)
+* Migrate using south
+	./manage.py migrate hwdoc 0001_initial --fake
+	./manage.py migrate hwdoc
