@@ -48,15 +48,16 @@ def search(q):
                 result = Equipment.objects.filter(rack=rackunit[0:2], unit=rackunit[2:4])
         else:
             try:
-                key = gethostbyaddr(key)[0]
+                dns = gethostbyaddr(key)[0]
             except (herror, gaierror, IndexError):
-                pass
+                dns = ''
             result = Equipment.objects.filter(
                                             Q(serial=key)|
                                             Q(model__name__icontains=key)|
                                             Q(allocation__name__icontains=key)|
                                             Q(servermanagement__mac__icontains=key)|
-                                            Q(servermanagement__hostname__icontains=key)
+                                            Q(servermanagement__hostname__icontains=key)|
+                                            Q(servermanagement__hostname=dns)
                                             )
         ids.extend(result.distinct().values_list('id', flat=True))
         ids = list(set(ids))
