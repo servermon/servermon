@@ -21,6 +21,18 @@ from socket import gethostbyaddr,herror,gaierror
 from whoosh.analysis import SpaceSeparatedTokenizer, StopFilter
 import re
 
+def canonicalizemac(key):
+    string = key.lower().replace(':','').replace('-','').replace('.','')
+    result = ''
+
+    count = 0
+    for s in string:
+        if (count / 2) > 0 and (count % 2) == 0:
+            result += ':'
+        result += s
+        count += 1
+    return result
+
 def search(q):
     '''
     TODO: Fill this in
@@ -51,11 +63,12 @@ def search(q):
                 dns = gethostbyaddr(key)[0]
             except (herror, gaierror, IndexError):
                 dns = ''
+            mac = canonicalizemac(key)
             result = Equipment.objects.filter(
                                             Q(serial=key)|
                                             Q(model__name__icontains=key)|
                                             Q(allocation__name__icontains=key)|
-                                            Q(servermanagement__mac__icontains=key)|
+                                            Q(servermanagement__mac__icontains=mac)|
                                             Q(servermanagement__hostname__icontains=key)|
                                             Q(servermanagement__hostname=dns)
                                             )
