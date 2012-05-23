@@ -22,9 +22,9 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 
 def index(request):
-    racks = Equipment.objects.values_list('rack', flat=True).distinct()
-    projects = Project.objects.all()
-    models = Model.objects.all()
+    racks = Equipment.objects.order_by('rack').values_list('rack', flat=True).distinct()
+    projects = Project.objects.order_by('name').all()
+    models = Model.objects.order_by('vendor__name','name').all()
     
     return render_to_response('hwdocindex.html',
             {   'racks': racks,
