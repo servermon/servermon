@@ -10,6 +10,7 @@
 			<th>Model</th>
 			<th>RackUnit</th>
 			<th>Hostname</th>
+			<th>State</th>
 			<th>Project</th>
 		</tr>
 		{% for result in results %}
@@ -18,6 +19,7 @@
 			<td class="mono">{{ result.model.vendor }}&nbsp;{{ result.model.name }}</td>
 			<td class="mono">{{ result.rack|stringformat:"02d" }}{{ result.unit|stringformat:"02d" }}</td>
 			<td class="mono">{{ result.servermanagement.hostname }}</td>
+			<td class="mono">{% if result.state %}{{ result.state }}{% else %}-{% endif %}</td>
 			<td class="mono">{% if result.allocation %}<a href="{% url hwdoc.views.project result.allocation.pk %}">{{ result.allocation.name }}</a>{% else %}&mdash;{% endif %}</td>
 		</tr>
 		{% endfor %}
