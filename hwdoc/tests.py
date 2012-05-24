@@ -17,6 +17,7 @@
 
 import unittest
 from hwdoc.models import Vendor,Model,Equipment, ServerManagement
+from hwdoc.functions import search
 
 class EquipmentTestCase(unittest.TestCase):
     def setUp(self):
@@ -46,6 +47,12 @@ class EquipmentTestCase(unittest.TestCase):
                             hostname = 'example.com',
                             )
 
+    def tearDown(self):
+        Equipment.objects.all().delete()
+        Model.objects.all().delete()
+        Vendor.objects.all().delete()
+
+    # Tests start here
     def test_if_servers_in_same_rack(self):
         self.assertEqual(self.server1.rack, self.server2.rack)
 
@@ -62,3 +69,16 @@ class EquipmentTestCase(unittest.TestCase):
         self.assertTrue(self.management.license_set())
         self.assertTrue(self.management.bmc_reset())
         self.assertTrue(self.management.bmc_factory_defaults())
+
+    def test_equipment_number(self):
+        self.assertEqual(Equipment.objects.all().count(), 2)
+
+    def test_search_empty(self):
+        self.assertFalse(search(''))
+
+    def test_search_rack(self):
+        self.assertEqual(search(self.server1.rack).count(), 2)
+
+    def test_search_serial(self):
+        self.assertEqual(search(self.server1.serial)[0].serial, self.server1.serial)
+
