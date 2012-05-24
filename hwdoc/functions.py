@@ -17,7 +17,7 @@
 
 from servermon.hwdoc.models import Equipment, ServerManagement
 from django.db.models import Q
-from socket import gethostbyaddr,herror,gaierror
+from socket import gethostbyaddr, herror, gaierror, error
 from whoosh.analysis import SpaceSeparatedTokenizer, StopFilter
 import re
 
@@ -37,7 +37,7 @@ def search(q):
     '''
     TODO: Fill this in
     '''
-    if q is None:
+    if q is None or len(q) == 0:
         return None
 
     # Working on iterables. However in case we are not given one it is cheaper
@@ -61,7 +61,7 @@ def search(q):
         else:
             try:
                 dns = gethostbyaddr(key)[0]
-            except (herror, gaierror, IndexError):
+            except (herror, gaierror, IndexError, error):
                 dns = ''
             mac = canonicalizemac(key)
             result = Equipment.objects.filter(
