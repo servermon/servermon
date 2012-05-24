@@ -8,5 +8,7 @@ urlpatterns = patterns('servermon.hwdoc.views',
             (r'^equipment/(?P<equipment_id>[\d]+)/$', 'equipment'),
             (r'^search/$', 'search'),
             (r'^advancedsearch/$', 'advancedsearch'),
+            # Opensearch
+            url(r'^opensearch.xml$', 'opensearch', name="opensearch"),
             )
 

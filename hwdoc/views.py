@@ -20,6 +20,8 @@ from django.db.models import Q
 from hwdoc import functions
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
+from django.conf import settings
+from django.contrib.sites.models import Site
 
 def index(request):
     racks = Equipment.objects.order_by('rack').values_list('rack', flat=True).distinct()
@@ -72,3 +74,21 @@ def search(request):
 def advancedsearch(request):
     return render_to_response('advancedsearch.html',
             context_instance=RequestContext(request))
+
+def opensearch(request):
+    fqdn = Site.objects.get_current().domain
+    try:
+        contact = settings.ADMINS[0][0]
+    except IndexError:
+        contact = 'none@example.com'
+
+    return render_to_response('opensearch.xml',
+             {
+                 'opensearchbaseurl': "http://%s" % fqdn,
+                 'fqdn': fqdn,
+                 'contact': contact,
+                 },
+             context_instance=RequestContext(request),
+             mimetype = 'application/opensearchdescription+xml'
+            )
+

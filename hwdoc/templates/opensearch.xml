@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+    <ShortName>HWDOC</ShortName>
+    <LongName>Search Equipments in HWDOC</LongName>
+    <Description>Search Equipments in HWDOC</Description>
+    <Contact>{{ contact }}</Contact>
+    <Tags>hwdoc servermon rack equipment </Tags>
+    <AdultContent>false</AdultContent>
+    <Language>en-us</Language>
+    <OutputEncoding>UTF-8</OutputEncoding>
+    <InputEncoding>UTF-8</InputEncoding>
+    <Developer>Alexandros Kosiaris</Developer>
+    <Query role="example" searchTerms="ggc" />
+    <SyndicationRight>open</SyndicationRight>
+    <Image width="16" height="16" type="image/png">{{ MEDIA_URL }}/opensearch.png</Image>
+    <Url type="text/html" template="{{ opensearchbaseurl }}{% url hwdoc.views.search %}?q={searchTerms}"/>
+    <Attribution>
+     Servermon
+    </Attribution>
+    <moz:UpdateInterval>7</moz:UpdateInterval>
+    <moz:UpdateUrl>{{ opensearchbaseurl }}{% url opensearch %}</moz:UpdateUrl>
+    <moz:Image width="16" height="16">{{ MEDIA_URL }}/opensearch.png</moz:Image>
+    <moz:IconUpdateUrl>{{ MEDIA_URL }}/opensearch.png</moz:IconUpdateUrl>
+    <moz:SearchForm>{{ opensearchbaseurl }}{% url hwdoc.views.search %}</moz:SearchForm>
+</OpenSearchDescription>
+
