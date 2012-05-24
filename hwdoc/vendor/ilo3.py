@@ -228,6 +228,19 @@ def __mod_network_settings_command__(**kwargs):
 
 
 def __mod_global_settings_command__(**kwargs):
+    serial_speeds = {
+            '9600'  : '1',
+            '19200' : '2',
+            '38400' : '3',
+            '57600' : '4',
+            '115200': '5',
+            }
+    if 'serial_cli_speed' in kwargs:
+        try:
+            kwargs['serial_cli_speed'] = serial_speeds[kwargs['serial_cli_speed']]
+        except KeyError:
+            raise RuntimeError('Serial speed given makes no sense for iLO3 backend')
+
     kwargs.setdefault('session_timeout','30')
     kwargs.setdefault('ilo_enabled','Y')
     kwargs.setdefault('f8_prompt_enabled','Y')
@@ -239,12 +252,11 @@ def __mod_global_settings_command__(**kwargs):
     kwargs.setdefault('ssh_port','22')
     kwargs.setdefault('ssh_status','Y')
     kwargs.setdefault('serial_cli_status','3')
-    kwargs.setdefault('serial_cli_speed','5')
+    kwargs.setdefault('serial_cli_speed', '5')
     kwargs.setdefault('min_password','8')
     kwargs.setdefault('auth_fail_logging','3')
     kwargs.setdefault('rbsu_post_ip','Y')
     kwargs.setdefault('enforce_aes','N')
-    kwargs.setdefault('high_perf_mouse','No')
 
     command = '''
 <RIB_INFO mode="write">
@@ -271,6 +283,10 @@ def __mod_global_settings_command__(**kwargs):
     return command
 
 def __boot_order_command__(**kwargs):
+    '''
+    Valid values: CDROM, FLOPPY, HDD, NETWORK, USB
+    '''
+
     if kwargs['once']:
         command = '''
         <SERVER_INFO MODE="write">
@@ -291,6 +307,8 @@ def __boot_order_command__(**kwargs):
     return command
 
 def __power_on_delay_command__(**kwargs):
+    # TODO: This has not yet been exported to any django management command.
+    # As a result only defaults are used, but are good enough for now.
     kwargs.setdefault('delay', 'Random')
 
     command = '''
