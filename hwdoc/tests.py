@@ -16,18 +16,19 @@
 # OF THIS SOFTWARE.
 
 import unittest
-from hwdoc.models import Vendor,Model,Equipment, ServerManagement
-from hwdoc.functions import search
+from hwdoc.models import Vendor, Model, Equipment, ServerManagement
+from hwdoc.functions import search, get_search_terms
 
 class EquipmentTestCase(unittest.TestCase):
     def setUp(self):
         self.vendor = Vendor.objects.create(name='HP')
         self.model1 = Model.objects.create(vendor=self.vendor, name='DL 385 G7', u=2)
         self.model2 = Model.objects.create(vendor=self.vendor, name='DL 380 G7', u=2)
+        self.model2 = Model.objects.create(vendor=self.vendor, name='Fujisu PRIMERGY 200 S', u=1)
 
         self.server1 = Equipment.objects.create(
                                 model = self.model1,
-                                serial = '123456',
+                                serial = 'G123456',
                                 rack = '10',
                                 unit = '20',
                                 purpose = 'Nothing',
@@ -35,7 +36,7 @@ class EquipmentTestCase(unittest.TestCase):
 
         self.server2 = Equipment.objects.create(
                                 model = self.model2,
-                                serial = '123457',
+                                serial = 'R123457',
                                 rack = '10',
                                 unit = '22',
                                 purpose = 'Nothing',
@@ -48,6 +49,7 @@ class EquipmentTestCase(unittest.TestCase):
                             )
 
     def tearDown(self):
+        ServerManagement.objects.all().delete()
         Equipment.objects.all().delete()
         Model.objects.all().delete()
         Vendor.objects.all().delete()
@@ -81,4 +83,14 @@ class EquipmentTestCase(unittest.TestCase):
 
     def test_search_serial(self):
         self.assertEqual(search(self.server1.serial)[0].serial, self.server1.serial)
+        self.assertEqual(search(self.server2.serial)[0].serial, self.server2.serial)
+
+    def test_free_text_search(self):
+        text=u'''
+        This is a text that is not going to make any sense apart from containing
+        a hostname for a server (aka example.com) and a rackunit aka R10U22
+        '''
+
+        tokens = get_search_terms(text)
+        self.assertNotEqual(search(tokens).count(), 0)
 
