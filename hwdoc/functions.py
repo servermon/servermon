@@ -56,8 +56,10 @@ def search(q):
                 result = Equipment.objects.filter(rack=rackunit)
             elif len(rackunit) == 3:
                 result = Equipment.objects.none()
-            else:
+            elif len(rackunit) == 4:
                 result = Equipment.objects.filter(rack=rackunit[0:2], unit=rackunit[2:4])
+            else:
+                result = Equipment.objects.filter(serial=key)
         else:
             try:
                 dns = gethostbyaddr(key)[0]
