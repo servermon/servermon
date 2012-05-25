@@ -102,6 +102,8 @@ INSTALLED_APPS = (
     'south',
 )
 
+SKIP_SOUTH_TESTS = True
+
 DATE_FORMAT = "d/m/Y H:i"
 DATETIME_FORMAT = "d/m/Y H:i"
 
