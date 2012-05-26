@@ -1,0 +1,262 @@
+[
+ {
+  "pk": 1, 
+  "model": "hwdoc.email", 
+  "fields": {
+   "email": "me.you@example.com"
+  }
+ }, 
+ {
+  "pk": 2, 
+  "model": "hwdoc.email", 
+  "fields": {
+   "email": "he.she@example.com"
+  }
+ }, 
+ {
+  "pk": 3, 
+  "model": "hwdoc.email", 
+  "fields": {
+   "email": "we.you@example.com"
+  }
+ }, 
+ {
+  "pk": 1, 
+  "model": "hwdoc.phone", 
+  "fields": {
+   "number": "5555555"
+  }
+ }, 
+ {
+  "pk": 2, 
+  "model": "hwdoc.phone", 
+  "fields": {
+   "number": "7555555"
+  }
+ }, 
+ {
+  "pk": 3, 
+  "model": "hwdoc.phone", 
+  "fields": {
+   "number": "8555555"
+  }
+ }, 
+ {
+  "pk": 1, 
+  "model": "hwdoc.person", 
+  "fields": {
+   "phones": [
+    1
+   ], 
+   "surname": "you", 
+   "name": "me", 
+   "emails": [
+    1
+   ]
+  }
+ }, 
+ {
+  "pk": 2, 
+  "model": "hwdoc.person", 
+  "fields": {
+   "phones": [
+    2
+   ], 
+   "surname": "she", 
+   "name": "he", 
+   "emails": [
+    2
+   ]
+  }
+ }, 
+ {
+  "pk": 3, 
+  "model": "hwdoc.person", 
+  "fields": {
+   "phones": [
+    2
+   ], 
+   "surname": "you", 
+   "name": "we", 
+   "emails": [
+    3
+   ]
+  }
+ }, 
+ {
+  "pk": 1, 
+  "model": "hwdoc.project", 
+  "fields": {
+   "name": "virt"
+  }
+ }, 
+ {
+  "pk": 2, 
+  "model": "hwdoc.project", 
+  "fields": {
+   "name": "pert"
+  }
+ }, 
+ {
+  "pk": 3, 
+  "model": "hwdoc.project", 
+  "fields": {
+   "name": "iperf"
+  }
+ }, 
+ {
+  "pk": 1, 
+  "model": "hwdoc.role", 
+  "fields": {
+   "project": 1, 
+   "person": 1, 
+   "role": "manager"
+  }
+ }, 
+ {
+  "pk": 2, 
+  "model": "hwdoc.role", 
+  "fields": {
+   "project": 2, 
+   "person": 2, 
+   "role": "manager"
+  }
+ }, 
+ {
+  "pk": 3, 
+  "model": "hwdoc.role", 
+  "fields": {
+   "project": 3, 
+   "person": 3, 
+   "role": "manager"
+  }
+ }, 
+ {
+  "pk": 1, 
+  "model": "hwdoc.equipment", 
+  "fields": {
+   "updated": "2012-05-26 01:35:47", 
+   "added": "2012-05-26 01:35:47", 
+   "comments": "", 
+   "rack": 1, 
+   "allocation": null, 
+   "state": "0", 
+   "purpose": "VMWARE", 
+   "model": 4, 
+   "serial": "sdfsdfdsf", 
+   "unit": 1
+  }
+ }, 
+ {
+  "pk": 2, 
+  "model": "hwdoc.equipment", 
+  "fields": {
+   "updated": "2012-05-26 01:35:47", 
+   "added": "2012-05-26 01:35:47", 
+   "comments": "", 
+   "rack": 1, 
+   "allocation": null, 
+   "state": "0", 
+   "purpose": "VMWARE", 
+   "model": 4, 
+   "serial": "VM101010", 
+   "unit": 2
+  }
+ }, 
+ {
+  "pk": 3, 
+  "model": "hwdoc.equipment", 
+  "fields": {
+   "updated": "2012-05-26 01:35:47", 
+   "added": "2012-05-26 01:35:47", 
+   "comments": "", 
+   "rack": 1, 
+   "allocation": null, 
+   "state": "0", 
+   "purpose": "VMWARE", 
+   "model": 4, 
+   "serial": "VM202020", 
+   "unit": 3
+  }
+ }, 
+ {
+  "pk": 4, 
+  "model": "hwdoc.equipment", 
+  "fields": {
+   "updated": "2012-05-26 01:35:47", 
+   "added": "2012-05-26 01:35:47", 
+   "comments": "", 
+   "rack": 1, 
+   "allocation": null, 
+   "state": "0", 
+   "purpose": "VMWARE", 
+   "model": 4, 
+   "serial": "vM606060", 
+   "unit": 8
+  }
+ }, 
+ {
+  "pk": 5, 
+  "model": "hwdoc.equipment", 
+  "fields": {
+   "updated": "2012-05-26 01:35:47", 
+   "added": "2012-05-26 01:35:47", 
+   "comments": "", 
+   "rack": 1, 
+   "allocation": null, 
+   "state": "0", 
+   "purpose": "VMWARE", 
+   "model": 2, 
+   "serial": "SXI202020", 
+   "unit": 20
+  }
+ }, 
+ {
+  "pk": 6, 
+  "model": "hwdoc.equipment", 
+  "fields": {
+   "updated": "2012-05-26 01:35:47", 
+   "added": "2012-05-26 01:35:47", 
+   "comments": "", 
+   "rack": 2, 
+   "allocation": null, 
+   "state": "0", 
+   "purpose": "VMWARE", 
+   "model": 2, 
+   "serial": "KIT101010", 
+   "unit": 1
+  }
+ }, 
+ {
+  "pk": 7, 
+  "model": "hwdoc.equipment", 
+  "fields": {
+   "updated": "2012-05-26 01:35:47", 
+   "added": "2012-05-26 01:35:47", 
+   "comments": "", 
+   "rack": 1, 
+   "allocation": null, 
+   "state": "0", 
+   "purpose": "VMWARE", 
+   "model": 4, 
+   "serial": "merf", 
+   "unit": 12
+  }
+ }, 
+ {
+  "pk": 1, 
+  "model": "hwdoc.servermanagement", 
+  "fields": {
+   "username": "admin", 
+   "updated": "2012-05-26 01:35:47", 
+   "added": "2012-05-26 01:35:47", 
+   "license": "", 
+   "raid_license": "", 
+   "hostname": "irmc0101.example.com", 
+   "equipment": 1, 
+   "mac": "01:02:03:04:05:07", 
+   "password": "admin", 
+   "method": "irmc"
+  }
+ }
+]
