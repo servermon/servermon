@@ -90,14 +90,6 @@ class Model(models.Model):
         return "%s %s" % (self.vendor, self.name)
 
 class Equipment(models.Model):
-    STATE = (
-            ('0', 'WORKING - OK'),
-            ('1', 'WORKING - RMA'),
-            ('2', 'NOT-WORKING - RMA'),
-            ('3', 'NOT-WORKING - CHECKING'),
-            ('4', 'INACTIVE'),
-            ('5', 'UNKNOWN'),
-        )
     model = models.ForeignKey(Model)
     allocation = models.ForeignKey(Project, null=True, blank=True)
     serial = models.CharField(max_length=80)
@@ -107,7 +99,7 @@ class Equipment(models.Model):
     comments = models.TextField(null=True, blank=True)
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    state = models.CharField(choices=STATE,null=True, blank=True, max_length=20)
+    state = models.ForeignKey(State, default=State.get_default().pk)
 
     def __unicode__(self):
         out = ""
