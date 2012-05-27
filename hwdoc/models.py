@@ -53,7 +53,7 @@ class Project(models.Model):
 
 class Role(models.Model):
     ROLES = (
-                ( 'manager', 'Manager' ),
+                ('manager', 'Manager' ),
                 ('technical', 'Techinal Person'), 
             )
     role = models.CharField(max_length=80, choices=ROLES)
@@ -64,6 +64,17 @@ class Role(models.Model):
         return 'Project: %s, Person: %s %s, Role: %s' % (self.project.name, self.person.name, self.person.surname, self.role)
 
 # Equipment models #
+class State(models.Model):
+    name = models.CharField(max_length=20)
+    
+    def __unicode__(self):
+        return self.name
+
+    @classmethod
+    def get_default(cls):
+        return cls.objects.get(name='Unknown')
+
+
 class Vendor(models.Model):
     name = models.CharField(max_length=80)
 
