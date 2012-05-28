@@ -16,6 +16,7 @@
 # OF THIS SOFTWARE.
 
 from django.db import models
+from django.db.utils import DatabaseError
 
 # Allocation models #
 class Email(models.Model):
@@ -72,7 +73,10 @@ class State(models.Model):
 
     @classmethod
     def get_default(cls):
-        return cls.objects.get(name='Unknown')
+        try:
+            return cls.objects.get(name='Unknown')
+        except DatabaseError:
+            return cls()
 
 
 class Vendor(models.Model):
