@@ -18,6 +18,7 @@
 import unittest
 from hwdoc.models import Vendor, Model, Equipment, ServerManagement
 from hwdoc.functions import search, get_search_terms, canonicalize_mac
+from django.test.client import Client
 
 class EquipmentTestCase(unittest.TestCase):
     def setUp(self):
@@ -94,6 +95,7 @@ class EquipmentTestCase(unittest.TestCase):
         tokens = get_search_terms(text)
         self.assertNotEqual(search(tokens).count(), 0)
 
+class FunctionsTestCase(unittest.TestCase):
     def test_mac_canonicalizer(self):
         self.assertEqual(canonicalize_mac('1111.2222.3333'), '11:11:22:22:33:33')
         self.assertEqual(canonicalize_mac('11-11-22-22-33-33'), '11:11:22:22:33:33')
