@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# vim: tabstop=4:shiftwidth=4:softtabstop=4:expandtab
 import datetime
 from south.db import db
 from south.v2 import DataMigration
@@ -7,35 +8,39 @@ from django.db import models
 class Migration(DataMigration):
 
     def forwards(self, orm):
-        "Write your forwards methods here."
         equipments = orm['hwdoc.Equipment'].objects.all()
-        # WORKING - OK => Functional
-        equipments.filter(state='0').update(temp=orm['hwdoc.State'].objects.get(name='Functional'))
-        # WORKING - RMA => Component RMA
-        equipments.filter(state='1').update(temp=orm['hwdoc.State'].objects.get(name='Component RMA'))
-        # NOT WORKING - RMA => RMA
-        equipments.filter(state='2').update(temp=orm['hwdoc.State'].objects.get(name='RMA'))
-        # NOT WORKING - CHECKING => To Be Checked
-        equipments.filter(state='3').update(temp=orm['hwdoc.State'].objects.get(name='To Be Checked'))
-        # INACTIVE => Functional
-        equipments.filter(state='4').update(temp=orm['hwdoc.State'].objects.get(name='Functional'))
-        # UNKNOWN => Unknown
-        equipments.filter(state='5').update(temp=orm['hwdoc.State'].objects.get(name='Unknown'))
+    	try:
+            # WORKING - OK => Functional
+            equipments.filter(state='0').update(temp=orm['hwdoc.State'].objects.get(name='Functional'))
+            # WORKING - RMA => Component RMA
+            equipments.filter(state='1').update(temp=orm['hwdoc.State'].objects.get(name='Component RMA'))
+            # NOT WORKING - RMA => RMA
+            equipments.filter(state='2').update(temp=orm['hwdoc.State'].objects.get(name='RMA'))
+            # NOT WORKING - CHECKING => To Be Checked
+            equipments.filter(state='3').update(temp=orm['hwdoc.State'].objects.get(name='To Be Checked'))
+            # INACTIVE => Functional
+            equipments.filter(state='4').update(temp=orm['hwdoc.State'].objects.get(name='Functional'))
+            # UNKNOWN => Unknown
+            equipments.filter(state='5').update(temp=orm['hwdoc.State'].objects.get(name='Unknown'))
+        except orm['hwdoc.State'].DoesNotExist:
+            pass
 
     def backwards(self, orm):
-        "Write your backwards methods here."
-        equipments = orm['hwdoc.Equipment'].objects.all()
-        # WORKING - OK <= Functional
-        equipments.filter(temp__name='Functional').update(state=0)
-        # WORKING - RMA <= Component RMA
-        equipments.filter(temp__name='Component RMA').update(state=1)
-        # NOT WORKING - RMA <= RMA
-        equipments.filter(temp__name='RMA').update(state=2)
-        # NOT WORKING - CHECKING <= To Be Checked
-        equipments.filter(temp__name='To Be Checked').update(state=3)
-	# NOTE: We have lost state 4 - INACTIVE. It did not make any sense so it was deleted
-        # UNKNOWN <= Unknown
-        equipments.filter(temp__name='Unknown').update(state=5)
+        try:
+            equipments = orm['hwdoc.Equipment'].objects.all()
+            # WORKING - OK <= Functional
+            equipments.filter(temp__name='Functional').update(state=0)
+            # WORKING - RMA <= Component RMA
+            equipments.filter(temp__name='Component RMA').update(state=1)
+            # NOT WORKING - RMA <= RMA
+            equipments.filter(temp__name='RMA').update(state=2)
+            # NOT WORKING - CHECKING <= To Be Checked
+            equipments.filter(temp__name='To Be Checked').update(state=3)
+            # NOTE: We have lost state 4 - INACTIVE. It did not make any sense so it was deleted
+            # UNKNOWN <= Unknown
+            equipments.filter(temp__name='Unknown').update(state=5)
+        except orm['hwdoc.State'].DoesNotExist:
+            pass
 
     models = {
         'hwdoc.email': {
