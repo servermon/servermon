@@ -16,7 +16,7 @@
 # OF THIS SOFTWARE.
 
 import unittest
-from hwdoc.models import Vendor, Model, Equipment, ServerManagement
+from hwdoc.models import Vendor, Model, Equipment, ServerManagement, Project
 from hwdoc.functions import search, get_search_terms, canonicalize_mac
 from django.test.client import Client
 
@@ -100,4 +100,53 @@ class FunctionsTestCase(unittest.TestCase):
         self.assertEqual(canonicalize_mac('1111.2222.3333'), '11:11:22:22:33:33')
         self.assertEqual(canonicalize_mac('11-11-22-22-33-33'), '11:11:22:22:33:33')
         self.assertEqual(canonicalize_mac('11:11:22:22:33:33'), '11:11:22:22:33:33')
+
+class ViewsTestCase(unittest.TestCase):
+    def setUp(self):
+        self.vendor = Vendor.objects.create(name='HP')
+        self.model = Model.objects.create(vendor=self.vendor, name='DL 385 G7', u=2)
+
+        self.server = Equipment.objects.create(
+                                model = self.model,
+                                serial = 'dontcare',
+                                rack = '1',
+                                unit = '2',
+                                purpose = 'Nothing',
+                            )
+        self.project = Project.objects.create(name='project')
+
+    def tearDown(self):
+        ServerManagement.objects.all().delete()
+        Equipment.objects.all().delete()
+        Model.objects.all().delete()
+        Vendor.objects.all().delete()
+
+    def test_search_get(self):
+        c = Client()
+        data = ['', 'dummy', '562346', 'R5U21', 'UI2354']
+        for d in data:
+            response = c.get('/hwdoc/search/', {'q': d})
+            self.assertEqual(response.status_code, 200)
+
+    def test_free_text_search_post(self):
+        c = Client()
+        strings = [ 'this is a dummy string', '0.0', '.example.tld' ]
+        for s in strings:
+            response = c.post('/hwdoc/search/', {'qarea': s})
+            self.assertEqual(response.status_code, 200)
+
+    def test_index(self):
+        c = Client()
+        response = c.post('/hwdoc/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_equipment(self):
+        c = Client()
+        response = c.post('/hwdoc/equipment/%s/' % self.server.pk)
+        self.assertEqual(response.status_code, 200)
+
+    def test_project(self):
+        c = Client()
+        response = c.post('/hwdoc/project/%s/' % self.project.pk)
+        self.assertEqual(response.status_code, 200)
 
