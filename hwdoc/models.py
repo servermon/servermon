@@ -65,20 +65,6 @@ class Role(models.Model):
         return 'Project: %s, Person: %s %s, Role: %s' % (self.project.name, self.person.name, self.person.surname, self.role)
 
 # Equipment models #
-class State(models.Model):
-    name = models.CharField(max_length=20)
-    
-    def __unicode__(self):
-        return self.name
-
-    @classmethod
-    def get_default(cls):
-        try:
-            return cls.objects.get(name='Unknown')
-        except DatabaseError:
-            return cls()
-
-
 class Vendor(models.Model):
     name = models.CharField(max_length=80)
 
@@ -103,7 +89,6 @@ class Equipment(models.Model):
     comments = models.TextField(null=True, blank=True)
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    state = models.ForeignKey(State, default=State.get_default().pk)
 
     def __unicode__(self):
         out = ""
