@@ -70,6 +70,8 @@ def search(q):
                                             Q(serial=key)|
                                             Q(model__name__icontains=key)|
                                             Q(allocation__name__icontains=key)|
+                                            Q(allocation__contacts__name__icontains=key)|
+                                            Q(allocation__contacts__surname__icontains=key)|
                                             Q(servermanagement__mac__icontains=mac)|
                                             Q(servermanagement__hostname__icontains=key)|
                                             Q(servermanagement__hostname=dns)
