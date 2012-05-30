@@ -93,11 +93,11 @@ class EquipmentAdmin(admin.ModelAdmin):
 
     def mgmt_username(obj):
         return obj.servermanagement.username
-    mgmt_username.short_description = 'OOB Username'
+    mgmt_username.short_description = 'Default OOB Username'
 
     def mgmt_password(obj):
         return obj.servermanagement.password
-    mgmt_password.short_description = 'OOB Password'
+    mgmt_password.short_description = 'Default OOB Password'
 
     def model_u(obj):
         return obj.model.u
