@@ -14,6 +14,9 @@
 # USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
+'''
+Unit tests for hwdoc package
+'''
 
 import unittest
 from hwdoc.models import Vendor, Model, Equipment, ServerManagement, Project
@@ -21,7 +24,15 @@ from hwdoc.functions import search, get_search_terms, canonicalize_mac
 from django.test.client import Client
 
 class EquipmentTestCase(unittest.TestCase):
+    '''
+    A test case for equipment
+    '''
+
     def setUp(self):
+        '''
+        Commands run before every test
+        '''
+
         self.vendor = Vendor.objects.create(name='HP')
         self.model1 = Model.objects.create(vendor=self.vendor, name='DL 385 G7', u=2)
         self.model2 = Model.objects.create(vendor=self.vendor, name='DL 380 G7', u=2)
@@ -50,6 +61,10 @@ class EquipmentTestCase(unittest.TestCase):
                             )
 
     def tearDown(self):
+        '''
+        Command run after every test
+        '''
+
         ServerManagement.objects.all().delete()
         Equipment.objects.all().delete()
         Model.objects.all().delete()
@@ -96,13 +111,25 @@ class EquipmentTestCase(unittest.TestCase):
         self.assertNotEqual(search(tokens).count(), 0)
 
 class FunctionsTestCase(unittest.TestCase):
+    '''
+    Testing functions class
+    '''
+
     def test_mac_canonicalizer(self):
         self.assertEqual(canonicalize_mac('1111.2222.3333'), '11:11:22:22:33:33')
         self.assertEqual(canonicalize_mac('11-11-22-22-33-33'), '11:11:22:22:33:33')
         self.assertEqual(canonicalize_mac('11:11:22:22:33:33'), '11:11:22:22:33:33')
 
 class ViewsTestCase(unittest.TestCase):
+    '''
+    Testing views class
+    '''
+
     def setUp(self):
+        '''
+        Command run before every test
+        '''
+
         self.vendor = Vendor.objects.create(name='HP')
         self.model = Model.objects.create(vendor=self.vendor, name='DL 385 G7', u=2)
 
@@ -116,6 +143,10 @@ class ViewsTestCase(unittest.TestCase):
         self.project = Project.objects.create(name='project')
 
     def tearDown(self):
+        '''
+        Command run after every test
+        '''
+
         ServerManagement.objects.all().delete()
         Equipment.objects.all().delete()
         Model.objects.all().delete()

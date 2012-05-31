@@ -14,24 +14,40 @@
 # USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
+'''
+hwdoc module's functions documentation. Main models are Equipment and ServerManagement 
+'''
 
 from django.db import models
 from django.db.utils import DatabaseError
 
 # Allocation models #
 class Email(models.Model):
+    '''
+    Email Model. Represents an email. No special checks are done for user input
+    '''
+
     email = models.CharField(max_length=80)
 
     def __unicode__(self):
         return self.email
 
 class Phone(models.Model):
+    '''
+    Phone Model. Represents a phone. No special checks are done for user input
+    '''
+
     number = models.CharField(max_length=80)
 
     def __unicode__(self):
         return self.number
 
 class Person(models.Model):
+    '''
+    Person Model. Represents a Person with relations to Email, Phone
+    No special checks are done for user input
+    '''
+
     name = models.CharField(max_length=80)
     surname = models.CharField(max_length=80)
     emails = models.ManyToManyField(Email)
@@ -46,6 +62,10 @@ class Person(models.Model):
         return result
 
 class Project(models.Model):
+    '''
+    Project Model. The idea is to allocate Equipments to Projects
+    '''
+
     name = models.CharField(max_length=80)
     contacts = models.ManyToManyField(Person, through='Role')
 
@@ -53,6 +73,10 @@ class Project(models.Model):
         return self.name
 
 class Role(models.Model):
+    '''
+    Roles for projects
+    '''
+
     ROLES = (
                 ('manager', 'Manager' ),
                 ('technical', 'Techinal Person'), 
@@ -66,12 +90,20 @@ class Role(models.Model):
 
 # Equipment models #
 class Vendor(models.Model):
+    '''
+    Equipments have Models and belong to Vendors
+    '''
+
     name = models.CharField(max_length=80)
 
     def __unicode__(self):
         return self.name
 
 class Model(models.Model):
+    '''
+    Equipments have Models
+    '''
+
     vendor = models.ForeignKey(Vendor)
     name = models.CharField(max_length=80)
     u = models.PositiveIntegerField(verbose_name="Us")
@@ -80,6 +112,10 @@ class Model(models.Model):
         return "%s %s" % (self.vendor, self.name)
 
 class Equipment(models.Model):
+    '''
+    Equipment model
+    '''
+
     model = models.ForeignKey(Model)
     allocation = models.ForeignKey(Project, null=True, blank=True)
     serial = models.CharField(max_length=80)
@@ -101,6 +137,10 @@ class Equipment(models.Model):
         return out
 
 class ServerManagement(models.Model):
+    ''' 
+    Equipments that can be managed have a ServerManagement counterpanrt
+    '''
+
     equipment = models.OneToOneField(Equipment)
     METHODS = (
             ('ilo2', 'HP iLO 2'),
@@ -145,39 +185,87 @@ class ServerManagement(models.Model):
             return
 
     def power_on(self, username=None, password=None):
+        '''
+        Power on a server
+        '''
+
         return self.__sm__('power_on', username, password)
 
     def power_off(self, username=None, password=None):
+        '''
+        Power off a server
+        '''
+
         return self.__sm__('power_off', username, password)
 
     def power_cycle(self, username=None, password=None):
+        '''
+        Power cycle a server
+        '''
+
         return self.__sm__('power_cycle', username, password)
 
     def power_reset(self, username=None, password=None):
+        '''
+        Power reset a server
+        '''
+
         return self.__sm__('power_reset', username, password)
 
     def power_off_acpi(self, username=None, password=None):
+        '''
+        Power off by sending an ACPI signal
+        '''
+
         return self.__sm__('power_off_acpi', username, password)
 
     def pass_change(self, username=None, password=None, **kwargs):
+        '''
+        Change password for an OOB account
+        '''
+
         if 'change_username' not in kwargs or 'newpass' not in kwargs:
             raise RuntimeError('Username and/or password to be changed not given')
         return self.__sm__('pass_change', username, password, **kwargs)
 
     def set_settings(self, username=None, password=None, **kwargs):
+        '''
+        Set OOB settings
+        '''
+
         return self.__sm__('set_settings', username, password, **kwargs)
 
     def set_ldap_settings(self, username=None, password=None, **kwargs):
+        '''
+        Set OOB LDAP Settings
+        '''
+
         return self.__sm__('set_ldap_settings', username, password, **kwargs)
 
     def boot_order(self, username=None, password=None, **kwargs):
+        '''
+        Set Boot order. One time boot if support can be enabled
+        '''
+
         return self.__sm__('boot_order', username, password, **kwargs)
 
     def license_set(self, username=None, password=None, **kwargs):
+        '''
+        Set license for OOB if applicable
+        '''
+
         return self.__sm__('license_set', username, password, **kwargs)
 
     def bmc_reset(self, username=None, password=None, **kwargs):
+        '''
+        Reset a BMC 
+        '''
+
         return self.__sm__('bmc_reset', username, password, **kwargs)
 
     def bmc_factory_defaults(self, username=None, password=None, **kwargs):
+        '''
+        Reset a BMC to factory defaults
+        '''
+
         return self.__sm__('bmc_factory_defaults', username, password, **kwargs)

@@ -15,6 +15,16 @@
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
 
+'''
+Module contains functions for performing searches in hwdoc
+
+Important function here is search(q) which searches strings or iterables of
+strings in model Equipment. get_search_terms(text) is a function tokenizing a
+text and return a Set of tokens for use by search(q). canonicalize_mac(key) is
+a function taken as MAC address as a string and returning it in the proper
+format for search(q)
+'''
+
 from servermon.hwdoc.models import Equipment, ServerManagement
 from django.db.models import Q
 from socket import gethostbyaddr, herror, gaierror, error

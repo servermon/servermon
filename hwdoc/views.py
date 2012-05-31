@@ -14,6 +14,9 @@
 # USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
+'''
+hwdoc views module
+'''
 
 from hwdoc.models import Project, Model, Equipment, ServerManagement
 from django.db.models import Q
@@ -24,6 +27,15 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 
 def index(request):
+    '''
+    hwdoc index view
+
+    @type   request: HTTPRequest 
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding HTML
+    '''
+
     racks = Equipment.objects.order_by('rack').values_list('rack', flat=True).distinct()
     projects = Project.objects.order_by('name').all()
     models = Model.objects.order_by('vendor__name','name').all()
@@ -36,6 +48,15 @@ def index(request):
             context_instance=RequestContext(request))
 
 def equipment(request, equipment_id):
+    '''
+    Equipment view. It should display all non-authenticated user viewable data
+
+    @type   request: HTTPRequest 
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding HTML
+    '''
+
     template = 'equipment.html'
 
     equipment = get_object_or_404(Equipment,pk=equipment_id)
@@ -44,6 +65,15 @@ def equipment(request, equipment_id):
             context_instance=RequestContext(request))
 
 def project(request, project_id):
+    '''
+    Project view. It should display all non-authenticated user viewable data
+
+    @type   request: HTTPRequest 
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding HTML
+    '''
+
     template = 'project.html'
 
     project = get_object_or_404(Project,pk=project_id)
@@ -52,6 +82,18 @@ def project(request, project_id):
             context_instance=RequestContext(request))
 
 def search(request):
+    '''
+    Search view. Scans request for q (GET case) or qarea (POST case) and
+    searches for corresponding Equipment instances matching the query
+    If txt is send in a GET it will display results in txt and not in html
+    format
+
+    @type   request: HTTPRequest 
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding HTML
+    '''
+
     if u'txt' in request.GET:
         template = 'results.txt'
         mimetype = 'text/plain'
@@ -72,10 +114,28 @@ def search(request):
             context_instance=RequestContext(request))
 
 def advancedsearch(request):
+    '''
+    Advanced search view. Renders free text search
+
+    @type   request: HTTPRequest 
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding HTML
+    '''
+
     return render_to_response('advancedsearch.html',
             context_instance=RequestContext(request))
 
 def opensearch(request):
+    '''
+    opensearch search view. Renders opensearch.xml
+
+    @type   request: HTTPRequest 
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding HTML
+    '''
+
     fqdn = Site.objects.get_current().domain
     try:
         contact = settings.ADMINS[0][0]
