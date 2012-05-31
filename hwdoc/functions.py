@@ -22,6 +22,16 @@ from whoosh.analysis import SpaceSeparatedTokenizer, StopFilter
 import re
 
 def canonicalize_mac(key):
+    '''
+    Accepts a MAC in various formats and returns at form aa:bb:cc:dd:ee:ff
+
+    @type  key: string
+    @param key: the MAC to canonicalize
+
+    @rtype: string
+    @return: The MAC address in canonical format
+    '''
+
     string = key.lower().replace(':','').replace('-','').replace('.','')
     result = ''
 
@@ -35,8 +45,15 @@ def canonicalize_mac(key):
 
 def search(q):
     '''
-    TODO: Fill this in
+    Searches in Equipment model for racks, units, IP address, MACs, serial, hostnames etc
+
+    @type  q: string or iterable
+    @param q: a string or an iterable of strings to search for.
+
+    @rtype: QuerySet
+    @return: A QuerySet with results matching all items of q 
     '''
+
     if q is None or len(q) == 0:
         return None
 
@@ -85,7 +102,13 @@ def search(q):
 
 def get_search_terms(text):
     '''
-    TODO: Fill this in
+    Splits up a text in tokens, drops non-usefull ones and returns a Set of tokens
+
+    @type   text: String
+    @param  text: A unicode string to split up in tokens
+
+    @rtype: Set of strings
+    @return: A Set of usefull unique tokens appearing the text
     '''
 
     stoplist = ['and', 'is', 'it', 'an', 'as', 'at', 'have', 'in', 'yet', 'if',
