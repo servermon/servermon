@@ -18,8 +18,7 @@
 			<td class="mono"><a href="{% url hwdoc.views.equipment result.pk %}">{{ result.serial }}</a></td>
 			<td class="mono">{{ result.model.vendor }}&nbsp;{{ result.model.name }}</td>
 			<td class="mono">{{ result.rack|stringformat:"02d" }}{{ result.unit|stringformat:"02d" }}</td>
-			<td class="mono">{{ result.servermanagement.hostname }}</td>
-			<td class="mono">{% if result.state %}{{ result.state }}{% else %}-{% endif %}</td>
+			<td class="mono"><a href="https://{{ result.servermanagement.hostname }}">{{ result.servermanagement.hostname }}</a></td>
 			<td class="mono">{% if result.allocation %}<a href="{% url hwdoc.views.project result.allocation.pk %}">{{ result.allocation.name }}</a>{% else %}&mdash;{% endif %}</td>
 		</tr>
 		{% endfor %}
