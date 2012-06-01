@@ -109,7 +109,7 @@ def search(request):
         key = None
 
     return render_to_response(template,
-            { 'results': functions.search(key), },
+            { 'results': functions.search(key).order_by('rack', '-unit'), },
             mimetype=mimetype,
             context_instance=RequestContext(request))
 
