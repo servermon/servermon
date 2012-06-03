@@ -14,49 +14,88 @@
 # USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
+'''
+HP iLO3 implementation of hwdoc Django management commmands
+'''
 
 import httplib2
 import socket
 
 def power_on(hostname, username, password):
+    '''
+    Power on command
+    '''
     return __send__(hostname, username, password, __power_on_command__())
 
 def power_off(hostname, username, password):
+    '''
+    Power off command
+    '''
     return __send__(hostname, username, password, __power_off_command__())
 
 def power_off_acpi(hostname, username, password):
+    '''
+    Power off using ACPI command
+    '''
     return __send__(hostname, username, password, __power_off_acpi_command__())
 
 def power_cycle(hostname, username, password):
+    '''
+    Cold boot command
+    '''
     return __send__(hostname, username, password, __power_cycle_command__())
 
 def power_reset(hostname, username, password):
+    '''
+    Warm boot command
+    '''
     return __send__(hostname, username, password, __power_reset_command__())
 
 def pass_change(hostname, username, password, **kwargs):
+    '''
+    Change BMC password
+    '''
     return __send__(hostname, username, password, __pass_change_command__(
         kwargs['change_username'], kwargs['newpass']))
 
 def set_settings(hostname, username, password, **kwargs):
+    '''
+    Set BMC settings
+    '''
     return __send__(hostname, username, password,
             __mod_global_settings_command__(**kwargs) +
             __mod_network_settings_command__(**kwargs) +
             __power_on_delay_command__(**kwargs))
 
 def set_ldap_settings(hostname, username, password, **kwargs):
+    '''
+    Set BMC LDAP settings
+    '''
     return __send__(hostname, username, password,
             __mod_directory_command__(**kwargs))
 
 def boot_order(hostname, username, password, **kwargs):
+    '''
+    Set boot order
+    '''
     return __send__(hostname, username, password, __boot_order_command__(**kwargs))
 
 def license_set(hostname, username, password, **kwargs):
+    '''
+    Set BMC License
+    '''
     return __send__(hostname, username, password, __license_set_command__(**kwargs))
 
 def bmc_reset(hostname, username, password, **kwargs):
+    '''
+    Reset BMC
+    '''
     return __send__(hostname, username, password, __reset_rib_command__())
 
 def bmc_factory_defaults(hostname, username, password, **kwargs):
+    '''
+    Reset BMC to factory defaults
+    '''
     return __send__(hostname, username, password, __factory_defaults_command__())
 
 # Beneath this line iLO3 specifics start
