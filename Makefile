@@ -9,4 +9,9 @@ dist:
 	gzip -f $(name)-$(flowspyver).tar
 distclean:
 	@rm -f *tar.gz
+	@rm -rf doc
+
+doc:
+	mkdir doc
+	epydoc -c epydoc.conf --exclude migrations -o doc hwdoc
 
