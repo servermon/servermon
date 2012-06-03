@@ -14,6 +14,9 @@
 # USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
+'''
+Django management command to import a CSV of BMC licenses
+'''
 
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
@@ -23,11 +26,18 @@ import csv
 import re
 
 class Command(BaseCommand):
+    '''
+    Django management command to import a CSV of BMC licenses
+    '''
     help = "Loads a specific csv to equipment licenses"
     args = "<file>"
     label = "file name to be imported"
 
     def handle(self, *args, **options):
+        '''
+        Handle command
+        '''
+
         if args is None or len(args) != 1:
             raise CommandError("You must supply a file name")
         try:

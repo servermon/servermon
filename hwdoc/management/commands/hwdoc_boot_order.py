@@ -14,6 +14,9 @@
 # USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
+'''
+Django management command to change boot order
+'''
 
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
@@ -26,6 +29,9 @@ import re
 from optparse import make_option
 
 class Command(BaseCommand):
+    '''
+    Django management command to change boot order
+    '''
     help = 'Sets boot order. Once off is supported if backend supports it'
     args = '[key]'
     label = search.__doc__
@@ -56,6 +62,10 @@ class Command(BaseCommand):
             )
 
     def handle(self, *args, **options):
+        '''
+        Handle command
+        '''
+
         if args is None or len(args) != 1:
             raise CommandError("You must supply a key")
 

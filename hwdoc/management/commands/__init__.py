@@ -1,0 +1,3 @@
+'''
+Hwdoc Django management commands
+'''
