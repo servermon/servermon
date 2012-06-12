@@ -54,6 +54,10 @@ Python, Django, South is needed::
 
   $ aptitude install python-django
   $ aptitude install python-south
+  $ aptitude install python-whoosh
+  $ aptitude install python-ipy
+  $ aptitude install python-mysqldb (or sqlite or psycopg2)
+  $ aptitude install python-ldap (for user authentication via LDAP)
   $ mkdir /path/to/servermon
   $ tar xfvz servermon-X.Y.tar.gz -C /path/to/servermon
 
@@ -96,12 +100,16 @@ Then you need to configure the project. Things to pay attention to::
   LDAP_AUTH_SETTINGS => if any
   TEMPLATE_DIRS => at least '/path/to/servermon/templates' needed
   INSTALLED_APPS => Probaly you can uncomment all
+  AUTHENTICATION_BACKENDS = > comment or uncomment 
+      'servermon.djangobackends.ldapBackend.ldapBackend',
+      depending on whether you want LDAP user authentication or not
 
 Further steps
 -------------
 
-You can now proceed to either / for viewing the Puppet frontend or
-/hwdoc for access to hwdoc fronted or /admin for management
+You can now proceed to accessing through a web browser either / for
+viewing the Puppet frontend or /hwdoc for access to hwdoc fronted or
+/admin for management
 
 .. vim: set textwidth=72 :
 .. Local Variables:
