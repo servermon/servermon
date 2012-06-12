@@ -1,4 +1,52 @@
 ===========
+0.3 Release
+
+c4883cc Add missing installation directives in docs
+eb1ccb4 Hardcoding version in doc building. Temporary measure
+cd01258 Design docs, glossary, install notes for 0.3
+0246a7e Move code documentation output to doc/api
+f24baa3 Vendor hwdoc module docstrings
+ca9579a Docstrings for entire hwdoc.management module
+559e2f7 URLConf docstring
+8779086 Epydoc config file added. Makefile supports doc
+ad23db1 Sort equipment results by rack, reverse unit
+5e912a4 OBB Hostnames made into hyperlinks
+f2befed Remove obsolete state from equipment template
+1104646 Docstrings for admin, functions, models, tests, views
+7fb0221 Document using epydoc markup hwdoc/functions.py
+990d086 Change displayed values for OOB attrs in admin
+d741b0b Remove obsolete state entries from admin interface
+c50da29 Removed initial_data from hwdoc
+2719323 Dropping Hardware Equipment States
+3d3680a Allow search by name, surname of people in hwdoc
+19f2219 Add hwdoc views unit tests
+55a7bf6 Split unit test cases
+0226480 Dont fail if states dont exist during migration
+72a8175 Renamed canonicalizemac to canonicalize_mac
+7afd998 Added MAC address canonicalize test
+77e9600 Handle a case where table for State doesn't exist
+0100b72 Change state to ForeignKey
+ef8e8f1 Adding states to hwdoc
+92d6e14 Add hwdoc sample fixtures
+1eee8aa use env in manage.py to locate python
+6a098f6 Add a nice opensearch icon. This refs #2412
+c5df7d5 hwdoc testing suite updates
+0d38d8d Fix bug where searching digit-only serials failed
+77927e7 Skip south unit tests
+f04fca1 Updated hwdoc unittests for 0.3
+8504a37 Add opensearch support for hwdoc
+dbfe7c2 Fix empty string searches returning exception
+77408a5 Abstract iLO3 serial speed specifics
+01eb865 Supporting multiple MAC address formats in search
+75d13e4 Fix bug with servermanagement mac address not being displayed
+6a7416f Equipment state now appears equipment listings
+9ddd296 Change Advanced Search string to the more self explanatory Free Text Search
+0eeaa08 Sort objects in hwdoc index page
+eb792c3 Rack and unit editable in admin equipment view
+3b5cab6 Migrate admin URLConf to new standard
+0b34da2 Bug where dns lookups would mangle hwdoc query
+
+===========
 0.2 Release
 
 b4b7e32 Allocation and state in hwdoc admin interface
