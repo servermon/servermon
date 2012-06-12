@@ -24,4 +24,6 @@ doc/html/index.html: doc/install.rst
 		{ echo 'sphinx-build' not found during configure; exit 1; }
 	@mkdir -p doc/html
 	sphinx-build -q -W -b html \
-		-d . doc doc/html
+		-D version="0.3" \
+		-D release="0.3" \
+		-d . doc doc/html 
