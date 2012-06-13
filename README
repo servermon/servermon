@@ -55,8 +55,6 @@ your organization's if you wish
 * Run:
 	./manage.py syncdb
 	to create all the necessary tables in the database. 
-	Note: The above should be done without servermon.puppet uncommented in INSTALLED_APPS.
-	After that you can uncomment it.
 * Then to allow for south migrations:
 	./manage.py migrate
 * Via the admin interface, modify as required the existing (example.com) Site instance

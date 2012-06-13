@@ -25,6 +25,7 @@ class Fact(models.Model):
     class Meta:
         db_table = u'fact_names'
         ordering = [ 'name' ]
+        managed = False
 
     def __unicode__(self):
         return self.name.replace('_',' ').rstrip()
@@ -43,6 +44,7 @@ class Host(models.Model):
     class Meta:
         db_table = u'hosts'
         ordering = ['name',]
+        managed = False
 
     def __unicode__(self):
         return self.name
@@ -62,6 +64,7 @@ class FactValue(models.Model):
     created_at = models.DateTimeField(null=True, blank=True)
     class Meta:
         db_table = u'fact_values'
+        managed = False
 
     def __unicode__(self):
         return "%s %s: %s" % (self.host.name, str(self.fact_name), self.value)
@@ -72,6 +75,7 @@ class ParamNames(models.Model):
     created_at = models.DateTimeField(null=True, blank=True)
     class Meta:
         db_table = u'param_names'
+        managed = False
 
 class ParamValues(models.Model):
     value = models.TextField()
@@ -82,6 +86,7 @@ class ParamValues(models.Model):
     created_at = models.DateTimeField(null=True, blank=True)
     class Meta:
         db_table = u'param_values'
+        managed = False
 
 class PuppetTags(models.Model):
     name = models.CharField(max_length=765, blank=True)
@@ -89,6 +94,7 @@ class PuppetTags(models.Model):
     created_at = models.DateTimeField(null=True, blank=True)
     class Meta:
         db_table = u'puppet_tags'
+        managed = False
 
 class ResourceTags(models.Model):
     resource_id = models.IntegerField(null=True, blank=True)
@@ -97,6 +103,7 @@ class ResourceTags(models.Model):
     created_at = models.DateTimeField(null=True, blank=True)
     class Meta:
         db_table = u'resource_tags'
+        managed = False
 
 class Resources(models.Model):
     title = models.TextField()
@@ -109,6 +116,7 @@ class Resources(models.Model):
     created_at = models.DateTimeField(null=True, blank=True)
     class Meta:
         db_table = u'resources'
+        managed = False
 
 class SourceFiles(models.Model):
     filename = models.CharField(max_length=765, blank=True)
@@ -117,4 +125,5 @@ class SourceFiles(models.Model):
     created_at = models.DateTimeField(null=True, blank=True)
     class Meta:
         db_table = u'source_files'
+        managed = False
 
