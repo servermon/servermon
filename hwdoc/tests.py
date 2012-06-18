@@ -19,7 +19,8 @@ Unit tests for hwdoc package
 '''
 
 import unittest
-from hwdoc.models import Vendor, EquipmentModel, Equipment, ServerManagement, Project, Rack
+from hwdoc.models import Vendor, EquipmentModel, Equipment, \
+    ServerManagement, Project, Rack, RackModel
 from hwdoc.functions import search, get_search_terms, canonicalize_mac
 from django.test.client import Client
 
@@ -37,7 +38,13 @@ class EquipmentTestCase(unittest.TestCase):
         self.model1 = EquipmentModel.objects.create(vendor=self.vendor, name='DL 385 G7', u=2)
         self.model2 = EquipmentModel.objects.create(vendor=self.vendor, name='DL 380 G7', u=2)
         self.model2 = EquipmentModel.objects.create(vendor=self.vendor, name='Fujisu PRIMERGY 200 S', u=1)
-        self.rack = Rack.objects.create()
+        self.rackmodel = RackModel.objects.create(
+                                vendor=self.vendor,
+                                max_mounting_depth = 99,
+                                min_mounting_depth = 19,
+                                height = 42,
+                                width = 19)
+        self.rack = Rack.objects.create(model=self.rackmodel)
 
         self.server1 = Equipment.objects.create(
                                 model = self.model1,
@@ -133,7 +140,13 @@ class ViewsTestCase(unittest.TestCase):
 
         self.vendor = Vendor.objects.create(name='HP')
         self.model = EquipmentModel.objects.create(vendor=self.vendor, name='DL 385 G7', u=2)
-        self.rack = Rack.objects.create()
+        self.rackmodel = RackModel.objects.create(
+                                vendor=self.vendor,
+                                max_mounting_depth = 99,
+                                min_mounting_depth = 19,
+                                height = 42,
+                                width = 19)
+        self.rack = Rack.objects.create(model=self.rackmodel)
 
         self.server = Equipment.objects.create(
                                 model = self.model,

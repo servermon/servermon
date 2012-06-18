@@ -129,6 +129,7 @@ class Rack(models.Model):
     '''
     
     mounted_depth = models.PositiveIntegerField(max_length=10, default=60)
+    model = models.ForeignKey(RackModel)
 
     def __unicode__(self):
         return "%.2d" % (self.pk)
