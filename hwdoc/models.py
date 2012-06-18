@@ -99,13 +99,25 @@ class Vendor(models.Model):
     def __unicode__(self):
         return self.name
 
-class EquipmentModel(models.Model):
+class Model(models.Model):
     '''
-    Equipments have Models
+    Abstract class for all vendor models
     '''
 
     vendor = models.ForeignKey(Vendor)
     name = models.CharField(max_length=80)
+
+    class Meta:
+        abstract = True
+
+    def __unicode__(self):
+        return "%s %s" % (self.vendor, self.name)
+
+class EquipmentModel(Model):
+    '''
+    Equipments have Models
+    '''
+
     u = models.PositiveIntegerField(verbose_name="Us")
 
     def __unicode__(self):
