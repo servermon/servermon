@@ -65,7 +65,7 @@ def search(q):
     '''
 
     if q is None or len(q) == 0:
-        return None
+        return Equipment.objects.none()
 
     # Working on iterables. However in case we are not given one it is cheaper
     # to create one than fail
