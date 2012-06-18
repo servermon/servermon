@@ -110,9 +110,6 @@ class Model(models.Model):
     class Meta:
         abstract = True
 
-    def __unicode__(self):
-        return "%s %s" % (self.vendor, self.name)
-
 class RackModel(Model):
     '''
     Rack vendor models
@@ -134,7 +131,7 @@ class Rack(models.Model):
     mounted_depth = models.PositiveIntegerField(max_length=10, default=60)
 
     def __unicode__(self):
-        return "%s" % (self.pk)
+        return "%.2d" % (self.pk)
 
 class EquipmentModel(Model):
     '''
@@ -154,7 +151,7 @@ class Equipment(models.Model):
     model = models.ForeignKey(EquipmentModel)
     allocation = models.ForeignKey(Project, null=True, blank=True)
     serial = models.CharField(max_length=80)
-    rack = models.PositiveIntegerField(null=True, blank=True)
+    rack = models.ForeignKey(Rack, null=True, blank=True)
     unit = models.PositiveIntegerField(null=True, blank=True)
     purpose = models.CharField(max_length=80, null=True, blank=True)
     comments = models.TextField(null=True, blank=True)
@@ -167,7 +164,7 @@ class Equipment(models.Model):
             out += "%s, " % self.purpose
         out += "%s " % self.model
         if self.rack and self.unit:
-            out += "@ R%.2dU%.2d " % (self.rack, self.unit)
+            out += "@ R%sU%.2d " % (self.rack, self.unit)
         out += "(%s)" % self.serial
         return out
 

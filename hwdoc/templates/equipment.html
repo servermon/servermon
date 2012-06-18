@@ -7,7 +7,7 @@
 			<tr><th>Project:</th><td>{% if equipment.allocation %}<a href="{% url hwdoc.views.project equipment.allocation.pk %}">{{ equipment.allocation.name }}</a>{% else %}-{% endif %}</td></tr>
 		<tr><th>Model:</th><td>{{ equipment.model }}</td></tr>
 		<tr><th>Serial:</th><td>{{ equipment.serial }}</td></tr>
-		<tr><th>Rack Unit:</th><td>{{ equipment.rack|stringformat:"02d" }}{{ equipment.unit|stringformat:"02d" }}</td></tr>
+		<tr><th>Rack Unit:</th><td>{{ equipment.rack }}{{ equipment.unit|stringformat:"02d" }}</td></tr>
 		<tr><th>Purpose:</th><td>{{ equipment.purpose }}</td></tr>
 		<tr><th>OOB MAC:</th><td>{% if equipment.servermanagement %}{{ equipment.servermanagement.mac }}{% endif %}</td></tr>
 		<tr><th>OOB Hostname:</th><td>{% if equipment.servermanagement %}{{ equipment.servermanagement.hostname }}{% endif %}</td></tr>

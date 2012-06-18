@@ -19,7 +19,7 @@ Unit tests for hwdoc package
 '''
 
 import unittest
-from hwdoc.models import Vendor, EquipmentModel, Equipment, ServerManagement, Project
+from hwdoc.models import Vendor, EquipmentModel, Equipment, ServerManagement, Project, Rack
 from hwdoc.functions import search, get_search_terms, canonicalize_mac
 from django.test.client import Client
 
@@ -37,11 +37,12 @@ class EquipmentTestCase(unittest.TestCase):
         self.model1 = EquipmentModel.objects.create(vendor=self.vendor, name='DL 385 G7', u=2)
         self.model2 = EquipmentModel.objects.create(vendor=self.vendor, name='DL 380 G7', u=2)
         self.model2 = EquipmentModel.objects.create(vendor=self.vendor, name='Fujisu PRIMERGY 200 S', u=1)
+        self.rack = Rack.objects.create()
 
         self.server1 = Equipment.objects.create(
                                 model = self.model1,
                                 serial = 'G123456',
-                                rack = '10',
+                                rack = self.rack,
                                 unit = '20',
                                 purpose = 'Nothing',
                             )
@@ -49,7 +50,7 @@ class EquipmentTestCase(unittest.TestCase):
         self.server2 = Equipment.objects.create(
                                 model = self.model2,
                                 serial = 'R123457',
-                                rack = '10',
+                                rack = self.rack,
                                 unit = '22',
                                 purpose = 'Nothing',
                             )
@@ -95,7 +96,7 @@ class EquipmentTestCase(unittest.TestCase):
         self.assertFalse(search(''))
 
     def test_search_rack(self):
-        self.assertEqual(search(self.server1.rack).count(), 2)
+        self.assertEqual(search(str(self.server1.rack.pk)).count(), 2)
 
     def test_search_serial(self):
         self.assertEqual(search(self.server1.serial)[0].serial, self.server1.serial)
@@ -132,11 +133,12 @@ class ViewsTestCase(unittest.TestCase):
 
         self.vendor = Vendor.objects.create(name='HP')
         self.model = EquipmentModel.objects.create(vendor=self.vendor, name='DL 385 G7', u=2)
+        self.rack = Rack.objects.create()
 
         self.server = Equipment.objects.create(
                                 model = self.model,
                                 serial = 'dontcare',
-                                rack = '1',
+                                rack = self.rack,
                                 unit = '2',
                                 purpose = 'Nothing',
                             )
