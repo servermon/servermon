@@ -113,6 +113,29 @@ class Model(models.Model):
     def __unicode__(self):
         return "%s %s" % (self.vendor, self.name)
 
+class RackModel(Model):
+    '''
+    Rack vendor models
+    '''
+
+    max_mounting_depth = models.PositiveIntegerField(max_length=10)
+    min_mounting_depth = models.PositiveIntegerField(max_length=10)
+    height = models.PositiveIntegerField(max_length=10)
+    width = models.PositiveIntegerField(max_length=10)
+
+    def __unicode__(self):
+        return "%s %s" % (self.vendor, self.name)
+
+class Rack(models.Model):
+    '''
+    Racks
+    '''
+    
+    mounted_depth = models.PositiveIntegerField(max_length=10, default=60)
+
+    def __unicode__(self):
+        return "%s" % (self.pk)
+
 class EquipmentModel(Model):
     '''
     Equipments have Models

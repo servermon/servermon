@@ -83,6 +83,7 @@ admin.site.register(Project, ProjectAdmin)
 
 admin.site.register(Vendor)
 admin.site.register(EquipmentModel)
+admin.site.register(RackModel)
 
 def shutdown(modeladmin, request, queryset):
     '''

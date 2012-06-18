@@ -28,6 +28,13 @@
     }
   }, 
   {
+    "pk": 5, 
+    "model": "hwdoc.vendor", 
+    "fields": {
+      "name": "APC"
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "hwdoc.equipmentmodel", 
     "fields": {
@@ -61,6 +68,18 @@
       "u": 1, 
       "vendor": 2, 
       "name": "PRIMERGY RX200 S5"
+    }
+  },
+  {
+    "pk": 1, 
+    "model": "hwdoc.rackmodel", 
+    "fields": {
+      "vendor": 5, 
+      "name": "NetShelter SX",
+      "max_mounting_depth": 91,
+      "min_mounting_depth": 19,
+      "height": 42,
+      "width": 19
     }
   }
 ]
