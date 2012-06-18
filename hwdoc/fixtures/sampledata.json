@@ -133,6 +133,14 @@
  }, 
  {
   "pk": 1, 
+  "model": "hwdoc.rack", 
+  "fields": {
+   "mounted_depth": 60, 
+   "model": 1
+  }
+ }, 
+ {
+  "pk": 1, 
   "model": "hwdoc.equipment", 
   "fields": {
    "updated": "2012-05-26 01:35:47", 
@@ -140,7 +148,6 @@
    "comments": "", 
    "rack": 1, 
    "allocation": null, 
-   "state": "0", 
    "purpose": "VMWARE", 
    "model": 4, 
    "serial": "sdfsdfdsf", 
@@ -156,7 +163,6 @@
    "comments": "", 
    "rack": 1, 
    "allocation": null, 
-   "state": "0", 
    "purpose": "VMWARE", 
    "model": 4, 
    "serial": "VM101010", 
@@ -172,7 +178,6 @@
    "comments": "", 
    "rack": 1, 
    "allocation": null, 
-   "state": "0", 
    "purpose": "VMWARE", 
    "model": 4, 
    "serial": "VM202020", 
@@ -188,7 +193,6 @@
    "comments": "", 
    "rack": 1, 
    "allocation": null, 
-   "state": "0", 
    "purpose": "VMWARE", 
    "model": 4, 
    "serial": "vM606060", 
@@ -204,7 +208,6 @@
    "comments": "", 
    "rack": 1, 
    "allocation": null, 
-   "state": "0", 
    "purpose": "VMWARE", 
    "model": 2, 
    "serial": "SXI202020", 
@@ -218,9 +221,8 @@
    "updated": "2012-05-26 01:35:47", 
    "added": "2012-05-26 01:35:47", 
    "comments": "", 
-   "rack": 2, 
+   "rack": null, 
    "allocation": null, 
-   "state": "0", 
    "purpose": "VMWARE", 
    "model": 2, 
    "serial": "KIT101010", 
@@ -236,7 +238,6 @@
    "comments": "", 
    "rack": 1, 
    "allocation": null, 
-   "state": "0", 
    "purpose": "VMWARE", 
    "model": 4, 
    "serial": "merf", 
