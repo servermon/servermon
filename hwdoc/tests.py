@@ -19,7 +19,7 @@ Unit tests for hwdoc package
 '''
 
 import unittest
-from hwdoc.models import Vendor, Model, Equipment, ServerManagement, Project
+from hwdoc.models import Vendor, EquipmentModel, Equipment, ServerManagement, Project
 from hwdoc.functions import search, get_search_terms, canonicalize_mac
 from django.test.client import Client
 
@@ -34,9 +34,9 @@ class EquipmentTestCase(unittest.TestCase):
         '''
 
         self.vendor = Vendor.objects.create(name='HP')
-        self.model1 = Model.objects.create(vendor=self.vendor, name='DL 385 G7', u=2)
-        self.model2 = Model.objects.create(vendor=self.vendor, name='DL 380 G7', u=2)
-        self.model2 = Model.objects.create(vendor=self.vendor, name='Fujisu PRIMERGY 200 S', u=1)
+        self.model1 = EquipmentModel.objects.create(vendor=self.vendor, name='DL 385 G7', u=2)
+        self.model2 = EquipmentModel.objects.create(vendor=self.vendor, name='DL 380 G7', u=2)
+        self.model2 = EquipmentModel.objects.create(vendor=self.vendor, name='Fujisu PRIMERGY 200 S', u=1)
 
         self.server1 = Equipment.objects.create(
                                 model = self.model1,
@@ -67,7 +67,7 @@ class EquipmentTestCase(unittest.TestCase):
 
         ServerManagement.objects.all().delete()
         Equipment.objects.all().delete()
-        Model.objects.all().delete()
+        EquipmentModel.objects.all().delete()
         Vendor.objects.all().delete()
 
     # Tests start here
@@ -131,7 +131,7 @@ class ViewsTestCase(unittest.TestCase):
         '''
 
         self.vendor = Vendor.objects.create(name='HP')
-        self.model = Model.objects.create(vendor=self.vendor, name='DL 385 G7', u=2)
+        self.model = EquipmentModel.objects.create(vendor=self.vendor, name='DL 385 G7', u=2)
 
         self.server = Equipment.objects.create(
                                 model = self.model,
@@ -149,7 +149,7 @@ class ViewsTestCase(unittest.TestCase):
 
         ServerManagement.objects.all().delete()
         Equipment.objects.all().delete()
-        Model.objects.all().delete()
+        EquipmentModel.objects.all().delete()
         Vendor.objects.all().delete()
 
     def test_search_get(self):

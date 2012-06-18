@@ -18,7 +18,7 @@
 hwdoc views module
 '''
 
-from hwdoc.models import Project, Model, Equipment, ServerManagement
+from hwdoc.models import Project, EquipmentModel, Equipment, ServerManagement
 from django.db.models import Q
 from hwdoc import functions
 from django.template import RequestContext
@@ -38,7 +38,7 @@ def index(request):
 
     racks = Equipment.objects.order_by('rack').values_list('rack', flat=True).distinct()
     projects = Project.objects.order_by('name').all()
-    models = Model.objects.order_by('vendor__name','name').all()
+    models = EquipmentModel.objects.order_by('vendor__name','name').all()
     
     return render_to_response('hwdocindex.html',
             {   'racks': racks,

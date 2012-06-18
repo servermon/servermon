@@ -29,7 +29,7 @@
   }, 
   {
     "pk": 1, 
-    "model": "hwdoc.model", 
+    "model": "hwdoc.equipmentmodel", 
     "fields": {
       "u": 2, 
       "vendor": 1, 
@@ -38,7 +38,7 @@
   }, 
   {
     "pk": 2, 
-    "model": "hwdoc.model", 
+    "model": "hwdoc.equipmentmodel", 
     "fields": {
       "u": 2, 
       "vendor": 1, 
@@ -47,7 +47,7 @@
   },
   {
     "pk": 3, 
-    "model": "hwdoc.model", 
+    "model": "hwdoc.equipmentmodel", 
     "fields": {
       "u": 2, 
       "vendor": 1, 
@@ -56,7 +56,7 @@
   },
   {
     "pk": 4, 
-    "model": "hwdoc.model", 
+    "model": "hwdoc.equipmentmodel", 
     "fields": {
       "u": 1, 
       "vendor": 2, 

@@ -99,7 +99,7 @@ class Vendor(models.Model):
     def __unicode__(self):
         return self.name
 
-class Model(models.Model):
+class EquipmentModel(models.Model):
     '''
     Equipments have Models
     '''
@@ -116,7 +116,7 @@ class Equipment(models.Model):
     Equipment model
     '''
 
-    model = models.ForeignKey(Model)
+    model = models.ForeignKey(EquipmentModel)
     allocation = models.ForeignKey(Project, null=True, blank=True)
     serial = models.CharField(max_length=80)
     rack = models.PositiveIntegerField(null=True, blank=True)

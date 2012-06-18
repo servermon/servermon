@@ -82,7 +82,7 @@ admin.site.register(Person, PersonAdmin)
 admin.site.register(Project, ProjectAdmin)
 
 admin.site.register(Vendor)
-admin.site.register(Model)
+admin.site.register(EquipmentModel)
 
 def shutdown(modeladmin, request, queryset):
     '''
