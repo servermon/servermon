@@ -53,9 +53,10 @@ def getUpdates():
         u.setAttribute("name",update.name)
         u.setAttribute("current_version",update.installedVersion)
         u.setAttribute("new_version",update.candidateVersion)
+        u.setAttribute("source_name",update.sourcePackageName)
         host.appendChild(u)
 
-    return doc.toprettyxml()
+    return doc.toxml().replace('\n','')
 
 if __name__ == '__main__':
     print getUpdates()
