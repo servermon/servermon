@@ -30,7 +30,7 @@
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
 
-from socket import gethostname
+from socket import getfqdn
 import warnings
 warnings.filterwarnings('ignore')
 import apt
@@ -38,22 +38,23 @@ from xml.dom.minidom import Document
 
 def getUpdates():
     cache = apt.Cache()
-    cache.upgrade()
+    cache.upgrade(dist_upgrade=True)
 
-    updates = cache.getChanges()
+    updates = cache.get_changes()
     doc = Document()
 
     host = doc.createElement("host")
-    host.setAttribute("name",gethostname())
+    host.setAttribute("name", getfqdn())
 
     doc.appendChild(host)
 
     for update in updates:
         u = doc.createElement("package")
-        u.setAttribute("name",update.name)
-        u.setAttribute("current_version",update.installedVersion)
-        u.setAttribute("new_version",update.candidateVersion)
-        u.setAttribute("source_name",update.sourcePackageName)
+        u.setAttribute("name", update.name)
+        if update.installed:
+            u.setAttribute("current_version", update.installed.version)
+        u.setAttribute("new_version", update.candidate.version)
+        u.setAttribute("source_name", update.candidate.source_name)
         host.appendChild(u)
 
     return doc.toxml().replace('\n','')
