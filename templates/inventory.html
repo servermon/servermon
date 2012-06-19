@@ -64,11 +64,11 @@ Click on a cell to filter by its value; click on a column header to change sorti
 </div>
 <table align="center" class="inventory" id="inventory">
 <thead>
-	<tr><th>Hostname</th><th>Vendor</th><th>Model</th><th># of CPUs</th><th>Arch</th><th>BIOS Date</th><th>BIOS Version</th><th>Serial nr.</th><th>Board serial nr.</th></tr>
+	<tr><th>Hostname</th><th>Vendor</th><th>Model</th><th># of CPUs</th><th>Arch</th><th>BIOS Date</th><th>BIOS Version</th><th>Serial nr.</th></tr>
 </thead>
 <tbody>
 {% for host in hosts %}
-<tr><td><a href="{% url views.host host.name %}">{{ host.name }}</a></td><td class="filter">{{ host.vendor }}</td><td class="filter">{{ host.model }}</td><td>{{ host.cpus }}</td><td class="filter">{{ host.arch }}</td><td class="filter"><span class="mono">{{ host.biosdate }}</span></td><td class="filter"><span class="mono">{{ host.biosversion }}</span></td><td class="mono">{{ host.serial }}</td><td>{{ host.board_serial }}</td></tr>
+<tr><td><a href="{% url views.host host.name %}">{{ host.name }}</a></td><td class="filter">{{ host.manufacturer }}</td><td class="filter">{{ host.productname }}</td><td>{{ host.cpus }}</td><td class="filter">{{ host.arch }}</td><td class="filter"><span class="mono">{{ host.biosdate }}</span></td><td class="filter"><span class="mono">{{ host.biosversion }}</span></td><td class="mono">{{ host.serial }}</td></tr>
 {% endfor %}
 </tbody>
 </table>

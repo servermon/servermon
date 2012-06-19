@@ -97,12 +97,11 @@ def inventory(request):
     for host in hosts:
         hostlist.append({
             'name': host.name,
-            'vendor': host.get_fact_value('system_vendor'),
-            'model': host.get_fact_value('system_name'),
+            'manufacturer': host.get_fact_value('manufacturer'),
+            'productname': host.get_fact_value('productname'),
             'biosdate': host.get_fact_value('bios_date'),
             'biosversion': host.get_fact_value('bios_version'),
             'serial': host.get_fact_value('serialnumber'),
-            'board_serial': host.get_fact_value('board_serial_number', ""),
             'arch': host.get_fact_value('architecture'),
             'cpus': host.get_fact_value('processorcount'),
             })
@@ -133,7 +132,7 @@ def search(request):
     
     matches = []
     regex = re.compile(r'(' + request.POST['search'] + ')', re.IGNORECASE)
-    for name, field in [('Hostname', 'fqdn'), ('MAC Address', 'macaddress_'), ('IP Address', 'ipaddress_'), ('Vendor', 'system_vendor'), ('Model', 'system_name'), ('Puppet class', 'puppetclass'), ('Operating system', 'operatingsystem')]:
+    for name, field in [('Hostname', 'fqdn'), ('MAC Address', 'macaddress_'), ('IP Address', 'ipaddress_'), ('Vendor', 'manufacturer'), ('Model', 'productname'), ('Puppet class', 'puppetclass'), ('Operating system', 'operatingsystem')]:
         res = FactValue.objects.filter(fact_name__name__startswith=field, value__icontains=request.POST['search']).distinct().order_by('host__name')
         for r in res:
             matches.append({'name': r.host.name, 'attribute': name, 'value': regex.sub(r'<strong>\1</strong>', r.value)})
