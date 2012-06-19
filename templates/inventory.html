@@ -68,7 +68,9 @@ Click on a cell to filter by its value; click on a column header to change sorti
 </thead>
 <tbody>
 {% for host in hosts %}
-<tr><td><a href="{% url views.host host.name %}">{{ host.name }}</a></td><td class="filter">{{ host.manufacturer }}</td><td class="filter">{{ host.productname }}</td><td>{{ host.cpus }}</td><td class="filter">{{ host.memory }}</td><td class="filter">{{ host.arch }}</td><td class="filter"><span class="mono">{{ host.biosdate }}</span></td><td class="filter"><span class="mono">{{ host.biosversion }}</span></td><td class="mono">{{ host.serial }}</td></tr>
+{% if host.is_virtual != 'true' %}
+<tr><td><a href="{% url views.host host.name %}">{{ host.name }}</a></td><td class="filter">{{ host.manufacturer }}</td><td class="filter">{{ host.productname }}</td><td>{{ host.processorcount }}</td><td class="filter">{{ host.memorytotal }}</td><td class="filter">{{ host.architecture }}</td><td class="filter"><span class="mono">{{ host.bios_date }}</span></td><td class="filter"><span class="mono">{{ host.bios_version }}</span></td><td class="mono">{{ host.serialnumber }}</td></tr>
+{% endif %}
 {% endfor %}
 </tbody>
 </table>

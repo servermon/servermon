@@ -88,23 +88,42 @@ def host(request,hostname):
 
 
 def inventory(request):
-    hosts = Host.objects.filter(factvalue__fact_name__name='is_virtual').exclude(factvalue__value='true')
+    keys = [
+        'is_virtual',
+        'manufacturer',
+        'productname',
+        'bios_date',
+        'bios_version',
+        'serialnumber',
+        'architecture',
+        'processorcount',
+        'memorytotal',
+    ]
 
-    hostlist = []
-    for host in hosts:
-        hostlist.append({
-            'name': host.name,
-            'manufacturer': host.get_fact_value('manufacturer'),
-            'productname': host.get_fact_value('productname'),
-            'biosdate': host.get_fact_value('bios_date'),
-            'biosversion': host.get_fact_value('bios_version'),
-            'serial': host.get_fact_value('serialnumber'),
-            'arch': host.get_fact_value('architecture'),
-            'cpus': host.get_fact_value('processorcount'),
-            'memory': host.get_fact_value('memorytotal'),
-            })
+    # This could be more normally be expressed starting with Host as the base
+    # model, since we are essentially asking for hosts plus their facts.
+    #
+    # However, Django's select_related doesn't traverse reverse foreign keys,
+    # and hence we were forced to do one fact query per host, i.e N+1 queries.
+    #
+    # Django 1.4 has prefetch_related() which may or may not help; until then
+    # work around the ORM and combine it with itertools.groupby(). Should
+    # still have a performance hit for, say, more than 1k hosts.
 
-    return render_to_response("inventory.html", {'hosts': hostlist})
+    facts = FactValue.objects.all()
+    facts = facts.filter(fact_name__name__in=keys)
+    facts = facts.order_by('host') # itertools.groupby needs sorted input
+    facts = facts.select_related() # performance optimization
+
+    hosts = []
+    from itertools import groupby
+    for key, values in groupby(facts, key=lambda x: x.host.name):
+        host = {'name': key }
+        for v in values:
+            host[v.name] = v.value
+        hosts.append(host)
+
+    return render_to_response("inventory.html", {'hosts': hosts})
 
 def index(request):
     hosts = Host.objects.all()
@@ -157,20 +176,20 @@ def query(request):
                 facts.append(fact.name)
             facts.sort()
 
-            for host in f.cleaned_data['hosts']:
-                d = {}
-                row = []
-                values = host.factvalue_set.filter(fact_name__in=f.cleaned_data['facts'])
-                for val in values:
-                    if val.fact_name.name in d:
-                        d[val.fact_name.name] += ", %s" % val.value
-                    else:
-                        d[val.fact_name.name] = val.value
+            values = FactValue.objects.all()
+            values = values.filter(fact_name__in=f.cleaned_data['facts'])
+            values = values.filter(host__in=f.cleaned_data['hosts'])
+            values = values.order_by('host') # itertools.groupby needs sorted input
+            values = values.select_related() # performance optimization
 
-                for fact in facts:
-                    row.append(d.get(fact,None))
-                results.append({'host': host, 'facts': row })
-                    
+            from itertools import groupby
+            for key, values in groupby(values, key=lambda x: x.host.name):
+                row = {}
+                for v in values:
+                    row[v.name] = v.value
+                row = [ row.get(k, None) for k in facts ]
+                results.append({'host': key, 'facts': row })
+
             return render_to_response("query_results.html", { 'facts': facts, 'results': results })
         else:
             return render_to_response("query.html", { 'form': f })

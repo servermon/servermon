@@ -65,8 +65,15 @@ class FactValue(models.Model):
         db_table = u'fact_values'
         managed = False
 
+    @property
+    def name(self):
+        return self.fact_name.name
+
     def __unicode__(self):
-        return "%s %s: %s" % (self.host.name, str(self.fact_name), self.value)
+        try:
+            return "%s %s: %s" % (self.host.name, str(self.fact_name), self.value)
+        except Exception:
+            return "(unknown host) %s: %s" % (str(self.fact_name), self.value)
 
 class ParamNames(models.Model):
     name = models.CharField(max_length=765)
