@@ -73,7 +73,7 @@ def host(request,hostname):
         'value': "%s %s" % (host.get_fact_value('operatingsystem'), host.get_fact_value('operatingsystemrelease'))
         })
     system.append({ 'name': 'Memory',
-        'value': "%s (%s free)" % (host.get_fact_value('memorysize'), host.get_fact_value('memoryfree'))
+        'value': "%s (%s free)" % (host.get_fact_value('memorytotal'), host.get_fact_value('memoryfree'))
         })
 
     system.append({ 'name': 'Puppet classes',
@@ -104,6 +104,7 @@ def inventory(request):
             'serial': host.get_fact_value('serialnumber'),
             'arch': host.get_fact_value('architecture'),
             'cpus': host.get_fact_value('processorcount'),
+            'memory': host.get_fact_value('memorytotal'),
             })
 
     return render_to_response("inventory.html", {'hosts': hostlist})
