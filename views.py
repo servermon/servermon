@@ -80,8 +80,6 @@ def host(request,hostname):
         'value': ", ".join([ f.value for f in  host.factvalue_set.filter(fact_name__name='puppetclass') ])
         })
 
-    #return render_to_response("host.html", { 'host': host, 'interfaces': interfaces, 'system': system })
-
     updates = host.update_set.order_by('package__name')
 
     return render_to_response('hostview.html', {
