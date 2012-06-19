@@ -2,6 +2,7 @@
 # vim: tabstop=4:shiftwidth=4:softtabstop=4:expandtab
 
 # Copyright © 2010-2012 Greek Research and Technology Network (GRNET S.A.)
+# Copyright © 2012 Faidon Liambotis
 #
 # Permission to use, copy, modify, and/or distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
