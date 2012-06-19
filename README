@@ -14,8 +14,9 @@ At this point it offers two applications
 * python-django
 * python-django-extensions
 * python-mysqldb
-* mysql-client-5.1
 * python-django-south
+* python-ipy
+* python-whoosh
 * An application server. gunicorn should work, apache+mod_wsgi works, django runserver works
 
 ===========
