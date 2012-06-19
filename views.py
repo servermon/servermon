@@ -15,12 +15,11 @@
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
 
-from puppet.models import Host, Fact, FactValue
-from updates.models import *
+from servermon.puppet.models import Host, Fact, FactValue
+from servermon.updates.models import Package, Update
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, Http404
 from datetime import datetime, timedelta
-from django.db.models import Q
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django import forms
 from settings import HOST_TIMEOUT
@@ -188,7 +187,8 @@ def search(request):
 
 def query(request):
     class MatrixForm(forms.Form):
-        hosts = forms.ModelMultipleChoiceField(queryset=Host.objects.all(), widget=FilteredSelectMultiple("hosts", is_stacked=False))
+        hosts = forms.ModelMultipleChoiceField(queryset=Host.objects.all(),
+                widget=FilteredSelectMultiple("hosts", is_stacked=False))
         facts = forms.ModelMultipleChoiceField(queryset=Fact.objects.all()
                     .exclude(name__startswith='---')        # ruby objects
                     .exclude(name__startswith='macaddress') # VMs have tons of network interfaces :/

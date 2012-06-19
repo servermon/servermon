@@ -18,7 +18,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.db.models import Count
-from servermon.updates.models import *
+from servermon.puppet.models import Host
+from servermon.updates.models import Package
 
 def hostlist(request):
     hosts = Host.objects.annotate(update_count=Count('update'))
