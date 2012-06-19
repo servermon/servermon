@@ -33,29 +33,26 @@ def host(request,hostname):
     updates = []
     system = []
 
-    iflist = host.factvalue_set.get(fact_name__name='interfaces').value.split(',')
+    iflist = host.get_fact_value('interfaces').split(',')
     interfaces = []
     for iface in iflist:
         d = {}
         iface1 = iface.replace(':','_')
-        try:
-            mac = host.factvalue_set.get(fact_name__name='macaddress_%s' % iface1).value
-        except:
-            mac = None
-        try:
-            ip = host.factvalue_set.get(fact_name__name='ipaddress_%s' % iface1).value
-            netmask = host.factvalue_set.get(fact_name__name='netmask_%s' % iface1).value
-        except:
-            ip = None
-            netmask = None
+        mac = host.get_fact_value('macaddress_%s' % iface1)
+        ip = host.get_fact_value('ipaddress_%s' % iface1)
+        netmask = host.get_fact_value('netmask_%s' % iface1)
+        ip6 = host.get_fact_value('ipaddress6_%s' % iface1)
 
         d = { 'iface': iface,
               'mac': mac }
 
-        interfaces.append(d)
-
         if netmask and ip:
-            interfaces[-1]['ipaddr'] = "%s/%d" % (ip, IP(ip).make_net(netmask).prefixlen())
+            d['ipaddr'] = "%s/%d" % (ip, IP(ip).make_net(netmask).prefixlen())
+
+        if ip6:
+            d['ipaddr6'] = ip6
+
+        interfaces.append(d)
 
     system = []
     for fact, label in [

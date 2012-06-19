@@ -15,9 +15,9 @@
 
 <h2>Network information<div class="control"><a href="#" onclick="javascript:$('#netinfo').toggle();">Toggle</a></div></h2>
 <table id="netinfo">
-<tr><th>Interface name</th><th>IP Address</th><th>MAC Address</th></tr>
+<tr><th>Interface name</th><th>IPv4 Address</th><th>IPv6 Address</th><th>MAC Address</th></tr>
 {% for iface in interfaces %}
-<tr><td>{{iface.iface}}</td><td class="mono">{% if iface.ipaddr %}{{iface.ipaddr}}{% else %}&mdash;{% endif %}</td><td class="mono">{% if iface.mac %}{{iface.mac}}{% else %}&mdash;{% endif %}</td></tr>
+<tr><td>{{iface.iface}}</td><td class="mono">{% if iface.ipaddr %}{{iface.ipaddr}}{% else %}&mdash;{% endif %}</td><td class="mono">{% if iface.ipaddr6 %}{{iface.ipaddr6}}{% else %}&mdash;{% endif %}</td><td class="mono">{% if iface.mac %}{{iface.mac}}{% else %}&mdash;{% endif %}</td></tr>
 {% endfor %}
 </table>
 
