@@ -146,16 +146,42 @@ def search(request):
     if not request.POST or (not 'search' in request.POST):
         return HttpResponseRedirect('/')
 
+    fieldmap = [
+            ('Hostname', 'fqdn'),
+            ('MAC Address', 'macaddress_'),
+            ('IPv4 Address', 'ipaddress_'),
+            ('IPv6 Address', 'ipaddress6_'),
+            ('Vendor', 'manufacturer'),
+            ('Model', 'productname'),
+            ('Puppet class', 'puppetclass'),
+            ('Operating system', 'operatingsystem')
+            ]
     
     matches = []
     regex = re.compile(r'(' + request.POST['search'] + ')', re.IGNORECASE)
-    for name, field in [('Hostname', 'fqdn'), ('MAC Address', 'macaddress_'), ('IP Address', 'ipaddress_'), ('Vendor', 'manufacturer'), ('Model', 'productname'), ('Puppet class', 'puppetclass'), ('Operating system', 'operatingsystem')]:
-        res = FactValue.objects.filter(fact_name__name__startswith=field, value__icontains=request.POST['search']).distinct().order_by('host__name')
+
+    base = FactValue.objects.filter(value__icontains=request.POST['search'])
+    base = base.distinct().order_by('host__name')
+
+    for name, field in fieldmap:
+        res = base
+        if field.endswith('_'):
+            res = res.filter(fact_name__name__startswith=field)
+        else:
+            res = res.filter(fact_name__name=field)
+        res = res.select_related()
+
         for r in res:
-            matches.append({'name': r.host.name, 'attribute': name, 'value': regex.sub(r'<strong>\1</strong>', r.value)})
+            matches.append({
+                'name': r.host.name,
+                'attribute': name,
+                'value': regex.sub(r'<strong>\1</strong>', r.value),
+                })
 
-    return render_to_response("search.html", {'matches': matches , 'search': request.POST['search']})
-
+    return render_to_response("search.html", {
+            'matches': matches,
+            'search': request.POST['search']
+            })
 
 def query(request):
     class MatrixForm(forms.Form):
