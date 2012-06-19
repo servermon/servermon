@@ -16,7 +16,6 @@
 # OF THIS SOFTWARE.
 
 from django.db import models
-from xml.dom.minidom import parseString
 
 class Fact(models.Model):
     name = models.CharField(max_length=765)

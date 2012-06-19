@@ -18,7 +18,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from models import *
-import ldap
 
 def hostlist(request):
     return render_to_response('hostlist.html', {'hosts': Host.objects.order_by('name')})
@@ -29,7 +28,6 @@ def packagelist(request):
     
 def host(request,hostname):
     host = Host.objects.filter(hostname=hostname)[0]
-    ds = ldap.initialize("ldap://" + settings.LDAP_HOST)
     updates = host.update_set.order_by('package__name')
     return render_to_response('hostview.html', {'host': host, 'updates': updates})
 
