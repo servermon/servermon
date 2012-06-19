@@ -17,19 +17,16 @@
 
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from models import *
+from django.db.models import Count
+from servermon.updates.models import *
 
 def hostlist(request):
-    return render_to_response('hostlist.html', {'hosts': Host.objects.order_by('name')})
+    hosts = Host.objects.annotate(update_count=Count('update'))
+    return render_to_response('hostlist.html', {'hosts': hosts })
 
 def packagelist(request):
-    return render_to_response('packagelist.html', {'packages': Package.objects.order_by('name')})
-        
-    
-def host(request,hostname):
-    host = Host.objects.filter(hostname=hostname)[0]
-    updates = host.update_set.order_by('package__name')
-    return render_to_response('hostview.html', {'host': host, 'updates': updates})
+    packages = Package.objects.annotate(host_count=Count('hosts'))
+    return render_to_response('packagelist.html', {'packages': packages })
 
 def package(request,packagename):
     package = Package.objects.filter(name=packagename)[0]

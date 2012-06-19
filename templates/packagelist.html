@@ -5,9 +5,15 @@
 
 {% block content %}
 <table>
-<tr><th>Package name</th>	<th>Hosts pending an update</th></tr>
-{% for package in packages %}
-<tr><td><a href="{{ package.name }}">{{ package.name }}</a></td>	<td>{{ package.hosts.count }} hosts</td></tr>
+  <tr>
+    <th>Package name</th>
+    <th>Hosts pending an update</th>
+  </tr>
+  {% for package in packages %}
+  <tr>
+    <td><a href="{{ package.name }}">{{ package.name }}</a></td>
+    <td>{{ package.host_count }} hosts</td>
+  </tr>
 {% endfor %}
 </table>
 
