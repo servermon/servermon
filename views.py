@@ -160,7 +160,14 @@ def search(request):
 def query(request):
     class MatrixForm(forms.Form):
         hosts = forms.ModelMultipleChoiceField(queryset=Host.objects.all(), widget=FilteredSelectMultiple("hosts", is_stacked=False))
-        facts = forms.ModelMultipleChoiceField(queryset=Fact.objects.exclude(name__startswith='macaddress').exclude(name__startswith='ipaddress').exclude(name__startswith='netmask'), widget=FilteredSelectMultiple("parameters", is_stacked=False))
+        facts = forms.ModelMultipleChoiceField(queryset=Fact.objects.all()
+                    .exclude(name__startswith='---')        # ruby objects
+                    .exclude(name__startswith='macaddress') # VMs have tons of network interfaces :/
+                    .exclude(name__startswith='ipaddress')
+                    .exclude(name__startswith='ipaddress6')
+                    .exclude(name__startswith='network')
+                    .exclude(name__startswith='netmask'),
+                widget=FilteredSelectMultiple("parameters", is_stacked=False))
 
     if request.method == 'GET':
         f = MatrixForm(label_suffix='')
