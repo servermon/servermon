@@ -91,7 +91,7 @@ def host(request,hostname):
 
 
 def inventory(request):
-    hosts = Host.objects.filter(factvalue__fact_name__name='system_vendor').exclude(factvalue__value='Bochs').order_by('name')
+    hosts = Host.objects.filter(factvalue__fact_name__name='is_virtual').exclude(factvalue__value='true')
 
     hostlist = []
     for host in hosts:
