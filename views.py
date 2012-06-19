@@ -126,8 +126,10 @@ def inventory(request):
     return render_to_response("inventory.html", {'hosts': hosts})
 
 def index(request):
+    timeout = datetime.now() - timedelta(seconds=HOST_TIMEOUT)
+
     hosts = Host.objects.all()
-    problemhosts = Host.objects.filter(updated_at__lte=(datetime.now() - timedelta(seconds=HOST_TIMEOUT))).order_by('name')
+    problemhosts = Host.objects.filter(updated_at__lte=timeout).order_by('name')
     factcount = Fact.objects.count()
     factvaluecount = FactValue.objects.count()
     updatecount = Host.objects.filter(package__isnull=False).distinct().count()
@@ -135,6 +137,7 @@ def index(request):
 
     return render_to_response("index.html", {
         'problemhosts': problemhosts, 
+        'timeout': timeout,
         'hosts': hosts,
         'factcount': factcount,
         'factvaluecount': factvaluecount,
