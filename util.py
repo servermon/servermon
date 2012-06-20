@@ -35,6 +35,7 @@ def gen_host_updates(host):
         cv = update.getAttribute("current_version")
         nv = update.getAttribute("new_version")
         sn = update.getAttribute("source_name")
+        org = update.getAttribute("origin")
         is_sec = (update.getAttribute("is_security") == "true")
 
         try: 
@@ -46,6 +47,7 @@ def gen_host_updates(host):
             p.save()
         u = Update(host=host, package=p,
                 installedVersion=cv, candidateVersion=nv,
+                origin=org,
                 is_security=is_sec)
 
         u.save()

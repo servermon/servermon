@@ -16,7 +16,11 @@
     <td><a href="/hosts/{{ update.host.name }}">{{ update.host.name }}</a></td>
     <td>{{ update.installedVersion }}</td>
     <td class="changelog">
+    {% if update.get_changelog_url %}
       <a href="{{ update.get_changelog_url }}" target="_blank">{{ update.candidateVersion }}</a>
+    {% else %}
+      {{ update.candidateVersion }}
+    {% endif %}
     </td>
     <td>
       {% if update.is_security %}

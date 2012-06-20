@@ -39,10 +39,23 @@ class Update(models.Model):
     installedVersion = models.CharField(max_length=200)
     candidateVersion = models.CharField(max_length=200)
     source = models.CharField(max_length=200)
+    origin = models.CharField(max_length=200, null=True)
     is_security = models.BooleanField(default=False)
 
     def __unicode__(self):
         return "%s@%s: %s -> %s" % (self.package.name, self.host.name, self.installedVersion, self.candidateVersion)
 
     def get_changelog_url(self):
-        return "http://packages.debian.org/changelogs/pool/main/%(initial)s/%(source)s/%(source)s_%(version)s/changelog#versionversion%(slug)s" % {'initial': self.package.sourcename[0], 'source': self.package.sourcename, 'version': re.sub(r'[0-9]+:', '', self.candidateVersion), 'slug': self.candidateVersion.replace('+','_') }
+        if self.origin == 'Debian':
+            url = "http://packages.debian.org/changelogs/pool/main/%(initial)s/%(source)s/%(source)s_%(version)s/changelog#versionversion%(slug)s"
+        elif self.origin == 'Ubuntu':
+            url = "http://changelogs.ubuntu.com/changelogs/pool/main/%(initial)s/%(source)s/%(source)s_%(version)s/changelog#versionversion%(slug)s"
+        else:
+            return None
+
+        return url % {
+            'initial': self.package.sourcename[0],
+            'source': self.package.sourcename,
+            'version': re.sub(r'[0-9]+:', '', self.candidateVersion),
+            'slug': self.candidateVersion.replace('+','_')
+        }

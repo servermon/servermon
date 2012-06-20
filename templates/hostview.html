@@ -50,7 +50,11 @@
     <td><a href="/packages/{{ update.package.name }}">{{ update.package.name }}</a></td>
     <td>{{ update.installedVersion }}</td>
     <td class="changelog">
+    {% if update.get_changelog_url %}
       <a href="{{ update.get_changelog_url }}" target="_blank">{{ update.candidateVersion }}</a>
+    {% else %}
+      {{ update.candidateVersion }}
+    {% endif %}
     </td>
     <td>
       {% if update.is_security %}

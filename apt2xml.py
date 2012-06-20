@@ -56,8 +56,16 @@ def getUpdates():
             u.setAttribute("current_version", update.installed.version)
         u.setAttribute("new_version", update.candidate.version)
         u.setAttribute("source_name", update.candidate.source_name)
+
+        try:
+            origin = update.candidate.origins[0].origin
+            u.setAttribute("origin", origin)
+        except IndexError:
+            pass
+
         if isSecurityUpgrade(update.candidate):
             u.setAttribute("is_security", "true")
+
         host.appendChild(u)
 
     return doc.toxml().replace('\n','')
