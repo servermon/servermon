@@ -4,18 +4,22 @@
 {% block heading %}{{ host.name }}: Host information{% endblock %}
 {% block content %}
 <h2>System information</h2>
+
 <div class="hostinfo">
-<table>
-{% for attr in system|dictsort:"name" %}
-{% if attr.value %}
-  <tr>
-    <th>{{ attr.name }}</th>
-    <td>{{ attr.value }}</td>
-  </tr>
-{% endif %}
-{% endfor %}
-<tr><th>Last updated</th><td>{{ host.updated_at|timesince }}</td></tr>
-</table>
+  <table>
+    {% for attr in system|dictsort:"name" %}
+    {% if attr.value %}
+    <tr>
+      <th>{{ attr.name }}</th>
+      <td>{{ attr.value }}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+    <tr>
+      <th>Last updated</th>
+      <td>{{ host.updated_at|timesince }}</td>
+    </tr>
+  </table>
 </div>
 
 <h2>Network information<div class="control"><a href="#" onclick="javascript:$('#netinfo').toggle();">Toggle</a></div></h2>
@@ -37,6 +41,7 @@
 </table>
 
 <h2>Available package updates<div class="control"><a href="#" onclick="javascript:$('#updates').toggle();">Toggle</a></div></h2>
+
 {% if updates %}
 <table id="updates">
   <thead>
@@ -70,10 +75,10 @@
 </table>
 
 <div class="instructions">
-<ul>
-<li>Click on the available version number to view the package's changelog for that version</li>
-<li>Click on a package name to see all hosts with pending updates on that package</li>
-</ul>
+  <ul>
+    <li>Click on the available version number to view the package's changelog for that version</li>
+    <li>Click on a package name to see all hosts with pending updates on that package</li>
+  </ul>
 </div>
 
 {% else %}

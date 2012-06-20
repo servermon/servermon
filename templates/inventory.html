@@ -4,65 +4,84 @@
 {% block heading %}Hardware Inventory{% endblock %}
 {% block content %}
 <style type="text/css">
-.inventory {
+#inventory {
 	text-align: center;
 }
 
-.inventory tr td {
+#inventory tr td {
 	padding-bottom: 0.2em;
 	padding-right: 0.3em;
 	padding-left: 0.3em;
 }
 
-.inventory tr td img {
+#inventory tr td img {
 	float: right;
 	right: 0px;
 }
 
-.inventory tr td.filter:hover {
+#inventory tr td.filter:hover {
 	background-color: #eeffcc;
 	cursor: crosshair;
 }
 
-.inventory th {
+#inventory th {
 	cursor: s-resize;
 }
 </style>
 
 <script type="text/javascript" src="{{ MEDIA_URL }}jquery.tablefilter.js"></script>
-
 <script type="text/javascript">
 $(document).ready(function() {
-    $table = $("#inventory")
-        .tablesorter({widthFixed: true, widgets: ['zebra']});
-    FilterText = "";
-    ColumnArray = ["Vendor","Model","Arch","BIOS Date","BIOS Version"];
-    for (i=0;i<ColumnArray.length;i++) {
-	var th = $("#inventory thead tr").find("th:contains(" + ColumnArray[i] + ")");
-	var ind = $("#inventory thead tr th").index(th);
-        $("#inventory tbody tr").find("td:eq(" + ind + ")").click( function() {
-            clickedText = $(this).text();
-            FilterText = ((FilterText == clickedText) ? "" : clickedText );
-            $.uiTableFilter( $table, FilterText, ColumnArray[i]);
-        });
-    }
+  $table = $("#inventory").tablesorter({widthFixed: true, widgets: ['zebra']});
+  FilterText = "";
+  ColumnArray = ["Vendor", "Model", "Arch", "BIOS Date", "BIOS Version" ];
+  for (i=0;i<ColumnArray.length;i++) {
+    var th = $("#inventory thead tr").find("th:contains(" + ColumnArray[i] + ")");
+    var ind = $("#inventory thead tr th").index(th);
+    $("#inventory tbody tr").find("td:eq(" + ind + ")").click( function() {
+      clickedText = $(this).text();
+      FilterText = ((FilterText == clickedText) ? "" : clickedText );
+      $.uiTableFilter( $table, FilterText, ColumnArray[i]);
+    });
+  }
 });
 </script>
 
 <div class="instructions">
-Click on a cell to filter by its value; click on a column header to change sorting
+Click on a cell to filter by its value; click on a column header to sort; shift+click to sort using multiple columns
 </div>
-<table align="center" class="inventory" id="inventory">
-<thead>
-	<tr><th>Hostname</th><th>Vendor</th><th>Model</th><th># of CPUs</th><th>Memory</th><th>Arch</th><th>BIOS Date</th><th>BIOS Version</th><th>Serial nr.</th></tr>
-</thead>
-<tbody>
-{% for host in hosts %}
-{% if host.is_virtual != 'true' %}
-<tr><td><a href="{% url views.host host.name %}">{{ host.name }}</a></td><td class="filter">{{ host.manufacturer }}</td><td class="filter">{{ host.productname }}</td><td>{{ host.processorcount }}</td><td class="filter">{{ host.memorytotal }}</td><td class="filter">{{ host.architecture }}</td><td class="filter"><span class="mono">{{ host.bios_date }}</span></td><td class="filter"><span class="mono">{{ host.bios_version }}</span></td><td class="mono">{{ host.serialnumber }}</td></tr>
-{% endif %}
-{% endfor %}
-</tbody>
+
+<table id="inventory">
+  <thead>
+    <tr>
+      <th>Hostname</th>
+      <th>Vendor</th>
+      <th>Model</th>
+      <th># of CPUs</th>
+      <th>Memory</th>
+      <th>Arch</th>
+      <th>BIOS Date</th>
+      <th>BIOS Version</th>
+      <th>Serial nr.</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for host in hosts %}
+    {% if host.is_virtual != 'true' %}
+    <tr>
+      <td><a href="{% url views.host host.name %}">{{ host.name }}</a></td>
+      <td class="filter">{{ host.manufacturer }}</td>
+      <td class="filter">{{ host.productname }}</td>
+      <td>{{ host.processorcount }}</td>
+      <td>{{ host.memorytotal }}</td>
+      <td class="filter">{{ host.architecture }}</td>
+      <td class="filter"><span class="mono">{{ host.bios_date }}</span></td>
+      <td class="filter"><span class="mono">{{ host.bios_version }}</span></td>
+      <td><span class="mono">{{ host.serialnumber }}</span></td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+  </tbody>
 </table>
 
 {% endblock %}
