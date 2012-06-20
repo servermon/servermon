@@ -131,7 +131,7 @@ def index(request):
     timeout = datetime.now() - timedelta(seconds=HOST_TIMEOUT)
 
     hosts = Host.objects.all()
-    problemhosts = Host.objects.filter(updated_at__lte=timeout).order_by('name')
+    problemhosts = Host.objects.filter(updated_at__lte=timeout).order_by('-updated_at')
     factcount = Fact.objects.count()
     factvaluecount = FactValue.objects.count()
     updatecount = Host.objects.filter(package__isnull=False).distinct().count()
