@@ -16,11 +16,13 @@
 # OF THIS SOFTWARE.
 
 from xml.dom.minidom import parseString
-from updates.models import Package, Update
+from servermon.updates.models import Package, Update
+from django.db import transaction
 
 def clean_orphan_packages():
     Package.objects.filter(hosts__isnull=True).delete()
 
+@transaction.commit_on_success
 def gen_host_updates(host):
     # Delete old updates
     host.update_set.all().delete()
@@ -45,6 +47,7 @@ def gen_host_updates(host):
         if not p:
             p = Package(name=name, sourcename=sn)
             p.save()
+
         u = Update(host=host, package=p,
                 installedVersion=cv, candidateVersion=nv,
                 origin=org,
