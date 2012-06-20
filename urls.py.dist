@@ -1,26 +1,23 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 
-# Uncomment the next two lines to enable the admin:
-from django.contrib import admin
-admin.autodiscover()
+# Uncomment the next two lines to enable the admin & hwdoc:
+#from django.contrib import admin
+#admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
-    # to INSTALLED_APPS to enable admin documentation:
-    # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    (r'^admin/', include(admin.site.urls)),
-    (r'^/?$', 'views.index'),
-    (r'^hosts/$', 'updates.views.hostlist'),
-    (r'^hosts/(.*)','views.host'),
-    (r'^packages/$','updates.views.packagelist'),
-    (r'^packages/(.*)','updates.views.package'),
-    (r'^inventory/?$','views.inventory'),
-    (r'^search/?$', 'views.search'),
-    (r'^query/?$', 'views.query'),
-    (r'^hwdoc/', include('servermon.hwdoc.urls')),
+    (r'^/?$',           'servermon.views.index'),
+    (r'^hosts/$',       'servermon.updates.views.hostlist'),
+    (r'^hosts/(.*)',    'servermon.views.host'),
+    (r'^packages/$',    'servermon.updates.views.packagelist'),
+    (r'^packages/(.*)', 'servermon.updates.views.package'),
+    (r'^inventory/?$',  'servermon.views.inventory'),
+    (r'^search/?$',     'servermon.views.search'),
+    (r'^query/?$',      'servermon.views.query'),
+    # Uncomment the next lines to enable the admin & hwdoc:
+    # (r'^admin/',        include(admin.site.urls)),
+    # (r'^admin/doc/',    include('django.contrib.admindocs.urls')),
+    # (r'^hwdoc/',        include('servermon.hwdoc.urls')),
 )
 
 # Static files
