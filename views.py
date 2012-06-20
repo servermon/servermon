@@ -77,7 +77,9 @@ def host(request,hostname):
         'value': ", ".join([ f.value for f in  host.factvalue_set.filter(fact_name__name='puppetclass') ])
         })
 
-    updates = host.update_set.order_by('package__name')
+
+    updates = Update.objects.filter(host=host).order_by('package__name')
+    updates = updates.select_related()
 
     return render_to_response('hostview.html', {
         'host': host,
