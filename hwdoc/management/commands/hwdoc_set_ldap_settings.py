@@ -93,6 +93,8 @@ class Command(BaseCommand):
             if int(options['verbosity']) > 1:
                 print e
             ldap_opts = options.copy()
+            ldap_opts.pop('username')
+            ldap_opts.pop('password')
             for s in ldap_opts.keys():
                 if s == 'contexts' and ldap_opts['contexts'] is not None:
                     ldap_opts['contexts'] = ldap_opts['contexts'].split(':')
