@@ -17,22 +17,22 @@
 # OF THIS SOFTWARE.
 
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from servermon.compat import render
 from django.db.models import Count
 from servermon.puppet.models import Host
 from servermon.updates.models import Package
 
 def hostlist(request):
     hosts = Host.objects.annotate(update_count=Count('update'))
-    return render_to_response('hostlist.html', {'hosts': hosts })
+    return render(request, 'hostlist.html', {'hosts': hosts })
 
 def packagelist(request):
     packages = Package.objects.annotate(host_count=Count('hosts'))
-    return render_to_response('packagelist.html', {'packages': packages })
+    return render(request, 'packagelist.html', {'packages': packages })
 
 def package(request,packagename):
     package = Package.objects.filter(name=packagename)[0]
     updates = package.update_set.order_by('host__name')
     if "plain" in request.GET:
-        return render_to_response("package.txt", {"updates": updates}, mimetype="text/plain")
-    return render_to_response('packageview.html', {'package': package, 'updates': updates})
+        return render(request, "package.txt", {"updates": updates}, mimetype="text/plain")
+    return render(request, 'packageview.html', {'package': package, 'updates': updates})

@@ -18,7 +18,8 @@
 
 from servermon.puppet.models import Host, Fact, FactValue
 from servermon.updates.models import Package, Update
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import get_object_or_404
+from servermon.compat import render
 from django.http import HttpResponseRedirect, Http404
 from datetime import datetime, timedelta
 from django.contrib.admin.widgets import FilteredSelectMultiple
@@ -81,7 +82,7 @@ def host(request,hostname):
     updates = Update.objects.filter(host=host).order_by('package__name')
     updates = updates.select_related()
 
-    return render_to_response('hostview.html', {
+    return render(request, 'hostview.html', {
         'host': host,
         'updates': updates,
         'interfaces': interfaces,
@@ -125,7 +126,7 @@ def inventory(request):
             host[v.name] = v.value
         hosts.append(host)
 
-    return render_to_response("inventory.html", {'hosts': hosts})
+    return render(request, "inventory.html", {'hosts': hosts})
 
 def index(request):
     timeout = datetime.now() - timedelta(seconds=HOST_TIMEOUT)
@@ -138,7 +139,7 @@ def index(request):
     packagecount = Package.objects.count()
     securitycount = Package.objects.filter(update__is_security=True).distinct().count()
 
-    return render_to_response("index.html", {
+    return render(request, "index.html", {
         'problemhosts': problemhosts, 
         'timeout': timeout,
         'hosts': hosts,
@@ -185,7 +186,7 @@ def search(request):
                 'value': regex.sub(r'<strong>\1</strong>', r.value),
                 })
 
-    return render_to_response("search.html", {
+    return render(request, "search.html", {
             'matches': matches,
             'search': request.POST['search']
             })
@@ -206,7 +207,7 @@ def query(request):
     if request.method == 'GET':
         f = MatrixForm(label_suffix='')
 
-        return render_to_response("query.html", { 'form': f })
+        return render(request, "query.html", { 'form': f })
 
     else:
         f = MatrixForm(request.POST)
@@ -231,6 +232,6 @@ def query(request):
                 row = [ row.get(k, None) for k in facts ]
                 results.append({'host': key, 'facts': row })
 
-            return render_to_response("query_results.html", { 'facts': facts, 'results': results })
+            return render(request, "query_results.html", { 'facts': facts, 'results': results })
         else:
-            return render_to_response("query.html", { 'form': f })
+            return render(request, "query.html", { 'form': f })

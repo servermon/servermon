@@ -1,10 +1,10 @@
 <html>
 <head>
 <title>{% block title %}{% endblock %} -- servermon</title>
-<link type="text/css" rel="stylesheet" href="/static/updates.css" />
+<link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}updates.css" />
 <link rel="search" type="application/opensearchdescription+xml" title="hwdoc Search" href="{% url opensearch %}" />
-<script type="text/javascript" src="/static/jquery-1.2.6.min.js"></script>
-<script type="text/javascript" src="/static/jquery.tablesorter.min.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}jquery.tablesorter.min.js"></script>
 </head>
 
 <body>
@@ -26,7 +26,7 @@ $(document).ready(function() {
 {% endblock %}
 
 <div id="footer">
-<a href="http://www.djangoproject.com/"><img src="/static/django.gif" alt="A Django site" title="A Django site" border=0 /></a>
+  <a href="http://www.djangoproject.com/"><img src="{{ MEDIA_URL}}django.gif" alt="A Django site" title="A Django site" border=0 /></a>
 </div>
 </body>
 </html>
