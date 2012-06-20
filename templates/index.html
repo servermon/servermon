@@ -33,16 +33,20 @@
 <h2>Problematic puppetized hosts</h2>
 <div class="instructions">The following hosts have not contacted puppetmaster during the past {{ timeout|timesince }}:</div>
 <table>
-  <tr>
-    <th>Hostname</th>
-    <th>Last update</th>
-  </tr>
-{% for host in problemhosts %}
-  <tr>
-    <td><a href="{% url views.host host.name %}">{{ host.name }}</a></td>
-    <td>{{ host.updated_at|timesince }}</td>
-  </tr>
-{% endfor %}
+  <thead>
+    <tr>
+      <th>Hostname</th>
+      <th>Last update</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for host in problemhosts %}
+    <tr class={% cycle 'even' 'odd' %}>
+      <td><a href="{% url views.host host.name %}">{{ host.name }}</a></td>
+      <td>{{ host.updated_at|timesince }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
 </table>
 {% endif %}
 

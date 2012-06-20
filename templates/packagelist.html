@@ -4,17 +4,21 @@
 {% block heading %}Package list{% endblock %}
 
 {% block content %}
-<table>
-  <tr>
-    <th>Package name</th>
-    <th>Hosts pending an update</th>
-  </tr>
+<table class="sortable">
+  <thead>
+    <tr>
+      <th>Package name</th>
+      <th>Hosts pending an update</th>
+    </tr>
+  </thead>
+  <tbody>
   {% for package in packages %}
   <tr>
     <td><a href="{{ package.name }}">{{ package.name }}</a></td>
     <td>{{ package.host_count }} hosts</td>
   </tr>
-{% endfor %}
+  {% endfor %}
+  </tbody>
 </table>
 
 <div class="instructions">

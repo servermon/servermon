@@ -35,6 +35,10 @@ th {
 	padding-left: 1em;
 }
 
+th.header {
+	cursor: s-resize;
+}
+
 a {
 	color: #405871;
 	text-decoration: none;
@@ -50,6 +54,10 @@ p {
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
+}
+
+img {
+	border: 0px;
 }
 
 #footer {
@@ -81,6 +89,10 @@ p {
 
 .mono {
 	font-family: monospace;
+}
+
+.even {
+	background-color: #eaeaea;
 }
 
 .changelog {
