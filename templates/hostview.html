@@ -36,9 +36,9 @@
 {% endfor %}
 </table>
 
-<h2>Available package updates</h2>
+<h2>Available package updates<div class="control"><a href="#" onclick="javascript:$('#updates').toggle();">Toggle</a></div></h2>
 {% if updates %}
-<table >
+<table id="updates">
   <thead>
     <tr>
       <th>Package name</th>
