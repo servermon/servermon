@@ -55,12 +55,20 @@ def host(request,hostname):
 
         interfaces.append(d)
 
+    fields = [
+        ('bios_date', 'BIOS Date'),
+        ('bios_version', 'BIOS Version'),
+        ('manufacturer', 'System Vendor'),
+        ('productname', 'Model'),
+        ('serialnumber', 'Serial number'),
+        ('processorcount', 'Processors'),
+        ('architecture', 'Architecture'),
+        ('virtual', 'Machine Type'),
+        ('uptime', 'Uptime'),
+    ]
+
     system = []
-    for fact, label in [
-        ('bios_date', 'BIOS Date'),  ('bios_version', 'BIOS Version'),
-        ('manufacturer', 'System Vendor'), ('productname', 'Model'),
-        ('serialnumber', 'Serial Nr'), ('processorcount', 'Processors'),
-        ('architecture', 'Architecture'), ('virtual', 'Machine Type')]:
+    for fact, label in fields:
         system.append({ 'name': label, 'value': host.get_fact_value(fact) })
 
     system.append({ 'name': 'Processor type',
