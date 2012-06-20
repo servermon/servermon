@@ -16,7 +16,7 @@
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
 
-from django.http import HttpResponse
+from django.shortcuts import get_list_or_404
 from servermon.compat import render
 from django.db.models import Count
 from servermon.puppet.models import Host
@@ -30,8 +30,10 @@ def packagelist(request):
     packages = Package.objects.annotate(host_count=Count('hosts'))
     return render(request, 'packagelist.html', {'packages': packages })
 
-def package(request,packagename):
-    package = Package.objects.filter(name=packagename)[0]
+def package(request, packagename):
+    # there may be multiple Package with same name but different sourcename
+    package = get_list_or_404(Package, name=packagename)[0]
+
     updates = package.update_set.order_by('host__name')
     if "plain" in request.GET:
         return render(request, "package.txt", {"updates": updates}, mimetype="text/plain")
