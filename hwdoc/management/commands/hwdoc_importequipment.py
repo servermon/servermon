@@ -20,7 +20,7 @@ Django management command to import a CSV
 
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
-from hwdoc.models import Model, Equipment, ServerManagement
+from hwdoc.models import EquipmentModel, Equipment, ServerManagement
 import sys
 import csv
 import re
@@ -29,7 +29,7 @@ class Command(BaseCommand):
     '''
     Django management command to import a CSV
     '''
-    help = "Loads a specific CSV to hwdoc Model, Equipment and ServerManagement models"
+    help = "Loads a specific CSV to hwdoc EquipmentModel, Equipment and ServerManagement models"
     args = "<file>"
     label = "file name to be imported"
 
@@ -72,16 +72,16 @@ class Command(BaseCommand):
 
                 e = Equipment()
                 if eq == 'VMC':
-                    e.model = Model.objects.get(name="DL385 G7")
+                    e.model = EquipmentModel.objects.get(name="DL385 G7")
                     e.purpose = eq
                 elif eq == 'SC':
-                    e.model = Model.objects.get(name="DL380 G7")
+                    e.model = EquipmentModel.objects.get(name="DL380 G7")
                     e.purpose = eq
                 elif eq == 'DS':
-                    e.model = Model.objects.get(name="DS2600")
+                    e.model = EquipmentModel.objects.get(name="DS2600")
                     e.purpose = eq
                 elif eq == 'HN':
-                    e.model = Model.objects.get(name="PRIMERGY RX200 S5")
+                    e.model = EquipmentModel.objects.get(name="PRIMERGY RX200 S5")
                     e.purpose = eq
 
                 e.serial = sn

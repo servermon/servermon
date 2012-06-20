@@ -20,7 +20,7 @@ Django management command to reset BMC factory defaults
 
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
-from hwdoc.models import Model, Equipment, ServerManagement
+from hwdoc.models import ServerManagement
 from hwdoc.functions import search
 
 import sys

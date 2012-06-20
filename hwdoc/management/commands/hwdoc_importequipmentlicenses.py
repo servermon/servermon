@@ -20,7 +20,7 @@ Django management command to import a CSV of BMC licenses
 
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
-from hwdoc.models import Model, Equipment, ServerManagement
+from hwdoc.models import Equipment, ServerManagement
 import sys
 import csv
 import re
