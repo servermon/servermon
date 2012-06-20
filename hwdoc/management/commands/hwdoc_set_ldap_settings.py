@@ -90,7 +90,7 @@ class Command(BaseCommand):
                 e.servermanagement
             except ServerManagement.DoesNotExist: 
                 continue
-            if int(options['verbosity']) > 1:
+            if int(options['verbosity']) > 0:
                 print e
             ldap_opts = options.copy()
             ldap_opts.pop('username')

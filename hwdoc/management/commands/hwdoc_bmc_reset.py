@@ -75,7 +75,7 @@ class Command(BaseCommand):
                 e.servermanagement
             except ServerManagement.DoesNotExist: 
                 continue
-            if int(options['verbosity']) > 1:
+            if int(options['verbosity']) > 0:
                 print e
             result = e.servermanagement.bmc_reset(options['username'], options['password'])
             #TODO: Figure out what to do with this

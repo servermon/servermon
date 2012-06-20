@@ -85,7 +85,7 @@ class Command(BaseCommand):
                 e.servermanagement
             except ServerManagement.DoesNotExist: 
                 continue
-            if int(options['verbosity']) > 1:
+            if int(options['verbosity']) > 0:
                 print e
             creds = { 'change_username': options['change_username'], 'newpass': options['newpass'], }
             result = e.servermanagement.pass_change(options['username'], options['password'], **creds)

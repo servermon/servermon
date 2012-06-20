@@ -85,7 +85,7 @@ class Command(BaseCommand):
                 e.servermanagement
             except ServerManagement.DoesNotExist: 
                 continue
-            if int(options['verbosity']) > 1:
+            if int(options['verbosity']) > 0:
                 print e
             ops = {'once': options['once'], 'boot_list': options['boot_list'].split(',')}
             result = e.servermanagement.boot_order(options['username'], options['password'], **ops)

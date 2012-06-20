@@ -80,7 +80,7 @@ class Command(BaseCommand):
                 e.servermanagement
             except ServerManagement.DoesNotExist: 
                 continue
-            if int(options['verbosity']) > 1:
+            if int(options['verbosity']) > 0:
                 print e
             if options['force']:
                 result = e.servermanagement.power_off(options['username'], options['password'])
