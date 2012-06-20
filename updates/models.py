@@ -27,12 +27,19 @@ class Package(models.Model):
     class Meta:
         ordering = ('name', )
 
+    def __unicode__(self):
+        if self.name == self.sourcename:
+            return self.name
+        else:
+            return "%s (%s)" % (self.name, self.sourcename)
+
 class Update(models.Model):
     package = models.ForeignKey(Package)
     host = models.ForeignKey(Host)
     installedVersion = models.CharField(max_length=200)
     candidateVersion = models.CharField(max_length=200)
     source = models.CharField(max_length=200)
+    is_security = models.BooleanField(default=False)
 
     def __unicode__(self):
         return "%s@%s: %s -> %s" % (self.package.name, self.host.name, self.installedVersion, self.candidateVersion)

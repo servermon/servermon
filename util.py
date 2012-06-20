@@ -35,6 +35,7 @@ def gen_host_updates(host):
         cv = update.getAttribute("current_version")
         nv = update.getAttribute("new_version")
         sn = update.getAttribute("source_name")
+        is_sec = (update.getAttribute("is_security") == "true")
 
         try: 
             p = Package.objects.filter(name=name)[0]
@@ -43,6 +44,9 @@ def gen_host_updates(host):
         if not p:
             p = Package(name=name, sourcename=sn)
             p.save()
-        u = Update(host=host, package=p, installedVersion=cv, candidateVersion=nv)
+        u = Update(host=host, package=p,
+                installedVersion=cv, candidateVersion=nv,
+                is_security=is_sec)
+
         u.save()
 
