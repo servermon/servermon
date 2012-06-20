@@ -7,10 +7,24 @@
 <div id="statistics">
 <h2>Statistics</h2>
 <table class="hostinfo">
-<tr><th>Hosts</th><td>{{ hosts.count }}</td><th>Virtual Machines</th><td>0</td></tr>
-<tr><th>Facts</th><td>{{ factcount }}</td><th>Virtualization Clusters</th><td>0</td></tr>
-<tr><th>Fact entries</th><td>{{ factvaluecount }}</td><th>Virtualization Nodes</th><td>0</td></tr>
-<tr><th>Hosts pending update</th><td><a href="{% url updates.views.hostlist %}">{{ updatecount }}</a></td><th>Packages pending update</th><td><a href="{% url updates.views.packagelist %}">{{ packagecount }}</a></td></tr>
+  <tr>
+    <th>Hosts</th>
+    <td>{{ hosts.count }}</td>
+    <th>Hosts pending update</th>
+    <td><a href="{% url updates.views.hostlist %}">{{ updatecount }}</a></td>
+  </tr>
+  <tr>
+    <th>Facts</th>
+    <td>{{ factcount }}</td>
+    <th>Security updates</th>
+    <td><a href="{% url updates.views.packagelist %}">{{ securitycount }}</a></td>
+  </tr>
+  <tr>
+    <th>Fact entries</th>
+    <td>{{ factvaluecount }}</td>
+    <th>Package updates</th>
+    <td><a href="{% url updates.views.packagelist %}">{{ packagecount }}</a></td>
+  </tr>
 </table>
 </div>
 
@@ -19,9 +33,15 @@
 <h2>Problematic puppetized hosts</h2>
 <div class="instructions">The following hosts have not contacted puppetmaster during the past {{ timeout|timesince }}:</div>
 <table>
-<tr><th>Hostname</th><th>Last update</th></tr>
+  <tr>
+    <th>Hostname</th>
+    <th>Last update</th>
+  </tr>
 {% for host in problemhosts %}
-<tr><td><a href="{% url views.host host.name %}">{{ host.name }}</a></td><td>{{ host.updated_at|timesince }}</td></tr>
+  <tr>
+    <td><a href="{% url views.host host.name %}">{{ host.name }}</a></td>
+    <td>{{ host.updated_at|timesince }}</td>
+  </tr>
 {% endfor %}
 </table>
 {% endif %}

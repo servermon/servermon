@@ -136,6 +136,7 @@ def index(request):
     factvaluecount = FactValue.objects.count()
     updatecount = Host.objects.filter(package__isnull=False).distinct().count()
     packagecount = Package.objects.count()
+    securitycount = Package.objects.filter(update__is_security=True).distinct().count()
 
     return render_to_response("index.html", {
         'problemhosts': problemhosts, 
@@ -145,6 +146,7 @@ def index(request):
         'factvaluecount': factvaluecount,
         'updatecount': updatecount,
         'packagecount': packagecount,
+        'securitycount': securitycount,
         })
 
 def search(request):
