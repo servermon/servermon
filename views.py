@@ -28,7 +28,7 @@ from settings import HOST_TIMEOUT
 from IPy import IP
 import re
 
-def host(request,hostname):
+def host(request, hostname):
     host = get_object_or_404(Host, name=hostname)
 
     updates = []
@@ -205,18 +205,17 @@ def query(request):
                 widget=FilteredSelectMultiple("hosts", is_stacked=False))
         facts = forms.ModelMultipleChoiceField(queryset=Fact.objects.all()
                     .exclude(name__startswith='---')        # ruby objects
-                    .exclude(name__startswith='macaddress') # VMs have tons of network interfaces :/
-                    .exclude(name__startswith='ipaddress')
-                    .exclude(name__startswith='ipaddress6')
-                    .exclude(name__startswith='network')
-                    .exclude(name__startswith='netmask'),
+                    .exclude(name__startswith='package_updates')
+                    .exclude(name__startswith='macaddress_') # VMs have tons of network interfaces :/
+                    .exclude(name__startswith='ipaddress_')
+                    .exclude(name__startswith='ipaddress6_')
+                    .exclude(name__startswith='network_')
+                    .exclude(name__startswith='netmask_'),
                 widget=FilteredSelectMultiple("parameters", is_stacked=False))
 
     if request.method == 'GET':
         f = MatrixForm(label_suffix='')
-
         return render(request, "query.html", { 'form': f })
-
     else:
         f = MatrixForm(request.POST)
         if f.is_valid():
