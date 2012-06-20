@@ -18,11 +18,10 @@
 hwdoc views module
 '''
 
-from hwdoc.models import Project, EquipmentModel, Equipment, ServerManagement, Rack
-from django.db.models import Q
-from hwdoc import functions
-from django.template import RequestContext
-from django.shortcuts import render_to_response, get_object_or_404
+from servermon.hwdoc.models import Project, EquipmentModel, Equipment, ServerManagement, Rack
+from servermon.hwdoc import functions
+from servermon.compat import render
+from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django.contrib.sites.models import Site
 
@@ -40,12 +39,11 @@ def index(request):
     projects = Project.objects.order_by('name').all()
     models = EquipmentModel.objects.order_by('vendor__name','name').all()
     
-    return render_to_response('hwdocindex.html',
-            {   'racks': racks,
+    return render(request, 'hwdocindex.html', {
+                'racks': racks,
                 'projects': projects,
                 'models': models,
-            },
-            context_instance=RequestContext(request))
+            })
 
 def equipment(request, equipment_id):
     '''
@@ -60,9 +58,7 @@ def equipment(request, equipment_id):
     template = 'equipment.html'
 
     equipment = get_object_or_404(Equipment,pk=equipment_id)
-    return render_to_response(template,
-            { 'equipment': equipment, },
-            context_instance=RequestContext(request))
+    return render(request, template, { 'equipment': equipment, })
 
 def project(request, project_id):
     '''
@@ -77,9 +73,7 @@ def project(request, project_id):
     template = 'project.html'
 
     project = get_object_or_404(Project,pk=project_id)
-    return render_to_response(template,
-            { 'project': project, },
-            context_instance=RequestContext(request))
+    return render(request, template, { 'project': project, })
 
 def search(request):
     '''
@@ -108,10 +102,9 @@ def search(request):
     else:
         key = None
 
-    return render_to_response(template,
+    return render(request, template,
             { 'results': functions.search(key).order_by('rack', '-unit'), },
-            mimetype=mimetype,
-            context_instance=RequestContext(request))
+            mimetype=mimetype)
 
 def advancedsearch(request):
     '''
@@ -123,8 +116,7 @@ def advancedsearch(request):
     @return: HTTPResponse object rendering corresponding HTML
     '''
 
-    return render_to_response('advancedsearch.html',
-            context_instance=RequestContext(request))
+    return render(request, 'advancedsearch.html')
 
 def opensearch(request):
     '''
@@ -142,13 +134,8 @@ def opensearch(request):
     except IndexError:
         contact = 'none@example.com'
 
-    return render_to_response('opensearch.xml',
-             {
+    return render(request, 'opensearch.xml', {
                  'opensearchbaseurl': "http://%s" % fqdn,
                  'fqdn': fqdn,
                  'contact': contact,
-                 },
-             context_instance=RequestContext(request),
-             mimetype = 'application/opensearchdescription+xml'
-            )
-
+             }, mimetype = 'application/opensearchdescription+xml')

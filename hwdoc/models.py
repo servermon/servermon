@@ -19,7 +19,6 @@ hwdoc module's functions documentation. Main models are Equipment and ServerMana
 '''
 
 from django.db import models
-from django.db.utils import DatabaseError
 from django.utils.translation import ugettext as _
 
 # Allocation models #
