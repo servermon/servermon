@@ -20,7 +20,7 @@ Django management command to import a CSV
 
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
-from hwdoc.models import EquipmentModel, Equipment, ServerManagement
+from hwdoc.models import EquipmentModel, Equipment, ServerManagement, Rack
 import sys
 import csv
 import re
@@ -63,11 +63,11 @@ class Command(BaseCommand):
                 else:
                     continue
 
-                if len(dns) != 29 and eq != 'DS':
-                    print "ERROR: Row: %s has wrong ILODNS row" % (row)
-                    continue
-
-                rack = rack.split('_')[1]
+                try:
+                    rack = Rack.objects.get(pk=rack.split('_')[1])
+                except Rack.DoesNotExist:
+                    raise RuntimeError('The Rack %s you specified does not exist. You should create it first' % rack)
+                
                 unit = unit.split('-')[0][1:]
 
                 e = Equipment()
