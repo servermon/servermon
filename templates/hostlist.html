@@ -23,7 +23,7 @@
         &mdash;
         {% endif %}
       </td>
-      <td><em><small>{{ host.updated_at|date }}</small></em></td>
+      <td><em><small>{{ host.updated_at|timesince }}</small></em></td>
     </tr>
   {% endfor %}
   </tbody>

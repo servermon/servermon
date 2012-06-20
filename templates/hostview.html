@@ -14,7 +14,7 @@
   </tr>
 {% endif %}
 {% endfor %}
-<tr><th>Last updated</th><td>{{ host.updated_at|date }}</td></tr>
+<tr><th>Last updated</th><td>{{ host.updated_at|timesince }}</td></tr>
 </table>
 </div>
 
