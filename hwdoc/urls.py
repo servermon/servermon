@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- vim:encoding=utf-8:
+# -*- coding: utf-8 -*- vim:fileencoding=utf-8:
 # vim: tabstop=4:shiftwidth=4:softtabstop=4:expandtab
 '''
 Module containing hwdoc URLconf
