@@ -20,6 +20,7 @@ hwdoc module's functions documentation. Main models are Equipment and ServerMana
 
 from django.db import models
 from django.db.utils import DatabaseError
+from django.utils.translation import ugettext as _
 
 # Allocation models #
 class Email(models.Model):
@@ -86,7 +87,12 @@ class Role(models.Model):
     person = models.ForeignKey(Person)
 
     def __unicode__(self):
-        return 'Project: %s, Person: %s %s, Role: %s' % (self.project.name, self.person.name, self.person.surname, self.role)
+        return _('Project: %(project)s, Person: %(name)s %(surname)s, Role: %(role)s' % {
+            'project': self.project.name,
+            'name': self.person.name,
+            'surname': self.person.surname,
+            'role': self.role,
+            })
 
 # Equipment models #
 class Vendor(models.Model):
@@ -258,7 +264,7 @@ class ServerManagement(models.Model):
         '''
 
         if 'change_username' not in kwargs or 'newpass' not in kwargs:
-            raise RuntimeError('Username and/or password to be changed not given')
+            raise RuntimeError(_('Username and/or password to be changed not given'))
         return self.__sm__('pass_change', username, password, **kwargs)
 
     def set_settings(self, username=None, password=None, **kwargs):

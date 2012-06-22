@@ -29,6 +29,7 @@ from servermon.hwdoc.models import Equipment, ServerManagement
 from django.db.models import Q
 from socket import gethostbyaddr, herror, gaierror, error
 from whoosh.analysis import SpaceSeparatedTokenizer, StopFilter
+from django.utils.translation import ugettext as _
 import re
 
 def canonicalize_mac(key):
@@ -108,7 +109,7 @@ def search(q):
     try:
         return Equipment.objects.filter(pk__in=ids).distinct()
     except DatabaseError as e:
-        raise RuntimeError('An error occured while querying db: %s' % e)
+        raise RuntimeError(_('An error occured while querying db: %(databaseerror)s') % {'databaseerror': e})
 
 def get_search_terms(text):
     '''

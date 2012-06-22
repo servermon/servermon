@@ -20,6 +20,7 @@ Module configuring Django's admin interface for hwdoc
 
 from django.contrib import admin
 from servermon.hwdoc.models import *
+from django.utils.translation import ugettext as _
 
 class RoleInline(admin.TabularInline):
     '''
@@ -98,7 +99,7 @@ def shutdown(modeladmin, request, queryset):
             continue
         obj.servermanagement.power_off_acpi()
 
-shutdown.short_description = 'Shuts down an equipment'
+shutdown.short_description = _('Shuts down an equipment')
 
 def startup(modeladmin, request, queryset):
     '''
@@ -112,7 +113,7 @@ def startup(modeladmin, request, queryset):
             continue
         obj.servermanagement.power_on()
 
-startup.short_description = 'Starts up an equipment'
+startup.short_description = _('Starts up an equipment')
 
 def shutdown_force(modeladmin, request, queryset):
     '''
@@ -126,7 +127,7 @@ def shutdown_force(modeladmin, request, queryset):
             continue
         obj.servermanagement.power_off()
 
-shutdown_force.short_description = 'Force a shutdown of an equipment'
+shutdown_force.short_description = _('Force a shutdown of an equipment')
 
 class ServerManagementInline(admin.StackedInline):
     '''
@@ -151,7 +152,7 @@ class EquipmentAdmin(admin.ModelAdmin):
         @return: A string representing OOB method
         '''
         return obj.servermanagement.get_method_display()
-    mgmt_method.short_description = 'OOB Method'
+    mgmt_method.short_description = _('OOB Method')
 
     def mgmt_username(obj):
         '''
@@ -165,7 +166,7 @@ class EquipmentAdmin(admin.ModelAdmin):
         '''
 
         return obj.servermanagement.username
-    mgmt_username.short_description = 'Default OOB Username'
+    mgmt_username.short_description = _('Default OOB Username')
 
     def mgmt_password(obj):
         '''
@@ -179,7 +180,7 @@ class EquipmentAdmin(admin.ModelAdmin):
         '''
 
         return obj.servermanagement.password
-    mgmt_password.short_description = 'Default OOB Password'
+    mgmt_password.short_description = _('Default OOB Password')
 
     def model_u(obj):
         '''

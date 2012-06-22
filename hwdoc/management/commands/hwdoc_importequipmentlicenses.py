@@ -21,6 +21,8 @@ Django management command to import a CSV of BMC licenses
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 from hwdoc.models import Equipment, ServerManagement
+from django.utils.translation import ugettext as _l
+from django.utils.translation import ugettext_lazy as _l
 import sys
 import csv
 import re
@@ -29,9 +31,9 @@ class Command(BaseCommand):
     '''
     Django management command to import a CSV of BMC licenses
     '''
-    help = "Loads a specific csv to equipment licenses"
+    help = _('Loads a specific csv to equipment licenses')
     args = "<file>"
-    label = "file name to be imported"
+    label = _('file name to be imported')
 
     def handle(self, *args, **options):
         '''
@@ -39,11 +41,11 @@ class Command(BaseCommand):
         '''
 
         if args is None or len(args) != 1:
-            raise CommandError("You must supply a file name")
+            raise CommandError(_('You must supply a file name'))
         try:
             csvname = sys.argv[2]
         except IndexError:
-            print "Error in usage. See help"
+            print _('Error in usage. See help')
             sys.exit(1)
 
 
@@ -61,4 +63,4 @@ class Command(BaseCommand):
             mgmt.save()
             print "OK: %s" % eq.serial
 
-        print "OK; %s left" % len(licenses)
+        print _('OK; %(licenses)s left') % { 'licenses': len(licenses) }

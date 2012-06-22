@@ -21,6 +21,8 @@ Django management command to import a CSV
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 from hwdoc.models import EquipmentModel, Equipment, ServerManagement, Rack
+from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _l
 import sys
 import csv
 import re
@@ -29,9 +31,9 @@ class Command(BaseCommand):
     '''
     Django management command to import a CSV
     '''
-    help = "Loads a specific CSV to hwdoc EquipmentModel, Equipment and ServerManagement models"
-    args = "<file>"
-    label = "file name to be imported"
+    help = _l('Loads a specific CSV to hwdoc EquipmentModel, Equipment and ServerManagement models')
+    args = '<file>'
+    label = _l('file name to be imported')
 
     def handle(self, *args, **options):
         '''
@@ -39,11 +41,11 @@ class Command(BaseCommand):
         '''
 
         if args is None or len(args) != 1:
-            raise CommandError("You must supply a file name")
+            raise CommandError(_('You must supply a file name'))
         try:
             csvname = sys.argv[2]
         except IndexError:
-            print "Error in usage. See help"
+            print _('Error in usage. See help')
             sys.exit(1)
 
         count = 0
@@ -66,7 +68,7 @@ class Command(BaseCommand):
                 try:
                     rack = Rack.objects.get(pk=rack.split('_')[1])
                 except Rack.DoesNotExist:
-                    raise RuntimeError('The Rack %s you specified does not exist. You should create it first' % rack)
+                    raise RuntimeError(_('The Rack %(rack)s you specified does not exist. You should create it first' % { 'rack': rack}))
                 
                 unit = unit.split('-')[0][1:]
 
@@ -103,6 +105,6 @@ class Command(BaseCommand):
                     s.mac = mac
                     s.save()
 
-                print "OK: %s %s" % (eq, sn)
+                print _('OK: %(eq)s %(sn)s') % { 'eq': eq, 'sn': sn)
                 count +=1
-            print "Total " + str(count)
+            print _('Total ') + str(count)
