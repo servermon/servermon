@@ -1,16 +1,17 @@
 {% extends "generic.html" %} 
+{% load i18n %}
 {% block heading %}{{ equipment }}{% endblock %}
 {% block content %}
 <div id="equipment" class="hostinfo">
 	<table>
 		<tbody>
-			<tr><th>Project:</th><td>{% if equipment.allocation %}<a href="{% url hwdoc.views.project equipment.allocation.pk %}">{{ equipment.allocation.name }}</a>{% else %}-{% endif %}</td></tr>
-		<tr><th>Model:</th><td>{{ equipment.model }}</td></tr>
-		<tr><th>Serial:</th><td>{{ equipment.serial }}</td></tr>
-		<tr><th>Rack Unit:</th><td>{{ equipment.rack }}{{ equipment.unit|stringformat:"02d" }}</td></tr>
-		<tr><th>Purpose:</th><td>{{ equipment.purpose }}</td></tr>
-		<tr><th>OOB MAC:</th><td>{% if equipment.servermanagement %}{{ equipment.servermanagement.mac }}{% endif %}</td></tr>
-		<tr><th>OOB Hostname:</th><td>{% if equipment.servermanagement %}{{ equipment.servermanagement.hostname }}{% endif %}</td></tr>
+			<tr><th>{% trans "Project" %}:</th><td>{% if equipment.allocation %}<a href="{% url hwdoc.views.project equipment.allocation.pk %}">{{ equipment.allocation.name }}</a>{% else %}-{% endif %}</td></tr>
+			<tr><th>{% trans "Model" %}:</th><td>{{ equipment.model }}</td></tr>
+			<tr><th>{% trans "Serial" %}:</th><td>{{ equipment.serial }}</td></tr>
+			<tr><th>{% trans "Rack Unit" %}:</th><td>{{ equipment.rack }}{{ equipment.unit|stringformat:"02d" }}</td></tr>
+			<tr><th>{% trans "Purpose" %}:</th><td>{{ equipment.purpose }}</td></tr>
+			<tr><th>{% trans "OOB MAC" %}:</th><td>{% if equipment.servermanagement %}{{ equipment.servermanagement.mac }}{% endif %}</td></tr>
+			<tr><th>{% trans "OOB Hostname" %}:</th><td>{% if equipment.servermanagement %}{{ equipment.servermanagement.hostname }}{% endif %}</td></tr>
 		</tbody>
 	</table>
 </div>

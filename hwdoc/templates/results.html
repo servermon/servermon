@@ -1,16 +1,17 @@
 {% extends "generic.html" %} 
-{% block heading %}Search results{% endblock %}
+{% load i18n %}
+{% block heading %}{% trans "Search results" %}{% endblock %}
 {% block content %}
 <div> 
 	<h3>Results: {{ results.count }}</h3>
 	<table>
 		<tbody>
 		<tr>
-			<th>Serial</th>
-			<th>Model</th>
-			<th>RackUnit</th>
-			<th>Hostname</th>
-			<th>Project</th>
+			<th>{% trans "Serial" %}</th>
+			<th>{% trans "Model" %}</th>
+			<th>{% trans "RackUnit" %}</th>
+			<th>{% trans "Hostname" %}</th>
+			<th>{% trans "Project" %}</th>
 		</tr>
 		{% for result in results %}
 		<tr>
