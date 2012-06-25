@@ -159,5 +159,6 @@ def suggest(request):
 
     results = list(functions.search(key).values_list('serial', flat=True))
     # Simple JSON does not handle querysets so we cast to list
-    results = simplejson.dumps(list(results))
-    return HttpResponse(results, mimetype = 'application/x-suggestions+json')
+    results = list(results)
+    response = simplejson.dumps([ key, results ])
+    return HttpResponse(response, mimetype = 'application/x-suggestions+json')
