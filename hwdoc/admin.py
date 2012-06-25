@@ -86,14 +86,48 @@ admin.site.register(Vendor)
 admin.site.register(EquipmentModel)
 admin.site.register(RackModel)
 
+class RackPositionInline(admin.TabularInline):
+    model = RackPosition
+
 class RackAdmin(admin.ModelAdmin):
     '''
     Rack Admin Manager
     '''
-    list_display = ('pk', 'mounted_depth', 'model')
+
+    def rr(obj):
+        '''
+        Rack row the rack belongs to
+
+        @type  obj: Rack object
+        @param obj: Rack object
+        
+        @rtype: string
+        @return: A RackRow object
+        '''
+
+        return obj.rackposition.rr
+    rr.short_description = _('Rack Row')
+
+    def position(obj):
+        '''
+        Position in the Rack row the rack holds
+
+        @type  obj: Rack object
+        @param obj: Rack object
+        
+        @rtype: string
+        @return: A number
+        '''
+
+        return obj.rackposition.position
+    position.short_description = _('Position in RR')
+
+    list_display = ('pk', 'mounted_depth', 'model', rr, position)
     list_editable = ('mounted_depth', 'model')
+    inlines = [ RackPositionInline, ]
 
 admin.site.register(Rack, RackAdmin)
+admin.site.register(RackRow)
 
 def shutdown(modeladmin, request, queryset):
     '''

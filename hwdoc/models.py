@@ -137,7 +137,25 @@ class Rack(models.Model):
     model = models.ForeignKey(RackModel)
 
     def __unicode__(self):
-        return "%.2d" % (self.pk)
+        return '%.2d' % (self.pk)
+
+class RackRow(models.Model):
+    name = models.CharField(max_length=80)
+
+    def __unicode__(self):
+        return '%s' % (self.name)
+
+class RackPosition(models.Model):
+    rack = models.OneToOneField(Rack)
+    rr = models.ForeignKey(RackRow)
+    position = models.PositiveIntegerField(max_length=20)
+
+    def __unicode__(self):
+        return _('Rack: %(rack)s, Position: %(position)s, RackRow: %(rackrow)s' % {
+            'rack': self.rack,
+            'position': self.position,
+            'rackrow': self.rr,
+            })
 
 class EquipmentModel(Model):
     '''
