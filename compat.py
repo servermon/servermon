@@ -38,6 +38,7 @@ else:
         httpresponse_kwargs = {
             'content_type': kwargs.pop('content_type', None),
             'status': kwargs.pop('status', None),
+            'mimetype': kwargs.pop('mimetype', None),
         }
 
         if 'context_instance' in kwargs:
