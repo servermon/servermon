@@ -85,7 +85,15 @@ admin.site.register(Project, ProjectAdmin)
 admin.site.register(Vendor)
 admin.site.register(EquipmentModel)
 admin.site.register(RackModel)
-admin.site.register(Rack)
+
+class RackAdmin(admin.ModelAdmin):
+    '''
+    Rack Admin Manager
+    '''
+    list_display = ('pk', 'mounted_depth', 'model')
+    list_editable = ('mounted_depth', 'model')
+
+admin.site.register(Rack, RackAdmin)
 
 def shutdown(modeladmin, request, queryset):
     '''
