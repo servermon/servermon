@@ -2,7 +2,9 @@
 <head>
 <title>{% block title %}{% endblock %} -- servermon</title>
 <link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}updates.css" />
+{% if hwdoc_installed %}
 <link rel="search" type="application/opensearchdescription+xml" title="hwdoc Search" href="{% url opensearch %}" />
+{% endif %}
 <script type="text/javascript" src="{{ MEDIA_URL }}jquery-1.2.6.min.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}jquery.tablesorter.min.js"></script>
 </head>

@@ -24,7 +24,7 @@ from django.http import HttpResponseRedirect, Http404
 from datetime import datetime, timedelta
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django import forms
-from settings import HOST_TIMEOUT
+from settings import HOST_TIMEOUT, INSTALLED_APPS
 from IPy import IP
 import re
 
@@ -146,6 +146,10 @@ def index(request):
     updatecount = Host.objects.filter(package__isnull=False).distinct().count()
     packagecount = Package.objects.count()
     securitycount = Package.objects.filter(update__is_security=True).distinct().count()
+    if 'servermon.hwdoc' in INSTALLED_APPS:
+        hwdoc_installed = True
+    else:
+        hwdoc_installed = False
 
     return render(request, "index.html", {
         'problemhosts': problemhosts, 
@@ -156,6 +160,7 @@ def index(request):
         'updatecount': updatecount,
         'packagecount': packagecount,
         'securitycount': securitycount,
+        'hwdoc_installed': hwdoc_installed,
         })
 
 def search(request):
