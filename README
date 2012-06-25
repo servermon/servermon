@@ -12,7 +12,6 @@ At this point it offers two applications
 
 * A working puppet infrastructure
 * python-django
-* python-django-extensions
 * python-mysqldb
 * python-django-south
 * python-ipy
