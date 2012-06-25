@@ -24,6 +24,8 @@ from servermon.compat import render
 from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django.contrib.sites.models import Site
+from django.utils import simplejson
+from django.http import HttpResponse
 
 def index(request):
     '''
@@ -125,7 +127,7 @@ def opensearch(request):
     @type   request: HTTPRequest 
     @param  request: Django HTTPRequest object
     @rtype: HTTPResponse
-    @return: HTTPResponse object rendering corresponding HTML
+    @return: HTTPResponse object rendering corresponding XML
     '''
 
     fqdn = Site.objects.get_current().domain
@@ -139,3 +141,23 @@ def opensearch(request):
                  'fqdn': fqdn,
                  'contact': contact,
              }, mimetype = 'application/opensearchdescription+xml')
+
+def suggest(request):
+    '''
+    opensearch suggestions view. Returns JSON
+
+    @type   request: HTTPRequest 
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding JSON
+    '''
+
+    if u'q' in request.GET:
+        key = request.GET['q']
+    else:
+        key = None
+
+    results = list(functions.search(key).values_list('serial', flat=True))
+    # Simple JSON does not handle querysets so we cast to list
+    results = simplejson.dumps(list(results))
+    return HttpResponse(results, mimetype = 'application/x-suggestions+json')

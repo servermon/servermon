@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+<OpenSearchDescription
+       	xmlns="http://a9.com/-/spec/opensearch/1.1/"
+	xmlns:suggestions="http://www.opensearch.org/specifications/opensearch/extensions/suggestions/1.1"
+	xmlns:moz="http://www.mozilla.org/2006/browser/search/">
     <ShortName>HWDOC</ShortName>
     <LongName>Search Equipments in HWDOC</LongName>
     <Description>Search Equipments in HWDOC</Description>
@@ -14,6 +17,7 @@
     <SyndicationRight>open</SyndicationRight>
     <Image width="16" height="16" type="image/png">{{ MEDIA_URL }}opensearch.png</Image>
     <Url type="text/html" template="{{ opensearchbaseurl }}{% url hwdoc.views.search %}?q={searchTerms}"/>
+    <Url type="application/x-suggestions+json" template="{{ opensearchbaseurl }}{% url hwdoc.views.suggest %}?q={searchTerms}"/>
     <Attribution>
      Servermon
     </Attribution>
