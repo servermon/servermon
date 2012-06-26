@@ -86,12 +86,12 @@ class Role(models.Model):
     person = models.ForeignKey(Person)
 
     def __unicode__(self):
-        return _('Project: %(project)s, Person: %(name)s %(surname)s, Role: %(role)s' % {
+        return _('Project: %(project)s, Person: %(name)s %(surname)s, Role: %(role)s') % {
             'project': self.project.name,
             'name': self.person.name,
             'surname': self.person.surname,
             'role': self.role,
-            })
+            }
 
 # Equipment models #
 class Vendor(models.Model):
@@ -151,11 +151,11 @@ class RackPosition(models.Model):
     position = models.PositiveIntegerField(max_length=20)
 
     def __unicode__(self):
-        return _('Rack: %(rack)s, Position: %(position)s, RackRow: %(rackrow)s' % {
+        return _('Rack: %(rack)s, Position: %(position)s, RackRow: %(rackrow)s') % {
             'rack': self.rack,
             'position': self.position,
             'rackrow': self.rr,
-            })
+            }
 
 class EquipmentModel(Model):
     '''
