@@ -95,6 +95,8 @@ class EquipmentTestCase(unittest.TestCase):
         self.assertTrue(self.management.license_set())
         self.assertTrue(self.management.bmc_reset())
         self.assertTrue(self.management.bmc_factory_defaults())
+        self.assertTrue(self.management.add_user())
+        self.assertTrue(self.management.remove_user())
 
     def test_equipment_number(self):
         self.assertEqual(Equipment.objects.all().count(), 2)

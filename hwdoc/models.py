@@ -325,3 +325,17 @@ class ServerManagement(models.Model):
         '''
 
         return self.__sm__('bmc_factory_defaults', username, password, **kwargs)
+
+    def add_user(self, username=None, password=None, **kwargs):
+        '''
+        Add a User to the bmc
+        '''
+
+        return self.__sm__('add_user', username, password, **kwargs)
+
+    def remove_user(self, username=None, password=None, **kwargs):
+        '''
+        Remove a User from the bmc
+        '''
+
+        return self.__sm__('remove_user', username, password, **kwargs)

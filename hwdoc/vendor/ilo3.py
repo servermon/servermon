@@ -98,6 +98,18 @@ def bmc_factory_defaults(hostname, username, password, **kwargs):
     '''
     return __send__(hostname, username, password, __factory_defaults_command__())
 
+def add_user(hostname, username, password, **kwargs):
+    '''
+    Add a user to iLO
+    '''
+    return __send__(hostname, username, password, __add_user_command__(**kwargs))
+
+def remove_user(hostname, username, password, **kwargs):
+    '''
+    Remove a user from iLO
+    '''
+    return __send__(hostname, username, password, __remove_user_command__(**kwargs))
+
 # Beneath this line iLO3 specifics start
 def __send__(hostname, username, password, command):
     h = httplib2.Http(disable_ssl_certificate_validation=True)
@@ -457,6 +469,37 @@ def __factory_defaults_command__():
         <FACTORY_DEFAULTS/>
     </RIB_INFO>
     '''
+    return command.strip()
+
+def __add_user_command__(**kwargs):
+    kwargs.setdefault('admin', 'N')
+    kwargs.setdefault('remote_console', 'Y')
+    kwargs.setdefault('reset_server', 'Y')
+    kwargs.setdefault('virtual_media', 'Y')
+    kwargs.setdefault('config_ilo', 'N')
+
+    command = '''
+    <USER_INFO MODE="write">
+     <ADD_USER
+      USER_NAME="%(newuser_fullname)s"
+      USER_LOGIN="%(newuser_username)s"
+      PASSWORD="%(newuser_password)s">
+       <ADMIN_PRIV value ="%(admin)s"/>
+       <REMOTE_CONS_PRIV value ="%(remote_console)s"/>
+       <RESET_SERVER_PRIV value ="%(reset_server)s"/>
+       <VIRTUAL_MEDIA_PRIV value ="%(virtual_media)s"/>
+       <CONFIG_ILO_PRIV value="%(config_ilo)s"/>
+     </ADD_USER>
+    </USER_INFO>
+    ''' % kwargs
+    return command.strip()
+
+def __remove_user_command__(**kwargs):
+    command = '''
+    <USER_INFO MODE="write">
+     <DELETE_USER USER_LOGIN="%(deluser_username)s"/>
+    </USER_INFO>
+    ''' % kwargs
     return command.strip()
 
 # TODO: Implement these too and figure out differences

@@ -92,3 +92,15 @@ def bmc_factory_defaults(hostname, username, password, **kwargs):
     '''
     return True
 
+def add_user(hostname, username, password, **kwargs):
+    '''
+    Add a user to the BMC
+    '''
+    return True
+
+def remove_user(hostname, username, password, **kwargs):
+    '''
+    Remove a User from the BMC
+    '''
+    return True
+
