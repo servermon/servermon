@@ -81,5 +81,29 @@
       "height": 42,
       "width": 19
     }
+  },
+  {
+    "pk": 2, 
+    "model": "hwdoc.rackmodel", 
+    "fields": {
+      "vendor": 5, 
+      "name": "InRow RP DX Air Cooled 380-415V 50 Hz ACRP102",
+      "max_mounting_depth": 0,
+      "min_mounting_depth": 0,
+      "height": 42,
+      "width": 19
+    }
+  },
+  {
+    "pk": 3, 
+    "model": "hwdoc.rackmodel", 
+    "fields": {
+      "vendor": 5, 
+      "name": "InRow RP Chilled Water 380-415V 50 Hz ACRP502",
+      "max_mounting_depth": 0,
+      "min_mounting_depth": 0,
+      "height": 42,
+      "width": 19
+    }
   }
 ]
