@@ -77,6 +77,51 @@ def project(request, project_id):
     project = get_object_or_404(Project,pk=project_id)
     return render(request, template, { 'project': project, })
 
+def rack(request, rack_id):
+    '''
+    Rack view. It should display all non-authenticated user viewable data
+
+    @type   request: HTTPRequest 
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding HTML
+    '''
+
+    template = 'rack.html'
+
+    rack = get_object_or_404(Rack, pk=rack_id)
+    return render(request, template, { 'rack': rack, })
+
+def rackrow(request, rackrow_id):
+    '''
+    Rackrow view. It should display all non-authenticated user viewable data
+
+    @type   request: HTTPRequest 
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding HTML
+    '''
+
+    template = 'rackrow.html'
+
+    rack = get_object_or_404(RackRow, pk=rackrow_id)
+    return render(request, template, { 'rackrow': rackrow, })
+
+def datacenter(request, datacenter_id):
+    '''
+    Rackrow view. It should display all non-authenticated user viewable data
+
+    @type   request: HTTPRequest 
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding HTML
+    '''
+
+    template = 'datacenter.html'
+
+    rack = get_object_or_404(Datacenter, pk=datacenter_id)
+    return render(request, template, { 'datacenter': datacenter, })
+
 def search(request):
     '''
     Search view. Scans request for q (GET case) or qarea (POST case) and
