@@ -86,6 +86,16 @@ admin.site.register(Vendor)
 admin.site.register(EquipmentModel)
 admin.site.register(RackModel)
 
+class DatacenterAdmin(admin.ModelAdmin):
+    '''
+    Datacenter Admin Manager
+    '''
+
+    list_display = ('pk', 'name', )
+    list_editable = ('name', )
+
+admin.site.register(Datacenter, DatacenterAdmin)
+
 class RackPositionInline(admin.TabularInline):
     model = RackPosition
 

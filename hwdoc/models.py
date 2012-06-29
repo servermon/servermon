@@ -94,6 +94,16 @@ class Role(models.Model):
             }
 
 # Equipment models #
+class Datacenter(models.Model):
+    '''
+    Datacenters
+    '''
+
+    name = models.CharField(max_length=20)
+
+    def __unicode__(self):
+        return self.name
+    
 class Vendor(models.Model):
     '''
     Equipments have Models and belong to Vendors
@@ -140,12 +150,21 @@ class Rack(models.Model):
         return '%.2d' % (self.pk)
 
 class RackRow(models.Model):
+    '''
+    Racks in a row are a RackRow
+    '''
+
     name = models.CharField(max_length=80)
+    dc = models.ForeignKey(Datacenter, null=True, blank=True)
 
     def __unicode__(self):
         return '%s' % (self.name)
 
 class RackPosition(models.Model):
+    '''
+    Racks can be positioned in a RackRow
+    '''
+
     rack = models.OneToOneField(Rack)
     rr = models.ForeignKey(RackRow)
     position = models.PositiveIntegerField(max_length=20)
