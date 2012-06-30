@@ -1,11 +1,18 @@
+Servermon upgrade procedures 
+============================
+
+.. contents::
+
+Introduction
+------------
+
 Read the following for instructions on how to upgrade between versions
 
 Please note that only upgrade paths for consecutive versions have been tested.
-Upgrade from 0.1 to 0.3 may or may not work.
+Upgrade from 0.1 to 0.3 for example may or may not work.
 
-==========
-0.2 => 0.3
-
+Upgrading from 0.2 to 0.3
+=========================
 You should perform the following
 
 * Untar new version (backup the old one first)
@@ -14,17 +21,24 @@ You should perform the following
 * Migrate using south
 	./manage.py migrate hwdoc
 
-==========
-0.1 => 0.2
-
+Upgrading from 0.1 to 0.2
+=========================
 In order to upgrade from 0.1 to 0.2 you should perform the following
 
 * Install prerequisites: 
- * south (For debian based distros aptitude install python-django-south should be enough)
- * whoosh (For debian based distros aptitude install python-whoosh)
+ * south
+   (For debian based distros aptitude install python-django-south)
+ * whoosh
+   (For debian based distros aptitude install python-whoosh)
 * Untar new version (backup the old one first)
 * Merge urls.py with new urls.py.dist
-* Merge settings.py with new settings.py.dist (make sure south is in INSTALLED_APPS)
+* Merge settings.py with new settings.py.dist
 * Migrate using south
 	./manage.py migrate hwdoc 0001_initial --fake
 	./manage.py migrate hwdoc
+
+.. vim: set textwidth=72 :
+.. Local Variables:
+.. mode: rst
+.. fill-column: 72
+.. End:

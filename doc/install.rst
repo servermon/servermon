@@ -31,6 +31,11 @@ installation will need all of the steps specified, some are not strictly
 required for every environment. Which ones they are, and why, is specified in
 the corresponding sections.
 
+Server mon at this point it offers two applications
+
+1) A Web frontend to the Puppet database.
+2) hwodc: A simple datacenter hardware documentation database
+
 If you have no idea what Puppet is, it is possible that you don't need
 this software. Do note however that hwdoc will still be usable even
 without a Puppet infrastructure
@@ -64,6 +69,11 @@ Python, Django, South is needed::
 A Puppet infrastructure with an RDBMS (MySQL, PostgreSQL) is needed for
 everything else apart from hwdoc
 
+An application server. Gunicorn should work, apache+mod_wsgi works, django runserver works
+
+4.3 Installation
+
+
 Setting up the environment for Servermon
 ----------------------------------------
 
@@ -71,6 +81,10 @@ Configuring urls.py
 +++++++++++++++++++
 
 **Mandatory**.
+
+Configure web server.
+
+Configure mysql puppet server for access from app::
 
 For most cases a::
 
@@ -97,12 +111,31 @@ Then you need to configure the project. Things to pay attention to::
   DATABASES => Fill it with needed info
   TIME_ZONE => If you care about correct timestamps
   MEDIA_URL => Pretty self explanatory
+  STATIC_URL => (static media directory) 
   LDAP_AUTH_SETTINGS => if any
   TEMPLATE_DIRS => at least '/path/to/servermon/templates' needed
-  INSTALLED_APPS => Probaly you can uncomment all
+  INSTALLED_APPS => (uncomment needed apps). django admin apps are a must for hwdoc
   AUTHENTICATION_BACKENDS = > comment or uncomment 
       'servermon.djangobackends.ldapBackend.ldapBackend',
       depending on whether you want LDAP user authentication or not
+
+Create database tables
+++++++++++++++++++++++
+Create standard Django tables::
+
+	./manage.py syncdb
+
+to create all the necessary tables in the database. 
+
+Create application tables using south migrations::
+
+	./manage.py migrate
+
+Branding
+++++++++
+
+Inside the static folder you will find the standard django logo. Change it with
+your organization's if you wish
 
 Further steps
 -------------
@@ -110,6 +143,9 @@ Further steps
 You can now proceed to accessing through a web browser either / for
 viewing the Puppet frontend or /hwdoc for access to hwdoc fronted or
 /admin for management
+Via the admin interface, modify as required the existing (example.com) Site
+instance. This is needed to point to the Virtual Host the application is
+installed in for Opensearch to work
 
 .. vim: set textwidth=72 :
 .. Local Variables:

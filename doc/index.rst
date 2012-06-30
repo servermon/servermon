@@ -10,6 +10,7 @@ Contents:
    :maxdepth: 2
 
    install.rst
+   upgrade.rst
    design-0.3.rst
    glossary.rst
 
