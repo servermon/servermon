@@ -20,7 +20,8 @@ Unit tests for hwdoc package
 
 import unittest
 from hwdoc.models import Vendor, EquipmentModel, Equipment, \
-    ServerManagement, Project, Rack, RackModel
+    ServerManagement, Project, Rack, RackPosition, RackModel, RackRow, \
+    Datacenter
 from hwdoc.functions import search, get_search_terms, canonicalize_mac
 from django.test.client import Client
 
@@ -44,7 +45,10 @@ class EquipmentTestCase(unittest.TestCase):
                                 min_mounting_depth = 19,
                                 height = 42,
                                 width = 19)
+        self.dc = Datacenter.objects.create(name='Test DC')
+        self.rackrow = RackRow.objects.create(name='testing', dc=self.dc)
         self.rack = Rack.objects.create(model=self.rackmodel)
+        RackPosition.objects.create(rack=self.rack, rr= self.rackrow, position=10)
 
         self.server1 = Equipment.objects.create(
                                 model = self.model1,
@@ -157,7 +161,10 @@ class ViewsTestCase(unittest.TestCase):
                                 unit = '2',
                                 purpose = 'Nothing',
                             )
+
         self.project = Project.objects.create(name='project')
+        self.dc = Datacenter.objects.create(name='Test DC')
+        self.rackrow = RackRow.objects.create(name='1st rackrow', dc=self.dc)
 
     def tearDown(self):
         '''
@@ -185,16 +192,40 @@ class ViewsTestCase(unittest.TestCase):
 
     def test_index(self):
         c = Client()
-        response = c.post('/hwdoc/')
+        response = c.get('/hwdoc/')
         self.assertEqual(response.status_code, 200)
 
     def test_equipment(self):
         c = Client()
-        response = c.post('/hwdoc/equipment/%s/' % self.server.pk)
+        response = c.get('/hwdoc/equipment/%s/' % self.server.pk)
         self.assertEqual(response.status_code, 200)
 
     def test_project(self):
         c = Client()
-        response = c.post('/hwdoc/project/%s/' % self.project.pk)
+        response = c.get('/hwdoc/project/%s/' % self.project.pk)
         self.assertEqual(response.status_code, 200)
 
+    def test_datacenter(self):
+        c = Client()
+        response = c.get('/hwdoc/datacenter/%s/' % self.dc.pk)
+        self.assertEqual(response.status_code, 200)
+
+    def test_rackrow(self):
+        c = Client()
+        response = c.get('/hwdoc/rackrow/%s/' % self.rackrow.pk)
+        self.assertEqual(response.status_code, 200)
+
+    def test_rack(self):
+        c = Client()
+        response = c.get('/hwdoc/rack/%s/' % self.rack.pk)
+        self.assertEqual(response.status_code, 200)
+
+    def test_opensearch(self):
+        c = Client()
+        response = c.get('/hwdoc/opensearch.xml')
+        self.assertEqual(response.status_code, 200)
+
+    def test_opensearch_suggestions(self):
+        c = Client()
+        response = c.get('/hwdoc/suggest/?q=don')
+        self.assertEqual(response.status_code, 200)
