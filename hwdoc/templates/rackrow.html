@@ -1,0 +1,33 @@
+{% extends "generic.html" %} 
+{% load i18n %}
+{% block heading %}{{ rackrow }}{% endblock %}
+{% block content %}
+<div id="rackrow" class="hostinfo">
+	<h3>rackrow Info</h3>
+	<table>
+		<tbody>
+			<tr><th>{% trans "name" %}:</th><td>{{ rackrow.name }}</td></tr>
+			<tr><th>{% trans "Datacenter" %}:</th><td>{{ rackrow.dc }}</td></tr>
+		</tbody>
+	</table>
+	<h3>Racks Info</h3>
+	<table>
+		<tbody>
+		<tr>
+		<th></th>
+		{% for rackposition in rackrow.rackposition_set.all %}
+		<th><a href="{% url hwdoc.views.rack rackposition.rack.pk %}">{{ rackposition.rack }}</a>{{ rackposition.rack }}</th>
+		{% endfor %}
+		</tr>
+		{% for unit in Us %}
+		<tr>
+			<th>{{ unit|stringformat:"02d" }}</th>
+		</tr>
+		{% endfor %}
+		{% for rackposition in rackrow.rackposition_set.all %}
+		<th><a href="{% url hwdoc.views.rack rackposition.rack.pk %}">{{ rackposition.rack }}</a>{{ rackposition.rack }}</th>
+		{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}
