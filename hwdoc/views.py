@@ -18,7 +18,8 @@
 hwdoc views module
 '''
 
-from servermon.hwdoc.models import Project, EquipmentModel, Equipment, ServerManagement, Rack
+from servermon.hwdoc.models import Project, EquipmentModel, Equipment, \
+        ServerManagement, Rack, RackRow, Datacenter
 from servermon.hwdoc import functions
 from servermon.compat import render
 from django.shortcuts import get_object_or_404
@@ -104,8 +105,13 @@ def rackrow(request, rackrow_id):
 
     template = 'rackrow.html'
 
-    rack = get_object_or_404(RackRow, pk=rackrow_id)
-    return render(request, template, { 'rackrow': rackrow, })
+    rackrow = get_object_or_404(RackRow, pk=rackrow_id)
+    racks = rackrow.rackposition_set.values_list('rack')
+    Us = Equipment.objects.filter(rack__in=racks).values_list('unit', flat=True).distinct()
+    return render(request, template, {
+        'rackrow': rackrow,
+        'Us': Us,
+        })
 
 def datacenter(request, datacenter_id):
     '''
@@ -119,7 +125,7 @@ def datacenter(request, datacenter_id):
 
     template = 'datacenter.html'
 
-    rack = get_object_or_404(Datacenter, pk=datacenter_id)
+    datacenter = get_object_or_404(Datacenter, pk=datacenter_id)
     return render(request, template, { 'datacenter': datacenter, })
 
 def search(request):
