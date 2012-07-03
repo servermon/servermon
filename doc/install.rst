@@ -85,6 +85,12 @@ Configuring urls.py
 Configure web server.
 
 Configure mysql puppet server for access from app::
+  mysql> grant select on puppet.* to 'servermon'@'example.com';
+
+Note: servermon needs nothing more than the SELECT privelege. However
+hwdoc needs also INSERT,UPDATE,DELETE and installation requires creating
+tables etc. So a temporary GRANT ALL will be needed which later can be
+dropped
 
 For most cases a::
 

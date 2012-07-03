@@ -27,9 +27,9 @@ In order to upgrade from 0.1 to 0.2 you should perform the following
 
 * Install prerequisites: 
  * south
-   (For debian based distros aptitude install python-django-south)
+ (For debian based distros aptitude install python-django-south)
  * whoosh
-   (For debian based distros aptitude install python-whoosh)
+ (For debian based distros aptitude install python-whoosh)
 * Untar new version (backup the old one first)
 * Merge urls.py with new urls.py.dist
 * Merge settings.py with new settings.py.dist
