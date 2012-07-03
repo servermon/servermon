@@ -17,6 +17,6 @@ urlpatterns = patterns('servermon.hwdoc.views',
             (r'^advancedsearch/$', 'advancedsearch'),
             # Opensearch
             url(r'^opensearch.xml$', 'opensearch', name="opensearch"),
-            url(r'^suggest$', 'suggest', name="opensearchsuggestions"),
+            url(r'^suggest/$', 'suggest', name="opensearchsuggestions"),
             )
 
