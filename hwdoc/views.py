@@ -156,7 +156,7 @@ def search(request):
         key = None
 
     return render(request, template,
-            { 'results': functions.search(key).order_by('rack', '-unit'), },
+            { 'results': functions.search(key), },
             mimetype=mimetype)
 
 def advancedsearch(request):

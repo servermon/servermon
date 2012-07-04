@@ -202,7 +202,7 @@ class Equipment(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['-unit']
+        ordering = ['rack', '-unit']
 
     def __unicode__(self):
         out = ""
