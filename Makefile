@@ -18,9 +18,9 @@ name = $(shell basename $(shell pwd))
 
 .PHONY: dist clean test
 
-all:	dist doc
+all:	dist
 
-dist: 	test
+dist: 	test doc
 	git archive --format tar --prefix $(name)-$(ver)/ -o $(name)-$(ver).tar $(tag)
 	mkdir -p $(name)-$(ver)
 	cp $(BUILDDIR)/text/install.txt $(name)-$(ver)/README
