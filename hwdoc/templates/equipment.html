@@ -1,6 +1,14 @@
 {% extends "generic.html" %} 
 {% load i18n %}
-{% block heading %}{{ equipment }}{% endblock %}
+{% block heading %}
+{% if equipment.prev %}
+<a href="{% url hwdoc.views.equipment equipment.prev.pk %}">{% trans "Previous" %}</a>
+{% endif %}
+{{ equipment }}
+{% if equipment.next %}
+<a href="{% url hwdoc.views.equipment equipment.next.pk %}">{% trans "Next" %}</a>
+{% endif %}
+{% endblock %}
 {% block content %}
 <div id="equipment" class="hostinfo">
 	<table>
