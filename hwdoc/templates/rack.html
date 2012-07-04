@@ -22,7 +22,7 @@
 		</tr>
 		{% for equipment in rack.equipment_set.all %}
 		<tr>
-			<td>{{ equipment.unit }}</td>
+			<td style="width: 5%">{{ equipment.unit|stringformat:"02d" }}</td>
 			<td><a href="{% url hwdoc.views.equipment equipment.pk %}">{{ equipment }}</a></td>
 		</tr>
 		{% endfor %}
