@@ -1,11 +1,12 @@
+{% load i18n %}
 <?xml version="1.0" encoding="UTF-8"?>
 <OpenSearchDescription
        	xmlns="http://a9.com/-/spec/opensearch/1.1/"
 	xmlns:suggestions="http://www.opensearch.org/specifications/opensearch/extensions/suggestions/1.1"
 	xmlns:moz="http://www.mozilla.org/2006/browser/search/">
     <ShortName>HWDOC</ShortName>
-    <LongName>Search Equipments in HWDOC</LongName>
-    <Description>Search Equipments in HWDOC</Description>
+    <LongName>{% trans "Search Equipments in HWDOC" %}</LongName>
+    <Description>{% trans "Search Equipments in HWDOC" %}</Description>
     <Contact>{{ contact }}</Contact>
     <Tags>hwdoc servermon rack equipment </Tags>
     <AdultContent>false</AdultContent>

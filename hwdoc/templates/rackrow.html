@@ -3,14 +3,14 @@
 {% block heading %}{{ rackrow }}{% endblock %}
 {% block content %}
 <div id="rackrow" class="hostinfo">
-	<h3>rackrow Info</h3>
+	<h3>{% trans "Rackrow Info" %}</h3>
 	<table>
 		<tbody>
 			<tr><th>{% trans "name" %}:</th><td>{{ rackrow.name }}</td></tr>
 			<tr><th>{% trans "Datacenter" %}:</th><td>{{ rackrow.dc }}</td></tr>
 		</tbody>
 	</table>
-	<h3>Racks Info</h3>
+	<h3>{% trans "Racks Info" %}</h3>
 	<table>
 		<tbody>
 		<tr>

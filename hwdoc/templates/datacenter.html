@@ -3,13 +3,13 @@
 {% block heading %}{{ datacenter }}{% endblock %}
 {% block content %}
 <div id="datacenter" class="hostinfo">
-	<h3>Datacenter Info</h3>
+	<h3>{% trans "Datacenter Info" %}</h3>
 	<table>
 		<tbody>
 			<tr><th>{% trans "Name" %}:</th><td>{{ datacenter.name }}</td></tr>
 		</tbody>
 	</table>
-	<h3>Rack rows Info</h3>
+	<h3>{% trans "Rack rows Info" %}</h3>
 	<table>
 		<tbody>
 		<tr>

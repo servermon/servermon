@@ -3,21 +3,21 @@
 {% block heading %}{% trans "Welcome to hwdoc" %}{% endblock %}
 {% block content %}
 <div> 
-	<h2>{% trans "List" %}{% trans "of Projects" %}</h2>
+	<h2>{% trans "List of Projects" %}</h2>
 	<div class="indexpagediv">
 	{% for project in projects %}
 	<a href="{% url hwdoc.views.project project.pk %}">{{ project.name }}</a>
 	{% if not forloop.last %} | {% endif %}
 	{% endfor %}
 	</div>
-	<h2>{% trans "List" %}{% trans "of Racks" %}</h2>
+	<h2>{% trans "List of Racks" %}</h2>
 	<div class="indexpagediv">
 	{% for rack in racks %}
 	<a href="{% url hwdoc.views.search %}?q={{ rack }}">{{ rack }}</a>
 	{% if not forloop.last %} | {% endif %}
 	{% endfor %}
 	</div>
-	<h2>{% trans "List"%}{% trans "of Vendor Models" %}</h2>
+	<h2>{% trans "List of Vendor Models" %}</h2>
 	<div class="indexpagediv">
 	{% for model in models %}
 	<a href="{% url hwdoc.views.search %}?q={{ model.name }}">{{ model.vendor.name }} {{ model.name}}</a>

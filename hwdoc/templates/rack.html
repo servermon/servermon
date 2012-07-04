@@ -3,7 +3,7 @@
 {% block heading %}{{ rack }}{% endblock %}
 {% block content %}
 <div id="rack" class="hostinfo">
-	<h3>Rack Info</h3>
+	<h3>{% trans "Rack Info" %}</h3>
 	<table>
 		<tbody>
 			<tr><th>{% trans "id" %}:</th><td>{{ rack.pk }}</td></tr>
@@ -13,7 +13,7 @@
 			<tr><th>{% trans "Position in Rack Row" %}:</th><td>{{ rack.rackposition.position }}</td></tr>
 		</tbody>
 	</table>
-	<h3>Equipment Info</h3>
+	<h3>{% trans "Equipment Info" %}</h3>
 	<table>
 		<tbody>
 		<tr>
