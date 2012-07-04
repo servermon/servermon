@@ -169,6 +169,9 @@ class RackPosition(models.Model):
     rr = models.ForeignKey(RackRow)
     position = models.PositiveIntegerField(max_length=20)
 
+    class Meta:
+        ordering = ['position', ]
+
     def __unicode__(self):
         return _('Rack: %(rack)s, Position: %(position)s, RackRow: %(rackrow)s') % {
             'rack': self.rack,
