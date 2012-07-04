@@ -11,23 +11,27 @@
 		</tbody>
 	</table>
 	<h3>{% trans "Racks Info" %}</h3>
-	<table>
-		<tbody>
-		<tr>
-		<th></th>
+	<div class="rackrow">
 		{% for rackposition in rackrow.rackposition_set.all %}
-		<th><a href="{% url hwdoc.views.rack rackposition.rack.pk %}">{{ rackposition.rack }}</a>{{ rackposition.rack }}</th>
+		<div class="rackinrow" style="float: left">
+			<table>
+			<tbody>
+				<tr>
+					<th colspan="2">
+						<a style="color: #ffffff" href="{% url hwdoc.views.search %}?q={{ rackposition.rack }}">{{ rackposition.rack }}</a>
+					</th>
+				</tr>
+				{% for eq in rackposition.rack.equipment_set.all %}
+				<tr>
+				<th style="width: 1em">{{ eq.unit|stringformat:"02d" }}</th>
+				<td><a href="{% url hwdoc.views.equipment eq.pk %}">{{ eq.model }}</a></td>
+			</tr>
+				{% endfor %}
+			</tbody>
+			</table>
+		</div>
 		{% endfor %}
-		</tr>
-		{% for unit in Us %}
-		<tr>
-			<th>{{ unit|stringformat:"02d" }}</th>
-		</tr>
-		{% endfor %}
-		{% for rackposition in rackrow.rackposition_set.all %}
-		<th><a href="{% url hwdoc.views.rack rackposition.rack.pk %}">{{ rackposition.rack }}</a>{{ rackposition.rack }}</th>
-		{% endfor %}
-		</tbody>
-	</table>
+	</div>
+	<div style="clear: both"></div>
 </div>
 {% endblock %}
