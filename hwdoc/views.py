@@ -38,6 +38,7 @@ def index(request):
     @return: HTTPResponse object rendering corresponding HTML
     '''
 
+    datacenters = Datacenter.objects.all()
     racks = Rack.objects.all()
     projects = Project.objects.order_by('name').all()
     models = EquipmentModel.objects.order_by('vendor__name','name').all()
@@ -46,6 +47,7 @@ def index(request):
                 'racks': racks,
                 'projects': projects,
                 'models': models,
+                'datacenters': datacenters,
             })
 
 def equipment(request, equipment_id):

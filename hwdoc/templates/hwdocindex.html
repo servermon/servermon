@@ -3,10 +3,10 @@
 {% block heading %}{% trans "Welcome to hwdoc" %}{% endblock %}
 {% block content %}
 <div> 
-	<h2>{% trans "List of Projects" %}</h2>
+	<h2>{% trans "List of Datacenters" %}</h2>
 	<div class="indexpagediv">
-	{% for project in projects %}
-	<a href="{% url hwdoc.views.project project.pk %}">{{ project.name }}</a>
+	{% for datacenter in datacenters %}
+	<a href="{% url hwdoc.views.datacenter datacenter.pk %}">{{ datacenter }}</a>
 	{% if not forloop.last %} | {% endif %}
 	{% endfor %}
 	</div>
@@ -28,6 +28,13 @@
 	<div class="indexpagediv">
 	{% for project in projects %}
 	<a href="{% url hwdoc.views.search %}?q={{ project.name }}">{{ project.name }}</a>
+	{% if not forloop.last %} | {% endif %}
+	{% endfor %}
+	</div>
+	<h2>{% trans "List of Projects" %}</h2>
+	<div class="indexpagediv">
+	{% for project in projects %}
+	<a href="{% url hwdoc.views.project project.pk %}">{{ project.name }}</a>
 	{% if not forloop.last %} | {% endif %}
 	{% endfor %}
 	</div>
