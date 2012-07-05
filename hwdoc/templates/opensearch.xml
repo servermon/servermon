@@ -1,5 +1,5 @@
-{% load i18n %}
 <?xml version="1.0" encoding="UTF-8"?>
+{% load i18n %}
 <OpenSearchDescription
        	xmlns="http://a9.com/-/spec/opensearch/1.1/"
 	xmlns:suggestions="http://www.opensearch.org/specifications/opensearch/extensions/suggestions/1.1"
