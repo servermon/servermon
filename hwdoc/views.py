@@ -39,7 +39,7 @@ def index(request):
     '''
 
     datacenters = Datacenter.objects.all()
-    racks = Rack.objects.all()
+    racks = Rack.objects.order_by('id').all()
     projects = Project.objects.order_by('name').all()
     models = EquipmentModel.objects.order_by('vendor__name','name').all()
     
