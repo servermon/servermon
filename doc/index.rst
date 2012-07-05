@@ -12,6 +12,7 @@ Contents:
    install.rst
    upgrade.rst
    design-0.3.rst
+   design-0.4.rst
    glossary.rst
 
 Also see the :ref:`search`.
