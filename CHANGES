@@ -1,4 +1,96 @@
 ===========
+0.4 Release
+
+40252c6 Updated docs for v0.4
+d50e550 Order rack in hwdoc index view by id
+05a7e88 Makefile update
+a047d56 Ordering of RackPosition set in model Meta
+c082ffc Rack row view implemented.
+1a9b469 Make unit th tags smaller
+5799af8 Remove obsolete border attr from django image
+c01bc52 Add Previous, Next nagivation in Equipment view
+c90256a List datacenter in index view
+b29ae21 Moved Equipment ordering in model
+06ae695 Fix various i18n errors and omissions
+3818ff6 Fixed a minor inconsistency in urls.py
+031e3dd Updated hwdoc Unit Tests for 0.4
+6d9c60a Long overdue design docs for 0.4 committed
+4ed1c8c Populated templates for Rack, RackRow, Datacenter
+17fb06d Bugs by omissions in hwdoc/views fixed
+426769e Add ordering by unit descending to Equipment
+f4e4804 Fix multiple places for documentation bug
+5b90875 Minor documentation cleanup
+ae7b393 First effort to merge diverged documentation places
+dfe3da9 Views, URLconf and dummy templates for new models
+e54c226 Preliminary Datacenter support
+6527cfd Fix a small bug with some __unicode__ functions
+7430428 Add/remove user functionality for BMC
+4318a31 Add two rack models in fixtures
+049f101 Fix bug with opensearch suggestions response
+60a7ad0 Opensearch suggestion support
+2502ca8 RackRow support
+d4c8eac AdminModel for hwdoc.rack
+ee5868e Remove django-extensions requirement from README
+3f9c5ad hwdoc opensearch link tag conditionally used now
+953d696 Make mimetype an HttpResponse arg in compat.py
+975b47f Use admin_media_prefix rather than /media
+3e8d3f8 Adjust fact query's fact list
+0db3407 Templates reindenting & misc changes
+a527407 hwdoc: use render instead of render_to_response
+0c0efac Use timesince in a couple of spots
+721f993 Hostview: add "toggle" to package updates too
+2f7ee50 System information: add uptime
+241cf29 Packageview: use em-dash for unknown installedVersion
+4f8d74d packageview: use get_list_or_404()
+346886d Use MEDIA_URL rather than hard-coded /static/
+a178f5c Use {% url %} instead of hard-coded URL paths
+4bfb9b3 Run package updates in transaction batches
+2d5bc6a urls.py: use absolute imports
+062a0ea Order problematic hosts by updated_at ascending
+f69f65b Apply tablesorter & odd/even colors on most tables
+82bdad2 Adjust statistics table
+6a2585e updates: support changelog from multiple origins
+15dea4f Add padlock for security updates
+b8bfd8b apt2xml/updates: flag security updates
+ba9989f Reindent hostview & packageview templates
+c09f98f Optimize hostview package updates for performance
+9e25db6 Add copyright notices for myself
+d8a25f0 apt2xml: port to a newer python-apt API
+3c32a3d apt2xml: add forgotten source_name attribute
+a436a7b Cleanup a few imports
+78e6160 settings.py: suggest here() for template path too
+ebf0993 Minor adjustments to the puppet models
+5250ead Performance optimizations on the update views
+d69e7ca Make overview's problematic hosts a bit prettier
+e2546fa Cleanup & optimize search
+9216a2b Fact query: adjust fact exclude filter
+435cc6d Optimize hw inventory & fact query pages
+0315945 Add IPv6 address in host view
+21a71fc Add total memory column to hardware inventory
+a4a456a Replace depedency on custom facts
+48bd6e2 HW inventory: filter out VMs with is_virtual fact
+67218f6 Document IPy & whoosh dependency in README
+2e1bf4f Get rid of a couple of spurious imports
+9851818 Remove rendundant views/templates from puppet app
+5225cce hwdoc templates internationalized
+26952b0 Python strings in hwdoc are internationalized
+02854e2 Changing hwdoc's modeline to make vim happier
+82a61a0 Lower required verbosity level for output in hwdoc
+41da6e9 Successfull Unit tests a prerequisite for release
+94103e2 Fixed bug with username/password in CLI
+bdc3b8c Equipment importing rack aware now
+d0b1d50 Change Model to EquipmentModel in hwdoc commands
+9286214 Replace erroneus variables in Makefile
+2c97e06 Update sampledata to reflect the current models
+9343bbe Allow Racks to be managed in admin interface
+9356f27 Racks have a RackModel
+ed6183e Split rack from Equipment model to its own model
+38bf291 RackModel support
+d997b29 Abstract some EquipmentModel info to Model
+edf8a6c Fix bug with empty string searches
+751fa8a Rename model to Equipment model
+
+===========
 0.3 Release
 
 c4883cc Add missing installation directives in docs
