@@ -11,6 +11,13 @@ Read the following for instructions on how to upgrade between versions
 Please note that only upgrade paths for consecutive versions have been tested.
 Upgrade from 0.1 to 0.3 for example may or may not work.
 
+Upgrading from 0.4 to 0.4.1
+=========================
+You should perform the following
+
+* Untar new version (backup the old one first)
+* Restart application server (wsgi, gunicorn, etc)
+
 Upgrading from 0.3 to 0.4
 =========================
 You should perform the following
@@ -23,6 +30,8 @@ You should perform the following
   $ ./manage.py migrate updates 0001 --fake
   $ ./manage.py migrate
 
+* Restart application server (wsgi, gunicorn, etc)
+
 Upgrading from 0.2 to 0.3
 =========================
 You should perform the following
@@ -33,6 +42,8 @@ You should perform the following
 * Migrate using south::
 
   $ ./manage.py migrate hwdoc
+
+* Restart application server (wsgi, gunicorn, etc)
 
 Upgrading from 0.1 to 0.2
 =========================
@@ -49,6 +60,8 @@ In order to upgrade from 0.1 to 0.2 you should perform the following
 * Migrate using south
 	./manage.py migrate hwdoc 0001_initial --fake
 	./manage.py migrate hwdoc
+
+* Restart application server (wsgi, gunicorn, etc)
 
 .. vim: set textwidth=72 :
 .. Local Variables:

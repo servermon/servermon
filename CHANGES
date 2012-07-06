@@ -1,4 +1,11 @@
 ===========
+0.4.1 Release
+
+9ab9cb2 Optimizations in hwdoc
+0d253eb Bypass a bug with opensearch xml
+aa76862 Fix a stupid bug with text search results in hwdoc
+
+===========
 0.4 Release
 
 40252c6 Updated docs for v0.4

@@ -1,5 +1,5 @@
 # Sphinx related stuff
-VERSION	        = "0.3"
+VERSION	        = "0.4.1"
 SPHINXOPTS      = -q -W -D version=$(VERSION) -D release=$(VERSION)
 SPHINXBUILD     = sphinx-build
 PAPER           =
