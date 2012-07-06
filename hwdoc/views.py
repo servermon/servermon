@@ -41,7 +41,7 @@ def index(request):
     datacenters = Datacenter.objects.all()
     racks = Rack.objects.order_by('id').all()
     projects = Project.objects.order_by('name').all()
-    models = EquipmentModel.objects.order_by('vendor__name','name').all()
+    models = EquipmentModel.objects.select_related('vendor').order_by('vendor__name','name').all()
     
     return render(request, 'hwdocindex.html', {
                 'racks': racks,
@@ -118,10 +118,8 @@ def rackrow(request, rackrow_id):
 
     rackrow = get_object_or_404(RackRow, pk=rackrow_id)
     racks = rackrow.rackposition_set.values_list('rack')
-    Us = Equipment.objects.filter(rack__in=racks).values_list('unit', flat=True).distinct()
     return render(request, template, {
         'rackrow': rackrow,
-        'Us': Us,
         })
 
 def datacenter(request, datacenter_id):
@@ -166,8 +164,11 @@ def search(request):
     else:
         key = None
 
+    results = functions.search(key).select_related(
+            'servermanagement', 'rack', 'model', 'model__vendor', 'allocation') 
+
     return render(request, template,
-            { 'results': functions.search(key), },
+            { 'results': results, },
             mimetype=mimetype)
 
 def advancedsearch(request):

@@ -12,7 +12,7 @@
 	</table>
 	<h3>{% trans "Racks Info" %}</h3>
 	<div class="rackrow">
-		{% for rackposition in rackrow.rackposition_set.all %}
+		{% for rackposition in rackrow.rackposition_set.select_related.all %}
 		<div class="rackinrow" style="float: left">
 			<table>
 			<tbody>
@@ -21,7 +21,7 @@
 						<a style="color: #ffffff" href="{% url hwdoc.views.search %}?q={{ rackposition.rack }}">{{ rackposition.rack }}</a>
 					</th>
 				</tr>
-				{% for eq in rackposition.rack.equipment_set.all %}
+				{% for eq in rackposition.rack.equipment_set.select_related.all %}
 				<tr>
 				<th style="width: 1em">{{ eq.unit|stringformat:"02d" }}</th>
 				<td><a href="{% url hwdoc.views.equipment eq.pk %}">{{ eq.model }}</a></td>
