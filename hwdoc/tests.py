@@ -18,7 +18,12 @@
 Unit tests for hwdoc package
 '''
 
-import unittest
+from django import VERSION as DJANGO_VERSION
+
+if DJANGO_VERSION[:2] >= (1, 3):
+    from django.utils import unittest
+else:
+    import unittest
 from hwdoc.models import Vendor, EquipmentModel, Equipment, \
     ServerManagement, Project, Rack, RackPosition, RackModel, RackRow, \
     Datacenter
