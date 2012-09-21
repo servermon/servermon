@@ -110,6 +110,12 @@ def remove_user(hostname, username, password, **kwargs):
     '''
     return __send__(hostname, username, password, __remove_user_command__(**kwargs))
 
+def get_all_users(hostname, username, password, **kwargs):
+    '''
+    Get a list of all configured users to the iLO
+    '''
+    return __send__(hostname, username, password, __get_all_users_command__(**kwargs))
+
 # Beneath this line iLO3 specifics start
 def __send__(hostname, username, password, command):
     h = httplib2.Http(disable_ssl_certificate_validation=True)
@@ -492,6 +498,14 @@ def __add_user_command__(**kwargs):
      </ADD_USER>
     </USER_INFO>
     ''' % kwargs
+    return command.strip()
+
+def __get_all_users_command__(**kwargs):
+    command = '''
+    <USER_INFO MODE="read">
+    <GET_ALL_USERS />
+    </USER_INFO>
+    '''
     return command.strip()
 
 def __remove_user_command__(**kwargs):

@@ -103,4 +103,9 @@ def remove_user(hostname, username, password, **kwargs):
     Remove a User from the BMC
     '''
     return True
+def get_all_users(hostname, username, password, **kwargs):
+    '''
+    Get a list of all configured users to the iLO
+    '''
+    return True
 

@@ -106,6 +106,7 @@ class EquipmentTestCase(unittest.TestCase):
         self.assertTrue(self.management.bmc_factory_defaults())
         self.assertTrue(self.management.add_user())
         self.assertTrue(self.management.remove_user())
+        self.assertTrue(self.management.get_all_users())
 
     def test_equipment_number(self):
         self.assertEqual(Equipment.objects.all().count(), 2)

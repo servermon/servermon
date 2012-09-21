@@ -364,3 +364,10 @@ class ServerManagement(models.Model):
         '''
 
         return self.__sm__('remove_user', username, password, **kwargs)
+
+    def get_all_users(self, username=None, password=None, **kwargs):
+        '''
+        Get a list of all Users configured in the BMC
+        '''
+
+        return self.__sm__('get_all_users', username, password, **kwargs)
