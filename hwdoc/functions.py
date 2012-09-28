@@ -91,7 +91,7 @@ def search(q):
         else:
             try:
                 dns = gethostbyaddr(key)[0]
-            except (herror, gaierror, IndexError, error):
+            except (herror, gaierror, IndexError, error, UnicodeEncodeError):
                 dns = ''
             mac = canonicalize_mac(key)
             result = Equipment.objects.filter(
