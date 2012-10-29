@@ -25,13 +25,16 @@ if DJANGO_VERSION[:2] >= (1, 3):
 else:
     import unittest
 
-from puppet.models import Host 
+from puppet.models import Host, Resource, FactValue, Fact
 from updates.models import Package, Update
 from django.test.client import Client
 
 # The following is an ugly hack for unit tests to work
 # We force managed the unmanaged models so that tables will be created
-Host._meta.managed=True
+Host._meta.managed = True
+Resource._meta.managed = True
+FactValue._meta.managed = True
+Fact._meta.managed = True
 
 class UpdatesTestCase(unittest.TestCase):
     '''
@@ -113,3 +116,80 @@ class ViewsTestCase(unittest.TestCase):
         for d in data:
             response = c.get('/packages/%s' % d)
             self.assertEqual(response.status_code, 200)
+
+# This is here because there are some servermon wide views which must
+# be moved in the updates app. 
+class ServermonViewsTestCase(unittest.TestCase):
+    '''
+    A test case for servermon package 
+    '''
+
+    def setUp(self):
+        '''
+        Commands run before every test
+        '''
+        self.host1 = Host.objects.create(name='testservermonHost1', ip='10.10.10.10')
+        self.host2 = Host.objects.create(name='testservermonHost2', ip='10.10.10.10')
+        self.fact1 = Fact.objects.create(name='TestFact1')
+        self.fact2 = Fact.objects.create(name='TestFact2')
+        self.factv1 = FactValue.objects.create(value='TestFactValue1', fact_name=self.fact1, host=self.host1)
+        self.factv2 = FactValue.objects.create(value='TestFactValue2', fact_name=self.fact2, host=self.host2)
+
+    def tearDown(self):
+        '''
+        Commands run after every test
+        '''
+        self.host1.delete()
+
+    def test_empty_host(self):
+        c = Client()
+        response = c.get('/hosts/%s' % '')
+        # This should work because of urls fallback to hostlist
+        self.assertEqual(response.status_code, 200)
+
+    def test_nonexistent_host(self):
+        c = Client()
+        response = c.get('/hosts/%s' % 'nosuchhost' )
+        self.assertEqual(response.status_code, 404)
+
+    def test_existent_host(self):
+        c = Client()
+        data = [self.host1.name]
+        for d in data:
+            response = c.get('/hosts/%s' % d)
+            self.assertEqual(response.status_code, 200)
+
+    def test_inventory(self):
+        c = Client()
+        response = c.get('/inventory/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_index(self):
+        c = Client()
+        response = c.get('/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_incorrect_search(self):
+        c = Client()
+        response = c.post('/search/')
+        self.assertEqual(response.status_code, 302)
+
+    def test_correct_search(self):
+        c = Client()
+        response = c.post('/search/', {'search': self.host1.name})
+        self.assertEqual(response.status_code, 200)
+
+    def test_query_get(self):
+        c = Client()
+        response = c.get('/query/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_query_post_empty(self):
+        c = Client()
+        response = c.post('/query/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_query_post_filled(self):
+        c = Client()
+        response = c.post('/query/', {'facts': (self.fact1.pk, self.fact2.pk), 'hosts': (self.host1.pk, self.host2.pk)})
+        self.assertEqual(response.status_code, 200)
