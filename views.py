@@ -34,7 +34,11 @@ def host(request, hostname):
     updates = []
     system = []
 
-    iflist = host.get_fact_value('interfaces').split(',')
+    try:
+        iflist = host.get_fact_value('interfaces').split(',')
+    except AttributeError:
+        iflist = []
+
     interfaces = []
     for iface in iflist:
         d = {}
