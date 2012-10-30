@@ -8,7 +8,7 @@ from django.conf import settings
 urlpatterns = patterns('',
     (r'^/?$',           'servermon.views.index'),
     (r'^hosts/$',       'servermon.updates.views.hostlist'),
-    (r'^hosts/(.*)',    'servermon.views.host'),
+    (r'^hosts/(.*)',    'servermon.updates.views.host'),
     (r'^packages/$',    'servermon.updates.views.packagelist'),
     (r'^packages/(.*)', 'servermon.updates.views.package'),
     (r'^inventory/?$',  'servermon.views.inventory'),

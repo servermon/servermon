@@ -76,6 +76,7 @@ class ViewsTestCase(unittest.TestCase):
 
         self.package1 = Package.objects.create(name='testpackage', sourcename='testsource')
         self.package2 = Package.objects.create(name='testpackage2', sourcename='testsource')
+        self.host1 = Host.objects.create(name='testservermonHost1', ip='10.10.10.10')
 
     def tearDown(self):
         '''
@@ -83,6 +84,7 @@ class ViewsTestCase(unittest.TestCase):
         '''
 
         Package.objects.all().delete()
+        Host.objects.all().delete()
 
     def test_hostlist(self):
         c = Client()
@@ -117,6 +119,24 @@ class ViewsTestCase(unittest.TestCase):
             response = c.get('/packages/%s' % d)
             self.assertEqual(response.status_code, 200)
 
+    def test_empty_host(self):
+        c = Client()
+        response = c.get('/hosts/%s' % '')
+        # This should work because of urls fallback to hostlist
+        self.assertEqual(response.status_code, 200)
+
+    def test_nonexistent_host(self):
+        c = Client()
+        response = c.get('/hosts/%s' % 'nosuchhost' )
+        self.assertEqual(response.status_code, 404)
+
+    def test_existent_host(self):
+        c = Client()
+        data = [self.host1.name]
+        for d in data:
+            response = c.get('/hosts/%s' % d)
+            self.assertEqual(response.status_code, 200)
+
 # This is here because there are some servermon wide views which must
 # be moved in the updates app. 
 class ServermonViewsTestCase(unittest.TestCase):
@@ -140,24 +160,6 @@ class ServermonViewsTestCase(unittest.TestCase):
         Commands run after every test
         '''
         self.host1.delete()
-
-    def test_empty_host(self):
-        c = Client()
-        response = c.get('/hosts/%s' % '')
-        # This should work because of urls fallback to hostlist
-        self.assertEqual(response.status_code, 200)
-
-    def test_nonexistent_host(self):
-        c = Client()
-        response = c.get('/hosts/%s' % 'nosuchhost' )
-        self.assertEqual(response.status_code, 404)
-
-    def test_existent_host(self):
-        c = Client()
-        data = [self.host1.name]
-        for d in data:
-            response = c.get('/hosts/%s' % d)
-            self.assertEqual(response.status_code, 200)
 
     def test_inventory(self):
         c = Client()
