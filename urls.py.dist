@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     (r'^packages/(.*)', 'servermon.updates.views.package'),
     (r'^inventory/?$',  'servermon.puppet.views.inventory'),
     (r'^search/?$',     'servermon.views.search'),
-    (r'^query/?$',      'servermon.views.query'),
+    (r'^query/?$',      'servermon.puppet.views.query'),
     # Uncomment the next lines to enable the admin & hwdoc:
     # (r'^admin/',        include(admin.site.urls)),
     # (r'^admin/doc/',    include('django.contrib.admindocs.urls')),

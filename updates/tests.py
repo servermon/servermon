@@ -175,18 +175,3 @@ class ServermonViewsTestCase(unittest.TestCase):
         c = Client()
         response = c.post('/search/', {'search': self.host1.name})
         self.assertEqual(response.status_code, 200)
-
-    def test_query_get(self):
-        c = Client()
-        response = c.get('/query/')
-        self.assertEqual(response.status_code, 200)
-
-    def test_query_post_empty(self):
-        c = Client()
-        response = c.post('/query/')
-        self.assertEqual(response.status_code, 200)
-
-    def test_query_post_filled(self):
-        c = Client()
-        response = c.post('/query/', {'facts': (self.fact1.pk, self.fact2.pk), 'hosts': (self.host1.pk, self.host2.pk)})
-        self.assertEqual(response.status_code, 200)

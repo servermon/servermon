@@ -84,8 +84,42 @@ class PuppetViewsTestCase(unittest.TestCase):
     '''
     A test case for servermon package 
     '''
+    def setUp(self):
+        '''
+        Commands run before every test
+        '''
+        self.host1 = Host.objects.create(name='testservermonHost1', ip='10.10.10.10')
+        self.host2 = Host.objects.create(name='testservermonHost2', ip='10.10.10.10')
+        self.fact1 = Fact.objects.create(name='TestFact1')
+        self.fact2 = Fact.objects.create(name='TestFact2')
+        self.factv1 = FactValue.objects.create(value='TestFactValue1', fact_name=self.fact1, host=self.host1)
+        self.factv2 = FactValue.objects.create(value='TestFactValue2', fact_name=self.fact2, host=self.host2)
+
+    def tearDown(self):
+        '''
+        Commands run after every test
+        '''
+        Host.objects.all().delete()
+        Fact.objects.all().delete()
+        FactValue.objects.all().delete()
+
 
     def test_inventory(self):
         c = Client()
         response = c.get('/inventory/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_query_get(self):
+        c = Client()
+        response = c.get('/query/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_query_post_empty(self):
+        c = Client()
+        response = c.post('/query/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_query_post_filled(self):
+        c = Client()
+        response = c.post('/query/', {'facts': (self.fact1.pk, self.fact2.pk), 'hosts': (self.host1.pk, self.host2.pk)})
         self.assertEqual(response.status_code, 200)
