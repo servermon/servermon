@@ -161,11 +161,6 @@ class ServermonViewsTestCase(unittest.TestCase):
         '''
         self.host1.delete()
 
-    def test_inventory(self):
-        c = Client()
-        response = c.get('/inventory/')
-        self.assertEqual(response.status_code, 200)
-
     def test_index(self):
         c = Client()
         response = c.get('/')

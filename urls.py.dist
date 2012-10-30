@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     (r'^hosts/(.*)',    'servermon.updates.views.host'),
     (r'^packages/$',    'servermon.updates.views.packagelist'),
     (r'^packages/(.*)', 'servermon.updates.views.package'),
-    (r'^inventory/?$',  'servermon.views.inventory'),
+    (r'^inventory/?$',  'servermon.puppet.views.inventory'),
     (r'^search/?$',     'servermon.views.search'),
     (r'^query/?$',      'servermon.views.query'),
     # Uncomment the next lines to enable the admin & hwdoc:

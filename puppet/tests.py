@@ -25,6 +25,7 @@ if DJANGO_VERSION[:2] >= (1, 3):
 else:
     import unittest
 
+from django.test.client import Client
 from puppet.models import Fact, Host, FactValue, ParamNames, ParamValues, PuppetTags, \
                     ResourceTags, SourceFile, Resource 
 
@@ -78,3 +79,13 @@ class PuppetTestCase(unittest.TestCase):
     # Tests start here
     def test_if_fact_equal_with_self(self):
         self.assertEqual(self.factv1.name, self.factv1.fact_name.name)
+
+class PuppetViewsTestCase(unittest.TestCase):
+    '''
+    A test case for servermon package 
+    '''
+
+    def test_inventory(self):
+        c = Client()
+        response = c.get('/inventory/')
+        self.assertEqual(response.status_code, 200)

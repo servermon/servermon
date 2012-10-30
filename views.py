@@ -28,44 +28,6 @@ from settings import HOST_TIMEOUT, INSTALLED_APPS
 from IPy import IP
 import re
 
-def inventory(request):
-    keys = [
-        'is_virtual',
-        'manufacturer',
-        'productname',
-        'bios_date',
-        'bios_version',
-        'serialnumber',
-        'architecture',
-        'processorcount',
-        'memorytotal',
-    ]
-
-    # This could be more normally be expressed starting with Host as the base
-    # model, since we are essentially asking for hosts plus their facts.
-    #
-    # However, Django's select_related doesn't traverse reverse foreign keys,
-    # and hence we were forced to do one fact query per host, i.e N+1 queries.
-    #
-    # Django 1.4 has prefetch_related() which may or may not help; until then
-    # work around the ORM and combine it with itertools.groupby(). Should
-    # still have a performance hit for, say, more than 1k hosts.
-
-    facts = FactValue.objects.all()
-    facts = facts.filter(fact_name__name__in=keys)
-    facts = facts.order_by('host') # itertools.groupby needs sorted input
-    facts = facts.select_related() # performance optimization
-
-    hosts = []
-    from itertools import groupby
-    for key, values in groupby(facts, key=lambda x: x.host.name):
-        host = {'name': key }
-        for v in values:
-            host[v.name] = v.value
-        hosts.append(host)
-
-    return render(request, "inventory.html", {'hosts': hosts})
-
 def index(request):
     timeout = datetime.now() - timedelta(seconds=HOST_TIMEOUT)
 
