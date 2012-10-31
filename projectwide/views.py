@@ -17,15 +17,11 @@
 # OF THIS SOFTWARE.
 
 from servermon.puppet.models import Host, Fact, FactValue
-from servermon.updates.models import Package, Update
-from django.shortcuts import get_object_or_404
+from servermon.updates.models import Package
 from servermon.compat import render
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect
 from datetime import datetime, timedelta
-from django.contrib.admin.widgets import FilteredSelectMultiple
-from django import forms
 from settings import HOST_TIMEOUT, INSTALLED_APPS
-from IPy import IP
 import re
 
 def index(request):
