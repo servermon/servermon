@@ -254,7 +254,7 @@ class EquipmentAdmin(admin.ModelAdmin):
             'purpose',)
     list_display_links = ('serial',)
     list_filter = ('model', 'rack',)
-    search_fields = ['rack', 'unit', 'serial', 'allocation__name']
+    search_fields = ['rack__pk', 'unit', 'serial', 'allocation__name']
     list_editable = ['allocation', 'rack', 'unit']
     ordering = ('rack', 'unit',)
     inlines = [ ServerManagementInline, ]
