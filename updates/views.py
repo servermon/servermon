@@ -39,7 +39,7 @@ def package(request, packagename):
 
     updates = package.update_set.order_by('host__name')
     if "plain" in request.GET:
-        return render(request, "package.txt", {"updates": updates}, mimetype="text/plain")
+        return render(request, "package.txt", {"updates": updates}, content_type="text/plain")
     return render(request, 'packageview.html', {'package': package, 'updates': updates})
 
 def host(request, hostname):

@@ -171,10 +171,10 @@ def search(request):
 
     if u'txt' in request.GET:
         template = 'results.txt'
-        mimetype = 'text/plain'
+        content_type = 'text/plain'
     else:
         template = 'results.html'
-        mimetype = 'text/html'
+        content_type = 'text/html'
 
     if u'q' in request.GET:
         key = request.GET['q']
@@ -191,7 +191,7 @@ def search(request):
 
     return render(request, template,
             { 'results': results, },
-            mimetype=mimetype)
+            content_type=content_type)
 
 def advancedsearch(request):
     '''
@@ -225,7 +225,7 @@ def opensearch(request):
                  'opensearchbaseurl': "http://%s" % fqdn,
                  'fqdn': fqdn,
                  'contact': contact,
-             }, mimetype = 'application/opensearchdescription+xml')
+             }, content_type = 'application/opensearchdescription+xml')
 
 def suggest(request):
     '''
