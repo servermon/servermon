@@ -116,8 +116,37 @@ def get_all_users(hostname, username, password, **kwargs):
     '''
     return __send__(hostname, username, password, __get_all_users_command__(**kwargs))
 
+def firmware_update(hostname, username, password, **kwargs):
+    '''
+    Perform a firmware update of the iLO
+    '''
+    try:
+        f = open(kwargs['firmware_location']).read()
+    except IOError:
+        # TODO: Log this
+        print "Could not read firmware file"
+        return False
+
+    content_type, body = encode_multipart_formdata(
+                                        (('fileType', ''),),
+                                        (('fwimgfile', kwargs['firmware_location'], f),),
+                                        )
+    extras = {
+        'Content-Type': content_type,
+        'body': body,
+        }
+        
+    response = __send__(hostname, username, password, __firmware_update_command__(**kwargs), extras)
+    try:
+        extras = {'Cookie': extras['Cookie'],}
+    except IndexError:
+        # TODO: Log this
+        print "Failed to get Cookie from iLO"
+        return False
+    return  __send__(hostname, username, password, __firmware_update_command__(**kwargs), extras)
+
 # Beneath this line iLO3 specifics start
-def __send__(hostname, username, password, command):
+def __send__(hostname, username, password, command, extras=None):
     h = httplib2.Http(disable_ssl_certificate_validation=True)
 
     body = '''
@@ -126,19 +155,58 @@ def __send__(hostname, username, password, command):
     </RIBCL>''' % (username, password, command)
 
     body = str(body)
-
+    headers = {
+                'TE': 'chunked',
+                'Connection': 'close',
+              }
+    url = 'https://%s/ribcl' % str(hostname)
+    if extras is not None:
+        if  'Content-Type' in extras.keys():
+            headers.update({'Content-Type': extras['Content-Type'],})
+            body = str(extras['body'])
+            url = 'https://%s/cgi-bin/uploadRibclFiles' % str(hostname)
+        else:
+            headers.update(extras)
     try:
         resp, content = h.request(
-                            'https://%s/ribcl' % str(hostname),
+                            url,
                             'POST',
                             body = body,
-                            headers = { 'TE': 'chunked', 'Connection': 'close'}
+                            headers = headers,
                         )
     except (httplib2.ServerNotFoundError, socket.error) as e:
         # TODO: Log this. For now just print
         print e
         return
+    if extras is not None and 'set-cookie' in resp:
+        extras['Cookie'] = resp['set-cookie']
     return content
+
+def encode_multipart_formdata(fields, files):
+    '''
+    fields is a sequence of (name, value) elements for regular form fields.
+    files is a sequence of (name, filename, value) elements for data to be uploaded as files
+    Return (content_type, body) ready for httplib.HTTP instance
+    '''
+    BOUNDARY = '----------bound@ry_$'
+    CRLF = '\r\n'
+    L = []
+    for (key, value) in fields:
+        L.append('--' + BOUNDARY)
+        L.append('Content-Disposition: form-data; name="%s"' % key)
+        L.append('')
+        L.append(value)
+    for (key, filename, value) in files:
+        L.append('--' + BOUNDARY)
+        L.append('Content-Disposition: form-data; name="%s"; filename="%s"' % (key, filename))
+        L.append('Content-Type: %s' % ('application/octet-stream'))
+        L.append('')
+        L.append(value)
+    L.append('--' + BOUNDARY + '--')
+    L.append('')
+    body = CRLF.join(L)
+    content_type = 'multipart/form-data; boundary=%s' % BOUNDARY
+    return content_type, body
 
 def __power_on_command__():
     command = '''
@@ -513,6 +581,15 @@ def __remove_user_command__(**kwargs):
     <USER_INFO MODE="write">
      <DELETE_USER USER_LOGIN="%(deluser_username)s"/>
     </USER_INFO>
+    ''' % kwargs
+    return command.strip()
+
+def __firmware_update_command__(**kwargs):
+    command = '''
+    <RIB_INFO MODE="write">
+     <TPM_ENABLED VALUE="Yes"/>
+     <UPDATE_RIB_FIRMWARE IMAGE_LOCATION="%(firmware_location)s"/>
+    </RIB_INFO>
     ''' % kwargs
     return command.strip()
 

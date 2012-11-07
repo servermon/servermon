@@ -371,3 +371,10 @@ class ServerManagement(models.Model):
         '''
 
         return self.__sm__('get_all_users', username, password, **kwargs)
+
+    def firmware_update(self, username=None, password=None, **kwargs):
+        '''
+        Perform a firmware update of the BMC
+        '''
+
+        return self.__sm__('firmware_update', username, password, **kwargs)
