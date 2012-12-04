@@ -19,7 +19,6 @@ Django management command to set LDAP BMC settings
 '''
 
 from django.core.management.base import BaseCommand
-from hwdoc.functions import search
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
@@ -33,7 +32,6 @@ class Command(BaseCommand):
     '''
     help = _l('Sets LDAP settings for BMC authentication')
     args = '[key]'
-    label = search.__doc__
 
     option_list = BaseCommand.option_list + (
                 make_option('--ldap_enable', action='store', dest='ldap_enable', help=_l('Enable LDAP authentication. Valid values: Yes, No')),

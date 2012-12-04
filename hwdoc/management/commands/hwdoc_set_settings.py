@@ -19,7 +19,6 @@ Django management command to set BMC settings
 '''
 
 from django.core.management.base import BaseCommand
-from hwdoc.functions import search
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
@@ -34,7 +33,6 @@ class Command(BaseCommand):
     help = _l('Sets BMC settings. Sane defaults are assumed for all options. \
              Non applicable values for a backend are silently ignored')
     args = '[key]'
-    label = search.__doc__
 
     option_list = BaseCommand.option_list + (
                 # Yeah i know line length is violated here.

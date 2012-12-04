@@ -19,7 +19,6 @@ Django management command to upgrade BMC firmware
 '''
 
 from django.core.management.base import BaseCommand, CommandError
-from hwdoc.functions import search
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
@@ -34,7 +33,6 @@ class Command(BaseCommand):
     '''
     help = _l('Upgrades BMC firmware')
     args = '[key]'
-    label = search.__doc__
 
     option_list = BaseCommand.option_list + (
                 make_option('-f', '--firmware',
