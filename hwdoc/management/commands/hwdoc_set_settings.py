@@ -18,17 +18,14 @@
 Django management command to set BMC settings
 '''
 
-from django.core.management.base import BaseCommand, CommandError
-from django.conf import settings
-from hwdoc.models import ServerManagement
+from django.core.management.base import BaseCommand
 from hwdoc.functions import search
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
-import sys
-import csv
-import re
 from optparse import make_option
+
+import _common
 
 class Command(BaseCommand):
     '''
@@ -57,53 +54,16 @@ class Command(BaseCommand):
                 make_option('--auth_fail_logging', action='store', type='string', dest='auth_fail_logging', help=_l('Authentication failure logging. Valid values: 0,1,2,3,5. iLO3 backend support only')),
                 make_option('--rbsu_post_ip', action='store', type='string', dest='rbsu_post_ip', help=_l('Show BMC IP during POST. Valid values: Y,N. iLO3 backend support only')),
                 make_option('--enforce_aes', action='store', type='string', dest='enforce_aes', help=_l('Set AES encyption in BMC. Valid values: Y,N. iLO3 backend support only')),
-                make_option('-u', '--username',
-                    action='store',
-                    type='string',
-                    dest='username',
-                    default=None,
-                    help=_l('Provide username used to login to BMC')),
-                make_option('-p', '--password',
-                    action='store',
-                    type='string',
-                    dest='password',
-                    default=None,
-                    help=_l('Provide password used to login to BMC')),
-            )
+            ) + _common.option_list
 
     def handle(self, *args, **options):
         '''
         Handle command
         '''
 
-        if args is None or len(args) != 1:
-            raise CommandError(_('You must supply a key'))
-
-        try:
-            key = args[0]
-        except IndexError:
-            print _('Error in usage. See help')
-            sys.exit(1)
-
-        es = search(key)
-        if es.count() == 0:
-            print _('No Equipment found')
-            return
-
-        for e in es:
-            try:
-                e.servermanagement
-            except ServerManagement.DoesNotExist: 
-                continue
-            if int(options['verbosity']) > 0:
-                print e
-            set_options = options.copy()
-            set_options.pop('username')
-            set_options.pop('password')
-            for s in set_options.keys():
-                if set_options[s] is None:
-                    set_options.pop(s)
-            result = e.servermanagement.set_settings(options['username'], options['password'], **set_options)
-            #TODO: Figure out what to do with this
-            if int(options['verbosity']) > 1:
-                print result
+        options['command'] = 'set_settings'
+        
+        for s in options.keys():
+            if options[s] is None:
+                options.pop(s)
+        result = _common.handle(self, *args, **options)

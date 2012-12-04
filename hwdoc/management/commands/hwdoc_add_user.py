@@ -18,17 +18,14 @@
 Django management command to add user to BMC
 '''
 
-from django.core.management.base import BaseCommand, CommandError
-from django.conf import settings
-from hwdoc.models import ServerManagement
+from django.core.management.base import BaseCommand
 from hwdoc.functions import search
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
-import sys
-import csv
-import re
 from optparse import make_option
+
+import _common
 
 class Command(BaseCommand):
     '''
@@ -54,50 +51,12 @@ class Command(BaseCommand):
                     dest='newuser_password',
                     default='',
                     help=_('Specify the password of the new user')),
-                make_option('-u', '--username',
-                    action='store',
-                    type='string',
-                    dest='username',
-                    default=None,
-                    help=_('Provide username used to login to BMC')),
-                make_option('-p', '--password',
-                    action='store',
-                    type='string',
-                    dest='password',
-                    default=None,
-                    help=_('Provide password used to login to BMC')),
-            )
+            ) + _common.option_list
 
     def handle(self, *args, **options):
         '''
         Handle command
         '''
 
-        if args is None or len(args) != 1:
-            raise CommandError(_('You must supply a key'))
-
-        try:
-            key = args[0]
-        except IndexError:
-            print _('Error in usage. See help')
-            sys.exit(1)
-
-        es = search(key)
-        if es.count() == 0:
-            print _('No Equipment found')
-            return
-
-        for e in es:
-            try:
-                e.servermanagement
-            except ServerManagement.DoesNotExist: 
-                continue
-            if int(options['verbosity']) > 0:
-                print e
-            opts = options.copy()
-            opts.pop('username')
-            opts.pop('password')
-            result = e.servermanagement.add_user(options['username'], options['password'], **opts)
-            #TODO: Figure out what to do with this
-            if int(options['verbosity']) > 1:
-                print result
+        options['command'] = 'add_user'
+        result = _common.handle(self, *args, **options)

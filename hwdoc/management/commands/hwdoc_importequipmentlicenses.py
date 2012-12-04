@@ -18,14 +18,12 @@
 Django management command to import a CSV of BMC licenses
 '''
 
-from django.core.management.base import BaseCommand, CommandError
-from django.conf import settings
-from hwdoc.models import Equipment, ServerManagement
+from django.core.management.base import BaseCommand
+from hwdoc.models import Equipment
 from django.utils.translation import ugettext as _l
 from django.utils.translation import ugettext_lazy as _l
 import sys
 import csv
-import re
 
 class Command(BaseCommand):
     '''
@@ -57,7 +55,7 @@ class Command(BaseCommand):
                 (foo, license, serial) = row
                 licenses.append(license)
 
-        for eq in Equipment.objects.exclude(model__name="DS2600"):
+        for eq in Equipment.objects.exclude(servermanagement__isnull=True):
             mgmt = eq.servermanagement
             mgmt.license = licenses.pop()
             mgmt.save()

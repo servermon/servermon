@@ -18,17 +18,14 @@
 Django management command to set LDAP BMC settings
 '''
 
-from django.core.management.base import BaseCommand, CommandError
-from django.conf import settings
-from hwdoc.models import ServerManagement
+from django.core.management.base import BaseCommand
 from hwdoc.functions import search
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
-import sys
-import csv
-import re
 from optparse import make_option
+
+import _common
 
 class Command(BaseCommand):
     '''
@@ -53,63 +50,25 @@ class Command(BaseCommand):
                 make_option('--groupnames', action='store', dest='groupnames', default=None, help=_l('LDAP group names')),
                 make_option('--groupprivs', action='store', dest='groupprivs', default=None, help=_l('LDAP group privileges. iLO3 support only')),
                 make_option('--groupsids', action='store', dest='groupsids', default=None, help=_l('LDAP group AD SIDs. iLO3 support only')),
-
-                make_option('-u', '--username',
-                    action='store',
-                    type='string',
-                    dest='username',
-                    default=None,
-                    help=_l('Provide username used to login to BMC')),
-                make_option('-p', '--password',
-                    action='store',
-                    type='string',
-                    dest='password',
-                    default=None,
-                    help=_l('Provide password used to login to BMC')),
-            )
+            ) + _common.option_list
 
     def handle(self, *args, **options):
         '''
         Handle command
         '''
 
-        if args is None or len(args) != 1:
-            raise CommandError(_('You must supply a key'))
+        options['command'] = 'set_ldap_settings'
 
-        try:
-            key = args[0]
-        except IndexError:
-            print _('Error in usage. See help')
-            sys.exit(1)
+        for s in options.keys():
+            if s == 'contexts' and options['contexts'] is not None:
+                options['contexts'] = options['contexts'].split(':')
+            if s == 'groupnames' and options['groupnames'] is not None:
+                options['groupnames'] = options['groupnames'].split(':')
+            if s == 'groupprivs' and options['groupprivs'] is not None:
+                options['groupprivs'] = options['groupprivs'].split(':')
+            if s == 'groupsids' and options['groupsids'] is not None:
+                options['groupsids'] = options['groupsids'].split(':')
+            if options[s] is None:
+                options.pop(s)
 
-        es = search(key)
-        if es.count() == 0:
-            print _('No Equipment found')
-            return
-
-        for e in es:
-            try:
-                e.servermanagement
-            except ServerManagement.DoesNotExist: 
-                continue
-            if int(options['verbosity']) > 0:
-                print e
-            ldap_opts = options.copy()
-            ldap_opts.pop('username')
-            ldap_opts.pop('password')
-            for s in ldap_opts.keys():
-                if s == 'contexts' and ldap_opts['contexts'] is not None:
-                    ldap_opts['contexts'] = ldap_opts['contexts'].split(':')
-                if s == 'groupnames' and ldap_opts['groupnames'] is not None:
-                    ldap_opts['groupnames'] = ldap_opts['groupnames'].split(':')
-                if s == 'groupprivs' and ldap_opts['groupprivs'] is not None:
-                    ldap_opts['groupprivs'] = ldap_opts['groupprivs'].split(':')
-                if s == 'groupsids' and ldap_opts['groupsids'] is not None:
-                    ldap_opts['groupsids'] = ldap_opts['groupsids'].split(':')
-                if ldap_opts[s] is None:
-                    ldap_opts.pop(s)
-
-            result = e.servermanagement.set_ldap_settings(options['username'], options['password'], **ldap_opts)
-            #TODO: Figure out what to do with this
-            if int(options['verbosity']) > 1:
-                print result
+        result = _common.handle(self, *args, **options)

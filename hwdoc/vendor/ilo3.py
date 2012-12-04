@@ -21,31 +21,31 @@ HP iLO3 implementation of hwdoc Django management commmands
 import httplib2
 import socket
 
-def power_on(hostname, username, password):
+def power_on(hostname, username, password, **kwargs):
     '''
     Power on command
     '''
     return __send__(hostname, username, password, __power_on_command__())
 
-def power_off(hostname, username, password):
+def power_off(hostname, username, password, **kwargs):
     '''
     Power off command
     '''
     return __send__(hostname, username, password, __power_off_command__())
 
-def power_off_acpi(hostname, username, password):
+def power_off_acpi(hostname, username, password, **kwargs):
     '''
     Power off using ACPI command
     '''
     return __send__(hostname, username, password, __power_off_acpi_command__())
 
-def power_cycle(hostname, username, password):
+def power_cycle(hostname, username, password, **kwargs):
     '''
     Cold boot command
     '''
     return __send__(hostname, username, password, __power_cycle_command__())
 
-def power_reset(hostname, username, password):
+def power_reset(hostname, username, password, **kwargs):
     '''
     Warm boot command
     '''

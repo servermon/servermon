@@ -20,31 +20,31 @@ Module containing dummy implementations of django management commands
 Idea is to be able to use it for unit tests and as a reference
 '''
 
-def power_on(hostname, username, password):
+def power_on(hostname, username, password, **kwargs):
     '''
     Power on command
     '''
     return True
 
-def power_off(hostname, username, password):
+def power_off(hostname, username, password, **kwargs):
     '''
     Power off command
     '''
     return True
 
-def power_off_acpi(hostname, username, password):
+def power_off_acpi(hostname, username, password, **kwargs):
     '''
     Power off using ACPI command
     '''
     return True
 
-def power_cycle(hostname, username, password):
+def power_cycle(hostname, username, password, **kwargs):
     '''
     Cold boot command
     '''
     return True
 
-def power_reset(hostname, username, password):
+def power_reset(hostname, username, password, **kwargs):
     '''
     Warm boot command
     '''
