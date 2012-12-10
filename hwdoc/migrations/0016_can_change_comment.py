@@ -1,32 +1,25 @@
 # encoding: utf-8
 import datetime
 from south.db import db
-from south.v2 import SchemaMigration
+from south.v2 import DataMigration
 from django.db import models
 
-class Migration(SchemaMigration):
+class Migration(DataMigration):
     
     def forwards(self, orm):
-        
-        # Adding model 'Datacenter'
-        db.create_table('hwdoc_datacenter', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=20)),
-        ))
-        db.send_create_signal('hwdoc', ['Datacenter'])
+        "Write your forwards methods here."
+        ct, created = orm['contenttypes.ContentType'].objects.get_or_create(
+            model='equipment', app_label='hwdoc') # model must be lowercase!
+        perm, created = orm['auth.permission'].objects.get_or_create(
+            content_type=ct, codename='can_change_comment', defaults=dict(name=u'Can change comments'))
 
-        # Adding field 'RackRow.dc'
-        db.add_column('hwdoc_rackrow', 'dc', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['hwdoc.Datacenter'], null=True, blank=True), keep_default=False)
-    
-    
     def backwards(self, orm):
-        
-        # Deleting model 'Datacenter'
-        db.delete_table('hwdoc_datacenter')
-
-        # Deleting field 'RackRow.dc'
-        db.delete_column('hwdoc_rackrow', 'dc_id')
-    
+        "Write your backwards methods here."
+        ct, created = orm['contenttypes.ContentType'].objects.get_or_create(
+            model='equipment', app_label='hwdoc') # model must be lowercase!
+        perm, created = orm['auth.permission'].objects.get_or_create(
+            content_type=ct, codename='can_change_comment')
+        perm.delete()
     
     models = {
         'auth.group': {

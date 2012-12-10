@@ -206,6 +206,9 @@ class Equipment(models.Model):
 
     class Meta:
         ordering = ['rack', '-unit']
+        permissions = (
+                ("can_change_comment", "Can change comments"),
+                )
 
     def __unicode__(self):
         out = ""
