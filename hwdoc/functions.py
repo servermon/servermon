@@ -30,6 +30,7 @@ from django.db.models import Q
 from socket import gethostbyaddr, herror, gaierror, error
 from whoosh.analysis import SpaceSeparatedTokenizer, StopFilter
 from django.utils.translation import ugettext as _
+from django.conf import settings
 import re
 
 def canonicalize_mac(key):
@@ -110,6 +111,16 @@ def search(q):
         return Equipment.objects.filter(pk__in=ids).distinct()
     except DatabaseError as e:
         raise RuntimeError(_('An error occured while querying db: %(databaseerror)s') % {'databaseerror': e})
+
+def populate_tickets(equipment_list):
+    # TODO: Just a HACK 
+    for equipment in equipment_list:
+        m = re.search('((?:%s[0-9]+).+)+' % settings.TICKETING_URL,
+                str(equipment.comments), re.DOTALL)
+        if m:
+            tickets = m.group(0).split()
+            equipment.tickets = [ (re.sub(settings.TICKETING_URL,'', t), t) for t in tickets]
+    return equipment_list
 
 def get_search_terms(text):
     '''
