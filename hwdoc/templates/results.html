@@ -4,25 +4,6 @@
 {% block content %}
 <div> 
 	<h3>{% trans "Results" %}: {{ results.count }}</h3>
-	<table>
-		<tbody>
-		<tr>
-			<th>{% trans "Serial" %}</th>
-			<th>{% trans "Model" %}</th>
-			<th>{% trans "RackUnit" %}</th>
-			<th>{% trans "Hostname" %}</th>
-			<th>{% trans "Project" %}</th>
-		</tr>
-		{% for result in results %}
-		<tr>
-			<td class="mono"><a href="{% url hwdoc.views.equipment result.pk %}">{{ result.serial }}</a></td>
-			<td class="mono">{{ result.model.vendor }}&nbsp;{{ result.model.name }}</td>
-			<td class="mono">{{ result.rack }}{{ result.unit|stringformat:"02d" }}</td>
-			<td class="mono"><a href="https://{{ result.servermanagement.hostname }}">{{ result.servermanagement.hostname }}</a></td>
-			<td class="mono">{% if result.allocation %}<a href="{% url hwdoc.views.project result.allocation.pk %}">{{ result.allocation.name }}</a>{% else %}&mdash;{% endif %}</td>
-		</tr>
-		{% endfor %}
-		</tbody>
-	</table>
+	{% include "searchresults.html" %}
 </div>
 {% endblock %}

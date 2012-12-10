@@ -1,0 +1,37 @@
+{% load i18n %}
+	<table>
+		<tbody>
+		<tr>
+			<th>{% trans "Serial" %}</th>
+			<th>{% trans "Model" %}</th>
+			<th>{% trans "RackUnit" %}</th>
+			<th>{% trans "Hostname" %}</th>
+			<th>{% trans "Project" %}</th>
+			<th>{% trans "Tickets" %}</th>
+		</tr>
+		{% for result in results %}
+		<tr>
+			{% if result.tickets %}
+			<td class="mono blueborder"><a href="{% url hwdoc.views.equipment result.pk %}">{{ result.serial }}</a></td>
+			{% else %}
+			{% if result.comments %}
+			<td class="mono redborder"><a href="{% url hwdoc.views.equipment result.pk %}">{{ result.serial }}</a></td>
+			{% else %}
+			<td class="mono"><a href="{% url hwdoc.views.equipment result.pk %}">{{ result.serial }}</a></td>
+			{% endif %}
+			{% endif %}
+			<td class="mono">{{ result.model.vendor }}&nbsp;{{ result.model.name }}</td>
+			<td class="mono">{{ result.rack }}{{ result.unit|stringformat:"02d" }}</td>
+			<td class="mono"><a href="https://{{ result.servermanagement.hostname }}">{{ result.servermanagement.hostname }}</a></td>
+			<td class="mono">{% if result.allocation %}<a href="{% url hwdoc.views.project result.allocation.pk %}">{{ result.allocation.name }}</a>{% else %}&mdash;{% endif %}</td>
+			<td class="mono">
+			{% for ticket in result.tickets %}
+			<a href="{{ ticket.1 }}">{{ ticket.0 }}</a>
+			{% empty %}
+			-
+			</td>
+			{% endfor %}
+		</tr>
+		{% endfor %}
+		</tbody>
+	</table>

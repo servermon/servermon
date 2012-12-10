@@ -102,7 +102,10 @@ def rack(request, rack_id):
     template = 'rack.html'
 
     rack = get_object_or_404(Rack, pk=rack_id)
-    return render(request, template, { 'rack': rack, })
+    equipments = functions.search(str(rack.pk))
+    equipments = functions.populate_tickets(equipments)
+
+    return render(request, template, { 'rack': rack, 'equipments': equipments })
 
 def rackrow(request, rackrow_id):
     '''
@@ -117,9 +120,13 @@ def rackrow(request, rackrow_id):
     template = 'rackrow.html'
 
     rackrow = get_object_or_404(RackRow, pk=rackrow_id)
-    racks = rackrow.rackposition_set.values_list('rack')
+    racks = rackrow.rackposition_set.select_related()
+    for rack in racks:
+        rack.equipments = functions.populate_tickets(
+                rack.rack.equipment_set.select_related('model__vendor', 'model'))
     return render(request, template, {
         'rackrow': rackrow,
+        'racks': racks,
         })
 
 def datacenter(request, datacenter_id):
@@ -165,7 +172,10 @@ def search(request):
         key = None
 
     results = functions.search(key).select_related(
-            'servermanagement', 'rack', 'model', 'model__vendor', 'allocation') 
+            'servermanagement', 'rack', 'model',
+            'model__vendor', 'allocation') 
+
+    results = functions.populate_tickets(results)
 
     return render(request, template,
             { 'results': results, },

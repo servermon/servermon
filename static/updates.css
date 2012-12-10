@@ -140,3 +140,13 @@ img {
 .indexpagediv {
 	text-align: center;
 }
+
+.redborder {
+	font-family: monospace;
+	border: 2px solid #e47833;
+}
+
+.blueborder {
+	font-family: monospace;
+	border: 2px solid #60affe;
+}
