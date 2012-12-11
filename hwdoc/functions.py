@@ -113,9 +113,24 @@ def search(q):
         raise RuntimeError(_('An error occured while querying db: %(databaseerror)s') % {'databaseerror': e})
 
 def populate_tickets(equipment_list):
+    '''
+    Populates tickets attribute for each equipment in a queryset.
+
+    Note: This function is a temporary hack and will be replaced at some point.
+    It works by looking at settings.TICKETING_URL and matches strings based on
+    that. This function WILL evaluate the queryset and cause database lookups.
+
+    @type  equipment_list: Queryset
+    @param equipment_list: A Django queryset containing equipment which need to
+    be populated with tickets attribute
+
+    @rtype: QuerySet
+    @return: A QuerySet with equipment's comments attribute populated
+    '''
+
     # TODO: Just a HACK 
     for equipment in equipment_list:
-        m = re.search('((?:%s[0-9]+).+)+' % settings.TICKETING_URL,
+        m = re.search('((?:%s[0-9]+)\s+)+' % settings.TICKETING_URL,
                 str(equipment.comments), re.DOTALL)
         if m:
             tickets = m.group(0).split()
