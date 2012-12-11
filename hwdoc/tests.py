@@ -27,7 +27,8 @@ else:
 from hwdoc.models import Vendor, EquipmentModel, Equipment, \
     ServerManagement, Project, Rack, RackPosition, RackModel, RackRow, \
     Datacenter
-from hwdoc.functions import search, get_search_terms, canonicalize_mac
+from hwdoc.functions import search, get_search_terms, canonicalize_mac, \
+    populate_tickets
 from django.test.client import Client
 
 class EquipmentTestCase(unittest.TestCase):
@@ -69,6 +70,7 @@ class EquipmentTestCase(unittest.TestCase):
                                 rack = self.rack,
                                 unit = '22',
                                 purpose = 'Nothing',
+                                comments = 'Nothing',
                             )
 
         self.management = ServerManagement.objects.create (
@@ -130,6 +132,10 @@ class EquipmentTestCase(unittest.TestCase):
 
         tokens = get_search_terms(text)
         self.assertNotEqual(search(tokens).count(), 0)
+
+    def test_populate_tickets(self):
+        self.assertEqual(populate_tickets(search(str(self.server2.rack.pk))).count(), 2)
+
 
 class FunctionsTestCase(unittest.TestCase):
     '''

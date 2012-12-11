@@ -15,9 +15,13 @@
 		<tr>
 			<th>{% trans "Rack rows" %}</th>
 		</tr>
-		{% for rackrow in datacenter.rackrow_set.all %}
+		{% for rackrow in rackrows %}
 		<tr>
-			<td><a href="{% url hwdoc.views.rackrow rackrow.pk %}">{{ rackrow.name }}</a></td>
+			{% if rackrow.tickets %}
+			<td class="mono redborder"><a href="{% url hwdoc.views.rackrow rackrow.pk %}">{{ rackrow.name }}</a></td>
+			{% else %}
+			<td class="mono"><a href="{% url hwdoc.views.rackrow rackrow.pk %}">{{ rackrow.name }}</a></td>
+			{% endif %}
 		</tr>
 		{% endfor %}
 		</tbody>

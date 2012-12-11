@@ -63,6 +63,7 @@ def equipment(request, equipment_id):
     template = 'equipment.html'
 
     equipment = get_object_or_404(Equipment,pk=equipment_id)
+    equipment = functions.populate_tickets((equipment,))[0]
     try:
         equipment.prev = Equipment.objects.filter(rack=equipment.rack, unit__lt=equipment.unit).order_by('-unit')[0]
     except IndexError:
@@ -142,7 +143,18 @@ def datacenter(request, datacenter_id):
     template = 'datacenter.html'
 
     datacenter = get_object_or_404(Datacenter, pk=datacenter_id)
-    return render(request, template, { 'datacenter': datacenter, })
+    rackrows = datacenter.rackrow_set.all()
+    for rackrow in rackrows:
+        racks = [str(x).zfill(2) for x in
+                rackrow.rackposition_set.values_list('rack__pk', flat=True)]
+        equipments = functions.search(racks)
+        equipments = equipments.exclude(comments='')
+        if equipments.count() > 0:
+            rackrow.tickets = True
+    return render(request, template, {
+        'datacenter': datacenter,
+        'rackrows': rackrows,
+        })
 
 def search(request):
     '''
