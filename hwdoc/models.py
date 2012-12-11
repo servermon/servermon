@@ -199,8 +199,8 @@ class Equipment(models.Model):
     serial = models.CharField(max_length=80)
     rack = models.ForeignKey(Rack, null=True, blank=True)
     unit = models.PositiveIntegerField(null=True, blank=True)
-    purpose = models.CharField(max_length=80, null=True, blank=True)
-    comments = models.TextField(null=True, blank=True)
+    purpose = models.CharField(max_length=80, blank=True)
+    comments = models.TextField(blank=True)
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -237,11 +237,11 @@ class ServerManagement(models.Model):
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     hostname = models.CharField(max_length=80)
-    username = models.CharField(max_length=80, null=True, blank=True)
-    password = models.CharField(max_length=80, null=True, blank=True)
-    license = models.CharField(max_length=80, null=True, blank=True)
-    raid_license = models.CharField(max_length=80, null=True, blank=True)
-    mac = models.CharField(max_length=17, null=True, blank=True)
+    username = models.CharField(max_length=80, blank=True)
+    password = models.CharField(max_length=80, blank=True)
+    license = models.CharField(max_length=80, blank=True)
+    raid_license = models.CharField(max_length=80, blank=True)
+    mac = models.CharField(max_length=17, blank=True)
 
     def __unicode__(self):
         return "%s for %s" % (self.get_method_display(), self.equipment)
