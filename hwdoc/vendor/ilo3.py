@@ -261,6 +261,10 @@ def __pass_change_command__(username, newpass):
 def __mod_network_settings_command__(**kwargs):
     # TODO: This has not yet been exported to any django management command.
     # As a result only defaults are used, but are good enough for now.
+
+    for i in kwargs.keys():
+        if kwargs[i] == None:
+            kwargs.pop(i)
     kwargs.setdefault('dhcp_enable', 'Yes')
 
     kwargs.setdefault('enable_nic', 'Yes')
@@ -353,6 +357,10 @@ def __mod_network_settings_command__(**kwargs):
 
 
 def __mod_global_settings_command__(**kwargs):
+    for i in kwargs.keys():
+        if kwargs[i] == None:
+            kwargs.pop(i)
+
     serial_speeds = {
             '9600'  : '1',
             '19200' : '2',
@@ -454,6 +462,9 @@ def __license_set_command__(**kwargs):
     return command
 
 def __mod_directory_command__(**kwargs):
+    for i in kwargs.keys():
+        if kwargs[i] == None:
+            kwargs.pop(i)
     kwargs.setdefault('ldap_enable', 'No')
     kwargs.setdefault('local_users_enable', 'Yes')
     kwargs.setdefault('ldap_server', '')

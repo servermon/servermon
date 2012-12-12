@@ -66,7 +66,4 @@ class Command(BaseCommand):
                 options['groupprivs'] = options['groupprivs'].split(':')
             if s == 'groupsids' and options['groupsids'] is not None:
                 options['groupsids'] = options['groupsids'].split(':')
-            if options[s] is None:
-                options.pop(s)
-
         result = _common.handle(self, *args, **options)

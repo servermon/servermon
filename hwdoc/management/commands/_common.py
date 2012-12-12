@@ -69,9 +69,9 @@ def handle(self, *args, **options):
         if int(options['verbosity']) > 0:
             print e
         opts = options.copy()
-        opts.pop('username')
-        opts.pop('password')
-        opts.pop('command')
+        for term in ['username', 'password', 'command']:
+            if term in opts:
+                opts.pop(term)
         command = getattr(e.servermanagement, options['command'])
         result = command(options['username'], options['password'], **opts)
         #TODO: Figure out what to do with this

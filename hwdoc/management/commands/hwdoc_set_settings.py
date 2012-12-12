@@ -60,8 +60,4 @@ class Command(BaseCommand):
         '''
 
         options['command'] = 'set_settings'
-        
-        for s in options.keys():
-            if options[s] is None:
-                options.pop(s)
         result = _common.handle(self, *args, **options)
