@@ -42,7 +42,7 @@
   <tbody>
     {% for host in problemhosts %}
     <tr class={% cycle 'even' 'odd' %}>
-      <td><a href="{% url views.host host.name %}">{{ host.name }}</a></td>
+      <td><a href="{% url updates.views.host host.name %}">{{ host.name }}</a></td>
       <td>{{ host.updated_at|timesince }}</td>
     </tr>
     {% endfor %}

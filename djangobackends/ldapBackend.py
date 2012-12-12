@@ -62,6 +62,10 @@ class ldapBackend:
             # Attempt to bind to the user's DN
             l.simple_bind_s(result_data[0][0], password)
 
+            # Corner case here with users not having a mail attribute
+            if 'mail' not in result_data[0][1]:
+                result_data[0][1]['mail'] = ['',]
+
             # The user existed and authenticated. Get the user
             # record or create one with no privileges.
             try:
