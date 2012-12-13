@@ -11,7 +11,7 @@
 <h3>by {{ attr.grouper }}</h3>
 <ul>
 {% for item in attr.list %}
-<li><a href="{% url views.host item.name %}">{{ item.name }}</a> ({{ item.value|safe }})</li>
+<li><a href="{% url updates.views.host item.name %}">{{ item.name }}</a> ({{ item.value|safe }})</li>
 {% endfor %}
 </ul>
 {% endfor %}

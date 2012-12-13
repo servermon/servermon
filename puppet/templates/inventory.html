@@ -69,7 +69,7 @@ Click on a cell to filter by its value; click on a column header to sort; shift+
     {% for host in hosts %}
     {% if host.is_virtual != 'true' %}
     <tr>
-      <td><a href="{% url views.host host.name %}">{{ host.name }}</a></td>
+      <td><a href="{% url updates.views.host host.name %}">{{ host.name }}</a></td>
       <td class="filter">{{ host.manufacturer }}</td>
       <td class="filter">{{ host.productname }}</td>
       <td>{{ host.processorcount }}</td>
