@@ -1,3 +1,39 @@
+
+===========
+0.4.2 Release
+
+e93dc86 Update Makefile for 0.4.2 release
+02ac60c Fix 2 bugs in ldapBackend and index page
+a6d9dc3 Fix KeyError bug with some management commands
+aad1842 Update hwdoc index page
+34ab640 Add ticket display to equipment, datacenter
+f5394ad Fix design error in hwdoc null=True, blank=True
+a9646b4 Document populate_tickets function
+8479932 Populate tickets and display a chromatic code
+d2d4449 Populate equipment info from a ticketing system
+a7bbc78 Add permission to change comments only in admin
+f5daa39 Remove labels from hwdoc django management commands
+0629faf Deduplicate code for django management commands
+02b8d0e BMC firmware update command
+fd3e7b6 Fix bug with search in admin view
+1f58531 Removed unused status-ok.gif static file
+7c070cf Removed unused template from updates app
+21dcfec Moved project wide views to dedicated app
+804920a Moved various templates to their right places
+b3b3825 Moved views.query to puppet.views.query
+d6921e8 Moved views.inventory to updates.views.inventory
+3b8a1b2 Moved views.host view to updates.views.host
+9299fcc Unit Tests for servermon wide views
+08d8b50 Unit Tests for updates app
+07ee7ce Some first puppet app unit tests
+1daaae1 Fix a minor bug in host view
+5374eb7 Fix inspection left outs
+b881c03 Unicode characters supplied at search handling
+f96b504 Add design docs for 0.5
+6cc33ca Updated jquery to version 1.7.2
+8d5a5f8 Add get_all_users hwdoc command
+6a7042b Use django unittest module alias in hwdoc
+
 ===========
 0.4.1 Release
 
