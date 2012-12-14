@@ -130,7 +130,7 @@ def populate_tickets(equipment_list):
 
     # TODO: Just a HACK 
     for equipment in equipment_list:
-        m = re.search('((?:%s[0-9]+)\s+)+' % settings.TICKETING_URL,
+        m = re.search('((?:%s[0-9]+)\s*)+' % settings.TICKETING_URL,
                 str(equipment.comments), re.DOTALL)
         if m:
             tickets = m.group(0).split()
