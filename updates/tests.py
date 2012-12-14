@@ -77,6 +77,21 @@ class ViewsTestCase(unittest.TestCase):
         self.package1 = Package.objects.create(name='testpackage', sourcename='testsource')
         self.package2 = Package.objects.create(name='testpackage2', sourcename='testsource')
         self.host1 = Host.objects.create(name='testservermonHost1', ip='10.10.10.10')
+        self.fact1 = Fact.objects.create(name='interfaces')
+        self.fact2 = Fact.objects.create(name='macaddress_eth0')
+        self.fact3 = Fact.objects.create(name='ipaddress_eth0')
+        self.fact4 = Fact.objects.create(name='netmask_eth0')
+        self.fact5 = Fact.objects.create(name='ipaddress6_eth0')
+        self.factvalue1 = FactValue.objects.create(value='eth0',
+                fact_name=self.fact1, host=self.host1)
+        self.factvalue2 = FactValue.objects.create(value='aa:bb:cc:dd:ee:ff',
+                fact_name=self.fact2, host=self.host1)
+        self.factvalue3 = FactValue.objects.create(value='10.10.10.10',
+                fact_name=self.fact3, host=self.host1)
+        self.factvalue4 = FactValue.objects.create(value='255.255.255.0',
+                fact_name=self.fact4, host=self.host1)
+        self.factvalue5 = FactValue.objects.create(value='dead:beef::1/64',
+                fact_name=self.fact5, host=self.host1)
 
     def tearDown(self):
         '''
