@@ -21,6 +21,7 @@ from servermon.compat import render
 from django.db.models import Count
 from servermon.puppet.models import Host
 from servermon.updates.models import Package, Update
+from IPy import IP
 
 def hostlist(request):
     hosts = Host.objects.annotate(update_count=Count('update'))
