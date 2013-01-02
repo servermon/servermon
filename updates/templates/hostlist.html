@@ -19,6 +19,11 @@
       <td>
         {% if host.update_count %}
         {{ host.update_count }} update{{ host.update_count|pluralize }}
+        {% if host.security_count %}
+        {% with host.security_count|add:"0" as count %}
+	<img src="{{ MEDIA_URL }}secure.png" alt="{{ count|add:"0" }} security update{{ count|pluralize }}"  title="{{ count|add:"0" }} security update{{ count|pluralize }}" />
+        {% endwith %}
+        {% endif %}
         {% else %}
         &mdash;
         {% endif %}

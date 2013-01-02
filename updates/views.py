@@ -18,17 +18,19 @@
 
 from django.shortcuts import get_list_or_404, get_object_or_404
 from servermon.compat import render
-from django.db.models import Count
+from django.db.models import Count, Sum
 from servermon.puppet.models import Host
 from servermon.updates.models import Package, Update
 from IPy import IP
 
 def hostlist(request):
-    hosts = Host.objects.annotate(update_count=Count('update'))
+    hosts = Host.objects.annotate(update_count=Count('update'),
+                                  security_count=Sum('update__is_security'))
     return render(request, 'hostlist.html', {'hosts': hosts })
 
 def packagelist(request):
-    packages = Package.objects.annotate(host_count=Count('hosts'))
+    packages = Package.objects.annotate(host_count=Count('hosts'),
+                                        security_count=Sum('update__is_security'))
     return render(request, 'packagelist.html', {'packages': packages })
 
 def package(request, packagename):
