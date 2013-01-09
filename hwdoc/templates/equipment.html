@@ -19,7 +19,7 @@
       <tr><th>{% trans "Rack Unit" %}:</th><td>{{ equipment.rack }}{{ equipment.unit|stringformat:"02d" }}</td></tr>
       <tr><th>{% trans "Purpose" %}:</th><td>{{ equipment.purpose }}</td></tr>
       <tr><th>{% trans "OOB MAC" %}:</th><td>{% if equipment.servermanagement %}{{ equipment.servermanagement.mac }}{% endif %}</td></tr>
-      <tr><th>{% trans "OOB Hostname" %}:</th><td>{% if equipment.servermanagement %}{{ equipment.servermanagement.hostname }}{% endif %}</td></tr>
+      <tr><th>{% trans "OOB Hostname" %}:</th><td>{% if equipment.servermanagement %}<a href="http://{{ equipment.servermanagement.hostname }}">{{ equipment.servermanagement.hostname }}</a>{% endif %}</td></tr>
       <tr><th>{% trans "Tickets" %}:</th><td>
           {% for ticket in equipment.tickets %}
 	  <a href="{{ ticket.1 }}">{{ ticket.0 }}</a>
