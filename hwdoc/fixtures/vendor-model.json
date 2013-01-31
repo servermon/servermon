@@ -71,6 +71,42 @@
     }
   },
   {
+    "pk": 5, 
+    "model": "hwdoc.equipmentmodel", 
+    "fields": {
+      "u": 1, 
+      "vendor": 3, 
+      "name": "System x3550 -[7978B1G]-"
+    }
+  },
+  {
+    "pk": 6, 
+    "model": "hwdoc.equipmentmodel", 
+    "fields": {
+      "u": 1, 
+      "vendor": 4, 
+      "name": "Poweredge 1950"
+    }
+  },
+  {
+    "pk": 7, 
+    "model": "hwdoc.equipmentmodel", 
+    "fields": {
+      "u": 1, 
+      "vendor": 4, 
+      "name": "Poweredge 2950"
+    }
+  },
+  {
+    "pk": 8, 
+    "model": "hwdoc.equipmentmodel", 
+    "fields": {
+      "u": 2, 
+      "vendor": 4, 
+      "name": "PowerVault MD3200i"
+    }
+  },
+  {
     "pk": 1, 
     "model": "hwdoc.rackmodel", 
     "fields": {
