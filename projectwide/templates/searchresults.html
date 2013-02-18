@@ -9,7 +9,7 @@
 			<th>{% trans "Project" %}</th>
 			<th>{% trans "Tickets" %}</th>
 		</tr>
-		{% for result in results %}
+		{% for result in results.hwdoc %}
 		<tr>
 			{% if result.tickets %}
 			<td class="mono blueborder"><a href="{% url hwdoc.views.equipment result.pk %}">{{ result.serial }}</a></td>

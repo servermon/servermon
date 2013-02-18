@@ -20,6 +20,7 @@ hwdoc views module
 
 from servermon.hwdoc.models import Project, EquipmentModel, Equipment, \
         ServerManagement, Rack, RackRow, Datacenter
+from servermon.projectwide import functions as projectwide_functions
 from servermon.hwdoc import functions
 from servermon.compat import render
 from django.shortcuts import get_object_or_404
@@ -179,7 +180,7 @@ def search(request):
     if u'q' in request.GET:
         key = request.GET['q']
     elif u'qarea' in request.POST:
-        key = functions.get_search_terms(request.POST['qarea'])
+        key = projectwide_functions.get_search_terms(request.POST['qarea'])
     else:
         key = None
 

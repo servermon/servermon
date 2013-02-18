@@ -27,8 +27,8 @@ else:
 from hwdoc.models import Vendor, EquipmentModel, Equipment, \
     ServerManagement, Project, Rack, RackPosition, RackModel, RackRow, \
     Datacenter
-from hwdoc.functions import search, get_search_terms, canonicalize_mac, \
-    populate_tickets
+from hwdoc.functions import search, populate_tickets
+from projectwide.functions import get_search_terms, canonicalize_mac
 from django.test.client import Client
 
 class EquipmentTestCase(unittest.TestCase):

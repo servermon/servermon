@@ -60,9 +60,9 @@ class ProjectWideViewsTestCase(unittest.TestCase):
     def test_incorrect_search(self):
         c = Client()
         response = c.post('/search/')
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
 
     def test_correct_search(self):
         c = Client()
-        response = c.post('/search/', {'search': self.host1.name})
+        response = c.post('/search/', {'q': self.host1.name})
         self.assertEqual(response.status_code, 200)

@@ -19,41 +19,16 @@
 Module contains functions for performing searches in hwdoc
 
 Important function here is search(q) which searches strings or iterables of
-strings in model Equipment. get_search_terms(text) is a function tokenizing a
-text and return a Set of tokens for use by search(q). canonicalize_mac(key) is
-a function taken as MAC address as a string and returning it in the proper
-format for search(q)
+strings in model Equipment.
 '''
 
 from servermon.hwdoc.models import Equipment, ServerManagement
+from servermon.projectwide.functions import canonicalize_mac
 from django.db.models import Q
 from socket import gethostbyaddr, herror, gaierror, error
-from whoosh.analysis import SpaceSeparatedTokenizer, StopFilter
 from django.utils.translation import ugettext as _
 from django.conf import settings
 import re
-
-def canonicalize_mac(key):
-    '''
-    Accepts a MAC in various formats and returns at form aa:bb:cc:dd:ee:ff
-
-    @type  key: string
-    @param key: the MAC to canonicalize
-
-    @rtype: string
-    @return: The MAC address in canonical format
-    '''
-
-    string = key.lower().replace(':','').replace('-','').replace('.','')
-    result = ''
-
-    count = 0
-    for s in string:
-        if (count / 2) > 0 and (count % 2) == 0:
-            result += ':'
-        result += s
-        count += 1
-    return result
 
 def search(q):
     '''
@@ -136,29 +111,3 @@ def populate_tickets(equipment_list):
             tickets = m.group(0).split()
             equipment.tickets = [ (re.sub(settings.TICKETING_URL,'', t), t) for t in tickets]
     return equipment_list
-
-def get_search_terms(text):
-    '''
-    Splits up a text in tokens, drops non-usefull ones and returns a Set of tokens
-
-    @type   text: String
-    @param  text: A unicode string to split up in tokens
-
-    @rtype: Set of strings
-    @return: A Set of usefull unique tokens appearing the text
-    '''
-
-    stoplist = ['and', 'is', 'it', 'an', 'as', 'at', 'have', 'in', 'yet', 'if',
-            'from', 'for', 'when', 'by', 'to', 'you', 'be', 'we', 'that', 'may',
-            'not', 'with', 'tbd', 'a', 'on', 'your', 'this', 'of', 'us', 'will',
-            'can', 'the', 'or', 'are', 'up', 'down', 'ip',]
-
-    analyzer = SpaceSeparatedTokenizer() | StopFilter(stoplist=stoplist)
-
-    tokens = set([x.text for x in analyzer(text)])
-
-    # TODO: When we go to whoosh 2.x we can drop the following and use a whoosh
-    # SubstitutionFilter to the analyzer above
-    tokens = set([re.sub('[\(\)/]','',x) for x in tokens])
-
-    return tokens

@@ -1,0 +1,2 @@
+{% for result in results.hwdoc %}{{ result.serial|stringformat:"15s" }} {{ result.rack }}{{result.unit|stringformat:"02d"}}{{ result.servermanagement.hostname|stringformat:"40s"}} {{ result.allocation.name|stringformat:"20s" }}
+{% endfor %}
