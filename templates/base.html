@@ -1,34 +1,43 @@
+{% load i18n %}
+<!DOCTYPE html>
+
 <html>
 <head>
-<title>{% block title %}{% endblock %} -- servermon</title>
-<link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}updates.css" />
-{% if hwdoc_installed %}
-<link rel="search" type="application/opensearchdescription+xml" title="hwdoc Search" href="{% url opensearch %}" />
-{% endif %}
-<script type="text/javascript" src="{{ MEDIA_URL }}jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}jquery.tablesorter.min.js"></script>
+  <title>{% block title %}{% endblock %} -- servermon</title>
+  <link rel="search" type="application/opensearchdescription+xml" title="hwdoc Search" href="{% url opensearch %}">
+  <script type="text/javascript" src="{{ MEDIA_URL }}jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="{{ MEDIA_URL }}jquery.tablesorter.min.js"></script>
 </head>
 
 <body>
-<script type="text/javascript">
+  </script><script type="text/javascript">
 $(document).ready(function() {
   $(".sortable").tablesorter({ widgets: ['zebra'] });
-});
-</script>
-<div id="nav">
-<a href="{% url projectwide.views.index %}">Overview</a> | <a href="{% url updates.views.hostlist %}">Host list</a> | <a href="{% url updates.views.packagelist %}">Package list</a> | <a href="{% url puppet.views.inventory %}">Hardware Inventory</a> | <a href="{% url puppet.views.query %}">Fact Query</a>
-</div>
-<div id="search">
-<form method="GET" action="{% url projectwide.views.search %}">
-<input type="text" name="q" /><input type="submit" value="Search" />
-</form> 
-</div>
-<h1>{% block heading %}{% endblock %}</h1>
-{% block content %}
-{% endblock %}
+  });
+  </script>
 
-<div id="footer">
-  <a href="http://www.djangoproject.com/"><img src="{{ MEDIA_URL}}django.gif" alt="A Django site" title="A Django site" border=0 /></a>
-</div>
+  <div id="nav">
+    <a href="{% url projectwide.views.index %}">{% trans "Overview" %}</a>
+    | <a href="{% url updates.views.hostlist %}">{% trans "Host list" %}</a> 
+    | <a href="{% url updates.views.packagelist %}">{% trans "Package list" %}</a> 
+    | <a href="{% url puppet.views.inventory %}">{% trans "Puppet Inventory" %}</a> 
+    | <a href="{% url hwdoc.views.index %}">{% trans "Hardware Inventory" %}</a> 
+    | <a href="{% url puppet.views.query %}">{% trans "Fact Query" %}</a>
+  </div>
+
+  <div id="search">
+    <form method="get" action="{% url projectwide.views.search %}">
+      <input type="text" name="q"><input type="submit" value="{% trans "Search" %}">
+    </form>
+  </div>
+
+  <h1>{% block heading %}{% endblock %}</h1>
+  {% block content %}
+  {% endblock %}
+
+  <div id="footer">
+    <a href="http://www.djangoproject.com/"><img src="{{ MEDIA_URL }}django.gif"
+      alt="{% trans "A Django site" %}" title="{% trans "A Django site" %}" border="0"></a>
+  </div>
 </body>
 </html>
