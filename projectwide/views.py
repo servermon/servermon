@@ -22,9 +22,12 @@ from servermon.projectwide import functions as projectwide_functions
 from servermon.puppet.models import Host, Fact, FactValue
 from servermon.updates.models import Package
 from servermon.compat import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse
+from django.contrib.sites.models import Site
+from django.utils import simplejson
+from django.db.models import Count
 from datetime import datetime, timedelta
-from settings import HOST_TIMEOUT, INSTALLED_APPS
+from settings import HOST_TIMEOUT, INSTALLED_APPS, ADMINS
 import re
 
 def index(request):
@@ -77,7 +80,7 @@ def search(request):
     if u'q' in request.GET:
         key = request.GET['q']
     elif u'qarea' in request.POST:
-        key = hwdoc.functions.get_search_terms(request.POST['qarea']) 
+        key = projectwide_functions.get_search_terms(request.POST['qarea']) 
     else:
         key = None
 
@@ -97,3 +100,59 @@ def search(request):
     return render(request, template,
                 { 'results': results, },
                 content_type=content_type)
+
+def opensearch(request):
+    '''
+    opensearch search view. Renders opensearch.xml
+
+    @type   request: HTTPRequest 
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding XML
+    '''
+
+    fqdn = Site.objects.get_current().domain
+    try:
+        contact = ADMINS[0][0]
+    except IndexError:
+        contact = 'none@example.com'
+
+    return render(request, 'opensearch.xml', {
+                 'opensearchbaseurl': "http://%s" % fqdn,
+                 'fqdn': fqdn,
+                 'contact': contact,
+             }, content_type = 'application/opensearchdescription+xml')
+
+def suggest(request):
+    '''
+    opensearch suggestions view. Returns JSON
+
+    @type   request: HTTPRequest 
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding JSON
+    '''
+
+    if u'q' in request.GET:
+        key = request.GET['q']
+    else:
+        key = None
+
+    results = {
+        'hwdoc': None,
+        'puppet': None,
+        'updates': None,
+        }
+
+    results['puppet'] = puppet_functions.search(key).annotate(Count('value'))
+    results['hwdoc'] = hwdoc_functions.search(key).annotate(Count('serial'))
+    
+    response = simplejson.dumps([ key,
+        list(results['hwdoc'].values_list('serial', flat=True)) +
+        list(results['puppet'].values_list('value', flat=True)),
+        list(results['hwdoc'].values_list('serial__count', flat=True)) + 
+        list(results['puppet'].values_list('value__count', flat=True)),
+        ]
+        )
+
+    return HttpResponse(response, mimetype = 'application/x-suggestions+json')

@@ -15,8 +15,5 @@ urlpatterns = patterns('servermon.hwdoc.views',
             (r'^datacenter/(?P<datacenter_id>[\d]+)/$', 'datacenter'),
             (r'^search/$', 'search'),
             (r'^advancedsearch/$', 'advancedsearch'),
-            # Opensearch
-            url(r'^opensearch.xml$', 'opensearch', name="opensearch"),
-            url(r'^suggest/$', 'suggest', name="opensearchsuggestions"),
             )
 

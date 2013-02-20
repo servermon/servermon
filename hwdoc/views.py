@@ -24,10 +24,6 @@ from servermon.projectwide import functions as projectwide_functions
 from servermon.hwdoc import functions
 from servermon.compat import render
 from django.shortcuts import get_object_or_404
-from django.conf import settings
-from django.contrib.sites.models import Site
-from django.utils import simplejson
-from django.http import HttpResponse
 
 def index(request):
     '''
@@ -206,45 +202,3 @@ def advancedsearch(request):
 
     return render(request, 'advancedsearch.html')
 
-def opensearch(request):
-    '''
-    opensearch search view. Renders opensearch.xml
-
-    @type   request: HTTPRequest 
-    @param  request: Django HTTPRequest object
-    @rtype: HTTPResponse
-    @return: HTTPResponse object rendering corresponding XML
-    '''
-
-    fqdn = Site.objects.get_current().domain
-    try:
-        contact = settings.ADMINS[0][0]
-    except IndexError:
-        contact = 'none@example.com'
-
-    return render(request, 'opensearch.xml', {
-                 'opensearchbaseurl': "http://%s" % fqdn,
-                 'fqdn': fqdn,
-                 'contact': contact,
-             }, content_type = 'application/opensearchdescription+xml')
-
-def suggest(request):
-    '''
-    opensearch suggestions view. Returns JSON
-
-    @type   request: HTTPRequest 
-    @param  request: Django HTTPRequest object
-    @rtype: HTTPResponse
-    @return: HTTPResponse object rendering corresponding JSON
-    '''
-
-    if u'q' in request.GET:
-        key = request.GET['q']
-    else:
-        key = None
-
-    results = list(functions.search(key).values_list('serial', flat=True))
-    # Simple JSON does not handle querysets so we cast to list
-    results = list(results)
-    response = simplejson.dumps([ key, results ])
-    return HttpResponse(response, mimetype = 'application/x-suggestions+json')

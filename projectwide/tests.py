@@ -66,3 +66,13 @@ class ProjectWideViewsTestCase(unittest.TestCase):
         c = Client()
         response = c.post('/search/', {'q': self.host1.name})
         self.assertEqual(response.status_code, 200)
+
+    def test_opensearch(self):
+        c = Client()
+        response = c.get('/opensearch.xml')
+        self.assertEqual(response.status_code, 200)
+
+    def test_opensearch_suggestions(self):
+        c = Client()
+        response = c.get('/suggest/?q=test')
+        self.assertEqual(response.status_code, 200)

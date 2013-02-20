@@ -233,12 +233,3 @@ class ViewsTestCase(unittest.TestCase):
         response = c.get('/hwdoc/rack/%s/' % self.rack.pk)
         self.assertEqual(response.status_code, 200)
 
-    def test_opensearch(self):
-        c = Client()
-        response = c.get('/hwdoc/opensearch.xml')
-        self.assertEqual(response.status_code, 200)
-
-    def test_opensearch_suggestions(self):
-        c = Client()
-        response = c.get('/hwdoc/suggest/?q=don')
-        self.assertEqual(response.status_code, 200)
