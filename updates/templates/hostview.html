@@ -1,11 +1,12 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Updates for {{ host.name }}{% endblock %}
-{% block heading %}{{ host.name }}: Host information{% endblock %}
+{% block title %}{% trans "Updates for" %} {{ host.name }}{% endblock %}
+{% block heading %}{{ host.name }}: {% trans "Host information" %}{% endblock %}
 {% block content %}
-<h2>System information</h2>
+<h2>{% trans "System information" %}</h2>
 
-<div class="hostinfo">
+<div>
   <table>
     {% for attr in system|dictsort:"name" %}
     {% if attr.value %}
@@ -16,40 +17,40 @@
     {% endif %}
     {% endfor %}
     <tr>
-      <th>Last updated</th>
+      <th>{% trans "Last updated" %}</th>
       <td>{{ host.updated_at|timesince }}</td>
     </tr>
   </table>
 </div>
 
-<h2>Network information<div class="control"><a href="#" onclick="javascript:$('#netinfo').toggle();">Toggle</a></div></h2>
+<h2>{% trans "Network information" %}<div><a href="#" onclick="javascript:$('#netinfo').toggle();">Toggle</a></div></h2>
 <table id="netinfo">
   <tr>
-    <th>Interface name</th>
-    <th>IPv4 Address</th>
-    <th>IPv6 Address</th>
-    <th>MAC Address</th>
+    <th>{% trans "Interface name" %}</th>
+    <th>{% trans "IPv4 Address" %}</th>
+    <th>{% trans "IPv6 Address" %}</th>
+    <th>{% trans "MAC Address" %}</th>
   </tr>
 {% for iface in interfaces %}
   <tr>
     <td>{{iface.iface}}</td>
-    <td class="mono">{% if iface.ipaddr %}{{iface.ipaddr}}{% else %}&mdash;{% endif %}</td>
-    <td class="mono">{% if iface.ipaddr6 %}{{iface.ipaddr6}}{% else %}&mdash;{% endif %}</td>
-    <td class="mono">{% if iface.mac %}{{iface.mac}}{% else %}&mdash;{% endif %}</td>
+    <td>{% if iface.ipaddr %}{{iface.ipaddr}}{% else %}&mdash;{% endif %}</td>
+    <td>{% if iface.ipaddr6 %}{{iface.ipaddr6}}{% else %}&mdash;{% endif %}</td>
+    <td>{% if iface.mac %}{{iface.mac}}{% else %}&mdash;{% endif %}</td>
   </tr>
 {% endfor %}
 </table>
 
-<h2>Available package updates<div class="control"><a href="#" onclick="javascript:$('#updates').toggle();">Toggle</a></div></h2>
+<h2>{% trans "Available package updates" %}<div><a href="#" onclick="javascript:$('#updates').toggle();">Toggle</a></div></h2>
 
 {% if updates %}
 <table id="updates">
   <thead>
     <tr>
-      <th>Package name</th>
-      <th>Installed Version</th>
-      <th>Available Version</th>
-      <th>&nbsp;</th>
+      <th>{% trans "Package name" %}</th>
+      <th>{% trans "Installed Version" %}</th>
+      <th>{% trans "Available Version" %}</th>
+      <th>{% trans "Security Update" %}</th>
     </tr>
   </thead>
   <tbody>
@@ -57,7 +58,7 @@
   <tr class={% cycle 'even' 'odd' %}>
       <td><a href="{% url updates.views.package update.package.name %}">{{ update.package.name }}</a></td>
       <td>{% if update.installedVersion %}{{ update.installedVersion }}{% else %}&mdash;{% endif %}</td>
-      <td class="changelog">
+      <td>
       {% if update.get_changelog_url %}
         <a href="{{ update.get_changelog_url }}" target="_blank">{{ update.candidateVersion }}</a>
       {% else %}
@@ -66,7 +67,7 @@
       </td>
       <td>
         {% if update.is_security %}
-        <img src="{{ MEDIA_URL }}secure.png" alt="Security update" title="Security update" />
+        <img src="{{ MEDIA_URL }}secure.png" alt="{% trans "Security update" %}" title="{% trans "Security update" %}" />
         {% endif %}
       </td>
     </tr>
@@ -74,16 +75,18 @@
   </tbody>
 </table>
 
-<div class="instructions">
+<div>
   <ul>
-    <li>Click on the available version number to view the package's changelog for that version</li>
-    <li>Click on a package name to see all hosts with pending updates on that package</li>
+    <li>{% trans "Click on the available version number to view the package's changelog for that version" %}</li>
+    <li>{% trans "Click on a package name to see all hosts with pending updates on that package" %}</li>
   </ul>
 </div>
 
 {% else %}
 <div align="center">
-<strong>No updated versions found for packages on {{ host.name }}</strong>
+  <strong>
+    {% blocktrans with host.name as hostname %} No updated versions found for packages on {{ hostname }} {% endblocktrans %}
+  </strong>
 </div>
 {% endif %}
 

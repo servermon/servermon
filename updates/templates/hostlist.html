@@ -1,15 +1,16 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Host list{% endblock %}
-{% block heading %}Host list{% endblock %}
+{% block title %}{% trans "Host list" %}{% endblock %}
+{% block heading %}{% trans "Host list" %}{% endblock %}
 
 {% block content %}
-<table class="sortable">
+<table>
   <thead>
     <tr>
-      <th>Hostname</th>
-      <th>Update count</th>
-      <th>Last updated</th>
+      <th>{% trans "Hostname" %}</th>
+      <th>{% trans "Update count" %}</th>
+      <th>{% trans "Last updated" %}</th>
     </tr>
   </thead>
   <tbody>
@@ -21,7 +22,7 @@
         {{ host.update_count }} update{{ host.update_count|pluralize }}
         {% if host.security_count %}
         {% with host.security_count|add:"0" as count %}
-	<img src="{{ MEDIA_URL }}secure.png" alt="{{ count|add:"0" }} security update{{ count|pluralize }}"  title="{{ count|add:"0" }} security update{{ count|pluralize }}" />
+        <img src="{{ MEDIA_URL }}secure.png" alt="{{ count|add:"0" }} security update{{ count|pluralize }}"  title="{{ count|add:"0" }} security update{{ count|pluralize }}" />
         {% endwith %}
         {% endif %}
         {% else %}
@@ -34,7 +35,9 @@
   </tbody>
 </table>
 
-<div class="instructions">
+<div>
+{% blocktrans %}
 Click on a hostname to see all pending package updates for that host.
+{% endblocktrans %}
 </div>
 {% endblock %}

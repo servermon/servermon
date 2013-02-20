@@ -1,14 +1,15 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Package list{% endblock %}
-{% block heading %}Package list{% endblock %}
+{% block title %}{% trans "Package list" %}{% endblock %}
+{% block heading %}{% trans "Package list" %}{% endblock %}
 
 {% block content %}
-<table class="sortable">
+<table>
   <thead>
     <tr>
-      <th>Package name</th>
-      <th class="{sorter: 'numeric'}">Hosts pending an update</th>
+      <th>{% trans "Package name" %}</th>
+      <th>{% trans "Hosts pending an update" %}</th>
     </tr>
   </thead>
   <tbody>
@@ -16,7 +17,7 @@
   <tr>
     <td><a href="{{ package.name }}">{{ package.name }}</a></td>
     <td>
-	    {{ package.host_count }} hosts
+      {{ package.host_count }} {% trans "hosts" %}
 	    {% if package.security_count %}
 	    {% with package.security_count|add:"0" as count %}
 	    <img src="{{ MEDIA_URL }}secure.png" alt="{{ count }} security update{{ count|pluralize }}"  title="{{ count }} security update{{ count|pluralize }}" />
@@ -28,8 +29,10 @@
   </tbody>
 </table>
 
-<div class="instructions">
+<div>
+{% blocktrans %}
 Click on a package name to see the list of all hosts with a pending update on that package.
+{% endblocktrans %}
 </div>
 
 {% endblock %}
