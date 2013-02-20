@@ -41,7 +41,7 @@ def search(q):
     @return: A QuerySet with results matching all items of q 
     '''
 
-    if q is None or len(q) == 0:
+    if q is None or len(q) == 0 or 'servermon.hwdoc' not in settings.INSTALLED_APPS:
         return Equipment.objects.none()
 
     # Working on iterables. However in case we are not given one it is cheaper
@@ -53,38 +53,40 @@ def search(q):
 
     ids = []
 
-    for key in q:
-        if key.upper().replace('R','').replace('U','').isdigit():
-            rackunit = key.upper().replace('R','').replace('U','')
-            if len(rackunit) < 3:
-                result = Equipment.objects.filter(rack=rackunit)
-            elif len(rackunit) == 3:
-                result = Equipment.objects.none()
-            elif len(rackunit) == 4:
-                result = Equipment.objects.filter(rack=rackunit[0:2], unit=rackunit[2:4])
-            else:
-                result = Equipment.objects.filter(serial=key)
-        else:
-            try:
-                dns = gethostbyaddr(key)[0]
-            except (herror, gaierror, IndexError, error, UnicodeEncodeError):
-                dns = ''
-            mac = canonicalize_mac(key)
-            result = Equipment.objects.filter(
-                                            Q(serial=key)|
-                                            Q(model__name__icontains=key)|
-                                            Q(allocation__name__icontains=key)|
-                                            Q(allocation__contacts__name__icontains=key)|
-                                            Q(allocation__contacts__surname__icontains=key)|
-                                            Q(servermanagement__mac__icontains=mac)|
-                                            Q(servermanagement__hostname__icontains=key)|
-                                            Q(servermanagement__hostname=dns)
-                                            )
-        ids.extend(result.distinct().values_list('id', flat=True))
-        ids = list(set(ids))
     try:
-        return Equipment.objects.filter(pk__in=ids).distinct()
+        for key in q:
+            if key.upper().replace('R','').replace('U','').isdigit():
+                rackunit = key.upper().replace('R','').replace('U','')
+                if len(rackunit) < 3:
+                    result = Equipment.objects.filter(rack=rackunit)
+                elif len(rackunit) == 3:
+                    result = Equipment.objects.none()
+                elif len(rackunit) == 4:
+                    result = Equipment.objects.filter(rack=rackunit[0:2], unit=rackunit[2:4])
+                else:
+                    result = Equipment.objects.filter(serial=key)
+            else:
+                try:
+                    dns = gethostbyaddr(key)[0]
+                except (herror, gaierror, IndexError, error, UnicodeEncodeError):
+                    dns = ''
+                mac = canonicalize_mac(key)
+                result = Equipment.objects.filter(
+                                                Q(serial=key)|
+                                                Q(model__name__icontains=key)|
+                                                Q(allocation__name__icontains=key)|
+                                                Q(allocation__contacts__name__icontains=key)|
+                                                Q(allocation__contacts__surname__icontains=key)|
+                                                Q(servermanagement__mac__icontains=mac)|
+                                                Q(servermanagement__hostname__icontains=key)|
+                                                Q(servermanagement__hostname=dns)
+                                                )
+            ids.extend(result.distinct().values_list('id', flat=True))
+            ids = list(set(ids))
+            return Equipment.objects.filter(pk__in=ids).distinct()
     except DatabaseError as e:
+        return Equipment.objects.none()
+        # TODO: Log this
         raise RuntimeError(_('An error occured while querying db: %(databaseerror)s') % {'databaseerror': e})
 
 def populate_tickets(equipment_list):

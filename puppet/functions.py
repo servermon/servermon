@@ -23,8 +23,10 @@ strings in puppet models.
 '''
 
 from servermon.puppet.models import FactValue
+from django.db import DatabaseError
 from django.db.models import Q
 from django.utils.translation import ugettext as _
+from django.conf import settings
 
 def search(q):
     '''
@@ -37,7 +39,7 @@ def search(q):
     @return: A QuerySet with results matching all items of q 
     '''
 
-    if q is None or len(q) == 0:
+    if q is None or len(q) == 0 or 'servermon.puppet' not in settings.INSTALLED_APPS:
         return FactValue.objects.none()
 
     # Working on iterables. However in case we are not given one it is cheaper
@@ -49,23 +51,25 @@ def search(q):
 
     ids = []
 
-    for key in q:
-        base = FactValue.objects.filter(value__icontains=key)
-        base.filter(
-                Q(fact_name__name='fqdn'),
-                Q(fact_name__name__startswith='macaddress_'),
-                Q(fact_name__name__startswith='ipaddress_'),
-                Q(fact_name__name__startswith='ipaddress6_'),
-                Q(fact_name__name='manufacturer'),
-                Q(fact_name__name='productname'),
-                Q(fact_name__name='puppetclass'),
-                Q(fact_name__name='system_serial')
-                )
-        ids.extend(base.distinct().values_list('id', flat=True))
-    ids = list(set(ids))
     try:
+        for key in q:
+            base = FactValue.objects.filter(value__icontains=key)
+            base.filter(
+                    Q(fact_name__name='fqdn'),
+                    Q(fact_name__name__startswith='macaddress_'),
+                    Q(fact_name__name__startswith='ipaddress_'),
+                    Q(fact_name__name__startswith='ipaddress6_'),
+                    Q(fact_name__name='manufacturer'),
+                    Q(fact_name__name='productname'),
+                    Q(fact_name__name='puppetclass'),
+                    Q(fact_name__name='system_serial')
+                    )
+            ids.extend(base.distinct().values_list('id', flat=True))
+        ids = list(set(ids))
         ret = FactValue.objects.filter(pk__in=ids)
         ret = ret.distinct().order_by('host__name')
         return ret
     except DatabaseError as e:
+        return FactValue.objects.none()
+        # TODO: Log this
         raise RuntimeError(_('An error occured while querying db: %(databaseerror)s') % {'databaseerror': e})
