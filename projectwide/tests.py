@@ -26,6 +26,7 @@ else:
     import unittest
 
 from puppet.models import Host, Resource, FactValue, Fact
+from projectwide.functions import get_search_terms, canonicalize_mac
 from django.test.client import Client
 
 # The following is an ugly hack for unit tests to work
@@ -34,6 +35,25 @@ Host._meta.managed = True
 Resource._meta.managed = True
 FactValue._meta.managed = True
 Fact._meta.managed = True
+
+class FunctionsTestCase(unittest.TestCase):
+    '''
+    Testing functions class
+    '''
+
+    def test_mac_canonicalizer(self):
+        self.assertEqual(canonicalize_mac('1111.2222.3333'), '11:11:22:22:33:33')
+        self.assertEqual(canonicalize_mac('11-11-22-22-33-33'), '11:11:22:22:33:33')
+        self.assertEqual(canonicalize_mac('11:11:22:22:33:33'), '11:11:22:22:33:33')
+
+    def test_free_text_search(self):
+        text=u'''
+        This is a text that is not going to make any sense
+        '''
+
+        tokens = get_search_terms(text)
+        self.assertNotEqual(len(tokens), 0)
+
 
 class ProjectWideViewsTestCase(unittest.TestCase):
     '''
