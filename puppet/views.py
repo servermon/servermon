@@ -31,7 +31,7 @@ def inventory(request):
         'serialnumber',
         'architecture',
         'processorcount',
-        'memorytotal',
+        'memorysize',
     ]
 
     # This could be more normally be expressed starting with Host as the base
