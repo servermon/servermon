@@ -183,14 +183,21 @@ class ViewsTestCase(unittest.TestCase):
         c = Client()
         data = ['', 'dummy', '562346', 'R5U21', 'UI2354']
         for d in data:
-            response = c.get('/hwdoc/search/', {'q': d})
+            response = c.get('/search/', {'q': d})
+            self.assertEqual(response.status_code, 200)
+
+    def test_search_get_txt(self):
+        c = Client()
+        data = ['', 'dummy', '562346', 'R5U21', 'UI2354']
+        for d in data:
+            response = c.get('/search/', {'q': d, 'txt': 'yes'})
             self.assertEqual(response.status_code, 200)
 
     def test_free_text_search_post(self):
         c = Client()
         strings = [ 'this is a dummy string', '0.0', '.example.tld' ]
         for s in strings:
-            response = c.post('/hwdoc/search/', {'qarea': s})
+            response = c.post('/search/', {'qarea': s})
             self.assertEqual(response.status_code, 200)
 
     def test_index(self):
