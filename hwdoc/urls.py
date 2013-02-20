@@ -13,7 +13,5 @@ urlpatterns = patterns('servermon.hwdoc.views',
             (r'^rack/(?P<rack_id>[\d]+)/$', 'rack'),
             (r'^rackrow/(?P<rackrow_id>[\d]+)/$', 'rackrow'),
             (r'^datacenter/(?P<datacenter_id>[\d]+)/$', 'datacenter'),
-            (r'^search/$', 'search'),
-            (r'^advancedsearch/$', 'advancedsearch'),
             )
 

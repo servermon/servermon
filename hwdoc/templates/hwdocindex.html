@@ -22,21 +22,21 @@
 	<h2>{% trans "Search by Rack" %}</h2>
 	<div class="indexpagediv">
 	{% for rack in racks %}
-	<a href="{% url hwdoc.views.search %}?q={{ rack }}">{{ rack }}</a>
+	<a href="{% url projectwide.views.search %}?q={{ rack }}">{{ rack }}</a>
 	{% if not forloop.last %} | {% endif %}
 	{% endfor %}
 	</div>
 	<h2>{% trans "Search by Vendor Models" %}</h2>
 	<div class="indexpagediv">
 	{% for model in models %}
-	<a href="{% url hwdoc.views.search %}?q={{ model.name }}">{{ model.vendor.name }} {{ model.name}}</a>
+	<a href="{% url projectwide.views.search %}?q={{ model.name }}">{{ model.vendor.name }} {{ model.name}}</a>
 	{% if not forloop.last %} | {% endif %}
 	{% endfor %}
 	</div>
 	<h2>{% trans "Search by Project" %}</h2>
 	<div class="indexpagediv">
 	{% for project in projects %}
-	<a href="{% url hwdoc.views.search %}?q={{ project.name }}">{{ project.name }}</a>
+	<a href="{% url projectwide.views.search %}?q={{ project.name }}">{{ project.name }}</a>
 	{% if not forloop.last %} | {% endif %}
 	{% endfor %}
 	</div>

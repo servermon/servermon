@@ -12,12 +12,12 @@
 <div id="nav">
 </div>
 <div id="search">
-	<form method="GET" action="{% url hwdoc.views.search %}">
+	<form method="GET" action="{% url projectwide.views.search %}">
 		<input type="text" name="q" />
 		<input type="submit" value="Search" />
 	</form> 
 	<div>
-		{% trans "or" %}:<a href="{% url hwdoc.views.advancedsearch %}">Free Text Search</a>
+		{% trans "or" %}:<a href="{% url projectwide.views.advancedsearch %}">Free Text Search</a>
 	</div>
 </div>
 <h1>{% block heading %}{% endblock %}</h1>

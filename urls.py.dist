@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     (r'^packages/(.*)', 'servermon.updates.views.package'),
     (r'^inventory/?$',  'servermon.puppet.views.inventory'),
     (r'^search/?$',     'servermon.projectwide.views.search'),
+    (r'^advancedsearch/$', 'servermon.projectwide.views.advancedsearch'),
     (r'^query/?$',      'servermon.puppet.views.query'),
     # Opensearch
     url(r'^opensearch.xml$', 'servermon.projectwide.views.opensearch', name="opensearch"),

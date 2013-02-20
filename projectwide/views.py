@@ -101,6 +101,18 @@ def search(request):
                 { 'results': results, },
                 content_type=content_type)
 
+def advancedsearch(request):
+    '''
+    Advanced search view. Renders free text search
+
+    @type   request: HTTPRequest 
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding HTML
+    '''
+
+    return render(request, 'advancedsearch.html')
+
 def opensearch(request):
     '''
     opensearch search view. Renders opensearch.xml
