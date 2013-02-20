@@ -1,69 +1,34 @@
+{% load i18n %}
 {% extends "base.html" %}
 {% load adminmedia %}
 
-{% block title %}Custom fact query{% endblock %}
-{% block heading %}Custom fact query{% endblock %}
+{% block title %}{% trans "Custom fact query" %}{% endblock %}
+{% block heading %}{% trans "Custom fact query" %}{% endblock %}
 
 {% block content %}
-<p>
-Select one or more hosts and the facts you want a report on
-</p>
-<style type="text/css">
-.selector {
-	position: relative;
-	width: 580px;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 0.5em;
-	height: 17.5em;
-}
-.selector select { width:270px; height:17.2em; }
-.selector-available { 
-	position: absolute;
-	left: 0px;
-}
-
-.selector-chosen { 
-	position: absolute;
-	right: 0px;
-}
-
-.selector-available, .selector-chosen { width:270px; text-align:center; margin-bottom:5px; }
-.selector-available h2, .selector-chosen h2 { border:1px solid #ccc; margin: 0; color: #666; font-size: 0.9em; }
-.selector .selector-available h2 { background:white url({% admin_media_prefix %}img/admin/nav-bg.gif) bottom left repeat-x; color:#666; }
-.selector .selector-filter { background:white; border:1px solid #ccc; border-width:0 1px; padding:3px; color:#999; font-size:10px; margin:0; text-align:left; max-width: 270px; }
-.selector .selector-chosen .selector-filter { padding:4px 5px; }
-.selector .selector-available input { width:230px; }
-.selector ul.selector-chooser { position: absolute; left: 275px; width:22px; height:50px; background:url({% admin_media_prefix %}img/admin/chooser-bg.gif) top center no-repeat; margin:8em 3px 0 3px; padding:0; }
-.selector-chooser li { margin:0; padding:3px; list-style-type:none; }
-.selector select { margin-bottom:5px; margin-top:0; }
-.selector-add, .selector-remove { width:16px; height:16px; display:block; text-indent:-3000px; }
-.selector-add { background:url({% admin_media_prefix %}img/admin/selector-add.gif) top center no-repeat; margin-bottom:2px; }
-.selector-remove { background:url({% admin_media_prefix %}img/admin/selector-remove.gif) top center no-repeat; }
-a.selector-chooseall, a.selector-clearall { display:block; width:6em; text-align:left; margin-left:auto; margin-right:auto; font-weight:bold; color:#666;  padding:3px 0 3px 18px; }
-a.selector-chooseall:hover, a.selector-clearall:hover { color:#036; }
-a.selector-chooseall { width:7em; background:url({% admin_media_prefix %}img/admin/selector-addall.gif) left center no-repeat; }
-a.selector-clearall { background:url({% admin_media_prefix %}img/admin/selector-removeall.gif) left center no-repeat; }
-</style>
-
-<script type="text/javascript" src="{{ MEDIA_URL }}jsi18n.js"></script>
-<script type="text/javascript" src="{% admin_media_prefix %}js/core.js"></script>
-<script type="text/javascript" src="{% admin_media_prefix %}js/admin/RelatedObjectLookups.js"></script>
-<script type="text/javascript" src="{% admin_media_prefix %}js/SelectBox.js"></script>
-<script type="text/javascript" src="{% admin_media_prefix %}js/SelectFilter2.js"></script>
-<form id="factquery" method="post">
-<div>
-<h2>Select hosts</h2>
-{{ form.hosts.errors }}
-{{ form.hosts }}
-</div>
-<div>
-<h2>Select facts</h2>
-{{ form.facts.errors }}
-{{ form.facts }}
-</div>
-<p>
-<input align="center" type="submit" value="Generate report" />
-</p>
-</form>
+  <p>
+    {% blocktrans %}
+    Select one or more hosts and the facts you want a report on
+    {% endblocktrans %}
+  </p>
+  <script type="text/javascript" src="{{ MEDIA_URL }}jsi18n.js"></script>
+  <script type="text/javascript" src="{% admin_media_prefix %}js/core.js"></script>
+  <script type="text/javascript" src="{% admin_media_prefix %}js/admin/RelatedObjectLookups.js"></script>
+  <script type="text/javascript" src="{% admin_media_prefix %}js/SelectBox.js"></script>
+  <script type="text/javascript" src="{% admin_media_prefix %}js/SelectFilter2.js"></script>
+  <form id="factquery" method="post">
+  <div>
+    <h2>{% trans "Select hosts" %}</h2>
+    {{ form.hosts.errors }}
+    {{ form.hosts }}
+  </div>
+  <div>
+    <h2>{% trans "Select facts" %}</h2>
+    {{ form.facts.errors }}
+    {{ form.facts }}
+  </div>
+  <p>
+    <input align="center" type="submit" value="{% trans "Generate report" %}" />
+  </p>
+  </form>
 {% endblock %}

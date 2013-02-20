@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}Custom fact query{% endblock %}
-{% block heading %}Custom fact query{% endblock %}
+{% block title %}{% trans "Custom fact query" %}{% endblock %}
+{% block heading %}{% trans "Custom fact query" %}{% endblock %}
 
 {% block content %}
-<table class="sortable">
+<table>
   <thead>
     <tr>
-      <th>Hostname</th>
+      <th>{% trans "Hostname" %}</th>
       {% for fact in facts %}
       <th>{{ fact }}</th>
       {% endfor %}

@@ -1,34 +1,9 @@
+{% load i18n %}
 {% extends "base.html" %}
 
-{% block title %}Hardware Inventory{% endblock %}
-{% block heading %}Hardware Inventory{% endblock %}
+{% block title %}{% trans "Puppet Inventory" %}{% endblock %}
+{% block heading %}{% trans "Puppet Inventory" %}{% endblock %}
 {% block content %}
-<style type="text/css">
-#inventory {
-	text-align: center;
-}
-
-#inventory tr td {
-	padding-bottom: 0.2em;
-	padding-right: 0.3em;
-	padding-left: 0.3em;
-}
-
-#inventory tr td img {
-	float: right;
-	right: 0px;
-}
-
-#inventory tr td.filter:hover {
-	background-color: #eeffcc;
-	cursor: crosshair;
-}
-
-#inventory th {
-	cursor: s-resize;
-}
-</style>
-
 <script type="text/javascript" src="{{ MEDIA_URL }}jquery.tablefilter.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -47,39 +22,39 @@ $(document).ready(function() {
 });
 </script>
 
-<div class="instructions">
+<div>
+{% blocktrans %}
 Click on a cell to filter by its value; click on a column header to sort; shift+click to sort using multiple columns
+{% endblocktrans %}
 </div>
 
 <table id="inventory">
   <thead>
     <tr>
-      <th>Hostname</th>
-      <th>Vendor</th>
-      <th>Model</th>
-      <th># of CPUs</th>
-      <th>Memory</th>
-      <th>Arch</th>
-      <th>BIOS Date</th>
-      <th>BIOS Version</th>
-      <th>Serial nr.</th>
+      <th>{% trans "Hostname" %}</th>
+      <th>{% trans "Vendor" %}</th>
+      <th>{% trans "Model" %}</th>
+      <th>{% trans "CPUs" %}</th>
+      <th>{% trans "Memory" %}</th>
+      <th>{% trans "Arch" %}</th>
+      <th>{% trans "BIOS Date" %}</th>
+      <th>{% trans "BIOS Version" %}</th>
+      <th>{% trans "Serial" %}</th>
     </tr>
   </thead>
   <tbody>
     {% for host in hosts %}
-    {% if host.is_virtual != 'true' %}
     <tr>
       <td><a href="{% url updates.views.host host.name %}">{{ host.name }}</a></td>
       <td class="filter">{{ host.manufacturer }}</td>
       <td class="filter">{{ host.productname }}</td>
-      <td>{{ host.processorcount }}</td>
-      <td>{{ host.memorytotal }}</td>
+      <td class="filter">{{ host.processorcount }}</td>
+      <td class="filter">{{ host.memorysize }}</td>
       <td class="filter">{{ host.architecture }}</td>
       <td class="filter"><span class="mono">{{ host.bios_date }}</span></td>
       <td class="filter"><span class="mono">{{ host.bios_version }}</span></td>
-      <td><span class="mono">{{ host.serialnumber }}</span></td>
+      <td><span class="">{{ host.serialnumber }}</span></td>
     </tr>
-    {% endif %}
     {% endfor %}
   </tbody>
 </table>
