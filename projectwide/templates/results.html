@@ -1,9 +1,13 @@
-{% extends "generic.html" %} 
+{% extends "base.html" %} 
 {% load i18n %}
 {% block heading %}{% trans "Search results" %}{% endblock %}
 {% block content %}
 <div> 
-	<h3>{% trans "Results" %}: {{ results.count }}</h3>
-	{% include "searchresults.html" %}
+	<h3>{% trans "HWDOC Results" %}: {{ results.hwdoc.count }}</h3>
+	{% include "hwdoc_searchresults.html" %}
+</div>
+<div> 
+	<h3>{% trans "Puppet Results" %}: {{ results.puppet.count }}</h3>
+	{% include "puppet_searchresults.html" %}
 </div>
 {% endblock %}

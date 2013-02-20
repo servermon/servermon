@@ -1,0 +1,17 @@
+{% load i18n %}
+  <table>
+    <tbody>
+    <tr>
+      <th>{% trans "Host" %}</th>
+      <th>{% trans "Fact Name" %}</th>
+      <th>{% trans "Fact Value" %}</th>
+    </tr>
+    {% for result in results.puppet %}
+    <tr>
+      <td><a href="{% url updates.views.host result.host.name %}">{{ result.host }}</a></td>
+      <td>{{ result.fact_name }}</a></td>
+      <td>{{ result.value }}</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
