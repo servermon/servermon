@@ -54,15 +54,21 @@ def search(q):
     try:
         for key in q:
             base = FactValue.objects.filter(value__icontains=key)
-            base.filter(
-                    Q(fact_name__name='fqdn'),
-                    Q(fact_name__name__startswith='macaddress_'),
-                    Q(fact_name__name__startswith='ipaddress_'),
-                    Q(fact_name__name__startswith='ipaddress6_'),
-                    Q(fact_name__name='manufacturer'),
-                    Q(fact_name__name='productname'),
-                    Q(fact_name__name='puppetclass'),
-                    Q(fact_name__name='system_serial')
+            base = base.filter(
+                    Q(fact_name__name='fqdn')|
+                    Q(fact_name__name__startswith='macaddress_')|
+                    Q(fact_name__name__startswith='ipaddress_')|
+                    Q(fact_name__name__startswith='ipaddress6_')|
+                    Q(fact_name__name__startswith='lldpswport_')|
+                    Q(fact_name__name='lldpparents')|
+                    Q(fact_name__name='manufacturer')|
+                    Q(fact_name__name='productname')|
+                    Q(fact_name__name='puppetclass')|
+                    Q(fact_name__name='system_serial_number')|
+                    Q(fact_name__name='ipmi_dns')|
+                    Q(fact_name__name='ipmi_ipaddress')|
+                    Q(fact_name__name='ipmi_macaddress')|
+                    Q(fact_name__name='rackunit')
                     )
             ids.extend(base.distinct().values_list('id', flat=True))
         ids = list(set(ids))
