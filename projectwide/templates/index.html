@@ -6,32 +6,19 @@
 {% block content %}
 <div id="statistics">
 <h2>Statistics</h2>
-<table class="hostinfo">
-  <tr>
-    <th>Hosts</th>
-    <td>{{ hosts.count }}</td>
-    <th>Hosts pending update</th>
-    <td><a href="{% url updates.views.hostlist %}">{{ updatecount }}</a></td>
-  </tr>
-  <tr>
-    <th>Facts</th>
-    <td>{{ factcount }}</td>
-    <th>Security updates</th>
-    <td><a href="{% url updates.views.packagelist %}">{{ securitycount }}</a></td>
-  </tr>
-  <tr>
-    <th>Fact entries</th>
-    <td>{{ factvaluecount }}</td>
-    <th>Package updates</th>
-    <td><a href="{% url updates.views.packagelist %}">{{ packagecount }}</a></td>
-  </tr>
-</table>
+<span>All Hosts: {{ hosts.count }}</span>|
+<span>Hosts Pending Update: <a href="{% url updates.views.hostlist %}">{{ updatecount }}</a></span>
+<br>
+<span>Package Updates: <a href="{% url updates.views.packagelist %}">{{ packagecount }}</a></span>|
+<span>Security Updates: <a href="{% url updates.views.packagelist %}">{{ securitycount }}</a></span>
+<br>
+<span>Facts: {{ factcount }}</span>|
+<span>Fact Entries: {{ factvaluecount }}</span>
 </div>
-
 <div id="issues">
 {% if problemhosts %}
 <h2>Problematic puppetized hosts</h2>
-<div class="instructions">The following hosts have not contacted puppetmaster during the past {{ timeout|timesince }}:</div>
+<div>The following <strong>{{ problemhosts.count }}</strong> hosts have not contacted puppetmaster during the past {{ timeout|timesince }}:</div>
 <table>
   <thead>
     <tr>
@@ -49,7 +36,5 @@
   </tbody>
 </table>
 {% endif %}
-
 </div>
-
 {% endblock %}
