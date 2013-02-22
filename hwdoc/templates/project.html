@@ -1,34 +1,34 @@
-{% extends "generic.html" %} 
+{% extends "base.html" %} 
 {% load i18n %}
 {% block heading %}{{ project }}{% endblock %}
 {% block content %}
-<div id="project" class="hostinfo">
-	<h3>{% trans "Project Info" %}</h3>
-	<table>
-		<tbody>
-			<tr><th>{% trans "Name" %}:</th><td>{{ project.name }}</td></tr>
-		</tbody>
-	</table>
-	<h3>{% trans "Contact Info" %}</h3>
-	<table>
-		<tbody>
-		<tr>
-			<th>{% trans "Role" %}</th>
-			<th>{% trans "Name" %}</th>
-			<th>{% trans "Surname" %}</th>
-			<th>{% trans "Emails" %}</th>
-			<th>{% trans "Phones" %}</th>
-		</tr>
-		{% for contact in project.role_set.all %}
-		<tr>
-			<td>{{ contact.role }}</td>
-			<td>{{ contact.person.name }}</td>
-			<td>{{ contact.person.surname }}</td>
-			<td>{% for email in contact.person.emails.all %}{{ email.email }}{% if not forloop.last %},{% endif %}{%endfor %}</td>
-			<td>{% for phone in contact.person.phones.all %}{{ phone.number }}{% if not forloop.last %},{% endif %}{%endfor %}</td>
-		</tr>
-		{% endfor %}
-		</tbody>
-	</table>
+<div id="project">
+  <h3>{% trans "Project Info" %}</h3>
+  <table>
+    <tbody>
+      <tr><th>{% trans "Name" %}:</th><td>{{ project.name }}</td></tr>
+    </tbody>
+  </table>
+  <h3>{% trans "Contact Info" %}</h3>
+  <table>
+    <tbody>
+    <tr>
+      <th>{% trans "Role" %}</th>
+      <th>{% trans "Name" %}</th>
+      <th>{% trans "Surname" %}</th>
+      <th>{% trans "Emails" %}</th>
+      <th>{% trans "Phones" %}</th>
+    </tr>
+    {% for contact in project.role_set.all %}
+    <tr>
+      <td>{{ contact.role }}</td>
+      <td>{{ contact.person.name }}</td>
+      <td>{{ contact.person.surname }}</td>
+      <td>{% for email in contact.person.emails.all %}{{ email.email }}{% if not forloop.last %},{% endif %}{%endfor %}</td>
+      <td>{% for phone in contact.person.phones.all %}{{ phone.number }}{% if not forloop.last %},{% endif %}{%endfor %}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
 </div>
 {% endblock %}

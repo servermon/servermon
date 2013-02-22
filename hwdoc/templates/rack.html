@@ -1,38 +1,22 @@
-{% extends "generic.html" %} 
+{% extends "base.html" %} 
 {% load i18n %}
 {% block heading %}{{ rack }}{% endblock %}
 {% block content %}
-<div id="rack" class="hostinfo">
-	<h3>{% trans "Rack Info" %}</h3>
-	<table>
-		<tbody>
-			<tr><th>{% trans "id" %}:</th><td>{{ rack.pk }}</td></tr>
-			<tr><th>{% trans "Model" %}:</th><td>{{ rack.model }}</td></tr>
-			<tr><th>{% trans "Mounted Depth" %}:</th><td>{{ rack.mounted_depth }}</td></tr>
-			<tr><th>{% trans "Rack Row" %}:</th><td>{{ rack.rackposition.rr }}</td></tr>
-			<tr><th>{% trans "Position in Rack Row" %}:</th><td>{{ rack.rackposition.position }}</td></tr>
-		</tbody>
-	</table>
-	<h3>{% trans "Equipment Info" %}</h3>
-	{% with equipments as results %}
-	{% include "searchresults.html" %}
-	{% comment %}
-	<table>
-		<tbody>
-		<tr>
-			<th>{% trans "Unit" %}</th>
-			<th>{% trans "Equipment" %}</th>
-		</tr>
-		{% for equipment in rack.equipment_set.all %}
-		<tr>
-			<td style="width: 5%">{{ equipment.unit|stringformat:"02d" }}</td>
-			<td><a href="{% url hwdoc.views.equipment equipment.pk %}">{{ equipment }}</a></td>
-		</tr>
-		{% endfor %}
-		</tbody>
-	</table>
-	{% endcomment %}
-	{% endwith %}
-	
+<div id="rack">
+  <h3>{% trans "Rack Info" %}</h3>
+  <table>
+    <tbody>
+      <tr><th>{% trans "id" %}:</th><td>{{ rack.pk }}</td></tr>
+      <tr><th>{% trans "Model" %}:</th><td>{{ rack.model }}</td></tr>
+      <tr><th>{% trans "Mounted Depth" %}:</th><td>{{ rack.mounted_depth }}</td></tr>
+      <tr><th>{% trans "Rack Row" %}:</th><td>{{ rack.rackposition.rr }}</td></tr>
+      <tr><th>{% trans "Position in Rack Row" %}:</th><td>{{ rack.rackposition.position }}</td></tr>
+    </tbody>
+  </table>
+  <h3>{% trans "Equipment Info" %}</h3>
+  {% with equipments as results %}
+  {% include "hwdoc_searchresults.html" %}
+  {% endwith %}
+  
 </div>
 {% endblock %}

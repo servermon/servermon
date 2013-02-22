@@ -1,8 +1,8 @@
-{% extends "generic.html" %} 
+{% extends "base.html" %} 
 {% load i18n %}
 {% block heading %}{{ rackrow }}{% endblock %}
 {% block content %}
-<div id="rackrow" class="hostinfo">
+<div id="rackrow">
   <h3>{% trans "Rackrow Info" %}</h3>
   <table>
     <tbody>
@@ -11,32 +11,27 @@
     </tbody>
   </table>
   <h3>{% trans "Racks Info" %}</h3>
-  <div class="rackrow">
+  <div>
     {% for rack in racks %}
-    <div class="rackinrow" style="float: left">
+    <div>
       <table>
       <tbody>
         <tr>
           <th colspan="2">
-            <a style="color: #ffffff" href="{% url projectwide.views.search %}?q={{ rack }}">{{ rack }}</a>
+            <a href="{% url projectwide.views.search %}?q={{ rack }}">{{ rack }}</a>
           </th>
         </tr>
-	{% comment %}
-	{% with rack.equipments as results %}
-	{% include "searchresults.html" %}
-	{% endwith %}
-	{% endcomment %}
         {% for eq in rack.equipments %}
         <tr>
-        <th style="width: 1em">{{ eq.unit|stringformat:"02d" }}</th>
+        <th>{{ eq.unit|stringformat:"02d" }}</th>
         {% if eq.tickets %}
-        <td class="mono blueborder"><a href="{% url hwdoc.views.equipment eq.pk %}">{{ eq.model }}</a></td>
+        <td><a href="{% url hwdoc.views.equipment eq.pk %}">{{ eq.model }}</a></td>
         {% else %}
         {% if eq.comments %}
-        <td class="mono redborder"><a href="{% url hwdoc.views.equipment eq.pk %}">{{ eq.model }}</a></td>
-	{% else %}
-        <td class="mono"><a href="{% url hwdoc.views.equipment eq.pk %}">{{ eq.model }}</a></td>
-	{% endif %}
+        <td><a href="{% url hwdoc.views.equipment eq.pk %}">{{ eq.model }}</a></td>
+  {% else %}
+        <td><a href="{% url hwdoc.views.equipment eq.pk %}">{{ eq.model }}</a></td>
+  {% endif %}
         {% endif %}
         </tr>
         {% endfor %}
@@ -45,6 +40,6 @@
     </div>
     {% endfor %}
   </div>
-  <div style="clear: both"></div>
+  <div></div>
 </div>
 {% endblock %}
