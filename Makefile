@@ -1,5 +1,11 @@
+# Release specifics
+tag  = $(shell git describe --abbrev=0)
+ver  = $(shell git describe --abbrev=0 | egrep -o '([0-9]+\.){1,10}[0-9]+')
+ver_under  = $(shell echo $(ver) | sed -e 's/\./_/g')
+name = $(shell basename $(shell pwd))
+
 # Sphinx related stuff
-VERSION	        = "0.4.2"
+VERSION         = "$(ver)"
 SPHINXOPTS      = -q -W -D version=$(VERSION) -D release=$(VERSION)
 SPHINXBUILD     = sphinx-build
 PAPER           =
@@ -11,23 +17,18 @@ PAPEROPT_letter = -D latex_paper_size=letter
 ALLSPHINXOPTS   = -d $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 SPHINXFILES     = $(SRCDIR)/*
 
-# Release specifics
-tag  = $(shell git describe --abbrev=0)
-ver  = $(shell git describe --abbrev=0 | egrep -o '([0-9]+\.){1,10}[0-9]+' | sed -e 's/\./_/g')
-name = $(shell basename $(shell pwd))
-
 .PHONY: dist clean test
 
 all:	dist
 
 dist: 	test doc
-	git archive --format tar --prefix $(name)-$(ver)/ -o $(name)-$(ver).tar $(tag)
-	mkdir -p $(name)-$(ver)
-	cp $(BUILDDIR)/text/install.txt $(name)-$(ver)/README
-	cp $(BUILDDIR)/text/upgrade.txt $(name)-$(ver)/README.upgrade
-	tar rf $(name)-$(ver).tar $(name)-$(ver)/README $(name)-$(ver)/README.upgrade
-	rm -rf $(name)-$(ver)
-	gzip -f $(name)-$(ver).tar
+	git archive --format tar --prefix $(name)-$(ver_under)/ -o $(name)-$(ver_under).tar $(tag)
+	mkdir -p $(name)-$(ver_under)
+	cp $(BUILDDIR)/text/install.txt $(name)-$(ver_under)/README
+	cp $(BUILDDIR)/text/upgrade.txt $(name)-$(ver_under)/README.upgrade
+	tar rf $(name)-$(ver_under).tar $(name)-$(ver_under)/README $(name)-$(ver_under)/README.upgrade
+	rm -rf $(name)-$(ver_under)
+	gzip -f $(name)-$(ver_under).tar
 
 clean:
 	@rm -f *tar.gz
