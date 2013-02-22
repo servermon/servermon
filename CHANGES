@@ -1,5 +1,16 @@
 
 ===========
+0.5.0 Release
+f91e8d0 Updated settings.py.dist to support django 1.4
+78ef746 Use the new content_type parameter for render
+926eda1 OOB Hostname a link now in equipment view
+b777791 Report security update count in host and package lists
+b86b099 Change vim modelines
+90a5859 Fix bug crashing host view
+5460132 Added some facts and values in updates unit tests
+b6f9e9c Fix bug with TICKETING not properly matching urls.
+
+===========
 0.4.2 Release
 
 e93dc86 Update Makefile for 0.4.2 release

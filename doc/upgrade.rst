@@ -11,6 +11,16 @@ Read the following for instructions on how to upgrade between versions
 Please note that only upgrade paths for consecutive versions have been tested.
 Upgrade from 0.1 to 0.3 for example may or may not work.
 
+Upgrading from 0.4.2 to 0.5.0
+=========================
+You should perform the following
+
+* Stop application server (wsgi, gunicorn, etc)
+* Untar new version (backup the old one first). Note: Clean untar for
+  this version is needed if upgrading from < 0.4.2
+* Merge settings.py with new settings.py.dist
+* Restart application server (wsgi, gunicorn, etc)
+
 Upgrading from 0.4.1 to 0.4.2
 =========================
 You should perform the following
