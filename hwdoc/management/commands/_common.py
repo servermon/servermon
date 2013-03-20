@@ -77,4 +77,4 @@ def handle(self, *args, **options):
         #TODO: Figure out what to do with this
         if int(options['verbosity']) > 1:
             print result
-        return result
+    return
