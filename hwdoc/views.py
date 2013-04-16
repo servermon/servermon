@@ -24,6 +24,29 @@ from servermon.projectwide import functions as projectwide_functions
 from servermon.hwdoc import functions
 from servermon.compat import render
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponse, HttpResponseBadRequest
+from django.core import serializers
+
+def subnav(request, subnav):
+    if request.is_ajax() == False:
+        return HttpResponseBadRequest('Not an AJAX request',
+        content_type='text/plain')
+
+    # It might seem like overkill, but only one of them will actually be
+    # realized. The rest are lazy Querysets
+    switch = {
+        'datacenters': Datacenter.objects.all(),
+        'racks': Rack.objects.order_by('id').all(),
+        'projects': Project.objects.order_by('name').all(),
+        'models': EquipmentModel.objects.select_related('vendor').order_by('vendor__name','name').all(),
+    }
+
+    if subnav not in switch.keys():
+        return HttpResponseBadRequest('[{"error": "Incorrect subnav specified"}]',
+                content_type='application/json')
+
+    return HttpResponse(serializers.serialize('json',switch[subnav]),
+                            content_type="application/json")
 
 def index(request):
     '''
