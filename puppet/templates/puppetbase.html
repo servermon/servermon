@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% endblock %}
+{% block subnav %}
+  <div id="subnav">
+    <a href="{% url puppet.views.inventory %}">{% trans "Puppet Inventory" %}</a> 
+    | <a href="{% url puppet.views.query %}">{% trans "Fact Query" %}</a>
+  </div>
+{% endblock %}
+{% block heading %}{% endblock %}
+{% block content %}
+{% endblock %}
