@@ -18,12 +18,12 @@ $(document).ready(function() {
 
   <div id="nav">
     <a href="{% url projectwide.views.index %}">{% trans "Overview" %}</a>
-    | <a href="{% url updates.views.hostlist %}">{% trans "Host list" %}</a> 
-    | <a href="{% url updates.views.packagelist %}">{% trans "Package list" %}</a> 
-    | <a href="{% url puppet.views.inventory %}">{% trans "Puppet Inventory" %}</a> 
+    | <a href="{% url updates.views.hostlist %}">{% trans "Updates" %}</a> 
+    | <a href="{% url puppet.views.inventory %}">{% trans "Puppet" %}</a> 
     | <a href="{% url hwdoc.views.index %}">{% trans "Hardware Inventory" %}</a> 
-    | <a href="{% url puppet.views.query %}">{% trans "Fact Query" %}</a>
   </div>
+  {% block subnav %}
+  {% endblock %}
 
   <div id="search">
     <form method="get" action="{% url projectwide.views.search %}">
