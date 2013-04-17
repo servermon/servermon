@@ -10,8 +10,8 @@
 {% endif %}
 {% endblock %}
 {% block content %}
-<div id="equipment">
-  <table>
+<div id="equipment" class="span8 offset2">
+  <table class="table table-striped table-condensed">
     <tbody>
       <tr><th>{% trans "Project" %}:</th><td>{% if equipment.allocation %}<a href="{% url hwdoc.views.project equipment.allocation.pk %}">{{ equipment.allocation.name }}</a>{% else %}-{% endif %}</td></tr>
       <tr><th>{% trans "Model" %}:</th><td>{{ equipment.model }}</td></tr>
@@ -28,4 +28,5 @@
     </tbody>
   </table>
 </div>
+<div class="span2"></div>
 {% endblock %}

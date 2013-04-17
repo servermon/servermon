@@ -2,9 +2,9 @@
 {% load i18n %}
 {% block heading %}{{ rackrow }}{% endblock %}
 {% block content %}
-<div id="rackrow">
+<div id="rackrow" class="span12">
   <h3>{% trans "Rackrow Info" %}</h3>
-  <table>
+  <table class="table table-striped table-condensed">
     <tbody>
       <tr><th>{% trans "name" %}:</th><td>{{ rackrow.name }}</td></tr>
       <tr><th>{% trans "Datacenter" %}:</th><td>{{ rackrow.dc }}</td></tr>
@@ -13,8 +13,8 @@
   <h3>{% trans "Racks Info" %}</h3>
   <div>
     {% for rack in racks %}
-    <div>
-      <table>
+    <div class="pull-left">
+      <table class="table table-striped table-condensed">
       <tbody>
         <tr>
           <th colspan="2">

@@ -2,15 +2,15 @@
 {% load i18n %}
 {% block heading %}{{ datacenter }}{% endblock %}
 {% block content %}
-<div id="datacenter">
+<div id="datacenter" class="span8 offset2">
   <h3>{% trans "Datacenter Info" %}</h3>
-  <table>
+  <table class="table table-striped table-condensed">
     <tbody>
       <tr><th>{% trans "Name" %}:</th><td>{{ datacenter.name }}</td></tr>
     </tbody>
-  </table>
+  </table> 
   <h3>{% trans "Rack rows Info" %}</h3>
-  <table>
+  <table class="table table-striped table-condensed">
     <tbody>
     <tr>
       <th>{% trans "Rack rows" %}</th>
@@ -27,4 +27,5 @@
     </tbody>
   </table>
 </div>
+<div class="span2"></div>
 {% endblock %}

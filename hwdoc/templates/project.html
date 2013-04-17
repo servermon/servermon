@@ -2,15 +2,15 @@
 {% load i18n %}
 {% block heading %}{{ project }}{% endblock %}
 {% block content %}
-<div id="project">
+<div id="project" class="span8 offset2">
   <h3>{% trans "Project Info" %}</h3>
-  <table>
+  <table class="table table-striped table-condensed">
     <tbody>
       <tr><th>{% trans "Name" %}:</th><td>{{ project.name }}</td></tr>
     </tbody>
   </table>
   <h3>{% trans "Contact Info" %}</h3>
-  <table>
+  <table class="table table-striped table-condensed">
     <tbody>
     <tr>
       <th>{% trans "Role" %}</th>
@@ -31,4 +31,5 @@
     </tbody>
   </table>
 </div>
+<div class="span2"></div>
 {% endblock %}
