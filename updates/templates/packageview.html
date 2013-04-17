@@ -5,42 +5,38 @@
 {% block heading %}{% trans "Hosts with pending updates for" %} {{ package.name }}{% endblock %}
 
 {% block content %}
-<table>
-  <thead>
-    <tr>
-      <th>{% trans "Hostname" %}</th>
-      <th>{% trans "Installed Version" %}</th>
-      <th>{% trans "Available Version" %}</th>
-      <th>{% trans "Security" %}</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for update in updates %}
-    <tr>
-      <td><a href="{% url updates.views.host update.host.name %}">{{ update.host.name }}</a></td>
-      <td>{% if update.installedVersion %}{{ update.installedVersion }}{% else %}&mdash;{% endif %}</td>
-      <td>
-      {% if update.get_changelog_url %}
-        <a href="{{ update.get_changelog_url }}" target="_blank">{{ update.candidateVersion }}</a>
-      {% else %}
-        {{ update.candidateVersion }}
-      {% endif %}
-      </td>
-      <td>
-        {% if update.is_security %}
-        <img src="{{ MEDIA_URL }}secure.png" alt="{% trans "Security update" %}" title="{% trans "Security update" %}" />
+<div class="span8 offset2">
+  <table class="table table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>{% trans "Hostname" %}</th>
+        <th>{% trans "Installed Version" %}</th>
+        <th>{% trans "Available Version" %}</th>
+        <th>{% trans "Security" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for update in updates %}
+      <tr>
+        <td><a href="{% url updates.views.host update.host.name %}">{{ update.host.name }}</a></td>
+        <td>{% if update.installedVersion %}{{ update.installedVersion }}{% else %}&mdash;{% endif %}</td>
+        <td>
+        {% if update.get_changelog_url %}
+          <a href="{{ update.get_changelog_url }}" target="_blank">{{ update.candidateVersion }}</a>
+        {% else %}
+          {{ update.candidateVersion }}
         {% endif %}
-      </td>
-    </tr>
-  </tbody>
-{% endfor %}
-</table>
-
-<div>
-  <ul>
-    <li>{% trans "Click on the available version number to view the package's changelog for that version" %}</li>
-    <li>{% trans "Click on a hostname to see all pending package updates for that host" %}</li>
-  </ul>
+        </td>
+        <td>
+          {% if update.is_security %}
+          <img src="{{ MEDIA_URL }}secure.png" alt="{% trans "Security update" %}" title="{% trans "Security update" %}" />
+          {% endif %}
+        </td>
+      </tr>
+    </tbody>
+  {% endfor %}
+  </table>
 </div>
+<div class="span2"></div>
 
 {% endblock %}

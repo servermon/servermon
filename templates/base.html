@@ -4,9 +4,20 @@
 <html>
 <head>
   <title>{% block title %}{% endblock %} -- servermon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" type="application/opensearchdescription+xml" title="hwdoc Search" href="{% url opensearch %}">
+  <link href="{{ MEDIA_URL }}/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="{{ MEDIA_URL }}/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
   <script type="text/javascript" src="{{ MEDIA_URL }}jquery-1.9.1.min.js"></script>
   <script type="text/javascript" src="{{ MEDIA_URL }}jquery.tablesorter.min.js"></script>
+  <script type="text/javascript" src="{{ MEDIA_URL }}/bootstrap/js/bootstrap.min.js"></script>
+  <style type="text/css">
+    body {
+      padding-top: 60px;
+      padding-bottom: 40px;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -15,29 +26,77 @@ $(document).ready(function() {
   $(".sortable").tablesorter({ widgets: ['zebra'] });
   });
   </script>
-
-  <div id="nav">
-    <a href="{% url projectwide.views.index %}">{% trans "Overview" %}</a>
-    | <a href="{% url updates.views.hostlist %}">{% trans "Updates" %}</a> 
-    | <a href="{% url puppet.views.inventory %}">{% trans "Puppet" %}</a> 
-    | <a href="{% url hwdoc.views.index %}">{% trans "Hardware Inventory" %}</a> 
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="nav-collapse collapse">
+          <ul class="nav">
+            <li><a href="{% url projectwide.views.index %}">{% trans "Overview" %}</a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans "Updates" %} <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url updates.views.hostlist %}">{% trans "Host list" %}</a></li>
+                <li><a href="{% url updates.views.packagelist %}">{% trans "Package list" %}</a></li>
+              </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans "Puppet" %} <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url puppet.views.inventory %}">{% trans "Inventory" %}</a></li>
+                <li><a href="{% url puppet.views.query %}">{% trans "Fact Query" %}</a></li>
+              </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="{% url hwdoc.views.index %}">{% trans "Hardware Inventory" %} <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url hwdoc.views.index %}">{% trans "Dashboard" %}</a></li>
+                <li class="dropdown-submenu"><a href="#">{% trans "Datacenters" %}</a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">{% trans "Loading" %}</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown-submenu"><a href="#">{% trans "Projects" %}</a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">{% trans "Loading" %}</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown-submenu"><a href="#">{% trans "Racks" %}</a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">{% trans "Loading" %}</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown-submenu"><a href="#">{% trans "Models" %}</a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">{% trans "Loading" %}</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <form class="navbar-form pull-right" method="get" action="{% url projectwide.views.search %}">
+            <input class="span2 search-query" name="q" type="text">
+            <button type="submit" class="btn">{% trans "Search" %}</button>
+          </form>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
   </div>
-  {% block subnav %}
-  {% endblock %}
 
-  <div id="search">
-    <form method="get" action="{% url projectwide.views.search %}">
-      <input type="text" name="q"><input type="submit" value="{% trans "Search" %}">
-    </form>
-  </div>
+  <div class="row-fluid">
+    <div class="span12 text-center">
+    <h1>{% block heading %}{% endblock %}</h1>
+    <hr>
+    {% block content %}
+    {% endblock %}
+    </div>
 
-  <h1>{% block heading %}{% endblock %}</h1>
-  {% block content %}
-  {% endblock %}
-
-  <div id="footer">
-    <a href="http://www.djangoproject.com/"><img src="{{ MEDIA_URL }}django.gif"
-      alt="{% trans "A Django site" %}" title="{% trans "A Django site" %}" border="0"></a>
+    <div id="footer" class="span12 text-center">
+      <a href="http://www.djangoproject.com/"><img src="{{ MEDIA_URL }}django.gif"
+        alt="{% trans "A Django site" %}" title="{% trans "A Django site" %}" border="0"></a>
+    </div>
   </div>
 </body>
 </html>
