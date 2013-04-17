@@ -21,6 +21,7 @@ from servermon.compat import render
 from django.db.models import Count, Sum
 from servermon.puppet.models import Host
 from servermon.updates.models import Package, Update
+from servermon.hwdoc.models import Equipment
 from IPy import IP
 
 def hostlist(request):
@@ -47,6 +48,7 @@ def host(request, hostname):
 
     updates = []
     system = []
+    location = []
 
     try:
         iflist = host.get_fact_value('interfaces').split(',')
@@ -85,7 +87,6 @@ def host(request, hostname):
         ('uptime', 'Uptime'),
     ]
 
-    system = []
     for fact, label in fields:
         system.append({ 'name': label, 'value': host.get_fact_value(fact) })
 
@@ -104,7 +105,28 @@ def host(request, hostname):
         'value': ", ".join([ f.value for f in  host.factvalue_set.filter(fact_name__name='puppetclass') ])
         })
 
+    # Location info
 
+    location.append({ 'name': 'Rackunit',
+        'value': "%s" % (host.get_fact_value('rackunit'))
+        })
+    location.append({ 'name': 'Rack',
+        'value': "%s" % (
+            Equipment.objects.get(serial=host.get_fact_value('serialnumber')).rack
+            )
+        })
+    location.append({ 'name': 'RackRow',
+        'value': "%s" % (
+            Equipment.objects.get(serial=host.get_fact_value('serialnumber')).rack.rackposition.rr
+            )
+        })
+    location.append({ 'name': 'Datacenter',
+        'value': "%s" % (
+            Equipment.objects.get(serial=host.get_fact_value('serialnumber')).rack.rackposition.rr.dc
+            )
+        })
+
+    # Updates info
     updates = Update.objects.filter(host=host).order_by('package__name')
     updates = updates.select_related()
 
@@ -113,4 +135,5 @@ def host(request, hostname):
         'updates': updates,
         'interfaces': interfaces,
         'system': system,
+        'location': location,
         })

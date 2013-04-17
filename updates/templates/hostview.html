@@ -4,9 +4,9 @@
 {% block title %}{% trans "Updates for" %} {{ host.name }}{% endblock %}
 {% block heading %}{{ host.name }}: {% trans "Host information" %}{% endblock %}
 {% block content %}
-<h2>{% trans "System information" %}</h2>
 
 <div class="span8 offset2">
+<h2>{% trans "System information" %}</h2>
   <table class="table table-striped table-condensed">
     {% for attr in system|dictsort:"name" %}
     {% if attr.value %}
@@ -20,6 +20,21 @@
       <th>{% trans "Last updated" %}</th>
       <td>{{ host.updated_at|timesince }}</td>
     </tr>
+  </table>
+</div>
+<div class="span2"></div>
+
+<div class="span8 offset2">
+<h2>{% trans "Location information" %}</h2>
+  <table class="table table-striped table-condensed">
+    {% for attr in location|dictsort:"name" %}
+    {% if attr.value %}
+    <tr>
+      <th>{{ attr.name }}</th>
+      <td>{{ attr.value }}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
   </table>
 </div>
 <div class="span2"></div>
