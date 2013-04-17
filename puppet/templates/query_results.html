@@ -5,24 +5,26 @@
 {% block heading %}{% trans "Custom fact query" %}{% endblock %}
 
 {% block content %}
-<table>
-  <thead>
-    <tr>
-      <th>{% trans "Hostname" %}</th>
-      {% for fact in facts %}
-      <th>{{ fact }}</th>
+<div class="span12">
+  <table class="table table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>{% trans "Hostname" %}</th>
+        {% for fact in facts %}
+        <th>{{ fact }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for res in results %}
+      <tr>
+        <td><a href="{% url updates.views.host res.host.name %}">{{ res.host }}</a></td>
+        {% for fact in res.facts %}
+        <td>{% if fact %}{{ fact }}{% else %}&mdash;{% endif %}</td>
+        {% endfor %}
+      </tr>
       {% endfor %}
-    </tr>
-  </thead>
-  <tbody>
-    {% for res in results %}
-    <tr>
-      <td><a href="{% url updates.views.host res.host.name %}">{{ res.host }}</a></td>
-      {% for fact in res.facts %}
-      <td>{% if fact %}{{ fact }}{% else %}&mdash;{% endif %}</td>
-      {% endfor %}
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
 {% endblock %}
