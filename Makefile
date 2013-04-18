@@ -37,7 +37,7 @@ clean:
 doc:	$(BUILDDIR)/api $(BUILDDIR)/html $(BUILDDIR)/text
 
 test:	
-	@python manage.py test
+	@python manage.py test --noinput
 
 $(BUILDDIR)/api:
 	@mkdir -p $(BUILDDIR)
