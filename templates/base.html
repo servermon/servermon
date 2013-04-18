@@ -80,7 +80,8 @@ $(document).ready(function() {
           </ul>
           <form class="navbar-form pull-right" method="get" action="{% url projectwide.views.search %}">
             <input class="span2 search-query" name="q" type="text">
-            <button type="submit" class="btn">{% trans "Search" %}</button>
+            <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
+	    <a class="btn" href="{% url projectwide.views.advancedsearch %}">{% trans "Advanced Search" %}</a>
           </form>
         </div><!--/.nav-collapse -->
       </div>
