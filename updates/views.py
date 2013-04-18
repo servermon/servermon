@@ -142,7 +142,7 @@ def host(request, hostname):
             })
         location.append({ 'name': 'Datacenter',
             'value': "%s" % (
-                eq.rack.rackposition.rr
+                eq.rack.rackposition.rr.dc
                 )
             })
     except:
