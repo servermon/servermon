@@ -2,12 +2,14 @@
 {% load i18n %}
 {% block heading %}{% trans "Search results" %}{% endblock %}
 {% block content %}
-<div> 
+<div class="span8 offset2"> 
 	<h3>{% trans "HWDOC Results" %}: {{ results.hwdoc.count }}</h3>
 	{% include "hwdoc_searchresults.html" %}
 </div>
-<div> 
+<div class="span2"></div>
+<div class="span8 offset2"> 
 	<h3>{% trans "Puppet Results" %}: {{ results.puppet.count }}</h3>
 	{% include "puppet_searchresults.html" %}
 </div>
+<div class="span2"></div>
 {% endblock %}
