@@ -55,6 +55,7 @@ def host(request, hostname):
     except AttributeError:
         iflist = []
 
+    # Network part
     interfaces = []
     for iface in iflist:
         d = {}
@@ -75,6 +76,7 @@ def host(request, hostname):
 
         interfaces.append(d)
 
+    # System part
     fields = [
         ('bios_date', 'BIOS Date'),
         ('bios_version', 'BIOS Version'),
@@ -105,26 +107,50 @@ def host(request, hostname):
         'value': ", ".join([ f.value for f in  host.factvalue_set.filter(fact_name__name='puppetclass') ])
         })
 
-    # Location info
-
-    location.append({ 'name': 'Rackunit',
-        'value': "%s" % (host.get_fact_value('rackunit'))
-        })
-    location.append({ 'name': 'Rack',
-        'value': "%s" % (
-            Equipment.objects.get(serial=host.get_fact_value('serialnumber')).rack
-            )
-        })
-    location.append({ 'name': 'RackRow',
-        'value': "%s" % (
-            Equipment.objects.get(serial=host.get_fact_value('serialnumber')).rack.rackposition.rr
-            )
-        })
-    location.append({ 'name': 'Datacenter',
-        'value': "%s" % (
-            Equipment.objects.get(serial=host.get_fact_value('serialnumber')).rack.rackposition.rr.dc
-            )
-        })
+    # Location info part
+    try:
+        eq = Equipment.objects.get(serial=host.get_fact_value('serialnumber'))
+        location.append({ 'name': 'Rack Unit',
+            'value': "%s" % (
+                eq.unit
+                )
+            })
+        location.append({ 'name': 'Rack',
+            'value': "%s" % (
+                eq.rack
+                )
+            })
+        location.append({ 'name': 'Rack Row',
+            'value': "%s" % (
+                eq.rack.rackposition.rr
+                )
+            })
+        location.append({ 'name': 'IPMI Method',
+            'value': "%s" % (
+                eq.servermanagement.method
+                )
+            })
+        location.append({ 'name': 'IPMI Hostname',
+            'value': "%s" % (
+                eq.servermanagement.hostname
+                )
+            })
+        location.append({ 'name': 'IPMI MAC',
+            'value': "%s" % (
+                eq.servermanagement.mac
+                )
+            })
+        location.append({ 'name': 'Datacenter',
+            'value': "%s" % (
+                eq.rack.rackposition.rr
+                )
+            })
+    except:
+        location.append({ 'name': 'Location',
+            'value': "%s" % (
+                'No location information found'
+                )
+            })
 
     # Updates info
     updates = Update.objects.filter(host=host).order_by('package__name')
