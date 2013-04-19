@@ -6,11 +6,24 @@
   <title>{% block title %}{% endblock %} -- servermon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="search" type="application/opensearchdescription+xml" title="hwdoc Search" href="{% url opensearch %}">
-  <link href="{{ MEDIA_URL }}/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-  <link href="{{ MEDIA_URL }}/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <link href="{{ MEDIA_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="{{ MEDIA_URL }}bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <!-- This may be wrong. Perhaps import the entire jquery.ui in one minified file,css?
+  <link href="{{ MEDIA_URL }}jquery.ui.base.css" rel="stylesheet">
+  -->
+  <link href="{{ MEDIA_URL }}jquery.ui.theme.css" rel="stylesheet">
+  <link href="{{ MEDIA_URL }}jquery.ui.core.css" rel="stylesheet">
+  <link href="{{ MEDIA_URL }}jquery.ui.menu.css" rel="stylesheet">
+  <link href="{{ MEDIA_URL }}jquery.ui.autocomplete.css" rel="stylesheet">
   <script type="text/javascript" src="{{ MEDIA_URL }}jquery-1.9.1.min.js"></script>
   <script type="text/javascript" src="{{ MEDIA_URL }}jquery.tablesorter.min.js"></script>
-  <script type="text/javascript" src="{{ MEDIA_URL }}/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="{{ MEDIA_URL }}jquery.ui.core.min.js"></script>
+  <script type="text/javascript" src="{{ MEDIA_URL }}jquery.ui.widget.min.js"></script>
+  <script type="text/javascript" src="{{ MEDIA_URL }}jquery.ui.position.min.js"></script>
+  <script type="text/javascript" src="{{ MEDIA_URL }}jquery.ui.menu.min.js"></script>
+  <script type="text/javascript" src="{{ MEDIA_URL }}jquery.ui.autocomplete.min.js"></script>
+  <script type="text/javascript" src="{{ MEDIA_URL }}opensearch.js"></script>
+  <script type="text/javascript" src="{{ MEDIA_URL }}bootstrap/js/bootstrap.min.js"></script>
   <style type="text/css">
   @media (min-width: 979px) {
     body {
@@ -23,9 +36,15 @@
 </head>
 
 <body>
-  </script><script type="text/javascript">
+  <script type="text/javascript">
 $(document).ready(function() {
   $(".sortable").tablesorter({ widgets: ['zebra'] });
+  $('input#q').autocomplete( { source: function(request,response) {
+                                  opensearch(request, response, '{% url projectwide.views.suggest %}')
+                                  },
+                               close: function(event, ui) { this.parentElement.submit(); },
+			       minLength: 2,
+			  });
   });
   </script>
   <div class="navbar navbar-inverse navbar-fixed-top">
@@ -78,8 +97,8 @@ $(document).ready(function() {
               </ul>
             </li>
           </ul>
-          <form class="navbar-form pull-right" method="get" action="{% url projectwide.views.search %}">
-            <input class="span2 search-query" name="q" type="text">
+          <form class="ui-front navbar-form pull-right" method="get" action="{% url projectwide.views.search %}">
+            <input id="q" class="span2 search-query" name="q" type="text">
             <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
 	    <a class="btn" href="{% url projectwide.views.advancedsearch %}">{% trans "Advanced Search" %}</a>
           </form>
