@@ -24,6 +24,7 @@
   <script type="text/javascript" src="{{ MEDIA_URL }}jquery.ui.menu.min.js"></script>
   <script type="text/javascript" src="{{ MEDIA_URL }}jquery.ui.autocomplete.min.js"></script>
   <script type="text/javascript" src="{{ MEDIA_URL }}opensearch.js"></script>
+  <script type="text/javascript" src="{{ MEDIA_URL }}hwdoc.js"></script>
   <script type="text/javascript" src="{{ MEDIA_URL }}bootstrap/js/bootstrap.min.js"></script>
   <style type="text/css">
   @media (min-width: 979px) {
@@ -37,15 +38,16 @@
 </head>
 
 <body>
-  <script type="text/javascript">
+  <script type='text/javascript'>
 $(document).ready(function() {
-  $(".sortable").tablesorter();
+  $('.sortable').tablesorter();
   $('input#q').autocomplete( { source: function(request,response) {
                                   opensearch(request, response, '{% url projectwide.views.suggest %}')
                                   },
                                close: function(event, ui) { this.parentElement.submit(); },
 			       minLength: 2,
 			  });
+  $('.hwdocfetchable').hover( function() { fetch_and_update(this, '{% url hwdoc.views.subnav %}') }, function () {});
   });
   </script>
   <div class="navbar navbar-inverse navbar-fixed-top">
@@ -75,22 +77,22 @@ $(document).ready(function() {
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="{% url hwdoc.views.index %}">{% trans "Hardware Inventory" %} <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="{% url hwdoc.views.index %}">{% trans "Dashboard" %}</a></li>
-                <li class="dropdown-submenu"><a href="#">{% trans "Datacenters" %}</a>
+                <li id="datacenters" class="dropdown-submenu hwdocfetchable"><a href="#">{% trans "Datacenters" %}</a>
                   <ul class="dropdown-menu">
                     <li><a href="#">{% trans "Loading" %}</a></li>
                   </ul>
                 </li>
-                <li class="dropdown-submenu"><a href="#">{% trans "Projects" %}</a>
+                <li id="projects" class="dropdown-submenu hwdocfetchable"><a href="#">{% trans "Projects" %}</a>
                   <ul class="dropdown-menu">
                     <li><a href="#">{% trans "Loading" %}</a></li>
                   </ul>
                 </li>
-                <li class="dropdown-submenu"><a href="#">{% trans "Racks" %}</a>
+                <li id="racks" class="dropdown-submenu hwdocfetchable"><a href="#">{% trans "Racks" %}</a>
                   <ul class="dropdown-menu">
                     <li><a href="#">{% trans "Loading" %}</a></li>
                   </ul>
                 </li>
-                <li class="dropdown-submenu"><a href="#">{% trans "Models" %}</a>
+                <li id="models" class="dropdown-submenu hwdocfetchable"><a href="#">{% trans "Models" %}</a>
                   <ul class="dropdown-menu">
                     <li><a href="#">{% trans "Loading" %}</a></li>
                   </ul>
