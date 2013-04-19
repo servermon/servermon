@@ -16,6 +16,7 @@
   <link href="{{ MEDIA_URL }}jquery.ui.menu.css" rel="stylesheet">
   <link href="{{ MEDIA_URL }}jquery.ui.autocomplete.css" rel="stylesheet">
   <script type="text/javascript" src="{{ MEDIA_URL }}jquery-1.9.1.min.js"></script>
+  <script type="text/javascript" src="{{ MEDIA_URL }}jquery.metadata.js"></script>
   <script type="text/javascript" src="{{ MEDIA_URL }}jquery.tablesorter.min.js"></script>
   <script type="text/javascript" src="{{ MEDIA_URL }}jquery.ui.core.min.js"></script>
   <script type="text/javascript" src="{{ MEDIA_URL }}jquery.ui.widget.min.js"></script>
@@ -38,7 +39,7 @@
 <body>
   <script type="text/javascript">
 $(document).ready(function() {
-  $(".sortable").tablesorter({ widgets: ['zebra'] });
+  $(".sortable").tablesorter();
   $('input#q').autocomplete( { source: function(request,response) {
                                   opensearch(request, response, '{% url projectwide.views.suggest %}')
                                   },
