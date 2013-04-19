@@ -20,7 +20,7 @@
 {% if problemhosts %}
 <h2>Problematic puppetized hosts</h2>
 <div>The following <strong>{{ problemhosts.count }}</strong> hosts have not contacted puppetmaster during the past {{ timeout|timesince }}:</div>
-<table class="table table-striped table-condensed">
+<table class="table table-striped table-condensed sortable">
   <thead>
     <tr>
       <th>Hostname</th>
