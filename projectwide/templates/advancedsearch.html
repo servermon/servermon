@@ -5,7 +5,7 @@
 <div class="span8 offset2"> 
   <h3>{% trans "Advanced Search" %}</h3>
   <form method="POST" action="{% url projectwide.views.search %}">
-    <textarea style="width: 100%" name="qarea" cols="50" rows="20" />{% trans "Insert your free text to be searched here. For example nmap output" %}</textarea>
+    <textarea style="width: 100%" name="qarea" cols="50" rows="20" placeholder="{% trans "Insert your free text to be searched here. For example nmap output" %}"></textarea>
     <button class="btn btn-primary" type="submit"/>{% trans "Search" %}</button>
   </form>
 </div>
