@@ -26,6 +26,7 @@ from django.http import HttpResponse
 from django.contrib.sites.models import Site
 from django.utils import simplejson
 from django.db.models import Count
+from django.template import TemplateSyntaxError
 from datetime import datetime, timedelta
 from settings import HOST_TIMEOUT, INSTALLED_APPS, ADMINS
 import re
@@ -97,9 +98,13 @@ def search(request):
 
     results['hwdoc'] = hwdoc_functions.populate_tickets(results['hwdoc'])
 
-    return render(request, template,
-                { 'results': results, },
-                content_type=content_type)
+    try:
+        return render(request, template,
+                    { 'results': results, },
+                    content_type=content_type)
+    except TemplateSyntaxError as e:
+        if re.search('too many SQL variables', e.message):
+            return render(request, 'error.html', content_type=content_type)
 
 def advancedsearch(request):
     '''

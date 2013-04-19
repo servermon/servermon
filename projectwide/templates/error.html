@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "500 - DatabaseError " %}{% endblock %}
+{% block heading %}{% trans "500 - DatabaseError " %} {% endblock %}
+
+{% block content %}
+<h2>
+  {% trans "We are sorry but it seems like your search makes the database server hiccup. Perhaps you searched for a single character? Please resubmit the question with more characters" %}
+</h2>
+{% endblock %}
