@@ -132,7 +132,7 @@ class RackAdmin(admin.ModelAdmin):
         return obj.rackposition.position
     position.short_description = _('Position in RR')
 
-    list_display = ('pk', 'mounted_depth', 'model', rr, position)
+    list_display = ('name', 'mounted_depth', 'model', rr, position)
     list_editable = ('mounted_depth', 'model')
     inlines = [ RackPositionInline, ]
 

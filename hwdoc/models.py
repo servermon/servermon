@@ -145,9 +145,10 @@ class Rack(models.Model):
     
     mounted_depth = models.PositiveIntegerField(max_length=10, default=60)
     model = models.ForeignKey(RackModel)
+    name = models.CharField(max_length=80, default='')
 
     def __unicode__(self):
-        return '%.2d' % (self.pk)
+        return '%s' % (self.name)
 
 class RackRow(models.Model):
     '''
