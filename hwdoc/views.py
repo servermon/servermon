@@ -38,7 +38,7 @@ def subnav(request, subnav):
         'datacenters': Datacenter.objects.all(),
         'racks': Rack.objects.order_by('id').all(),
         'projects': Project.objects.order_by('name').all(),
-        'models': EquipmentModel.objects.select_related('vendor').order_by('vendor__name','name').all(),
+        'rackrows': RackRow.objects.order_by('id').all()
     }
 
     if subnav not in switch.keys():
