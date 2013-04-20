@@ -18,7 +18,7 @@
       <tbody>
         <tr>
           <th colspan="2">
-            <a href="{% url projectwide.views.search %}?q={{ rack }}">{{ rack }}</a>
+            <a href="{% url hwdoc.views.rack rack.rack.pk %}">{{ rack }}</a>
           </th>
         </tr>
         {% for eq in rack.equipments %}

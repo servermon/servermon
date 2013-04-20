@@ -126,6 +126,9 @@ def rack(request, rack_id):
     equipments = functions.search(str(rack.pk))
     equipments = functions.populate_tickets(equipments)
 
+    # The rendering expects this form.
+    equipments = { 'hwdoc': equipments, }
+
     return render(request, template, { 'rack': rack, 'equipments': equipments })
 
 def rackrow(request, rackrow_id):
