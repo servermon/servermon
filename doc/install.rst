@@ -1,7 +1,7 @@
 Servermon installation tutorial
 ===============================
 
-Documents Servermon version 0.5.0
+Documents Servermon version 0.6.0
 
 .. contents::
 

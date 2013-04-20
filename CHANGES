@@ -1,3 +1,65 @@
+===========
+0.6.0 Release
+
+f1031d7 Populate link from hwdoc results to puppet hosts
+6f3f669 Populate submenu hrefs
+c711f8a Populate href for dropdown submenu items
+4b28908 Fix wrong url in rackrow view, use rack view
+468fac8 Racks now have names. Datamigration needed
+a4ffc0b Index page hwdoc stuff ajax populated
+1ce5483 Correct numeric sorting in various places
+0fb3323 Kill an unused CSS class in index page
+c67095d Update jQuery tablesorter. Import jQuery metadata
+2204443 Strip whitespace in text/plain responses
+f647c93 Handle an exception occuring in 1 letter searches
+1301fe3 Opensearch in search using jQuery UI autocomplete
+759ac6b Imported some parts of jQuery UI
+80532cc Example text in advanced search a placeholder
+af073a2 Many tables are now sortable once again
+ac7ad73 Re-implement the indicative statuses in hwdoc
+99ec970 no user input in tests
+e8e63fb Fix an omission in hostview
+cbff504 Index page bootstrapized
+8cb8fac Revert "updates app specifies its own navigation"
+f3e89fa Revert "Puppet app specifies its own navigation"
+3550072 Revert "Hwdoc app specifies its own navigation"
+8006312 Advanced search just made a comeback
+1920da6 Projectwide search results are now bootstrapped
+b2bcf2f Add location info in hostview
+8cb16d8 Location information in hostview
+54aecbe Remove unused template
+46fd08c Bootstrap in action part 3
+fd5339f Fix navbar whitespace in small resolutions
+9cfd68e Bootstrap in action part 2
+dc5493e Bootstrap in action
+5bd7c31 Imported bootstrap v2.3.1
+ead0933 Updating to jQuery 1.9.1
+f25e394 AJAX view for hwdoc navbar navigation
+9376425 Hwdoc app specifies its own navigation
+8594f03 Puppet app specifies its own navigation
+07c3031 updates app specifies its own navigation
+4d41448 base.html now has an overridable subnav block
+eb0cf2a Bareboned hwdoc templates
+14a2c22 Simplified and updated first page.
+d79fb39 First draft of the unified search view
+7bba601 Fix some logical errors in puppet search function
+57dd945 404, 500 error pages i18n capable
+e079b24 Moved advanced search to projectwide app
+c7c766e Bringing updates app templates in a bare form
+92e64b6 Fix a bug with the order of load i18n tag
+c368e45 Memorytotal was wrong. Changed with memorysize
+f12709e Bringing base templates in a bare form
+2416e9d Bringing puppet app templates in bare form
+d8e541c Update hwdoc tests to reflect URL changes
+3535f8d Update tests for projectwide,hwdoc
+d2e114f Handle cases of missing apps.
+5b3cef8 Moving opensearch to projectwide views
+bfc38dc GET instead of POST in search
+a1b8ec3 Refactoring some helper functions
+fb184c8 Add some Equipment models
+71c2a07 Fix a bug in handling of all hwdoc commands
+e90b109 Added 0.6 design docs
+82f3b35 Updating glossary
 
 ===========
 0.5.0 Release
