@@ -125,6 +125,7 @@ def rack(request, rack_id):
     rack = get_object_or_404(Rack, pk=rack_id)
     equipments = functions.search(str(rack.pk))
     equipments = functions.populate_tickets(equipments)
+    equipments = functions.populate_hostnames(equipments)
 
     # The rendering expects this form.
     equipments = { 'hwdoc': equipments, }

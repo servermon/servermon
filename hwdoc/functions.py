@@ -24,6 +24,7 @@ strings in model Equipment.
 
 from servermon.hwdoc.models import Equipment, ServerManagement
 from servermon.projectwide.functions import canonicalize_mac
+from servermon.puppet.functions import search as puppet_search
 from django.db.models import Q
 from socket import gethostbyaddr, herror, gaierror, error
 from django.utils.translation import ugettext as _
@@ -112,4 +113,28 @@ def populate_tickets(equipment_list):
         if m:
             tickets = m.group(0).split()
             equipment.tickets = [ (re.sub(settings.TICKETING_URL,'', t), t) for t in tickets]
+    return equipment_list
+
+def populate_hostnames(equipment_list):
+    '''
+    Populates hostnames if they exist from puppet app for each equipment in a queryset.
+
+    @type  equipment_list: Queryset
+    @param equipment_list: A Django queryset containing equipment which need to
+    be populated with hostname attribute
+
+    @rtype: QuerySet
+    @return: A QuerySet with equipment's hostname attribute populated
+    '''
+
+    # TODO: Just a HACK 
+    try:
+        for equipment in equipment_list:
+            factvalues = puppet_search(equipment.serial)
+            if factvalues.count() == 1:
+                equipment.hostname=factvalues[0].host.name
+            else:
+                equipment.hostname=None
+    except:
+        pass
     return equipment_list

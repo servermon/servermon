@@ -97,6 +97,7 @@ def search(request):
                         'model__vendor', 'allocation')
 
     results['hwdoc'] = hwdoc_functions.populate_tickets(results['hwdoc'])
+    results['hwdoc'] = hwdoc_functions.populate_hostnames(results['hwdoc'])
 
     try:
         return render(request, template,
