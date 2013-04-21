@@ -8,22 +8,9 @@
   <link rel="search" type="application/opensearchdescription+xml" title="hwdoc Search" href="{% url opensearch %}">
   <link href="{{ MEDIA_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="{{ MEDIA_URL }}bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-  <!-- This may be wrong. Perhaps import the entire jquery.ui in one minified file,css?
-  <link href="{{ MEDIA_URL }}jquery.ui.base.css" rel="stylesheet">
-  -->
-  <link href="{{ MEDIA_URL }}jquery.ui.theme.css" rel="stylesheet">
-  <link href="{{ MEDIA_URL }}jquery.ui.core.css" rel="stylesheet">
-  <link href="{{ MEDIA_URL }}jquery.ui.menu.css" rel="stylesheet">
-  <link href="{{ MEDIA_URL }}jquery.ui.autocomplete.css" rel="stylesheet">
   <script type="text/javascript" src="{{ MEDIA_URL }}jquery-1.9.1.min.js"></script>
   <script type="text/javascript" src="{{ MEDIA_URL }}jquery.metadata.js"></script>
   <script type="text/javascript" src="{{ MEDIA_URL }}jquery.tablesorter.min.js"></script>
-  <script type="text/javascript" src="{{ MEDIA_URL }}jquery.ui.core.min.js"></script>
-  <script type="text/javascript" src="{{ MEDIA_URL }}jquery.ui.widget.min.js"></script>
-  <script type="text/javascript" src="{{ MEDIA_URL }}jquery.ui.position.min.js"></script>
-  <script type="text/javascript" src="{{ MEDIA_URL }}jquery.ui.menu.min.js"></script>
-  <script type="text/javascript" src="{{ MEDIA_URL }}jquery.ui.autocomplete.min.js"></script>
-  <script type="text/javascript" src="{{ MEDIA_URL }}opensearch.js"></script>
   <script type="text/javascript" src="{{ MEDIA_URL }}hwdoc.js"></script>
   <script type="text/javascript" src="{{ MEDIA_URL }}bootstrap/js/bootstrap.min.js"></script>
   <style type="text/css">
@@ -39,14 +26,20 @@
 
 <body>
   <script type='text/javascript'>
-$(document).ready(function() {
+  $(document).ready(function() {
+    $('input#q').typeahead({
+      minLength: 2,
+      source: function(query, process) {
+        $.get('{% url projectwide.views.suggest %}', { q: query, limit: 8 }, function(data) {
+        process(data[1]);
+      });
+      },
+      updater: function (item) {
+        document.location = '{% url projectwide.views.search %}' + '?q=' + encodeURIComponent(item);
+        return item;
+      },
+    });
   $('.sortable').tablesorter();
-  $('input#q').autocomplete( { source: function(request,response) {
-                                  opensearch(request, response, '{% url projectwide.views.suggest %}')
-                                  },
-                               close: function(event, ui) { this.parentElement.submit(); },
-			       minLength: 2,
-			  });
   $('.hwdocfetchable').hover( function() { fetch_and_update(this, '{% url hwdoc.views.subnav %}') }, function () {});
   });
   </script>
@@ -101,7 +94,7 @@ $(document).ready(function() {
             </li>
           </ul>
           <form class="ui-front navbar-form pull-right" method="get" action="{% url projectwide.views.search %}">
-            <input id="q" class="span2 search-query" name="q" type="text">
+            <input id="q" class="span2 search-query" data-provider="typeahead" autocomplete="off" data-source=" name="q" type="text">
             <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
 	    <a class="btn" href="{% url projectwide.views.advancedsearch %}">{% trans "Advanced Search" %}</a>
           </form>
