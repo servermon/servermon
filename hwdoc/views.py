@@ -28,6 +28,17 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.core import serializers
 
 def subnav(request, subnav):
+    '''
+    hwdoc index page navigation view. XMLHttpRequest (aka AJAX) only view
+
+    @type   request: HTTPRequest 
+    @param  request: Django HTTPRequest object
+    @type   subnav: String
+    @param  request: description of an hwdoc entity requesting listing
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding JSON
+    '''
+
     if request.is_ajax() == False:
         return HttpResponseBadRequest('Not an AJAX request',
         content_type='text/plain')

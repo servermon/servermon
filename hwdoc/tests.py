@@ -230,3 +230,9 @@ class ViewsTestCase(unittest.TestCase):
         response = c.get('/hwdoc/rack/%s/' % self.rack.pk)
         self.assertEqual(response.status_code, 200)
 
+    def test_subnav(self):
+        c = Client()
+        response = c.get('/hwdoc/subnav/%s/' % 'datacenters',
+                HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
+
