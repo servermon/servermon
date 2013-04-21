@@ -26,6 +26,7 @@ from django.http import HttpResponse
 from django.contrib.sites.models import Site
 from django.utils import simplejson
 from django.db.models import Count
+from django.db import DatabaseError
 from django.template import TemplateSyntaxError
 from datetime import datetime, timedelta
 from settings import HOST_TIMEOUT, INSTALLED_APPS, ADMINS
@@ -165,12 +166,19 @@ def suggest(request):
     results['puppet'] = puppet_functions.search(key).annotate(Count('value'))
     results['hwdoc'] = hwdoc_functions.search(key).annotate(Count('serial'))
     
-    response = simplejson.dumps([ key,
-        list(results['hwdoc'].values_list('serial', flat=True)) +
-        list(results['puppet'].values_list('value', flat=True)),
-        list(results['hwdoc'].values_list('serial__count', flat=True)) + 
-        list(results['puppet'].values_list('value__count', flat=True)),
-        ]
-        )
+    try:
+        response = simplejson.dumps([ key,
+            list(results['hwdoc'].values_list('serial', flat=True)) +
+            list(results['puppet'].values_list('value', flat=True)),
+            list(results['hwdoc'].values_list('serial__count', flat=True)) + 
+            list(results['puppet'].values_list('value__count', flat=True)),
+            ]
+            )
+    except DatabaseError:
+        response = simplejson.dumps([ key,
+            list(results['hwdoc'].values_list('serial', flat=True)) +
+            list(results['hwdoc'].values_list('serial__count', flat=True))
+            ]
+            )
 
     return HttpResponse(response, mimetype = 'application/x-suggestions+json')
