@@ -44,7 +44,9 @@
       }
     });
   $('.sortable').tablesorter();
+  {% if 'servermon.hwdoc' in  INSTALLED_APPS %}
   $('.hwdocfetchable').hover( function() { fetch_and_update(this, '{% url hwdoc.views.subnav %}') }, function () {});
+  {% endif %}
   });
   </script>
   <div class="navbar navbar-inverse navbar-fixed-top">
@@ -71,6 +73,7 @@
                 <li><a href="{% url puppet.views.query %}">{% trans "Fact Query" %}</a></li>
               </ul>
             </li>
+	    {% if 'servermon.hwdoc' in  INSTALLED_APPS %}
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="{% url hwdoc.views.index %}">{% trans "Hardware Inventory" %} <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="{% url hwdoc.views.index %}">{% trans "Overview" %}</a></li>
@@ -95,6 +98,7 @@
                   </ul>
                 </li>
               </ul>
+	      {% endif %}
             </li>
           </ul>
           <form class="ui-front navbar-form pull-right" method="get" action="{% url projectwide.views.search %}">

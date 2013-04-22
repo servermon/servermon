@@ -29,7 +29,7 @@ from django.db.models import Count
 from django.db import DatabaseError
 from django.template import TemplateSyntaxError
 from datetime import datetime, timedelta
-from settings import HOST_TIMEOUT, INSTALLED_APPS, ADMINS
+from settings import HOST_TIMEOUT, ADMINS
 import re
 
 def index(request):
@@ -42,10 +42,6 @@ def index(request):
     updatecount = Host.objects.filter(package__isnull=False).distinct().count()
     packagecount = Package.objects.count()
     securitycount = Package.objects.filter(update__is_security=True).distinct().count()
-    if 'servermon.hwdoc' in INSTALLED_APPS:
-        hwdoc_installed = True
-    else:
-        hwdoc_installed = False
 
     return render(request, "index.html", {
         'problemhosts': problemhosts, 
@@ -56,7 +52,6 @@ def index(request):
         'updatecount': updatecount,
         'packagecount': packagecount,
         'securitycount': securitycount,
-        'hwdoc_installed': hwdoc_installed,
         })
 
 def search(request):
