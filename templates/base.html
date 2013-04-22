@@ -34,10 +34,14 @@
         process(data[1]);
       });
       },
-      updater: function (item) {
+      updater: function(item) {
         document.location = '{% url projectwide.views.search %}' + '?q=' + encodeURIComponent(item);
         return item;
       },
+      sorter: function(items) {
+        items.unshift(this.query);
+	return items;
+      }
     });
   $('.sortable').tablesorter();
   $('.hwdocfetchable').hover( function() { fetch_and_update(this, '{% url hwdoc.views.subnav %}') }, function () {});
