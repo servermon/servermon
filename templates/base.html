@@ -35,7 +35,7 @@
       });
       },
       updater: function(item) {
-        document.location = '{% url projectwide.views.search %}' + '?q=' + encodeURIComponent(item);
+      	this.$element.context.parentNode.submit();
         return item;
       },
       sorter: function(items) {
@@ -98,7 +98,7 @@
             </li>
           </ul>
           <form class="ui-front navbar-form pull-right" method="get" action="{% url projectwide.views.search %}">
-            <input id="q" class="span2 search-query" data-provider="typeahead" autocomplete="off" data-source=" name="q" type="text">
+            <input id="q" class="span2 search-query" data-provider="typeahead" autocomplete="off" name="q" type="text">
             <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
 	    <a class="btn" href="{% url projectwide.views.advancedsearch %}">{% trans "Advanced Search" %}</a>
           </form>
