@@ -127,11 +127,10 @@ def populate_hostnames(equipment_list):
     @return: A QuerySet with equipment's hostname attribute populated
     '''
 
-    # TODO: Just a HACK 
     try:
         for equipment in equipment_list:
             factvalues = puppet_search(equipment.serial)
-            if factvalues.count() == 1:
+            if factvalues.values('host__name').distinct().count() == 1:
                 equipment.hostname=factvalues[0].host.name
             else:
                 equipment.hostname=None
