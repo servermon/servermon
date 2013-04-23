@@ -170,10 +170,6 @@ def suggest(request):
             ]
             )
     except DatabaseError:
-        response = simplejson.dumps([ key,
-            list(results['hwdoc'].values_list('serial', flat=True)) +
-            list(results['hwdoc'].values_list('serial__count', flat=True))
-            ]
-            )
+        response = simplejson.dumps([ key, ])
 
     return HttpResponse(response, mimetype = 'application/x-suggestions+json')
