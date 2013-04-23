@@ -22,6 +22,7 @@ from servermon.projectwide import functions as projectwide_functions
 from servermon.puppet.models import Host, Fact, FactValue
 from servermon.updates.models import Package
 from servermon.compat import render
+from django.core.exceptions import FieldError
 from django.http import HttpResponse
 from django.contrib.sites.models import Site
 from django.utils import simplejson
@@ -169,7 +170,7 @@ def suggest(request):
             list(results['puppet'].values_list('value__count', flat=True)),
             ]
             )
-    except DatabaseError:
+    except (DatabaseError, FieldError):
         response = simplejson.dumps([ key, ])
 
     return HttpResponse(response, mimetype = 'application/x-suggestions+json')
