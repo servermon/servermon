@@ -4,3 +4,4 @@ settings.py
 /urls.py
 *.sqlite*
 *.db
+*~

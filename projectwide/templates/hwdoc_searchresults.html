@@ -31,8 +31,8 @@
       {% empty %}
       &mdash;
       </td>
-      <td>{% if result.hostname %}<a href="{% url updates.views.host result.hostname %}">{{ result.hostname }}</a>{% else %}&mdash;{% endif %}</td>
       {% endfor %}
+      <td>{% if result.hostname %}<a href="{% url updates.views.host result.hostname %}">{{ result.hostname }}</a>{% else %}&mdash;{% endif %}</td>
     </tr>
     {% endfor %}
     </tbody>
