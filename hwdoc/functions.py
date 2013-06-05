@@ -59,11 +59,11 @@ def search(q):
             if key.upper().replace('R','').replace('U','').isdigit():
                 rackunit = key.upper().replace('R','').replace('U','')
                 if len(rackunit) < 3:
-                    result = Equipment.objects.filter(rack=rackunit)
+                    result = Equipment.objects.filter(rack__name__contains=rackunit)
                 elif len(rackunit) == 3:
                     result = Equipment.objects.none()
                 elif len(rackunit) == 4:
-                    result = Equipment.objects.filter(rack=rackunit[0:2], unit=rackunit[2:4])
+                    result = Equipment.objects.filter(rack__name__contains=rackunit[0:2], unit=rackunit[2:4])
                 else:
                     result = Equipment.objects.filter(serial=key)
             else:
