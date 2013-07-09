@@ -9,3 +9,12 @@ function fetch_and_update(obj, url) {
     $(obj).children('ul').html(r);
   });
 }
+
+$(document).ready(function() {
+  $('.toggles').on('click', function(event) {
+    var toggle = $(this).data('toggle');
+    event.preventDefault();
+    event.stopPropagation();
+    $(toggle).toggle('slow');
+  });
+});
