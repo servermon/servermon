@@ -13,7 +13,7 @@ class Migration(DataMigration):
             rack.save()
 
     def backwards(self, orm):
-        racks = orm.Rack.update(name='')
+        racks = orm.Rack.objects.update(name='')
     
     models = {
         'hwdoc.datacenter': {
