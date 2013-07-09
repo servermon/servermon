@@ -53,7 +53,7 @@ class EquipmentTestCase(unittest.TestCase):
                                 width = 19)
         self.dc = Datacenter.objects.create(name='Test DC')
         self.rackrow = RackRow.objects.create(name='testing', dc=self.dc)
-        self.rack = Rack.objects.create(model=self.rackmodel)
+        self.rack = Rack.objects.create(model=self.rackmodel, name='testrack')
         RackPosition.objects.create(rack=self.rack, rr= self.rackrow, position=10)
 
         self.server1 = Equipment.objects.create(
@@ -118,7 +118,7 @@ class EquipmentTestCase(unittest.TestCase):
         self.assertFalse(search(''))
 
     def test_search_rack(self):
-        self.assertEqual(search(str(self.server1.rack.pk)).count(), 2)
+        self.assertEqual(search(str(self.server1.rack.name)).count(), 2)
 
     def test_search_serial(self):
         self.assertEqual(search(self.server1.serial)[0].serial, self.server1.serial)
@@ -134,7 +134,7 @@ class EquipmentTestCase(unittest.TestCase):
         self.assertNotEqual(len(tokens), 0)
 
     def test_populate_tickets(self):
-        self.assertEqual(populate_tickets(search(str(self.server2.rack.pk))).count(), 2)
+        self.assertEqual(populate_tickets(search(str(self.server2.rack.name))).count(), 2)
 
 
 class ViewsTestCase(unittest.TestCase):

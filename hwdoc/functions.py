@@ -29,6 +29,7 @@ from django.db.models import Q
 from socket import gethostbyaddr, herror, gaierror, error
 from django.utils.translation import ugettext as _
 from django.conf import settings
+from django.db import DatabaseError
 import re
 
 def search(q):
@@ -56,32 +57,35 @@ def search(q):
 
     try:
         for key in q:
-            if key.upper().replace('R','').replace('U','').isdigit():
-                rackunit = key.upper().replace('R','').replace('U','')
-                if len(rackunit) < 3:
-                    result = Equipment.objects.filter(rack__name__contains=rackunit)
-                elif len(rackunit) == 3:
-                    result = Equipment.objects.none()
-                elif len(rackunit) == 4:
-                    result = Equipment.objects.filter(rack__name__contains=rackunit[0:2], unit=rackunit[2:4])
-                else:
-                    result = Equipment.objects.filter(serial=key)
+            try:
+                dns = gethostbyaddr(key)[0]
+            except (herror, gaierror, IndexError, error, UnicodeEncodeError):
+                dns = ''
+            mac = canonicalize_mac(key)
+            # A heuristic to allow user to filter queries down to the unit level
+            # using a simple syntax
+            m = re.search('(^\w?\d\d)[Uu]?(\d\d)$', key)
+            if m:
+                rack = m.group(1)
+                unit = m.group(2)
             else:
-                try:
-                    dns = gethostbyaddr(key)[0]
-                except (herror, gaierror, IndexError, error, UnicodeEncodeError):
-                    dns = ''
-                mac = canonicalize_mac(key)
-                result = Equipment.objects.filter(
-                                                Q(serial=key)|
-                                                Q(model__name__icontains=key)|
-                                                Q(allocation__name__icontains=key)|
-                                                Q(allocation__contacts__name__icontains=key)|
-                                                Q(allocation__contacts__surname__icontains=key)|
-                                                Q(servermanagement__mac__icontains=mac)|
-                                                Q(servermanagement__hostname__icontains=key)|
-                                                Q(servermanagement__hostname=dns)
-                                                )
+                rack = ''
+                unit = None
+
+            result = Equipment.objects.filter(
+                                            Q(serial=key)|
+                                            Q(rack__name__contains=key)|
+                                            Q(rack__name=rack)|
+                                            Q(model__name__icontains=key)|
+                                            Q(allocation__name__icontains=key)|
+                                            Q(allocation__contacts__name__icontains=key)|
+                                            Q(allocation__contacts__surname__icontains=key)|
+                                            Q(servermanagement__mac__icontains=mac)|
+                                            Q(servermanagement__hostname__icontains=key)|
+                                            Q(servermanagement__hostname=dns)
+                                            )
+            if unit:
+                result = result.filter(unit=unit)
             ids.extend(result.distinct().values_list('id', flat=True))
             ids = list(set(ids))
             return Equipment.objects.filter(pk__in=ids).distinct()

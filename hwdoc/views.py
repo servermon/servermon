@@ -134,7 +134,7 @@ def rack(request, rack_id):
     template = 'rack.html'
 
     rack = get_object_or_404(Rack, pk=rack_id)
-    equipments = functions.search(str(rack.pk))
+    equipments = functions.search(str(rack.name))
     equipments = functions.populate_tickets(equipments)
     equipments = functions.populate_hostnames(equipments)
 
