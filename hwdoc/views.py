@@ -134,6 +134,21 @@ def rack(request, rack_id):
     template = 'rack.html'
 
     rack = get_object_or_404(Rack, pk=rack_id)
+    try:
+        rack.prev = Rack.objects.filter(
+                rackposition__position__lt=rack.rackposition.position,
+                rackposition__rr=rack.rackposition.rr
+                ).order_by('-rackposition__position')[0]
+    except IndexError:
+        rack.prev = None
+    try:
+        rack.next = Rack.objects.filter(
+                rackposition__position__gt=rack.rackposition.position,
+                rackposition__rr=rack.rackposition.rr
+                ).order_by('rackposition__position')[0]
+    except IndexError:
+        rack.next = None
+
     equipments = functions.search(str(rack.name))
     equipments = functions.populate_tickets(equipments)
     equipments = functions.populate_hostnames(equipments)
