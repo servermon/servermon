@@ -64,7 +64,7 @@ def search(q):
             mac = canonicalize_mac(key)
             # A heuristic to allow user to filter queries down to the unit level
             # using a simple syntax
-            m = re.search('(^\w?\d\d)[Uu]?(\d\d)$', key)
+            m = re.search('^(\w?\d\d)[Uu]?(\d\d)$', key)
             if m:
                 rack = m.group(1)
                 unit = m.group(2)
@@ -75,7 +75,7 @@ def search(q):
             result = Equipment.objects.filter(
                                             Q(serial=key)|
                                             Q(rack__name__contains=key)|
-                                            Q(rack__name=rack)|
+                                            Q(rack__name__iexact=rack)|
                                             Q(model__name__icontains=key)|
                                             Q(allocation__name__icontains=key)|
                                             Q(allocation__contacts__name__icontains=key)|
