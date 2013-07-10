@@ -1,6 +1,33 @@
+
+===========
+0.6.1 Release
+
+1ecd8cf Case insensitive rack names in searches
+1dcdfaa Fix a bug with racks not in row
+504644a Add navigational arrows in rack view
+9b44c74 Glyphicons for previous, next in equipment view
+066e73b Following Bootstrap scaffolding
+1ed92aa Handle toggle button in hostview a bit better
+c943c5d Search with rackunit notation would not always work
+172be8c 0020_populatecracknames backwards migration bug
+8ebfc2e Fix bug with rack search not matching in hwdoc
+7af9079 Bring text/plain search output up to par with html
+c235f2d Fix a small bug with table in
+
 ===========
 0.6.0 Release
 
+d4aae9f Handle FieldError in opensearch suggestions
+94f7856 Handle case with DatabaseError in suggestions
+bdd7ca1 INSTALLED_APPS in templates
+b9d0552 Better handling of search form
+efd8749 Fix hwdoc case where hostname could be missing
+1c2ad86 Fix bug with forced selection in search
+ce9f20e subnav view documented and unit tested
+1e00b01 Handle DatabaseError in Opensearch suggestions
+c0b53f1 Use bootstrap's typeahead and not jQuery UI
+464d665 Ready for release 0.6.0
+3532dbb Remove unreferenced updates.css
 f1031d7 Populate link from hwdoc results to puppet hosts
 6f3f669 Populate submenu hrefs
 c711f8a Populate href for dropdown submenu items

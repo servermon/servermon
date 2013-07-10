@@ -11,6 +11,14 @@ Read the following for instructions on how to upgrade between versions
 Please note that only upgrade paths for consecutive versions have been tested.
 Upgrade from 0.1 to 0.3 for example may or may not work.
 
+Upgrading from 0.6.0 to 0.6.1
+=========================
+You should perform the following
+
+* Stop application server (wsgi, gunicorn, etc)
+* Untar new version (backup the old one first) on top of the old one 
+* Restart application server (wsgi, gunicorn, etc)
+
 Upgrading from 0.5.0 to 0.6.0
 =========================
 You should perform the following
