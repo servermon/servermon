@@ -5,31 +5,33 @@
 {% block heading %}{% trans "Package list" %}{% endblock %}
 
 {% block content %}
-<div class="span8 offset2">
-  <table class="table table-striped table-condensed sortable">
-    <thead>
+<div class="row-fluid text-center">
+  <div class="span8 offset2">
+    <table class="table table-striped table-condensed sortable">
+      <thead>
+        <tr>
+          <th>{% trans "Package name" %}</th>
+  	<th class="{ sorter: 'digit'}">{% trans "Hosts pending an update" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for package in packages %}
       <tr>
-        <th>{% trans "Package name" %}</th>
-	<th class="{ sorter: 'digit'}">{% trans "Hosts pending an update" %}</th>
+        <td><a href="{{ package.name }}">{{ package.name }}</a></td>
+        <td>
+          {{ package.host_count }} {% trans "hosts" %}
+          {% if package.security_count %}
+          {% with package.security_count|add:"0" as count %}
+          <img src="{{ MEDIA_URL }}secure.png" alt="{{ count }} security update{{ count|pluralize }}"  title="{{ count }} security update{{ count|pluralize }}" />
+          {% endwith %}
+          {% endif %}
+        </td>
       </tr>
-    </thead>
-    <tbody>
-    {% for package in packages %}
-    <tr>
-      <td><a href="{{ package.name }}">{{ package.name }}</a></td>
-      <td>
-        {{ package.host_count }} {% trans "hosts" %}
-        {% if package.security_count %}
-        {% with package.security_count|add:"0" as count %}
-        <img src="{{ MEDIA_URL }}secure.png" alt="{{ count }} security update{{ count|pluralize }}"  title="{{ count }} security update{{ count|pluralize }}" />
-        {% endwith %}
-        {% endif %}
-      </td>
-    </tr>
-    {% endfor %}
-    </tbody>
-  </table>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="span2"></div>
 </div>
-<div class="span2"></div>
 
 {% endblock %}

@@ -4,39 +4,43 @@
 {% block heading %}Overview{% endblock %}
 
 {% block content %}
-<div id="statistics" class="span6 offset3">
-<h2>Statistics</h2>
-<span>All Hosts: {{ hosts.count }}</span>|
-<span>Hosts Pending Update: <a href="{% url updates.views.hostlist %}">{{ updatecount }}</a></span>
-<br>
-<span>Package Updates: <a href="{% url updates.views.packagelist %}">{{ packagecount }}</a></span>|
-<span>Security Updates: <a href="{% url updates.views.packagelist %}">{{ securitycount }}</a></span>
-<br>
-<span>Facts: {{ factcount }}</span>|
-<span>Fact Entries: {{ factvaluecount }}</span>
+<div class="row-fluid text-center">
+  <div id="statistics" class="span6 offset3">
+    <h2>Statistics</h2>
+    <span>All Hosts: {{ hosts.count }}</span>|
+    <span>Hosts Pending Update: <a href="{% url updates.views.hostlist %}">{{ updatecount }}</a></span>
+    <br>
+    <span>Package Updates: <a href="{% url updates.views.packagelist %}">{{ packagecount }}</a></span>|
+    <span>Security Updates: <a href="{% url updates.views.packagelist %}">{{ securitycount }}</a></span>
+    <br>
+    <span>Facts: {{ factcount }}</span>|
+    <span>Fact Entries: {{ factvaluecount }}</span>
+  </div>
+  <div class="span3"></div>
 </div>
-<div class="span3"></div>
-<div id="issues" class="span6 offset3">
-{% if problemhosts %}
-<h2>Problematic puppetized hosts</h2>
-<div>The following <strong>{{ problemhosts.count }}</strong> hosts have not contacted puppetmaster during the past {{ timeout|timesince }}:</div>
-<table class="table table-striped table-condensed sortable">
-  <thead>
-    <tr>
-      <th>Hostname</th>
-      <th class="{ sorter: 'digit' }">Last update</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for host in problemhosts %}
-    <tr>
-      <td><a href="{% url updates.views.host host.name %}">{{ host.name }}</a></td>
-      <td>{{ host.updated_at|timesince }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-{% endif %}
+<div class="row-fluid text-center">
+  <div id="issues" class="span6 offset3">
+  {% if problemhosts %}
+  <h2>Problematic puppetized hosts</h2>
+  <div>The following <strong>{{ problemhosts.count }}</strong> hosts have not contacted puppetmaster during the past {{ timeout|timesince }}:</div>
+  <table class="table table-striped table-condensed sortable">
+    <thead>
+      <tr>
+        <th>Hostname</th>
+        <th class="{ sorter: 'digit' }">Last update</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for host in problemhosts %}
+      <tr>
+        <td><a href="{% url updates.views.host host.name %}">{{ host.name }}</a></td>
+        <td>{{ host.updated_at|timesince }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+  </div>
+  <div class="span3"></div>
 </div>
-<div class="span3"></div>
 {% endblock %}

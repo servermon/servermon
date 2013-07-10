@@ -2,12 +2,14 @@
 {% load i18n %}
 {% block heading %}{% trans "Advanced Search" %}{% endblock %}
 {% block content %}
-<div class="span8 offset2"> 
-  <h3>{% trans "Advanced Search" %}</h3>
-  <form method="POST" action="{% url projectwide.views.search %}">
-    <textarea style="width: 100%" name="qarea" cols="50" rows="20" placeholder="{% trans "Insert your free text to be searched here. For example nmap output" %}"></textarea>
-    <button class="btn btn-primary" type="submit"/>{% trans "Search" %}</button>
-  </form>
+<div class="row-fluid text-center">
+  <div class="span8 offset2"> 
+    <h3>{% trans "Advanced Search" %}</h3>
+    <form method="POST" action="{% url projectwide.views.search %}">
+      <textarea style="width: 100%" name="qarea" cols="50" rows="20" placeholder="{% trans "Insert your free text to be searched here. For example nmap output" %}"></textarea>
+      <button class="btn btn-primary" type="submit"/>{% trans "Search" %}</button>
+    </form>
+  </div>
+  <div class="span2"></div>
 </div>
-<div class="span2"></div>
 {% endblock %}

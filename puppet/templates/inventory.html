@@ -22,44 +22,49 @@ $(document).ready(function() {
 });
 </script>
 
-<div class="alert alert-info">
-{% blocktrans %}
-Click on a cell to filter by its value; click on a column header to sort; shift+click to sort using multiple columns
-{% endblocktrans %}
+<div class="row-fluid text-center">
+  <div class="span8 offset2 alert alert-info">
+  {% blocktrans %}
+  Click on a cell to filter by its value; click on a column header to sort; shift+click to sort using multiple columns
+  {% endblocktrans %}
+  </div>
+  <div class="span2"></div>
 </div>
 
-<div class="span8 offset2">
-  <table id="inventory" class="table table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>{% trans "Hostname" %}</th>
-        <th>{% trans "Vendor" %}</th>
-        <th>{% trans "Model" %}</th>
-        <th>{% trans "CPUs" %}</th>
-        <th>{% trans "Memory" %}</th>
-        <th>{% trans "Arch" %}</th>
-        <th>{% trans "BIOS Date" %}</th>
-        <th>{% trans "BIOS Version" %}</th>
-        <th>{% trans "Serial" %}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for host in hosts %}
-      <tr>
-        <td><a href="{% url updates.views.host host.name %}">{{ host.name }}</a></td>
-        <td class="filter">{{ host.manufacturer }}</td>
-        <td class="filter">{{ host.productname }}</td>
-        <td class="filter">{{ host.processorcount }}</td>
-        <td class="filter">{{ host.memorysize }}</td>
-        <td class="filter">{{ host.architecture }}</td>
-        <td class="filter"><span class="mono">{{ host.bios_date }}</span></td>
-        <td class="filter"><span class="mono">{{ host.bios_version }}</span></td>
-        <td><span class="">{{ host.serialnumber }}</span></td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+<div class="row-fluid text-center">
+  <div class="span8 offset2">
+    <table id="inventory" class="table table-striped table-condensed">
+      <thead>
+        <tr>
+          <th>{% trans "Hostname" %}</th>
+          <th>{% trans "Vendor" %}</th>
+          <th>{% trans "Model" %}</th>
+          <th>{% trans "CPUs" %}</th>
+          <th>{% trans "Memory" %}</th>
+          <th>{% trans "Arch" %}</th>
+          <th>{% trans "BIOS Date" %}</th>
+          <th>{% trans "BIOS Version" %}</th>
+          <th>{% trans "Serial" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for host in hosts %}
+        <tr>
+          <td><a href="{% url updates.views.host host.name %}">{{ host.name }}</a></td>
+          <td class="filter">{{ host.manufacturer }}</td>
+          <td class="filter">{{ host.productname }}</td>
+          <td class="filter">{{ host.processorcount }}</td>
+          <td class="filter">{{ host.memorysize }}</td>
+          <td class="filter">{{ host.architecture }}</td>
+          <td class="filter"><span class="mono">{{ host.bios_date }}</span></td>
+          <td class="filter"><span class="mono">{{ host.bios_version }}</span></td>
+          <td><span class="">{{ host.serialnumber }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="span2"></div>
 </div>
-<div class="span2"></div>
 
 {% endblock %}

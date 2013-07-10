@@ -2,30 +2,32 @@
 {% load i18n %}
 {% block heading %}{{ datacenter }}{% endblock %}
 {% block content %}
-<div id="datacenter" class="span8 offset2">
-  <h3>{% trans "Datacenter Info" %}</h3>
-  <table class="table table-striped table-condensed">
-    <tbody>
-      <tr><th>{% trans "Name" %}:</th><td>{{ datacenter.name }}</td></tr>
-    </tbody>
-  </table> 
-  <h3>{% trans "Rack rows Info" %}</h3>
-  <table class="table table-striped table-condensed">
-    <tbody>
-    <tr>
-      <th>{% trans "Rack rows" %}</th>
-    </tr>
-    {% for rackrow in rackrows %}
-    <tr>
-      {% if rackrow.tickets %}
-      <td><a href="{% url hwdoc.views.rackrow rackrow.pk %}">{{ rackrow.name }}</a></td>
-      {% else %}
-      <td><a href="{% url hwdoc.views.rackrow rackrow.pk %}">{{ rackrow.name }}</a></td>
-      {% endif %}
-    </tr>
-    {% endfor %}
-    </tbody>
-  </table>
+<div class="row-fluid text-center">
+  <div id="datacenter" class="span8 offset2">
+    <h3>{% trans "Datacenter Info" %}</h3>
+    <table class="table table-striped table-condensed">
+      <tbody>
+        <tr><th>{% trans "Name" %}:</th><td>{{ datacenter.name }}</td></tr>
+      </tbody>
+    </table> 
+    <h3>{% trans "Rack rows Info" %}</h3>
+    <table class="table table-striped table-condensed">
+      <tbody>
+      <tr>
+        <th>{% trans "Rack rows" %}</th>
+      </tr>
+      {% for rackrow in rackrows %}
+      <tr>
+        {% if rackrow.tickets %}
+        <td><a href="{% url hwdoc.views.rackrow rackrow.pk %}">{{ rackrow.name }}</a></td>
+        {% else %}
+        <td><a href="{% url hwdoc.views.rackrow rackrow.pk %}">{{ rackrow.name }}</a></td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="span2"></div>
 </div>
-<div class="span2"></div>
 {% endblock %}
