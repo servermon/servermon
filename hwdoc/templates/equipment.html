@@ -2,11 +2,11 @@
 {% load i18n %}
 {% block heading %}
 {% if equipment.prev %}
-  <a href="{% url hwdoc.views.equipment equipment.prev.pk %}">{% trans "Previous" %}</a>
+<a class="btn" href="{% url hwdoc.views.equipment equipment.prev.pk %}"><i class="icon-step-backward"></i></a>
 {% endif %}
 {{ equipment }}
 {% if equipment.next %}
-  <a href="{% url hwdoc.views.equipment equipment.next.pk %}">{% trans "Next" %}</a>
+<a class="btn" href="{% url hwdoc.views.equipment equipment.next.pk %}"><i class="icon-step-forward"></i></a>
 {% endif %}
 {% endblock %}
 {% block content %}
