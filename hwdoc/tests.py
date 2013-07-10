@@ -54,7 +54,7 @@ class EquipmentTestCase(unittest.TestCase):
         self.dc = Datacenter.objects.create(name='Test DC')
         self.rackrow = RackRow.objects.create(name='testing', dc=self.dc)
         self.rack = Rack.objects.create(model=self.rackmodel, name='testrack')
-        RackPosition.objects.create(rack=self.rack, rr= self.rackrow, position=10)
+        RackPosition.objects.create(rack=self.rack, rr=self.rackrow, position=10)
 
         self.server1 = Equipment.objects.create(
                                 model = self.model1,
@@ -155,7 +155,7 @@ class ViewsTestCase(unittest.TestCase):
                                 min_mounting_depth = 19,
                                 height = 42,
                                 width = 19)
-        self.rack = Rack.objects.create(model=self.rackmodel)
+        self.rack = Rack.objects.create(model=self.rackmodel, name='testrack')
 
         self.server = Equipment.objects.create(
                                 model = self.model,
@@ -168,7 +168,8 @@ class ViewsTestCase(unittest.TestCase):
         self.project = Project.objects.create(name='project')
         self.dc = Datacenter.objects.create(name='Test DC')
         self.rackrow = RackRow.objects.create(name='1st rackrow', dc=self.dc)
-
+        RackPosition.objects.create(rack=self.rack, rr=self.rackrow, position=10)
+        self.racknotinrow = Rack.objects.create(model=self.rackmodel, name='racknotinrow')
     def tearDown(self):
         '''
         Command run after every test
@@ -225,9 +226,14 @@ class ViewsTestCase(unittest.TestCase):
         response = c.get('/hwdoc/rackrow/%s/' % self.rackrow.pk)
         self.assertEqual(response.status_code, 200)
 
-    def test_rack(self):
+    def test_rack_in_row(self):
         c = Client()
         response = c.get('/hwdoc/rack/%s/' % self.rack.pk)
+        self.assertEqual(response.status_code, 200)
+
+    def test_rack_not_in_row(self):
+        c = Client()
+        response = c.get('/hwdoc/rack/%s/' % self.racknotinrow.pk)
         self.assertEqual(response.status_code, 200)
 
     def test_subnav(self):

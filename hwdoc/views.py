@@ -19,7 +19,7 @@ hwdoc views module
 '''
 
 from servermon.hwdoc.models import Project, EquipmentModel, Equipment, \
-        ServerManagement, Rack, RackRow, Datacenter
+        ServerManagement, Rack, RackRow, Datacenter, RackPosition
 from servermon.projectwide import functions as projectwide_functions
 from servermon.hwdoc import functions
 from servermon.compat import render
@@ -139,14 +139,14 @@ def rack(request, rack_id):
                 rackposition__position__lt=rack.rackposition.position,
                 rackposition__rr=rack.rackposition.rr
                 ).order_by('-rackposition__position')[0]
-    except IndexError:
+    except (IndexError, RackPosition.DoesNotExist):
         rack.prev = None
     try:
         rack.next = Rack.objects.filter(
                 rackposition__position__gt=rack.rackposition.position,
                 rackposition__rr=rack.rackposition.rr
                 ).order_by('rackposition__position')[0]
-    except IndexError:
+    except (IndexError, RackPosition.DoesNotExist):
         rack.next = None
 
     equipments = functions.search(str(rack.name))
