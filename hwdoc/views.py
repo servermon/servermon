@@ -119,7 +119,8 @@ def project(request, project_id):
     template = 'project.html'
 
     project = get_object_or_404(Project,pk=project_id)
-    return render(request, template, { 'project': project, })
+    equipments = { 'hwdoc': functions.search(project.name) }
+    return render(request, template, { 'project': project, 'equipments': equipments })
 
 def rack(request, rack_id):
     '''

@@ -34,4 +34,13 @@
   </div>
   <div class="span2"></div>
 </div>
+<div class="row-fluid text-center">
+  <div id="project" class="span8 offset2">
+    <h3>{% trans "Equipment Info" %}</h3>
+    {% with equipments as results %}
+    {% include "hwdoc_searchresults.html" %}
+    {% endwith %}
+  </div>
+  <div class="span2"></div>
+</div>
 {% endblock %}
