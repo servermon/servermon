@@ -3,8 +3,12 @@ function fetch_and_update(obj, url) {
   $.get(url + obj.id,
   function(data) {
     var r = '';
-    for (item in data) {
-      r = r + '<li><a href="' + hwdocurl + data[item].pk + '">' + data[item].fields.name + '</a></li>';
+    for (item in data.val) {
+      if ( data.val[item].hasOwnProperty(data.key) ) {
+        r = r + '<li><a href="' + hwdocurl + data.val[item][data.key] + '">' + data.val[item].fields.name + '</a></li>';
+      } else {
+        r = r + '<li><a href="' + hwdocurl + data.val[item].fields[data.key] + '">' + data.val[item].fields.name + '</a></li>';
+      }
     }
     $(obj).children('ul').html(r);
   });

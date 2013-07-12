@@ -49,14 +49,24 @@ def subnav(request, subnav):
         'datacenters': Datacenter.objects.all(),
         'racks': Rack.objects.order_by('id').all(),
         'projects': Project.objects.order_by('name').all(),
-        'rackrows': RackRow.objects.order_by('id').all()
+        'rackrows': RackRow.objects.order_by('id').all(),
+        'models': EquipmentModel.objects.order_by('name').all(),
+    }
+    keys = {
+        'datacenters': '"pk"',
+        'racks': '"pk"',
+        'projects': '"pk"',
+        'rackrows': '"pk"',
+        'models': '"name"',
     }
 
     if subnav not in switch.keys():
         return HttpResponseBadRequest('[{"error": "Incorrect subnav specified"}]',
                 content_type='application/json')
 
-    return HttpResponse(serializers.serialize('json',switch[subnav]),
+    data = serializers.serialize('json', switch[subnav])
+
+    return HttpResponse('{ "key": %s, "val": %s}' % (keys[subnav], data),
                             content_type="application/json")
 
 def index(request):

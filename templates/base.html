@@ -97,6 +97,11 @@
                     <li><a href="#">{% trans "Loading" %}</a></li>
                   </ul>
                 </li>
+		<li id="models" class="dropdown-submenu hwdocfetchable"><a href="{% url projectwide.views.search %}?q=">{% trans "Hardware Models" %}</a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">{% trans "Loading" %}</a></li>
+                  </ul>
+                </li>
               </ul>
 	      {% endif %}
             </li>
