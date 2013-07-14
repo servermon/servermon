@@ -19,13 +19,15 @@ hwdoc views module
 '''
 
 from servermon.hwdoc.models import Project, EquipmentModel, Equipment, \
-        ServerManagement, Rack, RackRow, Datacenter, RackPosition
+        ServerManagement, Rack, RackRow, Datacenter, RackPosition, Vendor
 from servermon.projectwide import functions as projectwide_functions
 from servermon.hwdoc import functions
 from servermon.compat import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.core import serializers
+from django.db.models import Count
+import json
 
 def subnav(request, subnav):
     '''
@@ -68,6 +70,43 @@ def subnav(request, subnav):
 
     return HttpResponse('{ "key": %s, "val": %s}' % (keys[subnav], data),
                             content_type="application/json")
+
+def flotdata(request, datatype):
+    '''
+    hwdoc flot data view. XMLHttpRequest (aka AJAX) only view
+
+    @type   request: HTTPRequest 
+    @param  request: Django HTTPRequest object
+    @type   datatype: String
+    @param  request: description of an hwdoc entity requesting listing
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding JSON
+    '''
+
+    if request.is_ajax() == False:
+        return HttpResponseBadRequest('Not an AJAX request',
+        content_type='text/plain')
+
+    with_comments = { 'name': 'With' }
+    without_comments = { 'name': 'Without' }
+    with_comments.update(Equipment.objects.exclude(comments='').aggregate(num_equipment=Count('comments')))
+    without_comments.update(Equipment.objects.filter(comments='').aggregate(num_equipment=Count('comments')))
+
+    switch = {
+        'datacenters': Datacenter.objects.annotate(num_equipment=Count('rackrow__rackposition__rack__equipment')).values('name','num_equipment'),
+        'projects': Project.objects.annotate(num_equipment=Count('equipment')).values('name','num_equipment'),
+        'vendors': Vendor.objects.annotate(num_equipment=Count('equipmentmodel__equipment')).values('name','num_equipment'),
+        'models': EquipmentModel.objects.annotate(num_equipment=Count('equipment')).values('name','num_equipment'),
+        'comments': (with_comments, without_comments),
+        'tickets': Project.objects.annotate(num_equipment=Count('equipment')).values('name','num_equipment'),
+    }
+    if datatype not in switch.keys():
+        return HttpResponseBadRequest('[{"error": "Incorrect datatype specified"}]',
+                content_type='application/json')
+
+    data = map(lambda x: {'label': x['name'], 'data': x['num_equipment']}, switch[datatype])
+
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
 def index(request):
     '''

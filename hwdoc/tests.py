@@ -242,3 +242,9 @@ class ViewsTestCase(unittest.TestCase):
                 HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
 
+    def test_flotdata(self):
+        c = Client()
+        response = c.get('/hwdoc/flotdata/%s/' % 'datacenters',
+                HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
+
