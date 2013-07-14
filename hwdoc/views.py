@@ -118,17 +118,7 @@ def index(request):
     @return: HTTPResponse object rendering corresponding HTML
     '''
 
-    datacenters = Datacenter.objects.all()
-    racks = Rack.objects.order_by('id').all()
-    projects = Project.objects.order_by('name').all()
-    models = EquipmentModel.objects.select_related('vendor').order_by('vendor__name','name').all()
-    
-    return render(request, 'hwdocindex.html', {
-                'racks': racks,
-                'projects': projects,
-                'models': models,
-                'datacenters': datacenters,
-            })
+    return render(request, 'hwdocindex.html')
 
 def equipment(request, equipment_id):
     '''

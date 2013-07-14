@@ -14,6 +14,11 @@ function fetch_and_update(obj, url) {
   });
 }
 
+// A custom label formatter used by several of the plots
+function labelFormatter(label, series) {
+  return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
+}
+
 $(document).ready(function() {
   $('.toggles').on('click', function(event) {
     var toggle = $(this).data('toggle');
@@ -21,4 +26,35 @@ $(document).ready(function() {
     event.stopPropagation();
     $(toggle).toggle('slow');
   });
+});
+
+
+$(document).ready(function() {
+  $('.hwdocgraph').each(function (index) {
+    var url = $(this).data('get');
+    var div = $(this);
+    $.get(url, function(data) {
+    div.plot(data, {
+      series: {
+          pie: {
+              show: true,
+              radius: 1,
+              label: {
+                  show: true,
+                  radius: 0.7,
+                  formatter: labelFormatter,
+                  threshold: 0.05
+              }
+          }
+      },
+      grid: {
+	  hoverable: true,
+	  clickable: true
+      },
+      legend: {
+          show: true
+      }
+     });
+    });
+ });
 });
