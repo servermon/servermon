@@ -23,10 +23,10 @@ from servermon.hwdoc.models import Project, EquipmentModel, Equipment, \
 from servermon.projectwide import functions as projectwide_functions
 from servermon.hwdoc import functions
 from servermon.compat import render
-from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, HttpResponseBadRequest
-from django.core import serializers
 from django.db.models import Count
+from django.shortcuts import get_object_or_404
+from django.core.urlresolvers import reverse
 import json
 
 def subnav(request, subnav):
@@ -54,21 +54,28 @@ def subnav(request, subnav):
         'rackrows': RackRow.objects.order_by('id').all(),
         'models': EquipmentModel.objects.order_by('name').all(),
     }
-    keys = {
-        'datacenters': '"pk"',
-        'racks': '"pk"',
-        'projects': '"pk"',
-        'rackrows': '"pk"',
-        'models': '"name"',
+    urls = {
+        'datacenters': { 'view': 'servermon.hwdoc.views.datacenter', 'args': 'pk', 'append': None },
+        'racks': { 'view': 'servermon.hwdoc.views.rack', 'args': 'pk', 'append': None },
+        'projects': { 'view': 'servermon.hwdoc.views.project', 'args': 'pk', 'append': None, },
+        'rackrows': { 'view': 'servermon.hwdoc.views.rackrow', 'args': 'pk', 'append': None, },
+        'models': { 'view': 'servermon.projectwide.views.search', 'args': None, 'append': 'q=' },
     }
 
     if subnav not in switch.keys():
         return HttpResponseBadRequest('[{"error": "Incorrect subnav specified"}]',
                 content_type='application/json')
 
-    data = serializers.serialize('json', switch[subnav])
+    data = switch[subnav] 
+    data = map(lambda x: {
+        'name': x.name,
+        'url': reverse(urls[subnav]['view'],
+                        args=(getattr(x, urls[subnav]['args']),) if urls[subnav]['args'] else None) +
+                        '?%s%s' % (urls[subnav]['append'], x.name) if urls[subnav]['append'] else ''
+                        }, data)
+    data = json.dumps(data)
 
-    return HttpResponse('{ "key": %s, "val": %s}' % (keys[subnav], data),
+    return HttpResponse(data,
                             content_type="application/json")
 
 def flotdata(request, datatype):

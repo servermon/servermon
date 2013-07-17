@@ -1,23 +1,51 @@
-function fetch_and_update(obj, url) {
-  var hwdocurl = $(obj).children('a').attr('href').replace('1/','');
-  $.get(url + obj.id,
+function build_navs(obj) {
+  $.get($(obj).data('get'),
   function(data) {
     var r = '';
-    for (item in data.val) {
-      if ( data.val[item].hasOwnProperty(data.key) ) {
-        r = r + '<li><a href="' + hwdocurl + data.val[item][data.key] + '">' + data.val[item].fields.name + '</a></li>';
-      } else {
-        r = r + '<li><a href="' + hwdocurl + data.val[item].fields[data.key] + '">' + data.val[item].fields.name + '</a></li>';
+    for (item in data) {
+        r = r + '<li><a href="' + data[item].url + '">' + data[item].name + '</a></li>';
       }
-    }
-    $(obj).children('ul').html(r);
-  });
+    $(obj).next().html(r);
+    });
 }
 
 // A custom label formatter used by several of the plots
 function labelFormatter(label, series) {
   return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
 }
+
+$(document).ready(function() {
+  var url = $('input#q').data('get');
+  $('input#q').typeahead({
+    minLength: 2,
+    source: function(query, process) {
+      $.get(url, { q: query, limit: 8 }, function(data) {
+      process(data[1]);
+    });
+    },
+    updater: function(item) {
+      this.$element.context.parentNode.submit();
+      return item;
+    },
+    sorter: function(items) {
+      items.unshift(this.query);
+      return items;
+    }
+  });
+});
+
+$(document).ready(function() {
+  $('.sortable').tablesorter();
+});
+
+$(document).ready(function() {
+  $('.hwdocfetchable').on('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }).on('mouseenter', function(event) {
+      build_navs(this);
+    });
+});
 
 $(document).ready(function() {
   $('.toggles').on('click', function(event) {
@@ -27,7 +55,6 @@ $(document).ready(function() {
     $(toggle).toggle('slow');
   });
 });
-
 
 $(document).ready(function() {
   $('.hwdocgraph').each(function (index) {

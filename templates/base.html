@@ -26,30 +26,6 @@
 </head>
 
 <body>
-  <script type='text/javascript'>
-  $(document).ready(function() {
-    $('input#q').typeahead({
-      minLength: 2,
-      source: function(query, process) {
-        $.get('{% url projectwide.views.suggest %}', { q: query, limit: 8 }, function(data) {
-        process(data[1]);
-      });
-      },
-      updater: function(item) {
-      	this.$element.context.parentNode.submit();
-        return item;
-      },
-      sorter: function(items) {
-        items.unshift(this.query);
-	return items;
-      }
-    });
-  $('.sortable').tablesorter();
-  {% if 'servermon.hwdoc' in  INSTALLED_APPS %}
-  $('.hwdocfetchable').hover( function() { fetch_and_update(this, '{% url hwdoc.views.subnav %}') }, function () {});
-  {% endif %}
-  });
-  </script>
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
@@ -78,27 +54,27 @@
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="{% url hwdoc.views.index %}">{% trans "Hardware Inventory" %} <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="{% url hwdoc.views.index %}">{% trans "Overview" %}</a></li>
-		<li id="datacenters" class="dropdown-submenu hwdocfetchable"><a href="{% url hwdoc.views.datacenter 1 %}">{% trans "Datacenters" %}</a>
+		<li id="datacenters" class="dropdown-submenu"><a href="#" class="hwdocfetchable" data-get="{% url hwdoc.views.subnav "datacenters" %}">{% trans "Datacenters" %}</a>
                   <ul class="dropdown-menu">
                     <li><a href="#">{% trans "Loading" %}</a></li>
                   </ul>
                 </li>
-		<li id="projects" class="dropdown-submenu hwdocfetchable"><a href="{% url hwdoc.views.project 1 %}">{% trans "Projects" %}</a>
+		<li id="projects" class="dropdown-submenu"><a href="#" class="hwdocfetchable" data-get="{% url hwdoc.views.subnav "projects" %}">{% trans "Projects" %}</a>
                   <ul class="dropdown-menu">
                     <li><a href="#">{% trans "Loading" %}</a></li>
                   </ul>
                 </li>
-		<li id="racks" class="dropdown-submenu hwdocfetchable"><a href="{% url hwdoc.views.rack 1 %}">{% trans "Racks" %}</a>
+		<li id="racks" class="dropdown-submenu"><a href="#" class="hwdocfetchable" data-get="{% url hwdoc.views.subnav "racks"  %}">{% trans "Racks" %}</a>
                   <ul class="dropdown-menu">
                     <li><a href="#">{% trans "Loading" %}</a></li>
                   </ul>
                 </li>
-		<li id="rackrows" class="dropdown-submenu hwdocfetchable"><a href="{% url hwdoc.views.rackrow 1 %}">{% trans "Rack Rows" %}</a>
+		<li id="rackrows" class="dropdown-submenu"><a href="#" class="hwdocfetchable" data-get="{% url hwdoc.views.subnav "rackrows" %}">{% trans "Rack Rows" %}</a>
                   <ul class="dropdown-menu">
                     <li><a href="#">{% trans "Loading" %}</a></li>
                   </ul>
                 </li>
-		<li id="models" class="dropdown-submenu hwdocfetchable"><a href="{% url projectwide.views.search %}?q=">{% trans "Hardware Models" %}</a>
+		<li id="models" class="dropdown-submenu"><a href="#" class="hwdocfetchable" data-get="{% url hwdoc.views.subnav "models" %}">{% trans "Hardware Models" %}</a>
                   <ul class="dropdown-menu">
                     <li><a href="#">{% trans "Loading" %}</a></li>
                   </ul>
@@ -108,7 +84,7 @@
             </li>
           </ul>
           <form class="ui-front navbar-form pull-right" method="get" action="{% url projectwide.views.search %}">
-            <input id="q" class="span2 search-query" data-provider="typeahead" autocomplete="off" name="q" type="text">
+	    <input id="q" class="span2 search-query" data-provider="typeahead" autocomplete="off" data-get="{% url projectwide.views.suggest %}" name="q" type="text">
             <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
 	    <a class="btn" href="{% url projectwide.views.advancedsearch %}">{% trans "Advanced Search" %}</a>
           </form>

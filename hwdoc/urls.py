@@ -8,7 +8,7 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('servermon.hwdoc.views',
             (r'^$', 'index'),
-            (r'^subnav/((?P<subnav>[\w]+)/)?$', 'subnav'),
+            (r'^subnav/(?P<subnav>[\w]+)/$', 'subnav'),
             (r'^flotdata/(?P<datatype>[\w]+)/$', 'flotdata'),
             (r'^project/(?P<project_id>[\d]+)/$', 'project'),
             (r'^equipment/(?P<equipment_id>[\d]+)/$', 'equipment'),
