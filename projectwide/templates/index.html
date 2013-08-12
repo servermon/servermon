@@ -8,10 +8,10 @@
   <div id="statistics" class="span6 offset3">
     <h2>Statistics</h2>
     <span>All Hosts: {{ hosts.count }}</span>|
-    <span>Hosts Pending Update: <a href="{% url updates.views.hostlist %}">{{ updatecount }}</a></span>
+    <span>Hosts Pending Update: <a href="{% url "updates.views.hostlist" %}">{{ updatecount }}</a></span>
     <br>
-    <span>Package Updates: <a href="{% url updates.views.packagelist %}">{{ packagecount }}</a></span>|
-    <span>Security Updates: <a href="{% url updates.views.packagelist %}">{{ securitycount }}</a></span>
+    <span>Package Updates: <a href="{% url "updates.views.packagelist" %}">{{ packagecount }}</a></span>|
+    <span>Security Updates: <a href="{% url "updates.views.packagelist" %}">{{ securitycount }}</a></span>
     <br>
     <span>Facts: {{ factcount }}</span>|
     <span>Fact Entries: {{ factvaluecount }}</span>
@@ -33,7 +33,7 @@
     <tbody>
       {% for host in problemhosts %}
       <tr>
-        <td><a href="{% url updates.views.host host.name %}">{{ host.name }}</a></td>
+        <td><a href="{% url "updates.views.host" host.name %}">{{ host.name }}</a></td>
         <td>{{ host.updated_at|timesince }}</td>
       </tr>
       {% endfor %}

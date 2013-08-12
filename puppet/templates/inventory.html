@@ -50,7 +50,7 @@ $(document).ready(function() {
       <tbody>
         {% for host in hosts %}
         <tr>
-          <td><a href="{% url updates.views.host host.name %}">{{ host.name }}</a></td>
+          <td><a href="{% url "updates.views.host" "host.name" %}">{{ host.name }}</a></td>
           <td class="filter">{{ host.manufacturer }}</td>
           <td class="filter">{{ host.productname }}</td>
           <td class="filter">{{ host.processorcount }}</td>

@@ -19,7 +19,7 @@
       <tbody>
         {% for res in results %}
         <tr>
-          <td><a href="{% url updates.views.host res.host.name %}">{{ res.host }}</a></td>
+          <td><a href="{% url "updates.views.host" "res.host.name" %}">{{ res.host }}</a></td>
           {% for fact in res.facts %}
           <td>{% if fact %}{{ fact }}{% else %}&mdash;{% endif %}</td>
           {% endfor %}

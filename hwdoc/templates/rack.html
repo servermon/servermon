@@ -2,11 +2,11 @@
 {% load i18n %}
 {% block heading %}
 {% if rack.prev %}
-<a class="btn" href="{% url hwdoc.views.rack rack.prev.pk %}"><i class="icon-step-backward"></i></a>
+<a class="btn" href="{% url "hwdoc.views.rack" "rack.prev.pk" %}"><i class="icon-step-backward"></i></a>
 {% endif %}
 {{ rack }}
 {% if rack.next %}
-<a class="btn" href="{% url hwdoc.views.rack rack.next.pk %}"><i class="icon-step-forward"></i></a>
+<a class="btn" href="{% url "hwdoc.views.rack" "rack.next.pk" %}"><i class="icon-step-forward"></i></a>
 {% endif %}
 {% endblock %}
 {% block content %}
