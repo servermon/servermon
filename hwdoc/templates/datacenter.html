@@ -1,6 +1,7 @@
 {% extends "base.html" %} 
 {% load i18n %}
 {% load url from future %}
+
 {% block heading %}{{ datacenter }}{% endblock %}
 {% block content %}
 <div class="row-fluid text-center">
@@ -20,9 +21,9 @@
       {% for rackrow in rackrows %}
       <tr>
         {% if rackrow.tickets %}
-        <td><a href="{% url "hwdoc.views.rackrow" "rackrow.pk" %}">{{ rackrow.name }}</a></td>
+        <td><a href="{% url "hwdoc.views.rackrow" rackrow.pk %}">{{ rackrow.name }}</a></td>
         {% else %}
-        <td><a href="{% url "hwdoc.views.rackrow" "rackrow.pk" %}">{{ rackrow.name }}</a></td>
+        <td><a href="{% url "hwdoc.views.rackrow" rackrow.pk %}">{{ rackrow.name }}</a></td>
         {% endif %}
       </tr>
       {% endfor %}

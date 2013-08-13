@@ -1,6 +1,7 @@
 {% extends "base.html" %} 
 {% load i18n %}
 {% load url from future %}
+
 {% block heading %}{{ rackrow }}{% endblock %}
 {% block content %}
 <div class="row-fluid text-center">
@@ -20,19 +21,19 @@
         <tbody>
           <tr>
             <th colspan="2">
-              <a href="{% url "hwdoc.views.rack" "rack.rack.pk" %}">{{ rack }}</a>
+              <a href="{% url "hwdoc.views.rack" rack.rack.pk %}">{{ rack }}</a>
             </th>
           </tr>
           {% for eq in rack.equipments %}
           <tr>
           <th>{{ eq.unit|stringformat:"02d" }}</th>
           {% if eq.tickets %}
-          <td><a href="{% url "hwdoc.views.equipment" "eq.pk" %}">{{ eq.model }}</a></td>
+          <td><a href="{% url "hwdoc.views.equipment" eq.pk %}">{{ eq.model }}</a></td>
           {% else %}
           {% if eq.comments %}
-          <td><a href="{% url "hwdoc.views.equipment" "eq.pk" %}">{{ eq.model }}</a></td>
+          <td><a href="{% url "hwdoc.views.equipment" eq.pk %}">{{ eq.model }}</a></td>
     {% else %}
-          <td><a href="{% url "hwdoc.views.equipment" "eq.pk" %}">{{ eq.model }}</a></td>
+          <td><a href="{% url "hwdoc.views.equipment" eq.pk %}">{{ eq.model }}</a></td>
     {% endif %}
           {% endif %}
           </tr>

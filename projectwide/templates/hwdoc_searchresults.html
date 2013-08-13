@@ -14,12 +14,12 @@
     {% for result in results.hwdoc %}
     <tr>
       {% if result.tickets %}
-      <td><a href="{% url "hwdoc.views.equipment" "result.pk" %}">{{ result.serial }} <span class="badge badge-info">i</span></a></td>
+      <td><a href="{% url "hwdoc.views.equipment" result.pk %}">{{ result.serial }} <span class="badge badge-info">i</span></a></td>
       {% else %}
       {% if result.comments %}
-      <td><a href="{% url "hwdoc.views.equipment" "result.pk" %}">{{ result.serial }} <span class="badge badge-warning">!</span></a></td>
+      <td><a href="{% url "hwdoc.views.equipment" result.pk %}">{{ result.serial }} <span class="badge badge-warning">!</span></a></td>
       {% else %}
-      <td><a href="{% url "hwdoc.views.equipment" "result.pk" %}">{{ result.serial }}</a></td>
+      <td><a href="{% url "hwdoc.views.equipment" result.pk %}">{{ result.serial }}</a></td>
       {% endif %}
       {% endif %}
       <td>{{ result.model.vendor }}&nbsp;{{ result.model.name }}</td>
