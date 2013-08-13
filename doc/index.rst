@@ -15,6 +15,7 @@ Contents:
    design-0.4.rst
    design-0.5.rst
    design-0.6.rst
+   design-0.7.rst
    glossary.rst
 
 Also see the :ref:`search`.
