@@ -1,5 +1,6 @@
 {% extends "base.html" %} 
 {% load i18n %}
+{% load url from future %}
 {% block heading %}
 {% if equipment.prev %}
 <a class="btn" href="{% url "hwdoc.views.equipment" "equipment.prev.pk" %}"><i class="icon-step-backward"></i></a>

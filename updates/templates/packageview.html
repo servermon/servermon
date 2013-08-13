@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load url from future %}
 
 {% block title %}{% trans "Hosts for package" %} {{ package.name }}{% endblock %}
 {% block heading %}{% trans "Hosts with pending updates for" %} {{ package.name }}{% endblock %}

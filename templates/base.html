@@ -1,11 +1,12 @@
 {% load i18n %}
+{% load url from future %}
 <!DOCTYPE html>
 
 <html>
 <head>
   <title>{% block title %}{% endblock %} -- servermon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="search" type="application/opensearchdescription+xml" title="hwdoc Search" href="{% url opensearch %}">
+  <link rel="search" type="application/opensearchdescription+xml" title="hwdoc Search" href="{% url "opensearch" %}">
   <link href="{{ MEDIA_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="{{ MEDIA_URL }}bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
   <script type="text/javascript" src="{{ MEDIA_URL }}jquery-1.9.1.min.js"></script>
@@ -36,45 +37,45 @@
         </button>
         <div class="nav-collapse collapse">
           <ul class="nav">
-            <li><a href="{% url projectwide.views.index %}">{% trans "Overview" %}</a></li>
+            <li><a href="{% url "projectwide.views.index" %}">{% trans "Overview" %}</a></li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans "Updates" %} <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="{% url updates.views.hostlist %}">{% trans "Host list" %}</a></li>
-                <li><a href="{% url updates.views.packagelist %}">{% trans "Package list" %}</a></li>
+                <li><a href="{% url "updates.views.hostlist" %}">{% trans "Host list" %}</a></li>
+                <li><a href="{% url "updates.views.packagelist" %}">{% trans "Package list" %}</a></li>
               </ul>
             </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans "Puppet" %} <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="{% url puppet.views.inventory %}">{% trans "Inventory" %}</a></li>
-                <li><a href="{% url puppet.views.query %}">{% trans "Fact Query" %}</a></li>
+                <li><a href="{% url "puppet.views.inventory" %}">{% trans "Inventory" %}</a></li>
+                <li><a href="{% url "puppet.views.query" %}">{% trans "Fact Query" %}</a></li>
               </ul>
             </li>
 	    {% if 'servermon.hwdoc' in  INSTALLED_APPS %}
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="{% url hwdoc.views.index %}">{% trans "Hardware Inventory" %} <b class="caret"></b></a>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="{% url "hwdoc.views.index" %}">{% trans "Hardware Inventory" %} <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="{% url hwdoc.views.index %}">{% trans "Overview" %}</a></li>
-		<li id="datacenters" class="dropdown-submenu"><a href="#" class="hwdocfetchable" data-get="{% url hwdoc.views.subnav "datacenters" %}">{% trans "Datacenters" %}</a>
+                <li><a href="{% url "hwdoc.views.index" %}">{% trans "Overview" %}</a></li>
+		<li id="datacenters" class="dropdown-submenu"><a href="#" class="hwdocfetchable" data-get="{% url "hwdoc.views.subnav" "datacenters" %}">{% trans "Datacenters" %}</a>
                   <ul class="dropdown-menu">
                     <li><a href="#">{% trans "Loading" %}</a></li>
                   </ul>
                 </li>
-		<li id="projects" class="dropdown-submenu"><a href="#" class="hwdocfetchable" data-get="{% url hwdoc.views.subnav "projects" %}">{% trans "Projects" %}</a>
+		<li id="projects" class="dropdown-submenu"><a href="#" class="hwdocfetchable" data-get="{% url "hwdoc.views.subnav" "projects" %}">{% trans "Projects" %}</a>
                   <ul class="dropdown-menu">
                     <li><a href="#">{% trans "Loading" %}</a></li>
                   </ul>
                 </li>
-		<li id="racks" class="dropdown-submenu"><a href="#" class="hwdocfetchable" data-get="{% url hwdoc.views.subnav "racks"  %}">{% trans "Racks" %}</a>
+		<li id="racks" class="dropdown-submenu"><a href="#" class="hwdocfetchable" data-get="{% url "hwdoc.views.subnav" "racks"  %}">{% trans "Racks" %}</a>
                   <ul class="dropdown-menu">
                     <li><a href="#">{% trans "Loading" %}</a></li>
                   </ul>
                 </li>
-		<li id="rackrows" class="dropdown-submenu"><a href="#" class="hwdocfetchable" data-get="{% url hwdoc.views.subnav "rackrows" %}">{% trans "Rack Rows" %}</a>
+		<li id="rackrows" class="dropdown-submenu"><a href="#" class="hwdocfetchable" data-get="{% url "hwdoc.views.subnav" "rackrows" %}">{% trans "Rack Rows" %}</a>
                   <ul class="dropdown-menu">
                     <li><a href="#">{% trans "Loading" %}</a></li>
                   </ul>
                 </li>
-		<li id="models" class="dropdown-submenu"><a href="#" class="hwdocfetchable" data-get="{% url hwdoc.views.subnav "models" %}">{% trans "Hardware Models" %}</a>
+		<li id="models" class="dropdown-submenu"><a href="#" class="hwdocfetchable" data-get="{% url "hwdoc.views.subnav" "models" %}">{% trans "Hardware Models" %}</a>
                   <ul class="dropdown-menu">
                     <li><a href="#">{% trans "Loading" %}</a></li>
                   </ul>
@@ -83,10 +84,10 @@
 	      {% endif %}
             </li>
           </ul>
-          <form class="ui-front navbar-form pull-right" method="get" action="{% url projectwide.views.search %}">
-	    <input id="q" class="span2 search-query" data-provider="typeahead" autocomplete="off" data-get="{% url projectwide.views.suggest %}" name="q" type="text">
+          <form class="ui-front navbar-form pull-right" method="get" action="{% url "projectwide.views.search" %}">
+	    <input id="q" class="span2 search-query" data-provider="typeahead" autocomplete="off" data-get="{% url "projectwide.views.suggest" %}" name="q" type="text">
             <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
-	    <a class="btn" href="{% url projectwide.views.advancedsearch %}">{% trans "Advanced Search" %}</a>
+	    <a class="btn" href="{% url "projectwide.views.advancedsearch" %}">{% trans "Advanced Search" %}</a>
           </form>
         </div><!--/.nav-collapse -->
       </div>

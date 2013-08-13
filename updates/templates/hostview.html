@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load url from future %}
 
 {% block title %}{% trans "Updates for" %} {{ host.name }}{% endblock %}
 {% block heading %}{{ host.name }}: {% trans "Host information" %}{% endblock %}
