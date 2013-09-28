@@ -154,23 +154,30 @@ def suggest(request):
         key = None
 
     results = {
-        'hwdoc': None,
-        'puppet': None,
-        'updates': None,
+        'hwdoc': dict(),
+        'puppet': dict(),
         }
 
-    results['puppet'] = puppet_functions.search(key).annotate(Count('value'))
-    results['hwdoc'] = hwdoc_functions.search(key).annotate(Count('serial'))
-    
-    try:
-        response = simplejson.dumps([ key,
-            list(results['hwdoc'].values_list('serial', flat=True)) +
-            list(results['puppet'].values_list('value', flat=True)),
-            list(results['hwdoc'].values_list('serial__count', flat=True)) + 
-            list(results['puppet'].values_list('value__count', flat=True)),
-            ]
-            )
-    except (DatabaseError, FieldError):
-        response = simplejson.dumps([ key, ])
+    k = {   'hwdoc': 'serial',
+            'puppet': 'value',
+        }
+
+    puppet = puppet_functions.search(key).annotate(Count('value'))
+    hwdoc = hwdoc_functions.search(key).annotate(Count('serial'))
+
+    for i,v in k.items():
+        try:
+            results[i]['results'] = locals()[i].values_list('%s' % v, flat=True)
+            results[i]['count'] = locals()[i].values_list('%s__count' % v, flat=True)
+        except (DatabaseError, FieldError):
+            results[i]['results'] = list()
+            results[i]['count'] = list()
+
+    resp = [key, [], []]
+    for i in results.keys():
+        resp[1] = resp[1] + list(results[i]['results'])
+        resp[2] = resp[2] + list(results[i]['count'])
+
+    response = simplejson.dumps(resp)
 
     return HttpResponse(response, mimetype = 'application/x-suggestions+json')
