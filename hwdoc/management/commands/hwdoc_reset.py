@@ -39,6 +39,6 @@ class Command(BaseCommand):
         '''
         Handle command
         '''
-        
+
         options['command'] = 'power_reset'
         result = _common.handle(self, *args, **options)

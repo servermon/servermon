@@ -5,19 +5,19 @@ from south.v2 import SchemaMigration
 from django.db import models
 
 class Migration(SchemaMigration):
-    
+
     def forwards(self, orm):
-        
+
         # Adding field 'Update.is_security'
         db.add_column('updates_update', 'is_security', self.gf('django.db.models.fields.BooleanField')(default=False, blank=True), keep_default=False)
-    
-    
+
+
     def backwards(self, orm):
-        
+
         # Deleting field 'Update.is_security'
         db.delete_column('updates_update', 'is_security')
-    
-    
+
+
     models = {
         'puppet.fact': {
             'Meta': {'object_name': 'Fact', 'db_table': "u'fact_names'", 'managed': 'False'},
@@ -67,5 +67,5 @@ class Migration(SchemaMigration):
             'source': ('django.db.models.fields.CharField', [], {'max_length': '200'})
         }
     }
-    
+
     complete_apps = ['updates']

@@ -53,7 +53,7 @@ class PhoneInline(admin.TabularInline):
 
     model = Person.phones.through
     extra = 1
-        
+
 class EmailAdmin(admin.ModelAdmin):
     '''
     Email Admin Manager
@@ -110,7 +110,7 @@ class RackAdmin(admin.ModelAdmin):
 
         @type  obj: Rack object
         @param obj: Rack object
-        
+
         @rtype: string
         @return: A RackRow object
         '''
@@ -124,7 +124,7 @@ class RackAdmin(admin.ModelAdmin):
 
         @type  obj: Rack object
         @param obj: Rack object
-        
+
         @rtype: string
         @return: A number
         '''
@@ -199,7 +199,7 @@ class EquipmentAdmin(admin.ModelAdmin):
 
         @type  obj: Equipment object
         @param obj: Equipment object
-        
+
         @rtype: string
         @return: A string representing OOB method
         '''
@@ -212,7 +212,7 @@ class EquipmentAdmin(admin.ModelAdmin):
 
         @type  obj: Equipment object
         @param obj: Equipment object
-        
+
         @rtype: string
         @return: A string representing OOB username
         '''
@@ -226,7 +226,7 @@ class EquipmentAdmin(admin.ModelAdmin):
 
         @type  obj: Equipment object
         @param obj: Equipment object
-        
+
         @rtype: string
         @return: A string representing OOB password
         '''
@@ -236,11 +236,11 @@ class EquipmentAdmin(admin.ModelAdmin):
 
     def model_u(obj):
         '''
-        Rack Units height 
+        Rack Units height
 
         @type  obj: Equipment object
         @param obj: Equipment object
-        
+
         @rtype: string
         @return: A string representing this object Units height
         '''
@@ -296,5 +296,5 @@ class EquipmentAdmin(admin.ModelAdmin):
             request.user.has_perm('hwdoc.can_change_comment'):
             return True
         return False
-    
+
 admin.site.register(Equipment, EquipmentAdmin)

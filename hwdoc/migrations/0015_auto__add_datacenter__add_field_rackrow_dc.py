@@ -5,9 +5,9 @@ from south.v2 import SchemaMigration
 from django.db import models
 
 class Migration(SchemaMigration):
-    
+
     def forwards(self, orm):
-        
+
         # Adding model 'Datacenter'
         db.create_table('hwdoc_datacenter', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -17,17 +17,17 @@ class Migration(SchemaMigration):
 
         # Adding field 'RackRow.dc'
         db.add_column('hwdoc_rackrow', 'dc', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['hwdoc.Datacenter'], null=True, blank=True), keep_default=False)
-    
-    
+
+
     def backwards(self, orm):
-        
+
         # Deleting model 'Datacenter'
         db.delete_table('hwdoc_datacenter')
 
         # Deleting field 'RackRow.dc'
         db.delete_column('hwdoc_rackrow', 'dc_id')
-    
-    
+
+
     models = {
         'auth.group': {
             'Meta': {'object_name': 'Group'},
@@ -176,5 +176,5 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '80'})
         }
     }
-    
+
     complete_apps = ['contenttypes', 'auth', 'hwdoc']

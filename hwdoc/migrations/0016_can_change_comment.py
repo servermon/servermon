@@ -5,7 +5,7 @@ from south.v2 import DataMigration
 from django.db import models
 
 class Migration(DataMigration):
-    
+
     def forwards(self, orm):
         "Write your forwards methods here."
         ct, created = orm['contenttypes.ContentType'].objects.get_or_create(
@@ -20,7 +20,7 @@ class Migration(DataMigration):
         perm, created = orm['auth.permission'].objects.get_or_create(
             content_type=ct, codename='can_change_comment')
         perm.delete()
-    
+
     models = {
         'auth.group': {
             'Meta': {'object_name': 'Group'},
@@ -169,5 +169,5 @@ class Migration(DataMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '80'})
         }
     }
-    
+
     complete_apps = ['contenttypes', 'auth', 'hwdoc']

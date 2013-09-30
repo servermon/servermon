@@ -69,7 +69,7 @@ class Command(BaseCommand):
                     rack = Rack.objects.get(pk=rack.split('_')[1])
                 except Rack.DoesNotExist:
                     raise RuntimeError(_('The Rack %(rack)s you specified does not exist. You should create it first' % { 'rack': rack}))
-                
+
                 unit = unit.split('-')[0][1:]
 
                 e = Equipment()

@@ -6,7 +6,7 @@ from south.v2 import DataMigration
 from django.db import models
 
 class Migration(DataMigration):
-    
+
     def forwards(self, orm):
         racks = orm.Equipment.objects.values_list('rack').distinct().values_list('rack', flat=True)
         for rack in racks:
@@ -14,7 +14,7 @@ class Migration(DataMigration):
 
     def backwards(self, orm):
         db.clear_table('hwdoc_rack')
-    
+
     models = {
         'hwdoc.email': {
             'Meta': {'object_name': 'Email'},
@@ -102,5 +102,5 @@ class Migration(DataMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '80'})
         }
     }
-    
+
     complete_apps = ['hwdoc']

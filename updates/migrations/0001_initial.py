@@ -5,9 +5,9 @@ from south.v2 import SchemaMigration
 from django.db import models
 
 class Migration(SchemaMigration):
-    
+
     def forwards(self, orm):
-        
+
         # Adding model 'Package'
         db.create_table('updates_package', (
             ('sourcename', self.gf('django.db.models.fields.CharField')(max_length=200)),
@@ -26,17 +26,17 @@ class Migration(SchemaMigration):
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
         ))
         db.send_create_signal('updates', ['Update'])
-    
-    
+
+
     def backwards(self, orm):
-        
+
         # Deleting model 'Package'
         db.delete_table('updates_package')
 
         # Deleting model 'Update'
         db.delete_table('updates_update')
-    
-    
+
+
     models = {
         'puppet.fact': {
             'Meta': {'object_name': 'Fact', 'db_table': "u'fact_names'", 'managed': 'False'},
@@ -85,5 +85,5 @@ class Migration(SchemaMigration):
             'source': ('django.db.models.fields.CharField', [], {'max_length': '200'})
         }
     }
-    
+
     complete_apps = ['updates']

@@ -135,7 +135,7 @@ def firmware_update(hostname, username, password, **kwargs):
         'Content-Type': content_type,
         'body': body,
         }
-        
+
     response = __send__(hostname, username, password, __firmware_update_command__(**kwargs), extras)
     try:
         extras = {'Cookie': extras['Cookie'],}
@@ -496,7 +496,7 @@ def __mod_directory_command__(**kwargs):
     for groupname in kwargs['groupnames']:
         groupnames_command += '<DIR_GRPACCT%s_NAME VALUE="%s"/>' % (i+1, kwargs['groupnames'][i])
         i = i + 1
-        
+
     # Group PRIVs handling
     kwargs.setdefault('groupprivs', ())
     i = 0
@@ -537,7 +537,7 @@ def __mod_directory_command__(**kwargs):
         %s
         </MOD_DIR_CONFIG>
     </DIR_INFO>
-    ''' % (othersettings, contexts_command, groupnames_command, groupprivs_command, groupsids_command) 
+    ''' % (othersettings, contexts_command, groupnames_command, groupprivs_command, groupsids_command)
     return command
 
 def __reset_rib_command__():

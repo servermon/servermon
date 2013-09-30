@@ -61,7 +61,7 @@ Glossary
 
   Update
     A term for describing an available update for a package installed in a system
- 
+
   SourceFile
     Internal puppet term. Plz ignore
 

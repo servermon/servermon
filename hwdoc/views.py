@@ -33,7 +33,7 @@ def subnav(request, subnav):
     '''
     hwdoc index page navigation view. XMLHttpRequest (aka AJAX) only view
 
-    @type   request: HTTPRequest 
+    @type   request: HTTPRequest
     @param  request: Django HTTPRequest object
     @type   subnav: String
     @param  request: description of an hwdoc entity requesting listing
@@ -66,7 +66,7 @@ def subnav(request, subnav):
         return HttpResponseBadRequest('[{"error": "Incorrect subnav specified"}]',
                 content_type='application/json')
 
-    data = switch[subnav] 
+    data = switch[subnav]
     data = map(lambda x: {
         'name': x.name,
         'url': reverse(urls[subnav]['view'],
@@ -82,7 +82,7 @@ def flotdata(request, datatype):
     '''
     hwdoc flot data view. XMLHttpRequest (aka AJAX) only view
 
-    @type   request: HTTPRequest 
+    @type   request: HTTPRequest
     @param  request: Django HTTPRequest object
     @type   datatype: String
     @param  request: description of an hwdoc entity requesting listing
@@ -119,7 +119,7 @@ def index(request):
     '''
     hwdoc index view
 
-    @type   request: HTTPRequest 
+    @type   request: HTTPRequest
     @param  request: Django HTTPRequest object
     @rtype: HTTPResponse
     @return: HTTPResponse object rendering corresponding HTML
@@ -131,7 +131,7 @@ def equipment(request, equipment_id):
     '''
     Equipment view. It should display all non-authenticated user viewable data
 
-    @type   request: HTTPRequest 
+    @type   request: HTTPRequest
     @param  request: Django HTTPRequest object
     @rtype: HTTPResponse
     @return: HTTPResponse object rendering corresponding HTML
@@ -156,7 +156,7 @@ def project(request, project_id):
     '''
     Project view. It should display all non-authenticated user viewable data
 
-    @type   request: HTTPRequest 
+    @type   request: HTTPRequest
     @param  request: Django HTTPRequest object
     @rtype: HTTPResponse
     @return: HTTPResponse object rendering corresponding HTML
@@ -172,7 +172,7 @@ def rack(request, rack_id):
     '''
     Rack view. It should display all non-authenticated user viewable data
 
-    @type   request: HTTPRequest 
+    @type   request: HTTPRequest
     @param  request: Django HTTPRequest object
     @rtype: HTTPResponse
     @return: HTTPResponse object rendering corresponding HTML
@@ -209,7 +209,7 @@ def rackrow(request, rackrow_id):
     '''
     Rackrow view. It should display all non-authenticated user viewable data
 
-    @type   request: HTTPRequest 
+    @type   request: HTTPRequest
     @param  request: Django HTTPRequest object
     @rtype: HTTPResponse
     @return: HTTPResponse object rendering corresponding HTML
@@ -231,7 +231,7 @@ def datacenter(request, datacenter_id):
     '''
     Rackrow view. It should display all non-authenticated user viewable data
 
-    @type   request: HTTPRequest 
+    @type   request: HTTPRequest
     @param  request: Django HTTPRequest object
     @rtype: HTTPResponse
     @return: HTTPResponse object rendering corresponding HTML

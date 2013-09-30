@@ -64,7 +64,7 @@ def handle(self, *args, **options):
     for e in es:
         try:
             e.servermanagement
-        except ServerManagement.DoesNotExist: 
+        except ServerManagement.DoesNotExist:
             continue
         if int(options['verbosity']) > 0:
             print e

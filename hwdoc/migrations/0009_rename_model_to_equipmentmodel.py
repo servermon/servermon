@@ -6,13 +6,13 @@ from south.v2 import SchemaMigration
 from django.db import models
 
 class Migration(SchemaMigration):
-    
+
     def forwards(self, orm):
         db.rename_table('hwdoc_model','hwdoc_equipmentmodel')
-    
+
     def backwards(self, orm):
         db.rename_table('hwdoc_equipmentmodel','hwdoc_model')
-    
+
     models = {
         'hwdoc.email': {
             'Meta': {'object_name': 'Email'},
@@ -85,5 +85,5 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '80'})
         }
     }
-    
+
     complete_apps = ['hwdoc']

@@ -15,7 +15,7 @@
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
 '''
-hwdoc module's functions documentation. Main models are Equipment and ServerManagement 
+hwdoc module's functions documentation. Main models are Equipment and ServerManagement
 '''
 
 from django.db import models
@@ -79,7 +79,7 @@ class Role(models.Model):
 
     ROLES = (
                 ('manager', 'Manager' ),
-                ('technical', 'Techinal Person'), 
+                ('technical', 'Techinal Person'),
             )
     role = models.CharField(max_length=80, choices=ROLES)
     project = models.ForeignKey(Project)
@@ -103,7 +103,7 @@ class Datacenter(models.Model):
 
     def __unicode__(self):
         return self.name
-    
+
 class Vendor(models.Model):
     '''
     Equipments have Models and belong to Vendors
@@ -142,7 +142,7 @@ class Rack(models.Model):
     '''
     Racks
     '''
-    
+
     mounted_depth = models.PositiveIntegerField(max_length=10, default=60)
     model = models.ForeignKey(RackModel)
     name = models.CharField(max_length=80)
@@ -222,7 +222,7 @@ class Equipment(models.Model):
         return out
 
 class ServerManagement(models.Model):
-    ''' 
+    '''
     Equipments that can be managed have a ServerManagement counterpanrt
     '''
 
@@ -256,16 +256,16 @@ class ServerManagement(models.Model):
             kwargs['license'] = self.license
 
         try:
-            sm = __import__('hwdoc.vendor.' + self.method, fromlist=['hwdoc.vendor']) 
+            sm = __import__('hwdoc.vendor.' + self.method, fromlist=['hwdoc.vendor'])
         except ImportError as e:
-            # TODO: Log the error. For now just print 
+            # TODO: Log the error. For now just print
             print e
             return
-        
+
         try:
             return getattr(sm, action)(self.hostname, username, password, **kwargs)
         except AttributeError as e:
-            # TODO: Log the error. For now just print 
+            # TODO: Log the error. For now just print
             print e
             return
 
@@ -343,7 +343,7 @@ class ServerManagement(models.Model):
 
     def bmc_reset(self, username=None, password=None, **kwargs):
         '''
-        Reset a BMC 
+        Reset a BMC
         '''
 
         return self.__sm__('bmc_reset', username, password, **kwargs)

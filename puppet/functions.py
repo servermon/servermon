@@ -36,7 +36,7 @@ def search(q):
     @param q: a string or an iterable of strings to search for.
 
     @rtype: QuerySet
-    @return: A QuerySet with results matching all items of q 
+    @return: A QuerySet with results matching all items of q
     '''
 
     if q is None or len(q) == 0 or 'servermon.puppet' not in settings.INSTALLED_APPS:

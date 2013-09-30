@@ -40,7 +40,7 @@ def search(q):
     @param q: a string or an iterable of strings to search for.
 
     @rtype: QuerySet
-    @return: A QuerySet with results matching all items of q 
+    @return: A QuerySet with results matching all items of q
     '''
 
     if q is None or len(q) == 0 or 'servermon.hwdoc' not in settings.INSTALLED_APPS:
@@ -110,7 +110,7 @@ def populate_tickets(equipment_list):
     @return: A QuerySet with equipment's comments attribute populated
     '''
 
-    # TODO: Just a HACK 
+    # TODO: Just a HACK
     for equipment in equipment_list:
         m = re.search('((?:%s[0-9]+)\s*)+' % settings.TICKETING_URL,
                 str(equipment.comments), re.DOTALL)

@@ -5,18 +5,18 @@ from south.v2 import SchemaMigration
 from django.db import models
 
 class Migration(SchemaMigration):
-    
+
     def forwards(self, orm):
-        
+
         # Deleting model 'State'
         db.delete_table('hwdoc_state')
 
         # Deleting field 'Equipment.state'
         db.delete_column('hwdoc_equipment', 'state_id')
-    
-    
+
+
     def backwards(self, orm):
-        
+
         # Adding model 'State'
         db.create_table('hwdoc_state', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -26,8 +26,8 @@ class Migration(SchemaMigration):
 
         # Adding field 'Equipment.state'
         db.add_column('hwdoc_equipment', 'state', self.gf('django.db.models.fields.related.ForeignKey')(default=5, to=orm['hwdoc.State']), keep_default=False)
-    
-    
+
+
     models = {
         'hwdoc.email': {
             'Meta': {'object_name': 'Email'},
@@ -100,5 +100,5 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '80'})
         }
     }
-    
+
     complete_apps = ['hwdoc']

@@ -5,19 +5,19 @@ from south.v2 import SchemaMigration
 from django.db import models
 
 class Migration(SchemaMigration):
-    
+
     def forwards(self, orm):
-        
+
         # Adding field 'Rack.model'
         db.add_column('hwdoc_rack', 'model', self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['hwdoc.RackModel']), keep_default=False)
-    
-    
+
+
     def backwards(self, orm):
-        
+
         # Deleting field 'Rack.model'
         db.delete_column('hwdoc_rack', 'model_id')
-    
-    
+
+
     models = {
         'hwdoc.email': {
             'Meta': {'object_name': 'Email'},
@@ -106,5 +106,5 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '80'})
         }
     }
-    
+
     complete_apps = ['hwdoc']

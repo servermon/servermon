@@ -5,9 +5,9 @@ from south.v2 import SchemaMigration
 from django.db import models
 
 class Migration(SchemaMigration):
-    
+
     def forwards(self, orm):
-        
+
         # Renaming column for 'Equipment.rack' to match new field type.
         db.rename_column('hwdoc_equipment', 'rack', 'rack_id')
         # Changing field 'Equipment.rack'
@@ -15,10 +15,10 @@ class Migration(SchemaMigration):
 
         # Adding index on 'Equipment', fields ['rack']
         db.create_index('hwdoc_equipment', ['rack_id'])
-    
-    
+
+
     def backwards(self, orm):
-        
+
         # Renaming column for 'Equipment.rack' to match new field type.
         db.rename_column('hwdoc_equipment', 'rack_id', 'rack')
         # Changing field 'Equipment.rack'
@@ -26,8 +26,8 @@ class Migration(SchemaMigration):
 
         # Removing index on 'Equipment', fields ['rack']
         db.delete_index('hwdoc_equipment', ['rack_id'])
-    
-    
+
+
     models = {
         'hwdoc.email': {
             'Meta': {'object_name': 'Email'},
@@ -115,5 +115,5 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '80'})
         }
     }
-    
+
     complete_apps = ['hwdoc']

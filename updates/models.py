@@ -23,7 +23,7 @@ class Package(models.Model):
     name = models.CharField(max_length=200)
     sourcename = models.CharField(max_length=200)
     hosts = models.ManyToManyField(Host, through='Update')
-    
+
     class Meta:
         ordering = ('name', )
 

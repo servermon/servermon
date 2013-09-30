@@ -5,9 +5,9 @@ from south.v2 import SchemaMigration
 from django.db import models
 
 class Migration(SchemaMigration):
-    
+
     def forwards(self, orm):
-        
+
         # Adding model 'Email'
         db.create_table('hwdoc_email', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -64,10 +64,10 @@ class Migration(SchemaMigration):
 
         # Adding field 'Equipment.allocation'
         db.add_column('hwdoc_equipment', 'allocation', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['hwdoc.Project'], null=True, blank=True), keep_default=False)
-    
-    
+
+
     def backwards(self, orm):
-        
+
         # Deleting model 'Email'
         db.delete_table('hwdoc_email')
 
@@ -91,8 +91,8 @@ class Migration(SchemaMigration):
 
         # Deleting field 'Equipment.allocation'
         db.delete_column('hwdoc_equipment', 'allocation_id')
-    
-    
+
+
     models = {
         'hwdoc.email': {
             'Meta': {'object_name': 'Email'},
@@ -166,5 +166,5 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '80'})
         }
     }
-    
+
     complete_apps = ['hwdoc']

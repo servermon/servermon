@@ -5,9 +5,9 @@ from south.v2 import SchemaMigration
 from django.db import models
 
 class Migration(SchemaMigration):
-    
+
     def forwards(self, orm):
-        
+
         # Changing field 'ServerManagement.username'
         db.alter_column('hwdoc_servermanagement', 'username', self.gf('django.db.models.fields.CharField')(max_length=80, blank=True))
 
@@ -28,10 +28,10 @@ class Migration(SchemaMigration):
 
         # Changing field 'Equipment.purpose'
         db.alter_column('hwdoc_equipment', 'purpose', self.gf('django.db.models.fields.CharField')(max_length=80, blank=True))
-    
-    
+
+
     def backwards(self, orm):
-        
+
         # Changing field 'ServerManagement.username'
         db.alter_column('hwdoc_servermanagement', 'username', self.gf('django.db.models.fields.CharField')(max_length=80, null=True, blank=True))
 
@@ -52,8 +52,8 @@ class Migration(SchemaMigration):
 
         # Changing field 'Equipment.purpose'
         db.alter_column('hwdoc_equipment', 'purpose', self.gf('django.db.models.fields.CharField')(max_length=80, null=True, blank=True))
-    
-    
+
+
     models = {
         'hwdoc.datacenter': {
             'Meta': {'object_name': 'Datacenter'},
@@ -160,5 +160,5 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '80'})
         }
     }
-    
+
     complete_apps = ['hwdoc']

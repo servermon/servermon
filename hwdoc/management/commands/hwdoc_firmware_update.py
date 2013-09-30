@@ -15,7 +15,7 @@
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
 '''
-Django management command to upgrade BMC firmware 
+Django management command to upgrade BMC firmware
 '''
 
 from django.core.management.base import BaseCommand, CommandError

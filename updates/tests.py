@@ -38,7 +38,7 @@ Fact._meta.managed = True
 
 class UpdatesTestCase(unittest.TestCase):
     '''
-    A test case for updates app 
+    A test case for updates app
     '''
 
     def setUp(self):
@@ -116,7 +116,7 @@ class ViewsTestCase(unittest.TestCase):
         data = ['']
         for d in data:
             response = c.get('/packages/%s' % d)
-            # This is not an error since empty package means, due to 
+            # This is not an error since empty package means, due to
             # urls.py that we fallback to packagelist
             self.assertEqual(response.status_code, 200)
 

@@ -27,7 +27,7 @@ else:
 
 from django.test.client import Client
 from puppet.models import Fact, Host, FactValue, ParamNames, ParamValues, PuppetTags, \
-                    ResourceTags, SourceFile, Resource 
+                    ResourceTags, SourceFile, Resource
 
 # The following is an ugly hack for unit tests to work
 # We force managed the unmanaged models so that tables will be created
@@ -82,7 +82,7 @@ class PuppetTestCase(unittest.TestCase):
 
 class PuppetViewsTestCase(unittest.TestCase):
     '''
-    A test case for servermon package 
+    A test case for servermon package
     '''
     def setUp(self):
         '''

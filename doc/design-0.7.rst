@@ -28,7 +28,7 @@ There have been requests for various additions to hwdoc. These ideas include
  * Patch panel support
  * PDU (0U support would be great)
  * Front/back/middle parts of the rack
- * AC (rack models 
+ * AC (rack models
  * InDC interim storage capabilities
  * Outside DC storage capabilities
  * Statistics in a pleasing visual form (graphs, pies, bars)

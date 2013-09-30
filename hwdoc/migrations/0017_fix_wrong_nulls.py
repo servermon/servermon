@@ -14,7 +14,7 @@ class Migration(DataMigration):
         orm['hwdoc.ServerManagement'].objects.filter(license__isnull=True).update(license='')
         orm['hwdoc.ServerManagement'].objects.filter(raid_license__isnull=True).update(raid_license='')
         orm['hwdoc.ServerManagement'].objects.filter(mac__isnull=True).update(mac='')
-    
+
     def backwards(self, orm):
         orm['hwdoc.Equipment'].objects.filter(purpose='').update(purpose=None)
         orm['hwdoc.Equipment'].objects.filter(comments='').update(comments=None)
@@ -23,7 +23,7 @@ class Migration(DataMigration):
         orm['hwdoc.ServerManagement'].objects.filter(license='').update(license=None)
         orm['hwdoc.ServerManagement'].objects.filter(raid_license__isnull=True).update(raid_license=None)
         orm['hwdoc.ServerManagement'].objects.filter(mac='').update(mac=None)
-    
+
     models = {
         'hwdoc.datacenter': {
             'Meta': {'object_name': 'Datacenter'},
@@ -130,5 +130,5 @@ class Migration(DataMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '80'})
         }
     }
-    
+
     complete_apps = ['hwdoc']

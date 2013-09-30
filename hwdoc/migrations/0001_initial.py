@@ -5,16 +5,16 @@ from django.db import models
 from servermon.hwdoc.models import *
 
 class Migration:
-    
+
     def forwards(self, orm):
-        
+
         # Adding model 'Vendor'
         db.create_table('hwdoc_vendor', (
             ('id', orm['hwdoc.Vendor:id']),
             ('name', orm['hwdoc.Vendor:name']),
         ))
         db.send_create_signal('hwdoc', ['Vendor'])
-        
+
         # Adding model 'ServerManagement'
         db.create_table('hwdoc_servermanagement', (
             ('id', orm['hwdoc.ServerManagement:id']),
@@ -30,7 +30,7 @@ class Migration:
             ('mac', orm['hwdoc.ServerManagement:mac']),
         ))
         db.send_create_signal('hwdoc', ['ServerManagement'])
-        
+
         # Adding model 'Equipment'
         db.create_table('hwdoc_equipment', (
             ('id', orm['hwdoc.Equipment:id']),
@@ -45,7 +45,7 @@ class Migration:
             ('state', orm['hwdoc.Equipment:state']),
         ))
         db.send_create_signal('hwdoc', ['Equipment'])
-        
+
         # Adding model 'Model'
         db.create_table('hwdoc_model', (
             ('id', orm['hwdoc.Model:id']),
@@ -54,25 +54,25 @@ class Migration:
             ('u', orm['hwdoc.Model:u']),
         ))
         db.send_create_signal('hwdoc', ['Model'])
-        
-    
-    
+
+
+
     def backwards(self, orm):
-        
+
         # Deleting model 'Vendor'
         db.delete_table('hwdoc_vendor')
-        
+
         # Deleting model 'ServerManagement'
         db.delete_table('hwdoc_servermanagement')
-        
+
         # Deleting model 'Equipment'
         db.delete_table('hwdoc_equipment')
-        
+
         # Deleting model 'Model'
         db.delete_table('hwdoc_model')
-        
-    
-    
+
+
+
     models = {
         'hwdoc.equipment': {
             'added': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
@@ -110,5 +110,5 @@ class Migration:
             'name': ('django.db.models.fields.CharField', [], {'max_length': '80'})
         }
     }
-    
+
     complete_apps = ['hwdoc']
