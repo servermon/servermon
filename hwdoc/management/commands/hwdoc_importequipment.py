@@ -105,6 +105,6 @@ class Command(BaseCommand):
                     s.mac = mac
                     s.save()
 
-                print _('OK: %(eq)s %(sn)s') % { 'eq': eq, 'sn': sn)
+                print _('OK: %(eq)s %(sn)s') % { 'eq': eq, 'sn': sn}
                 count +=1
             print _('Total ') + str(count)
