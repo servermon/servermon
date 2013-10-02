@@ -14,17 +14,28 @@
 # USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
+'''
+Some generic utility functions
+'''
 
 from xml.dom.minidom import parseString
 from servermon.updates.models import Package, Update
 from django.db import transaction
 
 def clean_orphan_packages():
+    '''
+    Cleans orphan packages
+    '''
+
     Package.objects.filter(hosts__isnull=True).delete()
 
 @transaction.commit_on_success
 def gen_host_updates(host):
-    # Delete old updates
+    '''
+    Populate all updates
+    '''
+
+    # First let's delete them all
     host.update_set.all().delete()
 
     try:
@@ -54,4 +65,3 @@ def gen_host_updates(host):
                 is_security=is_sec)
 
         u.save()
-

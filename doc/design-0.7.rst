@@ -25,24 +25,23 @@ Overview
 
 There have been requests for various additions to hwdoc. These ideas include
 (but are not limited to):
- * Patch panel support
- * PDU (0U support would be great)
- * Front/back/middle parts of the rack
- * AC (rack models
- * InDC interim storage capabilities
- * Outside DC storage capabilities
- * Statistics in a pleasing visual form (graphs, pies, bars)
- * Making the overview pages more informative
- * Granular permission scheme (e.g. guest access, with serial numbers and other
-   sensitive information hidden)
- * Generic key/value store & tags for equipment (e.g. to allow asset tags to be
-   entered)
- * Allow devices not owned by servermon admin to be added (e.g. missing serials)
- * Prettify rack view
- * Add better rack selection (accounting for rows) & stencils.
- * Data center floor plans & rack positions
- * Decouple comments from ticketing systems
- * Racktables importer
+
+* Patch panel support
+* PDU (0U support would be great)
+* Front/back/middle parts of the rack
+* AC (rack models)
+* InDC interim storage capabilities
+* Outside DC storage capabilities
+* Statistics in a pleasing visual form (graphs, pies, bars)
+* Making the overview pages more informative
+* Granular permission scheme (e.g. guest access, with serial numbers and other sensitive information hidden)
+* Generic key/value store & tags for equipment (e.g. to allow asset tags to be entered)
+* Allow devices not owned by servermon admin to be added (e.g. missing serials)
+* Prettify rack view
+* Add better rack selection (accounting for rows) & stencils.
+* Data center floor plans & rack positions
+* Decouple comments from ticketing systems
+* Racktables importer
 
 Most require adding to the hwdoc app's models, statistics require some javascript
 graphing library (tests with flot are being conducted) and the corresponding JSON-
@@ -85,6 +84,18 @@ InRow AC can be supported by adding a single attribute is_inrow_ac to RackModel.
 RackModel is already capable of storing any kind of Rack like inRow AC but the
 extra functionality they might provide is not reflected somehow. After that
 some basic displaying can be achieved through stencils or standard html tables.
+
+
+Front/back/middle parts of the rack
++++++++++++++++++++++++++++++++++++
+
+Should be enough to add 3 fields in EquipmentModel and respective changes to templates
+
+Patch panel support
++++++++++++++++++++
+
+Mostly a new Model inheriting from Equipment model and having some basic attributes like
+number of ports
 
 updates app
 -----------

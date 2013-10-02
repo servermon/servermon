@@ -16,6 +16,10 @@
 # USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
+'''
+CLI utility to get package update and print them in XML format
+'''
+
 
 from socket import getfqdn
 import warnings
@@ -25,7 +29,9 @@ from xml.dom.minidom import Document
 
 # shamelessly stolen from /usr/lib/update-notifier/apt_check.py ported/modified
 def isSecurityUpgrade(candidate):
-    "check if the given version is a security update (or masks one)"
+    '''
+    check if the given version is a security update (or masks one)
+    '''
 
     for origin in candidate.origins:
         if (origin.origin == "Debian" and
@@ -38,6 +44,10 @@ def isSecurityUpgrade(candidate):
     return False
 
 def getUpdates():
+    '''
+    Gets all updates from apt cache
+
+    '''
     cache = apt.Cache()
     cache.upgrade(dist_upgrade=True)
 

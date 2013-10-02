@@ -15,6 +15,9 @@
 # USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
+'''
+projectwide views module
+'''
 
 from servermon.puppet import functions as puppet_functions
 from servermon.hwdoc import functions as hwdoc_functions
@@ -34,6 +37,15 @@ from settings import HOST_TIMEOUT, ADMINS
 import re
 
 def index(request):
+    '''
+    First page view
+
+    @type   request: HTTPRequest
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding HTML
+    '''
+
     timeout = datetime.now() - timedelta(seconds=HOST_TIMEOUT)
 
     hosts = Host.objects.all()
@@ -45,7 +57,7 @@ def index(request):
     securitycount = Package.objects.filter(update__is_security=True).distinct().count()
 
     return render(request, "index.html", {
-        'problemhosts': problemhosts, 
+        'problemhosts': problemhosts,
         'timeout': timeout,
         'hosts': hosts,
         'factcount': factcount,
@@ -62,7 +74,7 @@ def search(request):
     If txt is send in a GET it will display results in txt and not in html
     format
 
-    @type   request: HTTPRequest 
+    @type   request: HTTPRequest
     @param  request: Django HTTPRequest object
     @rtype: HTTPResponse
     @return: HTTPResponse object rendering corresponding HTML
@@ -78,7 +90,7 @@ def search(request):
     if u'q' in request.GET:
         key = request.GET['q']
     elif u'qarea' in request.POST:
-        key = projectwide_functions.get_search_terms(request.POST['qarea']) 
+        key = projectwide_functions.get_search_terms(request.POST['qarea'])
     else:
         key = None
 
@@ -108,7 +120,7 @@ def advancedsearch(request):
     '''
     Advanced search view. Renders free text search
 
-    @type   request: HTTPRequest 
+    @type   request: HTTPRequest
     @param  request: Django HTTPRequest object
     @rtype: HTTPResponse
     @return: HTTPResponse object rendering corresponding HTML
@@ -120,7 +132,7 @@ def opensearch(request):
     '''
     opensearch search view. Renders opensearch.xml
 
-    @type   request: HTTPRequest 
+    @type   request: HTTPRequest
     @param  request: Django HTTPRequest object
     @rtype: HTTPResponse
     @return: HTTPResponse object rendering corresponding XML
@@ -142,7 +154,7 @@ def suggest(request):
     '''
     opensearch suggestions view. Returns JSON
 
-    @type   request: HTTPRequest 
+    @type   request: HTTPRequest
     @param  request: Django HTTPRequest object
     @rtype: HTTPResponse
     @return: HTTPResponse object rendering corresponding JSON

@@ -14,12 +14,20 @@
 # USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
+'''
+updates module's functions documentation. Main models are Package and Update
+'''
+
 
 from django.db import models
 from servermon.puppet.models import Host
 import re
 
 class Package(models.Model):
+    '''
+    A Debian package
+    '''
+
     name = models.CharField(max_length=200)
     sourcename = models.CharField(max_length=200)
     hosts = models.ManyToManyField(Host, through='Update')
@@ -34,6 +42,10 @@ class Package(models.Model):
             return "%s (%s)" % (self.name, self.sourcename)
 
 class Update(models.Model):
+    '''
+    Modeling a potential update to a package
+    '''
+
     package = models.ForeignKey(Package)
     host = models.ForeignKey(Host)
     installedVersion = models.CharField(max_length=200)
@@ -43,9 +55,17 @@ class Update(models.Model):
     is_security = models.BooleanField(default=False)
 
     def __unicode__(self):
+        '''
+        Returns the objects unicode representation
+        '''
+
         return "%s@%s: %s -> %s" % (self.package.name, self.host.name, self.installedVersion, self.candidateVersion)
 
     def get_changelog_url(self):
+        '''
+        Get the update's changelog
+        '''
+
         if self.origin == 'Debian':
             url = "http://packages.debian.org/changelogs/pool/main/%(initial)s/%(source)s/%(source)s_%(version)s/changelog#versionversion%(slug)s"
         elif self.origin == 'Ubuntu':

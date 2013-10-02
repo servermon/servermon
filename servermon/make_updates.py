@@ -15,6 +15,9 @@
 # USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
+'''
+CLI utility to populate updatable packages in DB
+'''
 
 from django.core.management import setup_environ
 import settings
@@ -24,7 +27,11 @@ setup_environ(settings)
 from util import *
 from puppet.models import Host
 
-for host in Host.objects.all():
-    gen_host_updates(host)
+def update_packages():
+    for host in Host.objects.all():
+        gen_host_updates(host)
 
-clean_orphan_packages()
+    clean_orphan_packages()
+
+if __name__ == "__main__":
+    update_packages()

@@ -11,7 +11,7 @@ Modified regex to strip leading/trailing white space from every line, not just t
 * Ensure whitespace isn't stripped from within <pre> or <code> or <textarea> tags.
 
 Shamelessly stolen code from:
-    https://code.djangoproject.com/wiki/StripWhitespaceMiddleware
+https://code.djangoproject.com/wiki/StripWhitespaceMiddleware
 """
 
 import re

@@ -15,10 +15,18 @@
 # USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
+'''
+puppet module's functions documentation. This has been create by django
+inspecting the puppet database
+'''
 
 from django.db import models
 
 class SourceFile(models.Model):
+    '''
+    Modeling the respective puppet concept.
+    '''
+
     filename = models.CharField(max_length=255, blank=True)
     path = models.CharField(max_length=255, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
@@ -28,6 +36,10 @@ class SourceFile(models.Model):
         managed = False
 
 class Fact(models.Model):
+    '''
+    Modeling the respective puppet concept.
+    '''
+
     name = models.CharField(max_length=255)
     updated_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(null=True, blank=True)
@@ -37,9 +49,17 @@ class Fact(models.Model):
         managed = False
 
     def __unicode__(self):
+        '''
+        Get a string representation of the instance
+        '''
+
         return self.name.replace('_',' ').rstrip()
 
 class Host(models.Model):
+    '''
+    Modeling the respective puppet concept.
+    '''
+
     name = models.CharField(max_length=255)
     ip = models.CharField(max_length=255, blank=True)
     environment = models.CharField(max_length=255, blank=True)
@@ -57,15 +77,27 @@ class Host(models.Model):
         managed = False
 
     def __unicode__(self):
+        '''
+        Get a string representation of the instance
+        '''
+
         return self.name
 
     def get_fact_value(self, fact, default=None):
+        '''
+        Get the value of a fact
+        '''
+
         try:
             return self.factvalue_set.get(fact_name__name=fact).value
         except:
             return default
 
 class Resource(models.Model):
+    '''
+    Modeling the respective puppet concept.
+    '''
+
     title = models.TextField()
     restype = models.CharField(max_length=255)
     host = models.ForeignKey(Host, null=True, blank=True)
@@ -79,6 +111,10 @@ class Resource(models.Model):
         managed = False
 
 class FactValue(models.Model):
+    '''
+    Modeling the respective puppet concept.
+    '''
+
     value = models.TextField()
     fact_name = models.ForeignKey(Fact)
     host = models.ForeignKey(Host)
@@ -90,15 +126,27 @@ class FactValue(models.Model):
 
     @property
     def name(self):
+        '''
+        Property returning the fact name
+        '''
+
         return self.fact_name.name
 
     def __unicode__(self):
+        '''
+        Get a string representation of the instance
+        '''
+
         try:
             return "%s %s: %s" % (self.host.name, str(self.fact_name), self.value)
         except Exception:
             return "(unknown host) %s: %s" % (str(self.fact_name), self.value)
 
 class ParamNames(models.Model):
+    '''
+    Modeling the respective puppet concept.
+    '''
+
     name = models.CharField(max_length=255)
     updated_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(null=True, blank=True)
@@ -107,6 +155,10 @@ class ParamNames(models.Model):
         managed = False
 
 class ParamValues(models.Model):
+    '''
+    Modeling the respective puppet concept.
+    '''
+
     value = models.TextField()
     param_name = models.ForeignKey(ParamNames)
     line = models.IntegerField(null=True, blank=True)
@@ -118,6 +170,10 @@ class ParamValues(models.Model):
         managed = False
 
 class PuppetTags(models.Model):
+    '''
+    Modeling the respective puppet concept.
+    '''
+
     name = models.CharField(max_length=255, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(null=True, blank=True)
@@ -126,6 +182,10 @@ class PuppetTags(models.Model):
         managed = False
 
 class ResourceTags(models.Model):
+    '''
+    Modeling the respective puppet concept.
+    '''
+
     resource = models.ForeignKey(Resource, null=True, blank=True)
     puppet_tag = models.ForeignKey(PuppetTags, null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)

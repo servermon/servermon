@@ -15,6 +15,9 @@
 # USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
+'''
+puppet views module
+'''
 
 from servermon.puppet.models import Host, Fact, FactValue
 from servermon.compat import render
@@ -22,6 +25,15 @@ from django import forms
 from django.contrib.admin.widgets import FilteredSelectMultiple
 
 def inventory(request):
+    '''
+    Puppet inventory view. Will display a pre-selected list of facts
+
+    @type   request: HTTPRequest
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding JSON
+    '''
+
     keys = [
         'is_virtual',
         'manufacturer',
@@ -60,6 +72,15 @@ def inventory(request):
     return render(request, "inventory.html", {'hosts': hosts})
 
 def query(request):
+    '''
+    Puppet query view. Will display a user selected list of facts
+
+    @type   request: HTTPRequest
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding JSON
+    '''
+
     class MatrixForm(forms.Form):
         hosts = forms.ModelMultipleChoiceField(queryset=Host.objects.all(),
                 widget=FilteredSelectMultiple("hosts", is_stacked=False))

@@ -15,6 +15,10 @@
 # USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
+'''
+updates views module
+'''
+
 
 from django.shortcuts import get_list_or_404, get_object_or_404
 from servermon.compat import render

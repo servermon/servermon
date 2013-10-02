@@ -97,6 +97,10 @@ class DatacenterAdmin(admin.ModelAdmin):
 admin.site.register(Datacenter, DatacenterAdmin)
 
 class RackPositionInline(admin.TabularInline):
+    '''
+    RackPositionInline Admin Manager
+    '''
+
     model = RackPosition
 
 class RackAdmin(admin.ModelAdmin):
@@ -261,6 +265,10 @@ class EquipmentAdmin(admin.ModelAdmin):
     actions = [ shutdown, startup, shutdown_force ]
 
     def change_view(self, request, object_id, extra_context=None):
+        '''
+        Overriding view to disallow updating readonly fields
+        '''
+
         if request.user.is_superuser:
             self.readonly_fields = ()
             ServerManagementInline.exclude = ()
@@ -278,6 +286,10 @@ class EquipmentAdmin(admin.ModelAdmin):
                     object_id, extra_context=extra_context)
 
     def changelist_view(self, request, extra_context=None):
+        '''
+        Overriding view to disallow updating readonly fields
+        '''
+
         if request.user.is_superuser:
             self.list_display = EquipmentAdmin.list_display
             self.list_editable = EquipmentAdmin.list_editable
@@ -292,6 +304,10 @@ class EquipmentAdmin(admin.ModelAdmin):
                     extra_context=extra_context)
 
     def has_change_permission(self, request, obj=None):
+        '''
+        Define who was the right to change comments
+        '''
+
         if request.user.is_superuser or \
             request.user.has_perm('hwdoc.can_change_comment'):
             return True

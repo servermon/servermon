@@ -1,3 +1,3 @@
 '''
-Vendor specific BMC implementations
+Vendor specific implementations
 '''
