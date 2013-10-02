@@ -25,7 +25,7 @@ from django.utils.translation import ugettext_lazy as _l
 from os.path import isfile
 from optparse import make_option
 
-import _common
+import _bmc_common
 
 class Command(BaseCommand):
     '''
@@ -41,7 +41,7 @@ class Command(BaseCommand):
                     dest='firmware_location',
                     default=None,
                     help=_l('Firmware file location')),
-            ) + _common.option_list
+            ) + _bmc_common.option_list
 
     def handle(self, *args, **options):
         '''
@@ -57,4 +57,4 @@ class Command(BaseCommand):
         if not isfile(options['firmware_location']):
             raise CommandError(_('Firmware file not found. Check command input'))
 
-        result = _common.handle(self, *args, **options)
+        result = _bmc_common.handle(self, *args, **options)

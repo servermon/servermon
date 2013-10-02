@@ -24,7 +24,7 @@ from django.utils.translation import ugettext_lazy as _l
 
 from optparse import make_option
 
-import _common
+import _bmc_common
 
 class Command(BaseCommand):
     '''
@@ -33,7 +33,7 @@ class Command(BaseCommand):
     help = _l('Reset a BMC')
     args = '[key]'
 
-    option_list = BaseCommand.option_list + _common.option_list
+    option_list = BaseCommand.option_list + _bmc_common.option_list
 
     def handle(self, *args, **options):
         '''
@@ -41,4 +41,4 @@ class Command(BaseCommand):
         '''
 
         options['command'] = 'bmc_reset'
-        result = _common.handle(self, *args, **options)
+        result = _bmc_common.handle(self, *args, **options)

@@ -24,7 +24,7 @@ from django.utils.translation import ugettext_lazy as _l
 
 from optparse import make_option
 
-import _common
+import _bmc_common
 
 class Command(BaseCommand):
     '''
@@ -48,7 +48,7 @@ class Command(BaseCommand):
                 make_option('--groupnames', action='store', dest='groupnames', default=None, help=_l('LDAP group names')),
                 make_option('--groupprivs', action='store', dest='groupprivs', default=None, help=_l('LDAP group privileges. iLO3 support only')),
                 make_option('--groupsids', action='store', dest='groupsids', default=None, help=_l('LDAP group AD SIDs. iLO3 support only')),
-            ) + _common.option_list
+            ) + _bmc_common.option_list
 
     def handle(self, *args, **options):
         '''
@@ -66,4 +66,4 @@ class Command(BaseCommand):
                 options['groupprivs'] = options['groupprivs'].split(':')
             if s == 'groupsids' and options['groupsids'] is not None:
                 options['groupsids'] = options['groupsids'].split(':')
-        result = _common.handle(self, *args, **options)
+        result = _bmc_common.handle(self, *args, **options)

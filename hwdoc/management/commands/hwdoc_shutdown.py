@@ -24,7 +24,7 @@ from django.utils.translation import ugettext_lazy as _l
 
 from optparse import make_option
 
-import _common
+import _bmc_common
 
 class Command(BaseCommand):
     '''
@@ -39,7 +39,7 @@ class Command(BaseCommand):
                     dest='force',
                     default=False,
                     help=_('Force shutdown instead of sending an ACPI power off signal')),
-            ) + _common.option_list
+            ) + _bmc_common.option_list
 
     def handle(self, *args, **options):
         '''
@@ -51,4 +51,4 @@ class Command(BaseCommand):
         else:
             options['command'] = 'power_off_acpi'
 
-        result = _common.handle(self, *args, **options)
+        result = _bmc_common.handle(self, *args, **options)

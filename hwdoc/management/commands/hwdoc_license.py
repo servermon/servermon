@@ -24,7 +24,7 @@ from django.utils.translation import ugettext_lazy as _l
 
 from optparse import make_option
 
-import _common
+import _bmc_common
 
 class Command(BaseCommand):
     '''
@@ -39,7 +39,7 @@ class Command(BaseCommand):
                     type='string',
                     dest='license',
                     help=_l('License key. Valid value depends on backend')),
-            ) + _common.option_list
+            ) + _bmc_common.option_list
 
     def handle(self, *args, **options):
         '''
@@ -47,4 +47,4 @@ class Command(BaseCommand):
         '''
 
         options['command'] = 'license_set'
-        result = _common.handle(self, *args, **options)
+        result = _bmc_common.handle(self, *args, **options)

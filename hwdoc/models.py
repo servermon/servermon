@@ -256,7 +256,7 @@ class ServerManagement(models.Model):
             kwargs['license'] = self.license
 
         try:
-            sm = __import__('hwdoc.vendor.' + self.method, fromlist=['hwdoc.vendor'])
+            sm = __import__('hwdoc.vendor.bmc_%s' % self.method, fromlist=['hwdoc.vendor'])
         except ImportError as e:
             # TODO: Log the error. For now just print
             print e
