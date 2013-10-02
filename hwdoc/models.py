@@ -217,7 +217,7 @@ class Equipment(models.Model):
             out += "%s, " % self.purpose
         out += "%s " % self.model
         if self.rack and self.unit:
-            out += "@ R%sU%.2d " % (self.rack, self.unit)
+            out += "@ %sU%.2d " % (self.rack, self.unit)
         out += "(%s)" % self.serial
         return out
 
