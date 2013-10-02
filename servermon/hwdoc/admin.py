@@ -85,6 +85,7 @@ admin.site.register(Project, ProjectAdmin)
 
 admin.site.register(Vendor)
 admin.site.register(RackModel)
+admin.site.register(Ticket)
 
 class DatacenterAdmin(admin.ModelAdmin):
     '''
@@ -268,7 +269,7 @@ class EquipmentAdmin(admin.ModelAdmin):
             'purpose',)
     list_display_links = ('serial',)
     list_filter = ('model', 'rack',)
-    search_fields = ['rack__pk', 'unit', 'serial', 'allocation__name']
+    search_fields = ['rack__name', 'unit', 'serial', 'allocation__name']
     list_editable = ['allocation', 'rack', 'unit']
     ordering = ('rack', 'unit',)
     inlines = [ ServerManagementInline, KeyValueAdmin ]

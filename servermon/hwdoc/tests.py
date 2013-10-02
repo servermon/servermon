@@ -26,7 +26,7 @@ else:
     import unittest
 from hwdoc.models import Vendor, EquipmentModel, Equipment, \
     ServerManagement, Project, Rack, RackPosition, RackModel, RackRow, \
-    Datacenter
+    Datacenter, Ticket
 from hwdoc.functions import search, populate_tickets
 from projectwide.functions import get_search_terms
 from django.test.client import Client
@@ -88,21 +88,31 @@ class EquipmentTestCase(unittest.TestCase):
                                 comments = 'Nothing',
                             )
 
-        self.management = ServerManagement.objects.create (
+        self.management = ServerManagement.objects.create(
                             equipment = self.server2,
                             method = 'dummy',
                             hostname = 'example.com',
                             )
+        self.ticket1 = Ticket.objects.create(
+                            name = 'myticket',
+                            url = 'http://example.com/myticket',
+                            state = 'open',
+                            )
+        self.ticket1.equipment.add(self.server1)
 
     def tearDown(self):
         '''
         Command run after every test
         '''
 
+        Ticket.objects.all().delete()
         ServerManagement.objects.all().delete()
         Equipment.objects.all().delete()
         EquipmentModel.objects.all().delete()
         Vendor.objects.all().delete()
+        Rack.objects.all().delete()
+        RackRow.objects.all().delete()
+        Datacenter.objects.all().delete()
 
     # Tests start here
     def test_if_servers_in_same_rack(self):
@@ -151,9 +161,11 @@ class EquipmentTestCase(unittest.TestCase):
         tokens = get_search_terms(text)
         self.assertNotEqual(len(tokens), 0)
 
-    def test_populate_tickets(self):
-        self.assertEqual(populate_tickets(search(str(self.server2.rack.name))).count(), 2)
+    def test_assess_ticket_count(self):
+        self.assertEqual(Ticket.objects.count(), self.server1.ticket_set.all().count())
 
+    def test_ticket_unicode(self):
+        print(self.ticket1)
 
 class ViewsTestCase(unittest.TestCase):
     '''
@@ -212,8 +224,12 @@ class ViewsTestCase(unittest.TestCase):
                                 rack = self.rack,
                                 unit = '2',
                                 purpose = 'Nothing',
-                                comments = 'settings.TICKETING_URL/%s' % '10'
                             )
+        self.ticket = Ticket.objects.create(
+                            name = 'myticket',
+                            url = 'http://example.com/myticket',
+                            state = 'open')
+        self.server_ticketed.ticket_set.add(self.ticket)
 
     def tearDown(self):
         '''
