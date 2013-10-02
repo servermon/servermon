@@ -70,13 +70,12 @@ def subnav(request, subnav):
     data = map(lambda x: {
         'name': x.name,
         'url': reverse(urls[subnav]['view'],
-                        args=(getattr(x, urls[subnav]['args']),) if urls[subnav]['args'] else None) +
-                        '?%s%s' % (urls[subnav]['append'], x.name) if urls[subnav]['append'] else ''
+                        args=(getattr(x, urls[subnav]['args']),) if urls[subnav]['args'] else None ) +
+                        ('?%s%s' % (urls[subnav]['append'], x.name) if urls[subnav]['append'] else '')
                         }, data)
     data = json.dumps(data)
 
-    return HttpResponse(data,
-                            content_type="application/json")
+    return HttpResponse(data, content_type="application/json")
 
 def flotdata(request, datatype):
     '''
