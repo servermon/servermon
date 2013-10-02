@@ -186,6 +186,9 @@ class EquipmentModel(Model):
     '''
 
     u = models.PositiveIntegerField(verbose_name="Us")
+    rack_front = models.BooleanField(default=True)
+    rack_interior = models.BooleanField(default=True)
+    rack_back = models.BooleanField(default=True)
 
     def __unicode__(self):
         return "%s %s" % (self.vendor, self.name)

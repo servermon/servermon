@@ -5,7 +5,11 @@
     <tr>
       <th>{% trans "Serial" %}</th>
       <th>{% trans "Model" %}</th>
-      <th>{% trans "RackUnit" %}</th>
+      <th>{% trans "Rack" %}</th>
+      <th>{% trans "Unit" %}</th>
+      <th>{% trans "Front" %}</th>
+      <th>{% trans "Interior" %}</th>
+      <th>{% trans "Back" %}</th>
       <th>{% trans "IPMI Hostname" %}</th>
       <th>{% trans "Project" %}</th>
       <th>{% trans "Tickets" %}</th>
@@ -23,7 +27,11 @@
       {% endif %}
       {% endif %}
       <td>{{ result.model.vendor }}&nbsp;{{ result.model.name }}</td>
-      <td>{{ result.rack }}{{ result.unit|stringformat:"02d" }}</td>
+      <td>{{ result.rack }}</td>
+      <td>{{ result.unit|stringformat:"02d" }}</td>
+      <td class="centered">{% if result.model.rack_front %}<i class="icon-ok-sign"></i>{% else %}<i class="icon-remove-sign"></i>{% endif %}</td>
+      <td class="centered">{% if result.model.rack_interior %}<i class="icon-ok-sign"></i>{% else %}<i class="icon-remove-sign"></i>{% endif %}</td>
+      <td class="centered">{% if result.model.rack_back %}<i class="icon-ok-sign"></i>{% else %}<i class="icon-remove-sign"></i>{% endif %}</td>
       <td><a href="https://{{ result.servermanagement.hostname }}">{{ result.servermanagement.hostname }}</a></td>
       <td>{% if result.allocation %}<a href="{% url "hwdoc.views.project" result.allocation.pk %}">{{ result.allocation.name }}</a>{% else %}&mdash;{% endif %}</td>
       <td>
