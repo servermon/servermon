@@ -1,7 +1,15 @@
 *.pyc
-settings.py
-*.swp
+/settings.py
+/servermon/settings.py
+.*.swp
 /urls.py
+/servermon/urls.py
+/docbuild
 *.sqlite*
 *.db
 *~
+*.egg
+*.egg-info
+.tox
+AUTHORS
+ChangeLog
