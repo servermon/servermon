@@ -3,6 +3,7 @@ import datetime
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
+from django.conf import settings
 
 class Migration(SchemaMigration):
 
@@ -14,7 +15,11 @@ class Migration(SchemaMigration):
         db.alter_column('hwdoc_equipment', 'rack_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['hwdoc.Rack'], null=True, blank=True))
 
         # Adding index on 'Equipment', fields ['rack']
-        db.create_index('hwdoc_equipment', ['rack_id'])
+        # NOTE: This is such an ugly fix. Unfortunately the proper approach was
+        # not taken when this migration was created and now migrations break in
+        # sqlite. So avoiding it
+        if settings.DATABASES['default']['ENGINE'] != 'django.db.backends.sqlite3':
+            db.create_index('hwdoc_equipment', ['rack_id'])
 
 
     def backwards(self, orm):
