@@ -1,0 +1,5 @@
+pbr
+Django
+south
+whoosh
+ipy
