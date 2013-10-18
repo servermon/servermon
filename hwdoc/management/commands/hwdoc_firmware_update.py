@@ -52,7 +52,6 @@ class Command(BaseCommand):
 
         if not options['firmware_location']:
             raise CommandError(_('Firmware location missing. -f needed. See help'))
-            sys.exit(1)
 
         if not isfile(options['firmware_location']):
             raise CommandError(_('Firmware file not found. Check command input'))

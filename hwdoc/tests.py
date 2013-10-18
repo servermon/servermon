@@ -30,6 +30,9 @@ from hwdoc.models import Vendor, EquipmentModel, Equipment, \
 from hwdoc.functions import search, populate_tickets
 from projectwide.functions import get_search_terms
 from django.test.client import Client
+from django.core.management import call_command
+
+import os
 
 class EquipmentTestCase(unittest.TestCase):
     '''
@@ -247,4 +250,107 @@ class ViewsTestCase(unittest.TestCase):
         response = c.get('/hwdoc/flotdata/%s/' % 'datacenters',
                 HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
+
+class CommandsTestCase(unittest.TestCase):
+    '''
+    A test case for django management commands
+    '''
+
+    def setUp(self):
+        '''
+        Commands run before every test
+        '''
+
+        self.vendor = Vendor.objects.create(name='HP')
+        self.model1 = EquipmentModel.objects.create(vendor=self.vendor, name='DL385 G7', u=2)
+        self.model2 = EquipmentModel.objects.create(vendor=self.vendor, name='DL380 G7', u=2)
+        self.model2 = EquipmentModel.objects.create(vendor=self.vendor, name='Fujisu PRIMERGY 200 S', u=1)
+        self.rackmodel = RackModel.objects.create(
+                                vendor=self.vendor,
+                                max_mounting_depth = 99,
+                                min_mounting_depth = 19,
+                                height = 42,
+                                width = 19)
+        self.dc = Datacenter.objects.create(name='Test DC')
+        self.rackrow = RackRow.objects.create(name='testing', dc=self.dc)
+        self.rack = Rack.objects.create(model=self.rackmodel, name='testrack')
+        RackPosition.objects.create(rack=self.rack, rr=self.rackrow, position=10)
+
+        self.server1 = Equipment.objects.create(
+                                model = self.model1,
+                                serial = 'G123456',
+                                rack = self.rack,
+                                unit = '20',
+                                purpose = 'Nothing',
+                            )
+
+        self.server2 = Equipment.objects.create(
+                                model = self.model2,
+                                serial = 'R123457',
+                                rack = self.rack,
+                                unit = '22',
+                                purpose = 'Nothing',
+                                comments = 'Nothing',
+                            )
+
+        self.management = ServerManagement.objects.create (
+                            equipment = self.server2,
+                            method = 'dummy',
+                            hostname = 'example.com',
+                            )
+
+    def tearDown(self):
+        '''
+        Command run after every test
+        '''
+
+        ServerManagement.objects.all().delete()
+        Equipment.objects.all().delete()
+        EquipmentModel.objects.all().delete()
+        Vendor.objects.all().delete()
+
+    #Tests start here
+    def test_bmc_commands(self):
+        call_command('hwdoc_bmc_reset', self.server2.serial)
+        call_command('hwdoc_add_user', self.server2.serial)
+        call_command('hwdoc_bmc_factory_defaults', self.server2.serial)
+        call_command('hwdoc_bmc_reset', self.server2.serial)
+        call_command('hwdoc_boot_order', self.server2.serial)
+        call_command('hwdoc_get_all_users', self.server2.serial)
+        call_command('hwdoc_license', self.server2.serial)
+        call_command('hwdoc_pass_change', self.server2.serial)
+        call_command('hwdoc_power_cycle', self.server2.serial)
+        call_command('hwdoc_remove_user', self.server2.serial)
+        call_command('hwdoc_reset', self.server2.serial)
+        call_command('hwdoc_set_ldap_settings', self.server2.serial)
+        call_command('hwdoc_set_settings', self.server2.serial)
+        call_command('hwdoc_shutdown', self.server2.serial)
+        call_command('hwdoc_startup', self.server2.serial)
+
+    def test_importequipment(self):
+        filename = 'test_importequiment.csv'
+        f = open(filename,'w')
+        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s' % ( '1', 'VMC01', 'A123456',
+            'test.example.com', 'password', self.rack.name, '10', 'PDA', 'PDB',
+            'AA:BB:CC:DD:EE:FF'))
+        f.close()
+        call_command('hwdoc_importequipment', filename)
+        os.remove(filename)
+
+    def test_importequipmentlicenses(self):
+        filename = 'test_importequipmentlicenses.csv'
+        f = open(filename, 'w')
+        f.write('%s,%s,%s' % ('foo', 'mylicense', self.server2.serial))
+        f.close()
+        call_command('hwdoc_importequipmentlicenses', filename)
+        os.remove(filename)
+
+    def test_bmc_firmware_update(self):
+        filename = 'firmware'
+        f = open(filename, 'w')
+        f.write('THIS IS A FIRMWARE. Yeah...it is')
+        f.close()
+        call_command('hwdoc_firmware_update', self.server2.serial,
+                firmware_location='firmware')
+        os.remove(filename)
 

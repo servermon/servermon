@@ -24,7 +24,6 @@ from hwdoc.functions import search
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
-import sys
 from optparse import make_option
 
 option_list = (
@@ -53,8 +52,7 @@ def handle(self, *args, **options):
     try:
         key = args[0]
     except IndexError:
-        print _('Error in usage. See help')
-        sys.exit(1)
+        raise CommandError(_('Error in usage. See help'))
 
     es = search(key)
     if es.count() == 0:

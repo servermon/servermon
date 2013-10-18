@@ -22,7 +22,6 @@ from django.core.management.base import BaseCommand
 from hwdoc.models import Equipment
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
-import sys
 import csv
 
 class Command(BaseCommand):
@@ -41,11 +40,9 @@ class Command(BaseCommand):
         if args is None or len(args) != 1:
             raise CommandError(_('You must supply a file name'))
         try:
-            csvname = sys.argv[2]
+            csvname = args[0]
         except IndexError:
-            print _('Error in usage. See help')
-            sys.exit(1)
-
+            raise CommandError(_('Error in usage. See help'))
 
         licenses = []
 

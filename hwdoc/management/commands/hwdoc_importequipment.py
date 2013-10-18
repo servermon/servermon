@@ -23,7 +23,6 @@ from django.conf import settings
 from hwdoc.models import EquipmentModel, Equipment, ServerManagement, Rack
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
-import sys
 import csv
 import re
 
@@ -43,10 +42,9 @@ class Command(BaseCommand):
         if args is None or len(args) != 1:
             raise CommandError(_('You must supply a file name'))
         try:
-            csvname = sys.argv[2]
+            csvname = args[0]
         except IndexError:
-            print _('Error in usage. See help')
-            sys.exit(1)
+            raise CommandError(_('Error in usage. See help'))
 
         count = 0
         with open(csvname, 'rb') as f:
@@ -66,7 +64,7 @@ class Command(BaseCommand):
                     continue
 
                 try:
-                    rack = Rack.objects.get(pk=rack.split('_')[1])
+                    rack = Rack.objects.get(name=rack)
                 except Rack.DoesNotExist:
                     raise RuntimeError(_('The Rack %(rack)s you specified does not exist. You should create it first' % { 'rack': rack}))
 
