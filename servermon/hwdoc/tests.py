@@ -57,6 +57,7 @@ class EquipmentTestCase(unittest.TestCase):
         self.dc = Datacenter.objects.create(name='Test DC')
         self.rackrow = RackRow.objects.create(name='testing', dc=self.dc)
         self.rack = Rack.objects.create(model=self.rackmodel, name='testrack')
+        self.rack2 = Rack.objects.create(model=self.rackmodel, name='R02')
         RackPosition.objects.create(rack=self.rack, rr=self.rackrow, position=10)
 
         self.server1 = Equipment.objects.create(
@@ -72,6 +73,15 @@ class EquipmentTestCase(unittest.TestCase):
                                 serial = 'R123457',
                                 rack = self.rack,
                                 unit = '22',
+                                purpose = 'Nothing',
+                                comments = 'Nothing',
+                            )
+
+        self.server3 = Equipment.objects.create(
+                                model = self.model2,
+                                serial = 'R123458',
+                                rack = self.rack2,
+                                unit = '23',
                                 purpose = 'Nothing',
                                 comments = 'Nothing',
                             )
@@ -115,13 +125,16 @@ class EquipmentTestCase(unittest.TestCase):
         self.assertTrue(self.management.firmware_update())
 
     def test_equipment_number(self):
-        self.assertEqual(Equipment.objects.all().count(), 2)
+        self.assertEqual(Equipment.objects.all().count(), 3)
 
     def test_search_empty(self):
         self.assertFalse(search(''))
 
     def test_search_rack(self):
         self.assertEqual(search(str(self.server1.rack.name)).count(), 2)
+
+    def test_search_rack_heuristic(self):
+        self.assertEqual(search(str(self.server3.rack.name + self.server3.unit)).count(), 1)
 
     def test_search_serial(self):
         self.assertEqual(search(self.server1.serial)[0].serial, self.server1.serial)
