@@ -37,11 +37,15 @@ clean:
 doc:	$(BUILDDIR)/api $(BUILDDIR)/html $(BUILDDIR)/text
 
 test:
-	@python manage.py test --noinput
+	@python servermon/manage.py test --noinput
+
+coverage:
+	@python-coverage run --source=puppet,contrib,updates,hwdoc,projectwide servermon/manage.py test
+	@python-coverage html
 
 $(BUILDDIR)/api:
 	@mkdir -p $(BUILDDIR)
-	epydoc -c epydoc.conf --exclude migrations -o $(BUILDDIR)/api hwdoc
+	epydoc -c doc/epydoc.conf --exclude migrations -o $(BUILDDIR)/api servermon
 
 $(BUILDDIR)/html: $(SPHINXFILES)
 	@mkdir -p $(BUILDDIR)

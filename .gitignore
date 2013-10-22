@@ -1,8 +1,6 @@
 *.pyc
-/settings.py
 /servermon/settings.py
 .*.swp
-/urls.py
 /servermon/urls.py
 /docbuild
 *.sqlite*
@@ -13,3 +11,4 @@
 .tox
 AUTHORS
 ChangeLog
+.coverage
