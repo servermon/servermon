@@ -1,1 +1,3 @@
-hwdoc/__init__.py
+'''
+hwdoc app used to document/track Datacenter assets
+'''

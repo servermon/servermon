@@ -1,1 +1,3 @@
-projectwide/__init__.py
+'''
+All non-app specific views and functions are gathered here
+'''

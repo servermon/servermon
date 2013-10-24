@@ -1,1 +1,3 @@
-puppet/__init__.py
+'''
+A Django frontend to puppet's SQL database
+'''
