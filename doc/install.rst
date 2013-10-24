@@ -31,7 +31,7 @@ installation will need all of the steps specified, some are not strictly
 required for every environment. Which ones they are, and why, is specified in
 the corresponding sections.
 
-Server mon at this point it offers two applications
+Servermon at this point offers two applications
 
 1) A Web frontend to the Puppet database.
 2) hwodc: A simple datacenter hardware documentation database
@@ -48,7 +48,7 @@ Hardware requirements
 
 Any system supported by your Linux distribution is fine. 64-bit systems
 are the ones tested better but there is no reason 32-bit systems should
-not work 
+not work
 
 Installing the software
 +++++++++++++++++++++++
@@ -70,9 +70,6 @@ A Puppet infrastructure with an RDBMS (MySQL, PostgreSQL) is needed for
 everything else apart from hwdoc
 
 An application server. Gunicorn should work, apache+mod_wsgi works, django runserver works
-
-4.3 Installation
-
 
 Setting up the environment for Servermon
 ----------------------------------------
@@ -117,11 +114,11 @@ Then you need to configure the project. Things to pay attention to::
   DATABASES => Fill it with needed info
   TIME_ZONE => If you care about correct timestamps
   MEDIA_URL => Pretty self explanatory
-  STATIC_URL => (static media directory) 
+  STATIC_URL => (static media directory)
   LDAP_AUTH_SETTINGS => if any
   TEMPLATE_DIRS => at least '/path/to/servermon/templates' needed
   INSTALLED_APPS => (uncomment needed apps). django admin apps are a must for hwdoc
-  AUTHENTICATION_BACKENDS = > comment or uncomment 
+  AUTHENTICATION_BACKENDS = > comment or uncomment
       'servermon.djangobackends.ldapBackend.ldapBackend',
       depending on whether you want LDAP user authentication or not
 
@@ -131,7 +128,7 @@ Create standard Django tables::
 
 	./manage.py syncdb
 
-to create all the necessary tables in the database. 
+to create all the necessary tables in the database.
 
 Create application tables using south migrations::
 

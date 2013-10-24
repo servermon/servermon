@@ -12,7 +12,7 @@ Please note that only upgrade paths for consecutive versions have been tested.
 Upgrade from 0.1 to 0.3 for example may or may not work.
 
 Upgrading from 0.6.0 to 0.6.1
-=============================
+-----------------------------
 You should perform the following
 
 * Stop application server (wsgi, gunicorn, etc)
@@ -20,7 +20,7 @@ You should perform the following
 * Restart application server (wsgi, gunicorn, etc)
 
 Upgrading from 0.5.0 to 0.6.0
-=============================
+-----------------------------
 You should perform the following
 
 * Stop application server (wsgi, gunicorn, etc)
@@ -35,7 +35,7 @@ You should perform the following
 * Restart application server (wsgi, gunicorn, etc)
 
 Upgrading from 0.4.2 to 0.5.0
-=============================
+-----------------------------
 You should perform the following
 
 * Stop application server (wsgi, gunicorn, etc)
@@ -45,7 +45,7 @@ You should perform the following
 * Restart application server (wsgi, gunicorn, etc)
 
 Upgrading from 0.4.1 to 0.4.2
-=============================
+-----------------------------
 You should perform the following
 
 * Stop application server (wsgi, gunicorn, etc)
@@ -61,14 +61,14 @@ You should perform the following
 
 
 Upgrading from 0.4 to 0.4.1
-===========================
+---------------------------
 You should perform the following
 
 * Untar new version (backup the old one first)
 * Restart application server (wsgi, gunicorn, etc)
 
 Upgrading from 0.3 to 0.4
-=========================
+-------------------------
 You should perform the following
 
 * Untar new version (backup the old one first)
@@ -82,7 +82,7 @@ You should perform the following
 * Restart application server (wsgi, gunicorn, etc)
 
 Upgrading from 0.2 to 0.3
-=========================
+-------------------------
 You should perform the following
 
 * Untar new version (backup the old one first)
@@ -95,7 +95,7 @@ You should perform the following
 * Restart application server (wsgi, gunicorn, etc)
 
 Upgrading from 0.1 to 0.2
-=========================
+-------------------------
 In order to upgrade from 0.1 to 0.2 you should perform the following
 
 * Install prerequisites: 
