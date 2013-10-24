@@ -13,6 +13,12 @@ If you have no idea what Puppet is, it is possible that you don't need
 this software. Do note however that hwdoc will still be usable even
 without a Puppet infrastructure
 
+Compatibility
+=============
+
+As of October 2013, we mosty support Django 1.4. Django 1.5 or later is NOT
+supported.
+
 Install
 =======
 
@@ -36,6 +42,8 @@ Run!
 .. code-block:: bash
 
     ./manage.py runserver
+
+More details in the `installation tutorial <https://servermon.readthedocs.org/en/latest/install.html>`_.
 
 Documentation
 =============
