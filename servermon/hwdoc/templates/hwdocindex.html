@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load url from future %}
-{% block heading %}{% trans "Overview" %}{% endblock %}
+{% block heading %}{% trans "Equipment Overview" %}{% endblock %}
 {% block extrahead %}
 <script type="text/javascript" src="{{ MEDIA_URL }}flot/jquery.flot.min.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}flot/jquery.flot.pie.min.js"></script>
@@ -14,31 +14,31 @@
 {% block content %}
 <div class="row-fluid text-center">
   <div class="span6">
-    <h3>{% trans "% of Equipment by Datacenter" %}</h3>
+    <h3>{% trans "by datacenter" %}</h3>
     <div id="by-datacenter" class="hwdocgraph" data-get="{% url "hwdoc.views.flotdata" "datacenters" %}"></div>
   </div>
   <div class="span6">
-    <h3>{% trans "% of Equipment by project" %}</h3>
+    <h3>{% trans "by project" %}</h3>
     <div id="by-project" class="hwdocgraph" data-get="{% url "hwdoc.views.flotdata" "projects" %}"> </div>
   </div>
 </div>
 <div class="row-fluid text-center">
   <div class="span6">
-    <h3>{% trans "% of Equipment with open tickets" %}</h3>
+    <h3>{% trans "with open tickets" %}</h3>
     <div id="by-tickets" class="hwdocgraph" data-get="{% url "hwdoc.views.flotdata" "tickets" %}"></div>
   </div>
   <div class="span6">
-    <h3>{% trans "% of Equipment with comments" %}</h3>
+    <h3>{% trans "with comments" %}</h3>
     <div id="by-comments" class="hwdocgraph" data-get="{% url "hwdoc.views.flotdata" "comments" %}"></div>
   </div>
 </div>
 <div class="row-fluid text-center">
   <div class="span6">
-    <h3>{% trans "% of Equipment by vendor" %}</h3>
+    <h3>{% trans "by vendor" %}</h3>
     <div id="by-vendor" class="hwdocgraph" data-get="{% url "hwdoc.views.flotdata" "vendors" %}"></div>
   </div>
   <div class="span6">
-    <h3>{% trans "% of Equipment by model" %}</h3>
+    <h3>{% trans "by model" %}</h3>
     <div id="by-model" class="hwdocgraph" data-get="{% url "hwdoc.views.flotdata" "models" %}"></div>
   </div>
 </div>
