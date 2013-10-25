@@ -84,7 +84,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'servermon.urls'
 
 AUTHENTICATION_BACKENDS = (
-    'servermon.djangobackends.ldapBackend.ldapBackend',
+#    'servermon.djangobackends.ldapBackend.ldapBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
