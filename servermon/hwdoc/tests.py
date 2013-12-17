@@ -172,6 +172,7 @@ class ViewsTestCase(unittest.TestCase):
                                 height = 42,
                                 width = 19)
         self.rack = Rack.objects.create(model=self.rackmodel, name='testrack')
+        self.project = Project.objects.create(name='project')
 
         self.server = Equipment.objects.create(
                                 model = self.model,
@@ -179,13 +180,22 @@ class ViewsTestCase(unittest.TestCase):
                                 rack = self.rack,
                                 unit = '2',
                                 purpose = 'Nothing',
+                                allocation = self.project,
                             )
 
-        self.project = Project.objects.create(name='project')
         self.dc = Datacenter.objects.create(name='Test DC')
         self.rackrow = RackRow.objects.create(name='1st rackrow', dc=self.dc)
         RackPosition.objects.create(rack=self.rack, rr=self.rackrow, position=10)
         self.racknotinrow = Rack.objects.create(model=self.rackmodel, name='racknotinrow')
+
+        self.server_unallocated = Equipment.objects.create(
+                                model = self.model,
+                                serial = 'unallocated',
+                                rack = self.rack,
+                                unit = '2',
+                                purpose = 'Nothing',
+                            )
+
     def tearDown(self):
         '''
         Command run after every test
@@ -230,6 +240,11 @@ class ViewsTestCase(unittest.TestCase):
     def test_project(self):
         c = Client()
         response = c.get('/hwdoc/project/%s/' % self.project.pk)
+        self.assertEqual(response.status_code, 200)
+
+    def test_unallocated_equipment(self):
+        c = Client()
+        response = c.get('/hwdoc/equipment/unallocated')
         self.assertEqual(response.status_code, 200)
 
     def test_datacenter(self):

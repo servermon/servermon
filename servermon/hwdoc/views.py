@@ -126,6 +126,20 @@ def index(request):
 
     return render(request, 'hwdocindex.html')
 
+def unallocated_equipment(request):
+    '''
+    Unallocated view. It should display all non-authenticated user viewable data
+
+    @type   request: HTTPRequest
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding HTML
+    '''
+    template = 'unallocated_equipment.html'
+
+    equipments = { 'hwdoc': Equipment.objects.filter(allocation__isnull=True).distinct() }
+    return render(request, template, { 'equipments': equipments })
+
 def equipment(request, equipment_id):
     '''
     Equipment view. It should display all non-authenticated user viewable data
