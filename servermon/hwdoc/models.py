@@ -134,6 +134,7 @@ class RackModel(Model):
     min_mounting_depth = models.PositiveIntegerField(max_length=10)
     height = models.PositiveIntegerField(max_length=10)
     width = models.PositiveIntegerField(max_length=10)
+    inrow_ac = models.BooleanField(default=False)
 
     def __unicode__(self):
         return "%s %s" % (self.vendor, self.name)

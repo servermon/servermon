@@ -50,6 +50,7 @@ class EquipmentTestCase(unittest.TestCase):
         self.model2 = EquipmentModel.objects.create(vendor=self.vendor, name='Fujisu PRIMERGY 200 S', u=1)
         self.rackmodel = RackModel.objects.create(
                                 vendor=self.vendor,
+                                inrow_ac=False,
                                 max_mounting_depth = 99,
                                 min_mounting_depth = 19,
                                 height = 42,
@@ -167,6 +168,7 @@ class ViewsTestCase(unittest.TestCase):
         self.model = EquipmentModel.objects.create(vendor=self.vendor, name='DL 385 G7', u=2)
         self.rackmodel = RackModel.objects.create(
                                 vendor=self.vendor,
+                                inrow_ac=False,
                                 max_mounting_depth = 99,
                                 min_mounting_depth = 19,
                                 height = 42,
@@ -295,6 +297,7 @@ class CommandsTestCase(unittest.TestCase):
         self.model2 = EquipmentModel.objects.create(vendor=self.vendor, name='Fujisu PRIMERGY 200 S', u=1)
         self.rackmodel = RackModel.objects.create(
                                 vendor=self.vendor,
+                                inrow_ac=False,
                                 max_mounting_depth = 99,
                                 min_mounting_depth = 19,
                                 height = 42,

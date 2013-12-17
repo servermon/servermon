@@ -112,6 +112,7 @@
     "fields": {
       "vendor": 5, 
       "name": "NetShelter SX",
+      "inrow_ac": false,
       "max_mounting_depth": 91,
       "min_mounting_depth": 19,
       "height": 42,
@@ -124,6 +125,7 @@
     "fields": {
       "vendor": 5, 
       "name": "InRow RP DX Air Cooled 380-415V 50 Hz ACRP102",
+      "inrow_ac": true,
       "max_mounting_depth": 0,
       "min_mounting_depth": 0,
       "height": 42,
@@ -136,6 +138,7 @@
     "fields": {
       "vendor": 5, 
       "name": "InRow RP Chilled Water 380-415V 50 Hz ACRP502",
+      "inrow_ac": true,
       "max_mounting_depth": 0,
       "min_mounting_depth": 0,
       "height": 42,
