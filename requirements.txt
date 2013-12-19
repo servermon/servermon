@@ -3,3 +3,4 @@ Django>=1.2,<1.5
 south
 whoosh
 ipy
+python-ldap
