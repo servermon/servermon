@@ -128,16 +128,47 @@ def index(request):
 
 def unallocated_equipment(request):
     '''
-    Unallocated view. It should display all non-authenticated user viewable data
+    Unallocated Equipment view. It should display all non-authenticated user viewable data
 
     @type   request: HTTPRequest
     @param  request: Django HTTPRequest object
     @rtype: HTTPResponse
     @return: HTTPResponse object rendering corresponding HTML
     '''
-    template = 'unallocated_equipment.html'
+    template = 'interesting_equipment.html'
 
     equipments = { 'hwdoc': Equipment.objects.filter(allocation__isnull=True).distinct() }
+    return render(request, template, { 'equipments': equipments })
+
+def commented_equipment(request):
+    '''
+    Equipment with comments view. It should display all non-authenticated user viewable data
+
+    @type   request: HTTPRequest
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding HTML
+    '''
+    template = 'interesting_equipment.html'
+
+    equipments = { 'hwdoc': Equipment.objects.exclude(comments='').distinct() }
+    return render(request, template, { 'equipments': equipments })
+
+def ticketed_equipment(request):
+    '''
+    Equipment with tickets view. It should display all non-authenticated user viewable data
+
+    @type   request: HTTPRequest
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding HTML
+    '''
+    template = 'interesting_equipment.html'
+
+    equipments = Equipment.objects.exclude(comments='')
+    equipments = functions.populate_tickets(equipments)
+    equipments = [x for x in equipments if hasattr(x, 'tickets')]
+    equipments = { 'hwdoc': equipments }
     return render(request, template, { 'equipments': equipments })
 
 def equipment(request, equipment_id):
