@@ -30,7 +30,11 @@ class Migration(SchemaMigration):
         db.alter_column('hwdoc_equipment', 'rack', self.gf('django.db.models.fields.PositiveIntegerField')(null=True, blank=True))
 
         # Removing index on 'Equipment', fields ['rack']
-        db.delete_index('hwdoc_equipment', ['rack_id'])
+        # NOTE: This is such an ugly fix. Unfortunately the proper approach was
+        # not taken when this migration was created and now migrations break in
+        # sqlite. So avoiding it
+        if settings.DATABASES['default']['ENGINE'] != 'django.db.backends.sqlite3':
+            db.delete_index('hwdoc_equipment', ['rack_id'])
 
 
     models = {
