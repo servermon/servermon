@@ -31,6 +31,7 @@ from hwdoc.functions import search, populate_tickets
 from projectwide.functions import get_search_terms
 from django.test.client import Client
 from django.core.management import call_command
+from django.conf import settings
 
 import os
 
@@ -197,6 +198,22 @@ class ViewsTestCase(unittest.TestCase):
                                 unit = '2',
                                 purpose = 'Nothing',
                             )
+        self.server_commented = Equipment.objects.create(
+                                model = self.model,
+                                serial = 'commented',
+                                rack = self.rack,
+                                unit = '2',
+                                purpose = 'Nothing',
+                                comments = 'blah blah',
+                            )
+        self.server_ticketed = Equipment.objects.create(
+                                model = self.model,
+                                serial = 'ticketed',
+                                rack = self.rack,
+                                unit = '2',
+                                purpose = 'Nothing',
+                                comments = 'settings.TICKETING_URL/%s' % '10'
+                            )
 
     def tearDown(self):
         '''
@@ -247,6 +264,16 @@ class ViewsTestCase(unittest.TestCase):
     def test_unallocated_equipment(self):
         c = Client()
         response = c.get('/hwdoc/equipment/unallocated')
+        self.assertEqual(response.status_code, 200)
+
+    def test_commented_equipment(self):
+        c = Client()
+        response = c.get('/hwdoc/equipment/commented')
+        self.assertEqual(response.status_code, 200)
+
+    def test_ticketed_equipment(self):
+        c = Client()
+        response = c.get('/hwdoc/equipment/ticketed')
         self.assertEqual(response.status_code, 200)
 
     def test_datacenter(self):
