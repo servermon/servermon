@@ -20,6 +20,8 @@ hwdoc module's functions documentation. Main models are Equipment and ServerMana
 
 from django.db import models
 from django.utils.translation import ugettext as _
+from django.contrib.contenttypes import generic
+from keyvalue.models import KeyValue
 
 # Allocation models #
 class Email(models.Model):
@@ -190,6 +192,9 @@ class EquipmentModel(Model):
     rack_front = models.BooleanField(default=True)
     rack_interior = models.BooleanField(default=True)
     rack_back = models.BooleanField(default=True)
+    attrs = generic.GenericRelation(KeyValue,
+                                    content_type_field='owner_content_type',
+                                    object_id_field='owner_object_id')
 
     def __unicode__(self):
         return "%s %s" % (self.vendor, self.name)
@@ -208,6 +213,9 @@ class Equipment(models.Model):
     comments = models.TextField(blank=True)
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    attrs = generic.GenericRelation(KeyValue,
+                                    content_type_field='owner_content_type',
+                                    object_id_field='owner_object_id')
 
     class Meta:
         ordering = ['rack', '-unit']
