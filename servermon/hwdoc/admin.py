@@ -21,6 +21,7 @@ Module configuring Django's admin interface for hwdoc
 from django.contrib import admin
 from servermon.hwdoc.models import *
 from django.utils.translation import ugettext as _
+from keyvalue.admin import KeyValueAdmin
 
 class RoleInline(admin.TabularInline):
     '''
@@ -83,7 +84,6 @@ admin.site.register(Person, PersonAdmin)
 admin.site.register(Project, ProjectAdmin)
 
 admin.site.register(Vendor)
-admin.site.register(EquipmentModel)
 admin.site.register(RackModel)
 
 class DatacenterAdmin(admin.ModelAdmin):
@@ -185,6 +185,16 @@ def shutdown_force(modeladmin, request, queryset):
 
 shutdown_force.short_description = _('Force a shutdown of an equipment')
 
+
+class EquipmentModelAdmin(admin.ModelAdmin):
+    '''
+    Equipment Model Admin Manager
+    '''
+
+    inlines = [ KeyValueAdmin, ]
+
+admin.site.register(EquipmentModel, EquipmentModelAdmin)
+
 class ServerManagementInline(admin.StackedInline):
     '''
     Server Management Admin Manager
@@ -261,7 +271,7 @@ class EquipmentAdmin(admin.ModelAdmin):
     search_fields = ['rack__pk', 'unit', 'serial', 'allocation__name']
     list_editable = ['allocation', 'rack', 'unit']
     ordering = ('rack', 'unit',)
-    inlines = [ ServerManagementInline, ]
+    inlines = [ ServerManagementInline, KeyValueAdmin ]
     actions = [ shutdown, startup, shutdown_force ]
 
     def change_view(self, request, object_id, extra_context=None):
