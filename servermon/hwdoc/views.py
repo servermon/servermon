@@ -244,8 +244,7 @@ def rack(request, rack_id):
     equipments = functions.populate_tickets(equipments)
     equipments = functions.populate_hostnames(equipments)
 
-    # The rendering expects this form.
-    equipments = { 'hwdoc': equipments, }
+    equipments = { 'hwdoc': functions.calculate_empty_units(rack, equipments), }
 
     return render(request, template, { 'rack': rack, 'equipments': equipments })
 
@@ -264,8 +263,11 @@ def rackrow(request, rackrow_id):
     rackrow = get_object_or_404(RackRow, pk=rackrow_id)
     racks = rackrow.rackposition_set.select_related()
     for rack in racks:
-        rack.equipments = functions.populate_tickets(
-                rack.rack.equipment_set.select_related('model__vendor', 'model'))
+        equipments = rack.rack.equipment_set.select_related('model__vendor',
+                                                            'model')
+        equipments = functions.populate_tickets(equipments)
+
+        rack.equipments = functions.calculate_empty_units(rack.rack, equipments)
     return render(request, template, {
         'rackrow': rackrow,
         'racks': racks,

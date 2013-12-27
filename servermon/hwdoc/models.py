@@ -141,6 +141,10 @@ class RackModel(Model):
     def __unicode__(self):
         return "%s %s" % (self.vendor, self.name)
 
+    @property
+    def units(self):
+        return reversed(range(1, self.height + 1))
+
 class Rack(models.Model):
     '''
     Racks
@@ -177,7 +181,7 @@ class RackPosition(models.Model):
         ordering = ['position', ]
 
     def __unicode__(self):
-        return _('Rack: %(rack)s, Position: %(position)s, RackRow: %(rackrow)s') % {
+        return _('Rack: %(rack)s, Position: %(position)02d, RackRow: %(rackrow)s') % {
             'rack': self.rack,
             'position': self.position,
             'rackrow': self.rr,
@@ -198,6 +202,11 @@ class EquipmentModel(Model):
 
     def __unicode__(self):
         return "%s %s" % (self.vendor, self.name)
+
+    @property
+    def units(self):
+        return reversed(range(1, self.u + 1))
+
 
 class Equipment(models.Model):
     '''
