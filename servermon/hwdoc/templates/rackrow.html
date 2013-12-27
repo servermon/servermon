@@ -28,11 +28,11 @@
           <tr>
           <th>{{ eq.unit|stringformat:"02d" }}</th>
           {% if eq.tickets %}
-          <td><a href="{% url "hwdoc.views.equipment" eq.pk %}">{{ eq.model }}</a></td>
+          <td><a href="{% url "hwdoc.views.equipment" eq.pk %}">{{ eq.model }} <span class="badge badge-info">i</span></a></td>
           {% else %}
           {% if eq.comments %}
-          <td><a href="{% url "hwdoc.views.equipment" eq.pk %}">{{ eq.model }}</a></td>
-    {% else %}
+          <td><a href="{% url "hwdoc.views.equipment" eq.pk %}">{{ eq.model }} <span class="badge badge-warning">i</span></a></td>
+          {% else %}
           <td><a href="{% url "hwdoc.views.equipment" eq.pk %}">{{ eq.model }}</a></td>
     {% endif %}
           {% endif %}
