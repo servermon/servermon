@@ -48,7 +48,18 @@ Hardware requirements
 
 Any system supported by your Linux distribution is fine. 64-bit systems
 are the ones tested better but there is no reason 32-bit systems should
-not work
+not work. You dont even really need a Linux system! BSD's and Windows
+should work fine too but you will find no documentation here on how to
+install on them
+
+Software requirements
++++++++++++++++++++++
+
+Any Linux distribution should be fine. BSD's and Windows should be fine
+too. That being said, the software is written and tested mostly on
+Debian and Ubuntu and only occasionally on FreeBSD so your best bet is a
+Debian or a Debian derivative system. The rest of the documentation
+assumes a Debian system, please adjust accordingly
 
 Installing the software
 +++++++++++++++++++++++
@@ -74,20 +85,32 @@ An application server. Gunicorn should work, apache+mod_wsgi works, django runse
 Setting up the environment for Servermon
 ----------------------------------------
 
-Configuring urls.py
-+++++++++++++++++++
-
-**Mandatory**.
-
-Configure web server.
-
-Configure mysql puppet server for access from app::
-  mysql> grant select on puppet.* to 'servermon'@'example.com';
+Configuring database
+++++++++++++++++++++
 
 Note: servermon needs nothing more than the SELECT privelege. However
 hwdoc needs also INSERT,UPDATE,DELETE and installation requires creating
 tables etc. So a temporary GRANT ALL will be needed which later can be
 dropped
+
+Temporarily provide full access to the app::
+  mysql> grant all privileges on puppet.* to 'servermon'@'example.com';
+
+After installation is completed remember to revoke that::
+  mysql> revoke all privileges on puppet.* from 'servermon'@'example.com';
+  mysql> grant select on puppet.* to 'servermon'@'example.com';
+
+If you intend to also use hwdoc then you need to also::
+  mysql> grant update,insert,delete on puppet.* to 'servermon'@'example.com';
+
+Configuring urls.py
++++++++++++++++++++
+
+**Mandatory**.
+
+Configure web server::
+
+        TODO: To be written
 
 For most cases a::
 
@@ -133,6 +156,20 @@ to create all the necessary tables in the database.
 Create application tables using south migrations::
 
 	./manage.py migrate
+
+Load initial data
++++++++++++++++++
+Optionally load vendor and model data::
+
+	./manage.py loaddata vendor-model
+
+Test run
+++++++++
+Conduct a test run::
+
+        ./manage.py runserver
+
+And navigate to http://localhost:8000
 
 Branding
 ++++++++
