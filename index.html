@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Servermon by akosiaris</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Servermon</h1>
+        <p>Servermon is a Django project with the aim of facilitating server monitoring and management through Puppet</p>
+
+        <p class="view"><a href="https://github.com/akosiaris/servermon">View the Project on GitHub <small>akosiaris/servermon</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/akosiaris/servermon/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/akosiaris/servermon/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/akosiaris/servermon">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="servermon" class="anchor" href="#servermon"><span class="octicon octicon-link"></span></a>servermon</h1>
+
+<p>Servermon is a Django project with the aim of facilitating server monitoring
+and management through Puppet.</p>
+
+<p>Servermon at this point offers two applications</p>
+
+<p>1) A Web frontend to the Puppet database.
+2) hwodc: A simple datacenter hardware documentation database</p>
+
+<p>If you have no idea what Puppet is, it is possible that you don't need
+this software. Do note however that hwdoc will still be usable even
+without a Puppet infrastructure</p>
+
+<h1>
+<a name="compatibility" class="anchor" href="#compatibility"><span class="octicon octicon-link"></span></a>Compatibility</h1>
+
+<p>As of October 2013, we mosty support Django 1.4. Django 1.5 or later is NOT
+supported.</p>
+
+<h1>
+<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h1>
+
+<p>Get the python modules:</p>
+
+<p>.. code-block:: bash</p>
+
+<p>pip install -r requirements.txt</p>
+
+<p>Copy servermon/settings.py.dist to servermon/settings.py</p>
+
+<p>See doc/install.rst for details.</p>
+
+<p>.. code-block:: bash</p>
+
+<pre><code>./manage.py syncdb
+./manage.py migrate
+</code></pre>
+
+<p>Run!</p>
+
+<p>.. code-block:: bash</p>
+
+<pre><code>./manage.py runserver
+</code></pre>
+
+<p>More details in the <code>installation tutorial &lt;https://servermon.readthedocs.org/en/latest/install.html&gt;</code>_.</p>
+
+<h1>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h1>
+
+<p>The documentation is maintained using Sphinx (under /doc/) and is automatically
+generated at <a href="https://servermon.readthedocs.org/">https://servermon.readthedocs.org/</a>.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/akosiaris">akosiaris</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
