@@ -149,3 +149,30 @@ def populate_hostnames(equipment_list):
         except:
             pass
     return equipment_list
+
+def calculate_empty_units(rack, equipment_list):
+    '''
+    Calculates the empty units in a rack and adds virtual equipments with the
+    only attribute being unit. The result is not meant to be correct QuerySet
+
+    @type  rack: Rack
+    @param rack: An Instance of Model Rack
+    @type  equipment_list: Queryset
+    @param equipment_list: A Django queryset containing equipment that indeed is
+    on the rack
+
+    @rtype: QuerySet
+    @return: A QuerySet with virtual equipments added to
+    '''
+
+    tmp = [x+y-1 for x,y in equipment_list.values_list('unit', 'model__u')]
+    units = list(equipment_list.values_list('unit', flat=True))
+    units.extend(tmp)
+    units = set(sorted(units))
+    empty_units = set(rack.model.units) - units
+    equipment_list = list(equipment_list)
+
+    for empty_unit in empty_units:
+        equipment_list.append(Equipment(unit=empty_unit))
+
+    return sorted(equipment_list, key=lambda eq: eq.unit, reverse=True)
