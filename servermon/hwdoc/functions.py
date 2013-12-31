@@ -173,6 +173,6 @@ def calculate_empty_units(rack, equipment_list):
     equipment_list = list(equipment_list)
 
     for empty_unit in empty_units:
-        equipment_list.append(Equipment(unit=empty_unit))
+        equipment_list.append(Equipment(unit=empty_unit, rack=rack))
 
     return sorted(equipment_list, key=lambda eq: eq.unit, reverse=True)
