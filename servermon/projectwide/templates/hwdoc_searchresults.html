@@ -44,6 +44,19 @@
           {% endfor %}
           <td>{% if result.hostname %}<a href="{% url "updates.views.host" "result.hostname" %}">{{ result.hostname }}</a>{% else %}&mdash;{% endif %}</td>
         </tr>
+    {% elif result.rack.model.inrow_ac %}
+    <tr class="error">
+      <td><i class="icon-tint"></i></td>
+      <td><i class="icon-tint"></i></td>
+      <td><i class="icon-tint"></i></td>
+      <td>{{ result.unit|stringformat:"02d" }}</td>
+      <td class="centered"><i class="icon-tint"></i></td>
+      <td class="centered"><i class="icon-tint"></i></td>
+      <td class="centered"><i class="icon-tint"></i></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
     {% else %}
     <tr class="success">
       <td>&nbsp;</td>
