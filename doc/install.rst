@@ -69,7 +69,7 @@ Installing the software
 Python, Django, South is needed::
 
   $ aptitude install python-django
-  $ aptitude install python-south
+  $ aptitude install python-django-south
   $ aptitude install python-whoosh
   $ aptitude install python-ipy
   $ aptitude install python-mysqldb (or sqlite or psycopg2)
