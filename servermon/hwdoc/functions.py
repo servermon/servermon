@@ -95,13 +95,13 @@ def search(q):
         # TODO: Log this
         raise RuntimeError(_('An error occured while querying db: %(databaseerror)s') % {'databaseerror': e})
 
-def populate_tickets(equipment_list):
+def populate_tickets(equipment_list, closed=False):
     '''
     Populates tickets attribute for each equipment in a queryset.
 
-    Note: This function is a temporary hack and will be replaced at some point.
-    It works by looking at settings.TICKETING_URL and matches strings based on
-    that. This function WILL evaluate the queryset and cause database lookups.
+    Note: This function creates an abstration by using the vendor submodule
+    and the ticketing systems defined there.
+    This function WILL evaluate the queryset and cause database lookups.
 
     @type  equipment_list: Queryset
     @param equipment_list: A Django queryset containing equipment which need to
@@ -111,13 +111,21 @@ def populate_tickets(equipment_list):
     @return: A QuerySet with equipment's comments attribute populated
     '''
 
-    # TODO: Just a HACK
+    try:
+        vm = __import__('hwdoc.vendor.ticket_%s' % settings.TICKETING_SYSTEM,
+                        fromlist=['hwdoc.vendor'])
+    except ImportError as e:
+        # TODO: Log ther error. For now just print
+        print e
+        return equipment_list
+
     for equipment in equipment_list:
-        m = re.search('((?:%s[0-9]+)\s*)+' % settings.TICKETING_URL,
-                str(equipment.comments), re.DOTALL)
-        if m:
-            tickets = m.group(0).split()
-            equipment.tickets = [ (re.sub(settings.TICKETING_URL,'', t), t) for t in tickets]
+        try:
+            getattr(vm, 'get_tickets')(equipment, closed)
+        except AttributeError as e:
+            # TODO: Log the error. For now just print
+            print e
+            return equipment_list
     return equipment_list
 
 def populate_hostnames(equipment_list):

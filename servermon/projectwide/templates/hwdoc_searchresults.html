@@ -18,7 +18,7 @@
     {% for result in results.hwdoc %}
     {% if result.serial %}
         <tr>
-          {% if result.tickets %}
+          {% if result.ticket_set.all %}
           <td><a href="{% url "hwdoc.views.equipment" result.pk %}">{{ result.serial }} <span class="badge badge-info">i</span></a></td>
           {% else %}
           {% if result.comments %}
@@ -36,8 +36,8 @@
           <td><a href="https://{{ result.servermanagement.hostname }}">{{ result.servermanagement.hostname }}</a></td>
           <td>{% if result.allocation %}<a href="{% url "hwdoc.views.project" result.allocation.pk %}">{{ result.allocation.name }}</a>{% else %}&mdash;{% endif %}</td>
           <td>
-          {% for ticket in result.tickets %}
-          <a href="{{ ticket.1 }}">{{ ticket.0 }}</a>
+          {% for ticket in result.ticket_set.all %}
+          <a href="{{ ticket.url }}">{{ ticket.name }}</a>
           {% empty %}
           &mdash;
           </td>
