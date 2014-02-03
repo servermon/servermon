@@ -333,6 +333,7 @@ class CommandsTestCase(unittest.TestCase):
         '''
         Commands run before every test
         '''
+        settings.TICKETING_SYSTEM = 'dummy'
 
         self.vendor = Vendor.objects.create(name='HP')
         self.model1 = EquipmentModel.objects.create(vendor=self.vendor, name='DL385 G7', u=2)
@@ -428,3 +429,5 @@ class CommandsTestCase(unittest.TestCase):
                 firmware_location='firmware')
         os.remove(filename)
 
+    def test_populate_tickets(self):
+        call_command('hwdoc_populate_tickets', self.server1.serial)

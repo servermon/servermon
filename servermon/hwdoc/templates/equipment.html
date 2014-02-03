@@ -23,8 +23,8 @@
         <tr><th>{% trans "OOB MAC" %}:</th><td>{% if equipment.servermanagement %}{{ equipment.servermanagement.mac }}{% endif %}</td></tr>
         <tr><th>{% trans "OOB Hostname" %}:</th><td>{% if equipment.servermanagement %}<a href="http://{{ equipment.servermanagement.hostname }}">{{ equipment.servermanagement.hostname }}</a>{% endif %}</td></tr>
         <tr><th>{% trans "Tickets" %}:</th><td>
-            {% for ticket in equipment.tickets %}
-            <a href="{{ ticket.1 }}">{{ ticket.0 }}</a>
+            {% for ticket in equipment.ticket_set.all %}
+            <a href="{{ ticket.url }}">{{ ticket.name }}</a>{% if not forloop.last %},{% endif %}
             {% endfor %}</td></tr>
         <tr><th>{% trans "Comments" %}:</th><td>{% if equipment.comments %}{{ equipment.comments }}{% endif %}</td></tr>
 	<tr><th>{% trans "Attributes" %}:</th><td>{{ equipment.attrs.all|join:"<br/>" }}</td></tr>

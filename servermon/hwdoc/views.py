@@ -19,7 +19,8 @@ hwdoc views module
 '''
 
 from servermon.hwdoc.models import Project, EquipmentModel, Equipment, \
-        ServerManagement, Rack, RackRow, Datacenter, RackPosition, Vendor
+        ServerManagement, Rack, RackRow, Datacenter, RackPosition, Vendor, \
+        Ticket
 from servermon.projectwide import functions as projectwide_functions
 from servermon.hwdoc import functions
 from servermon.compat import render
@@ -95,8 +96,12 @@ def flotdata(request, datatype):
 
     with_comments = { 'name': 'With' }
     without_comments = { 'name': 'Without' }
-    with_comments.update(Equipment.objects.exclude(comments='').aggregate(num_equipment=Count('comments')))
-    without_comments.update(Equipment.objects.filter(comments='').aggregate(num_equipment=Count('comments')))
+    with_comments.update({'num_equipment': Equipment.objects.exclude(comments='').count()})
+    without_comments.update({'num_equipment': Equipment.objects.filter(comments='').count()})
+    with_tickets = { 'name': 'With' }
+    without_tickets = { 'name': 'Without' }
+    with_tickets.update({'num_equipment': Equipment.objects.filter(ticket__isnull=False).count()})
+    without_tickets.update({'num_equipment': Equipment.objects.filter(ticket__isnull=True).count()})
 
     switch = {
         'datacenters': Datacenter.objects.annotate(num_equipment=Count('rackrow__rackposition__rack__equipment')).values('name','num_equipment'),
@@ -104,7 +109,7 @@ def flotdata(request, datatype):
         'vendors': Vendor.objects.annotate(num_equipment=Count('equipmentmodel__equipment')).values('name','num_equipment'),
         'models': EquipmentModel.objects.annotate(num_equipment=Count('equipment')).values('name','num_equipment'),
         'comments': (with_comments, without_comments),
-        'tickets': Project.objects.annotate(num_equipment=Count('equipment')).values('name','num_equipment'),
+        'tickets': (with_tickets, without_tickets)
     }
     if datatype not in switch.keys():
         return HttpResponseBadRequest('[{"error": "Incorrect datatype specified"}]',
@@ -165,9 +170,7 @@ def ticketed_equipment(request):
     '''
     template = 'interesting_equipment.html'
 
-    equipments = Equipment.objects.exclude(comments='')
-    equipments = functions.populate_tickets(equipments)
-    equipments = [x for x in equipments if hasattr(x, 'tickets')]
+    equipments = Equipment.objects.filter(ticket__isnull=False).distinct()
     equipments = { 'hwdoc': equipments }
     return render(request, template, { 'equipments': equipments })
 
@@ -184,7 +187,6 @@ def equipment(request, equipment_id):
     template = 'equipment.html'
 
     equipment = get_object_or_404(Equipment,pk=equipment_id)
-    equipment = functions.populate_tickets((equipment,))[0]
     try:
         equipment.prev = Equipment.objects.filter(rack=equipment.rack, unit__lt=equipment.unit).order_by('-unit')[0]
     except IndexError:
@@ -241,7 +243,6 @@ def rack(request, rack_id):
         rack.next = None
 
     equipments = functions.search(str(rack.name))
-    equipments = functions.populate_tickets(equipments)
     equipments = functions.populate_hostnames(equipments)
 
     equipments = { 'hwdoc': functions.calculate_empty_units(rack, equipments), }
@@ -265,8 +266,6 @@ def rackrow(request, rackrow_id):
     for rack in racks:
         equipments = rack.rack.equipment_set.select_related('model__vendor',
                                                             'model')
-        equipments = functions.populate_tickets(equipments)
-
         rack.equipments = functions.calculate_empty_units(rack.rack, equipments)
     return render(request, template, {
         'rackrow': rackrow,
@@ -288,10 +287,8 @@ def datacenter(request, datacenter_id):
     datacenter = get_object_or_404(Datacenter, pk=datacenter_id)
     rackrows = datacenter.rackrow_set.all()
     for rackrow in rackrows:
-        racks = [str(x).zfill(2) for x in
-                rackrow.rackposition_set.values_list('rack__pk', flat=True)]
-        equipments = functions.search(racks)
-        equipments = equipments.exclude(comments='')
+        equipments = Equipment.objects.filter(rack__rackposition__rr__name=rackrow.name)
+        equipments = equipments.exclude(ticket__isnull=True)
         if equipments.count() > 0:
             rackrow.tickets = True
     return render(request, template, {

@@ -30,8 +30,8 @@
               <tr class="info">
               <th>{{ eq.unit|add:unit|add:"-1"|stringformat:"02d" }}</th>
               {% if unit == eq.model.u %}
-              {% if eq.tickets %}
-	      <td rowspan="{{ eq.model.u }}"><a href="{% url "hwdoc.views.equipment" eq.pk %}">{{ eq.model }} <span class="badge badge-info">i</span></a></td>
+              {% if eq.ticket_set.all %}
+	      <td rowspan="{{ eq.model.u }}"><a href="{% url "hwdoc.views.equipment" eq.pk %}">{{ eq.model }}<span class="badge badge-info">i</span></a></td>
               {% elif eq.comments %}
 	      <td rowspan="{{ eq.model.u }}"><a href="{% url "hwdoc.views.equipment" eq.pk %}">{{ eq.model }} <span class="badge badge-warning">i</span></a></td>
               {% else %}
