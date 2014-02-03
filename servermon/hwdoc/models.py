@@ -403,3 +403,23 @@ class ServerManagement(models.Model):
         '''
 
         return self.__sm__('firmware_update', username, password, **kwargs)
+
+# Auxiliary models
+
+class Ticket(models.Model):
+    '''
+    A ticket associated with a model
+    '''
+    STATES = (
+            ('open', 'Open'),
+            ('closed', 'Closed'),
+        )
+
+    name = models.CharField(max_length=20)
+    state = models.CharField(choices=STATES, max_length=10)
+    equipment = models.ManyToManyField(Equipment)
+    url = models.CharField(max_length=250, blank=True)
+
+    def __unicode__(self):
+        return 'Ticket: %s' % (self.name)
+
