@@ -1,0 +1,38 @@
+[
+  {
+    "pk": 1, 
+    "model": "keyvalue.key", 
+    "fields": {
+      "verbose_name": "Asset Tag", 
+      "name": "Asset Tag", 
+      "description": ""
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "keyvalue.key", 
+    "fields": {
+      "verbose_name": "Contract number", 
+      "name": "Contract", 
+      "description": ""
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "keyvalue.key", 
+    "fields": {
+      "verbose_name": "Warranty duration", 
+      "name": "Warranty", 
+      "description": ""
+    }
+  },
+  {
+    "pk": 4, 
+    "model": "keyvalue.key", 
+    "fields": {
+      "verbose_name": "Tag", 
+      "name": "Tag", 
+      "description": ""
+    }
+  },
+]
