@@ -82,7 +82,8 @@ def search(q):
                                             Q(allocation__contacts__surname__icontains=key)|
                                             Q(servermanagement__mac__icontains=mac)|
                                             Q(servermanagement__hostname__icontains=key)|
-                                            Q(servermanagement__hostname=dns)
+                                            Q(servermanagement__hostname=dns)|
+                                            Q(attrs__value__icontains=key)
                                             )
             if unit:
                 result = result.filter(unit=unit)
