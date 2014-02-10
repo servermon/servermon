@@ -171,6 +171,37 @@ Conduct a test run::
 
 And navigate to http://localhost:8000
 
+Ticketing
++++++++++
+
+Servermon allows for integration with ticketing systems. The idea is to
+be able to easily search and  visualize equipments with open tickets.
+This is accomplished through a 'caching' layer in the database, where
+tickets are stored and their relationship to equipments. The system
+allows for vendor specific plugins for each ticketing system. To select
+you ticketing system edit settings.py and set::
+
+  TICKETING_SYSTEM = 'dummy' # dummy, comments are possible values
+
+And then the configuration for you chosen ticketing system.
+
+For the comments ticketing system a single. Tickets are assumed to have
+URLs in the form COMMENTS_TICKETING_URL/ticket_id
+
+In order to populate and update tickets a cron job running a django
+command is needed. The idea is to run::
+
+  $ ./manage.py hwdoc_populate_tickets ALL_EQS
+
+This should probably tuned to each user's installation. Assuming an
+installation in to /srv/servermon the following line might be
+sufficient in a crontab::
+
+  0 0 * * * user /srv/servermon/manage.py hwdoc_populate_tickets --pythonpath=/srv/servermon ALL_EQS
+
+where user is a valid system user capable of reading (root will work,
+depending on your installation it might be a good choice, or not)
+
 Branding
 ++++++++
 
