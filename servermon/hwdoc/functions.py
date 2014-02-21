@@ -46,6 +46,10 @@ def search(q):
     if q is None or len(q) == 0 or 'servermon.hwdoc' not in settings.INSTALLED_APPS:
         return Equipment.objects.none()
 
+    # A way to get all
+    if q == "ALL_EQS":
+        return Equipment.objects.all()
+
     # Working on iterables. However in case we are not given one it is cheaper
     # to create one than fail
     try:
