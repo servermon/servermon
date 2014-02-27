@@ -31,6 +31,10 @@ class Email(models.Model):
 
     email = models.CharField(max_length=80)
 
+    class Meta:
+        verbose_name = _(u'Email')
+        verbose_name_plural = _(u'Emails')
+
     def __unicode__(self):
         return self.email
 
@@ -40,6 +44,10 @@ class Phone(models.Model):
     '''
 
     number = models.CharField(max_length=80)
+
+    class Meta:
+        verbose_name = _(u'Phone')
+        verbose_name_plural = _(u'Phones')
 
     def __unicode__(self):
         return self.number
@@ -54,6 +62,10 @@ class Person(models.Model):
     surname = models.CharField(max_length=80)
     emails = models.ManyToManyField(Email)
     phones = models.ManyToManyField(Phone)
+
+    class Meta:
+        verbose_name = _(u'Person')
+        verbose_name_plural = _(u'People')
 
     def __unicode__(self):
         result =  '%s %s ' % (self.name, self.surname)
@@ -71,6 +83,10 @@ class Project(models.Model):
     name = models.CharField(max_length=80)
     contacts = models.ManyToManyField(Person, through='Role')
 
+    class Meta:
+        verbose_name = _(u'Project')
+        verbose_name_plural = _(u'Projects')
+
     def __unicode__(self):
         return self.name
 
@@ -86,6 +102,10 @@ class Role(models.Model):
     role = models.CharField(max_length=80, choices=ROLES)
     project = models.ForeignKey(Project)
     person = models.ForeignKey(Person)
+
+    class Meta:
+        verbose_name = _(u'Role')
+        verbose_name_plural = _(u'Roles')
 
     def __unicode__(self):
         return _('Project: %(project)s, Person: %(name)s %(surname)s, Role: %(role)s') % {
@@ -103,6 +123,10 @@ class Datacenter(models.Model):
 
     name = models.CharField(max_length=20)
 
+    class Meta:
+        verbose_name = _(u'Datacenter')
+        verbose_name_plural = _(u'Datacenters')
+
     def __unicode__(self):
         return self.name
 
@@ -112,6 +136,10 @@ class Vendor(models.Model):
     '''
 
     name = models.CharField(max_length=80)
+
+    class Meta:
+        verbose_name = _(u'Vendor')
+        verbose_name_plural = _(u'Vendors')
 
     def __unicode__(self):
         return self.name
@@ -126,6 +154,8 @@ class Model(models.Model):
 
     class Meta:
         abstract = True
+        verbose_name = _(u'Model')
+        verbose_name_plural = _(u'Models')
 
 class RackModel(Model):
     '''
@@ -137,6 +167,10 @@ class RackModel(Model):
     height = models.PositiveIntegerField(max_length=10)
     width = models.PositiveIntegerField(max_length=10)
     inrow_ac = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = _(u'Rack Model')
+        verbose_name_plural = _(u'Rack Models')
 
     def __unicode__(self):
         return "%s %s" % (self.vendor, self.name)
@@ -154,6 +188,10 @@ class Rack(models.Model):
     model = models.ForeignKey(RackModel)
     name = models.CharField(max_length=80)
 
+    class Meta:
+        verbose_name = _(u'Rack')
+        verbose_name_plural = _(u'Racks')
+
     def __unicode__(self):
         return '%s' % (self.name)
 
@@ -164,6 +202,10 @@ class RackRow(models.Model):
 
     name = models.CharField(max_length=80)
     dc = models.ForeignKey(Datacenter, null=True, blank=True)
+
+    class Meta:
+        verbose_name = _(u'Rack Row')
+        verbose_name_plural = _(u'Rack Rows')
 
     def __unicode__(self):
         return '%s' % (self.name)
@@ -179,6 +221,8 @@ class RackPosition(models.Model):
 
     class Meta:
         ordering = ['position', ]
+        verbose_name = _(u'Rack Position in Rack Row')
+        verbose_name_plural = _(u'Rack Positions in Rack Rows')
 
     def __unicode__(self):
         return _('Rack: %(rack)s, Position: %(position)02d, RackRow: %(rackrow)s') % {
@@ -199,6 +243,10 @@ class EquipmentModel(Model):
     attrs = generic.GenericRelation(KeyValue,
                                     content_type_field='owner_content_type',
                                     object_id_field='owner_object_id')
+
+    class Meta:
+        verbose_name = _(u'Equipment Model')
+        verbose_name_plural = _(u'Equipment Models')
 
     def __unicode__(self):
         return "%s %s" % (self.vendor, self.name)
@@ -229,8 +277,11 @@ class Equipment(models.Model):
     class Meta:
         ordering = ['rack', '-unit']
         permissions = (
-                ("can_change_comment", "Can change comments"),
+                ('can_change_comment', 'Can change comments'),
                 )
+        verbose_name = _(u'Equipment')
+        verbose_name_plural = _(u'Equipments')
+
 
     def __unicode__(self):
         out = ""
@@ -264,6 +315,10 @@ class ServerManagement(models.Model):
     license = models.CharField(max_length=80, blank=True)
     raid_license = models.CharField(max_length=80, blank=True)
     mac = models.CharField(max_length=17, blank=True)
+
+    class Meta:
+        verbose_name = _(u'Server Management')
+        verbose_name_plural = _(u'Server Managements')
 
     def __unicode__(self):
         return "%s for %s" % (self.get_method_display(), self.equipment)
@@ -419,6 +474,10 @@ class Ticket(models.Model):
     state = models.CharField(choices=STATES, max_length=10)
     equipment = models.ManyToManyField(Equipment)
     url = models.CharField(max_length=250, blank=True)
+
+    class Meta:
+        verbose_name = _(u'Ticket')
+        verbose_name_plural = _(u'Tickets')
 
     def __unicode__(self):
         return 'Ticket: %s' % (self.name)
