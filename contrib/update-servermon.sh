@@ -18,7 +18,7 @@
 #
 #    http://club.myce.com/f1/most-stupid-license-agreement-66027/#post401056
 #
-#  and which makes for an nice waste of 5 minutes you'll never get back...
+#  and which makes for a nice waste of 5 minutes you'll never get back...
 ##
 
 # ...but seriously though...
@@ -39,7 +39,8 @@
 #
 #  * you need to have non-interactive (key-only-based) ssh access to the server
 #
-#  * you need to have ability to do non-interactive (passwordless) "sudo -s"
+#  * you need to have the ability to do non-interactive (passwordless)
+#    "sudo -s"
 ##
 
 #  NB: This script deals with commit hashes rather than release version-numbers
