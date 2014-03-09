@@ -130,7 +130,6 @@ if test -z "$host_name"; then
 	exit 1
 fi
 USER="${USER:-\`id -urn\`}"
-HOME="${HOME:-/home/$USER}"
 today=`date +%Y%m%d`
 # use specified commit or the "latest" one
 if test $# -gt 0; then
@@ -146,8 +145,9 @@ scp servermon-${today}-${commit_hash}.tar.xz "${host_name}:"
 ssh_cmds="\
 set -e;\
 sudo -s -n;\
+HOME=\"\${HOME:-/home/$USER}\";\
 cd \"$parent_path\";\
-tar xpJf \"${HOME}/servermon-${today}-${commit_hash}.tar.xz\";\
+tar xpJf \"\${HOME}/servermon-${today}-${commit_hash}.tar.xz\";\
 chown -R www-data:www-data \"${base_prefix}-${commit_hash}\";\
 chmod -R ug=rwX,o= \"${base_prefix}-${commit_hash}\";\
 if test -e \"${base_prefix}/urls.py\"; then\
