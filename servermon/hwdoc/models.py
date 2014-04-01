@@ -318,7 +318,7 @@ class ServerManagement(models.Model):
 
     class Meta:
         verbose_name = _(u'Server Management')
-        verbose_name_plural = _(u'Server Managements')
+        verbose_name_plural = _(u'Servers Management')
 
     def __unicode__(self):
         return "%s for %s" % (self.get_method_display(), self.equipment)

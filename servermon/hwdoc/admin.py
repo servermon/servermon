@@ -203,7 +203,7 @@ class ServerManagementInline(admin.StackedInline):
 
     model = ServerManagement
     verbose_name = 'Server Management (optional)'
-    verbose_name_plural = 'Server Managements (optional)'
+    verbose_name_plural = 'Servers Management (optional)'
 
 class EquipmentAdmin(admin.ModelAdmin):
     '''
