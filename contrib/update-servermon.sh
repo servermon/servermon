@@ -131,6 +131,8 @@ NOTES:
 EOH
 }
 
+#TODO: add option to override server start/stop commands
+
 # getopts
 script_name="`printf '%s' "$0" | sed -e 's:^.*/\([^/]\+\)$:\1:'`"
 while test -n "$1"; do
