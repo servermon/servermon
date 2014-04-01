@@ -57,6 +57,16 @@
 #      upgrading manually though, so it in no way diminishes the usefulness of
 #      this script, it just adds to the TODO list...
 
+#  NB: Recent versions of Django have changed file-layout. This installer
+#      defaults to expecting the new layout. If your upgrade involves the old
+#      layout this will not work (for now) without a tiny change to the script
+#      (or use dry-run and copy the commands manually, tweaking where needed).
+#      Keep in mind also that for old-Django to new-Django the .dist-based
+#      files will not be copied across (yet) because they won't be found in the
+#      expected places. For now you have to ignore the script output and do
+#      that step manually if you strike that problem (and it will ony happen
+#      once).
+
 set -e
 
 # Set/edit these here if you want them hard-coded, otherwise override by optflags
@@ -64,6 +74,9 @@ merge=1
 migrate=1
 host_name=
 repo_dir="$(readlink -e .)"
+dryrun=0
+updatedeps=1
+archive_extension="tar"
 
 # Set these to match your web-server's configs
 # e.g. parent_path=/srv && base_prefix=servermon -> /srv/servermon-XXX (XXX = commit hash)
@@ -73,21 +86,52 @@ base_prefix="servermon"
 # creating a single symlink, but an even better way would be to use source-reloading,
 # with the process running in WSGI daemon mode. See:
 # https://code.google.com/p/modwsgi/wiki/ReloadingSourceCode
-stop_server="invoke-rc.d apache stop"
-start_server="invoke-rc.d apache start"
+stop_server="invoke-rc.d apache2 stop"
+start_server="invoke-rc.d apache2 start"
+# Whether to just touch the WSGI file to auto-reload instead of restarting server
+reload_wsgi=0
 
 usage() {
 	cat <<EOH
 Usage: $script_name OPTIONS [--] [commit_hash]
 
 OPTIONS:
- --help, -h             : this message
- --no-merge, -m         : don't compare your config changes in an editor
- --no-migrate, -M       : don't run South migrations command
- --host "X", -H "X"     : override the server hostname
- --repo-dir "X", -r "X" : where is the git repo? (defaults to "current directory")
+ --help, -h                 : this message
+ --dry-run, -d              : do a dry-run, echoing invasive commands instead
+                              of executing them
+ --no-update-deps, -D       : don't attempt to install/update dependency
+                              packages
+ --no-merge, -m             : don't compare your config changes in an editor
+ --no-migrate, -M           : don't run South migrations command
+ --host, -H "X"             : override the server hostname
+ --repo-dir, -r "X"         : where is the repo? (default: "current directory")
+ --reload-wsgi-daemon, -R   : if running in WSGI daemon mode and can reload by
+                              touching the WSGI file, rather than restart
+ --archive-extension, -e "X": extension used by git-archive (default: "tar")
+ --parent-path, -p "X"      : set this to the parent directory for the files
+                              (default: /srv)
+ --base-prefix, -b "X"      : prefix of dir-name for files (default: servermon)
+
+NOTES:
+
+ The editor which is used for comparing files on the server during the "merge"
+ phase is taken from your \$EDITOR setting on the server. Override that in
+ your environment accordingly if you wish to change it. Use of a
+ "visual-compare" tool like "meld" as the editor is highy recommended, and of
+ course be careful not to update the *existing* version of each file as this
+ will affect the running server in unpredictable ways.
+
+ It is highly recommended to do a "--dry-run" pass before running the command
+ for real, just to be prudent. If you don't understand what it is about to run,
+ don't run it...
+
+ The --reload-wsgi-daemon option touches the wsgi file in the Apache subdir.
+ This should work when running as a daemon process under any server, but if you
+ are running a custom wsgi file then you will need to do this step manually.
 EOH
 }
+
+#TODO: add option to override server start/stop commands
 
 # getopts
 script_name="`printf '%s' "$0" | sed -e 's:^.*/\([^/]\+\)$:\1:'`"
@@ -96,6 +140,14 @@ while test -n "$1"; do
 	--help|-h)
 		usage
 		exit 0;;
+	--dry-run|-d)
+		dryrun=1
+		shift
+		continue;;
+	--no-update-deps|-D)
+		updatedeps=0
+		shift
+		continue;;
 	--no-merge|-m)
 		merge=0
 		shift
@@ -112,6 +164,22 @@ while test -n "$1"; do
 		repo_dir="$(readlink -e "$2")"
 		shift 2
 		continue;;
+	--reload-wsgi-daemon|-R)
+		reload_wsgi=1
+		shift
+		continue;;
+	--archive-extension|-e)
+		archive_extension="$2"
+		shift 2
+		continue;;
+	--parent-path|-p)
+		parent_path="$2"
+		shift 2
+		continue;;
+	--base-prefix|-b)
+		base_prefix="$2"
+		shift 2
+		continue;;
 	--)
 		shift
 		break;;
@@ -123,56 +191,97 @@ while test -n "$1"; do
 	esac
 done
 
-cd "$repo_dir"
 # setup
 if test -z "$host_name"; then
 	printf '%s: must specify host_name.\n' "$script_name" >&2
 	exit 1
 fi
-USER="${USER:-\`id -urn\`}"
 today=`date +%Y%m%d`
+cd "$repo_dir"
 # use specified commit or the "latest" one
 if test $# -gt 0; then
 	commit_hash="$1"
 else
+	printf "You didn't specify a commit to update to, so I am defaulting to the latest. Are\n" >&2
+	printf "you *sure* that's what you want?\n" >&2
+	if test 1 -ne $dryrun; then
+		printf "Sleeping for 5 seconds so you can interrupt me if not...  ;-)\n" >&2
+		sleep 5
+	fi
 	commit_hash=`git show --pretty=format:%H HEAD`
 fi
-# export a commit snapshot
-git archive --prefix=${base_prefix}-${commit_hash}/ -o servermon-${today}-${commit_hash}.tar.xz
-# send archive to server
-scp servermon-${today}-${commit_hash}.tar.xz "${host_name}:"
+# export a commit snapshot, then send to server
+if test 1 -eq $dryrun; then
+	printf '%s\n' "git archive --prefix=${base_prefix}-${commit_hash}/ -o servermon-${today}-${commit_hash}.${archive_extension} $commit_hash"
+	printf '%s\n' "scp servermon-${today}-${commit_hash}.${archive_extension} \"${host_name}:\""
+	printf '%s\n' "rm -f servermon-${today}-${commit_hash}.${archive_extension}"
+else
+	git archive --prefix=${base_prefix}-${commit_hash}/ -o servermon-${today}-${commit_hash}.${archive_extension} $commit_hash
+	scp servermon-${today}-${commit_hash}.${archive_extension} "${host_name}:"
+	rm -f servermon-${today}-${commit_hash}.${archive_extension}
+fi
+# setup unarchive command
+case "$archive_extension" in
+	tar) unarchive_cmd='tar xpf';;
+	tar.gz) unarchive_cmd='tar xpzf';;
+	tar.bz2) unarchive_cmd='tar xpjf';;
+	tar.xz) unarchive_cmd='tar xpJf';;
+	tar.Z) unarchive_cmd='tar xpZf';;
+	*) printf 'Archive format not yet recognised.\n' >&2; exit 1;;
+esac
+
 # set commands to run on server
 ssh_cmds="\
-set -e;\
-sudo -s -n;\
-HOME=\"\${HOME:-/home/$USER}\";\
-cd \"$parent_path\";\
-tar xpJf \"\${HOME}/servermon-${today}-${commit_hash}.tar.xz\";\
-chown -R www-data:www-data \"${base_prefix}-${commit_hash}\";\
-chmod -R ug=rwX,o= \"${base_prefix}-${commit_hash}\";\
-if test -e \"${base_prefix}/urls.py\"; then\
-	cp \"${base_prefix}/urls.py\" \"${base_prefix}-${commit_hash}/urls.py\";\
-else\
-	cp \"${base_prefix}-${commit_hash}/urls.py.dist\" \"${base_prefix}-${commit_hash}/urls.py\";\
-fi;\
-if test -e \"${base_prefix}/settings.py\"; then\
-	cp \"${base_prefix}/settings.py\" \"${base_prefix}-${commit_hash}/settings.py\";\
-else\
-	cp \"${base_prefix}-${commit_hash}/settings.py.dist\" \"${base_prefix}-${commit_hash}/settings.py\";\
-fi;\
-if test \"$merge\" = 1; then\
-	\"\$EDITOR\" \"${base_prefix}-${commit_hash}/urls.py\" \"${base_prefix}-${commit_hash}/urls.py.dist\";\
-	\"\$EDITOR\" \"${base_prefix}-${commit_hash}/settings.py\" \"${base_prefix}-${commit_hash}/settings.py.dist\";\
-fi;\
-if test \"$migrate\" = 1; then\
-	cd \"${base_prefix}-${commit_hash}\";\
-	./manage.py migrate;\
-	cd ..;\
-fi;\
-$stop_server;\
-ln -sf \"${base_prefix}\" \"${base_prefix}-${commit_hash}\";\
-$start_server;\
-'
+set -e;
+HOME=\"\${HOME:-\$(printf '%s' ~)}\";
+! test '~' = \"\$HOME\" || HOME=\"/home/\`id -urn\`\";
+sudo -s -n;
+cd '$parent_path';
+$unarchive_cmd \"\${HOME}/servermon-${today}-${commit_hash}.${archive_extension}\";
+for distfile in \`find '${base_prefix}-${commit_hash}' -name '*.dist' -printf '%P\n'\`; do
+	nondistfile=\"\$(printf '%s' \"\$distfile\" | sed -e '$ s/\.dist$//')\";
+	if test -e \"${base_prefix}/\${nondistfile}\"; then
+		cp \"${base_prefix}/\${nondistfile}\" \"${base_prefix}-${commit_hash}/\${nondistfile}\";
+	else
+		cp \"${base_prefix}-${commit_hash}/\${distfile}\" \"${base_prefix}-${commit_hash}/\${nondistfile}\";
+	fi;
+	if test 1 -eq $merge; then #MERGE
+		\${EDITOR:-vi} \"${base_prefix}-${commit_hash}/\${distfile}\" \"${base_prefix}-${commit_hash}/\${nondistfile}\";
+	fi;
+done;
+if test 1 -eq $updatedeps; then #UPDATE_DEPS
+	cd '${base_prefix}-${commit_hash}';
+	pip install -r requirements.txt;
+	cd ..;
+fi;
+if test 1 -eq $migrate; then #MIGRATE
+	for migrations_dir in '${base_prefix}/servermon'/*/migrations; do
+		migrations_destdir=\"\$(printf '%s' \"\$migrations_dir\" | sed -e 's:^${base_prefix}:${base_prefix}-${commit_hash}:')\";
+		cp -a \"\$migrations_dir\" \"\$migrations_destdir\";
+	done;
+	cd '${base_prefix}-${commit_hash}/servermon';
+	./manage.py migrate;
+	cd ../..;
+fi;
+chown -R www-data:www-data '${base_prefix}-${commit_hash}';
+chmod -R ug=rwX,o= '${base_prefix}-${commit_hash}';
+if test 1 -eq $reload_wsgi; then #RELOAD_WSGI
+	touch '${base_prefix}-${commit_hash}/servermon/apache/django.wsgi';
+	rm -f '${base_prefix};
+	ln -sf '${base_prefix}-${commit_hash}' '${base_prefix}';
+else
+	$stop_server;
+	rm -f '${base_prefix};
+	ln -sf '${base_prefix}-${commit_hash}' '${base_prefix}';
+	$start_server;
+fi
+"
 
 # login to server and run commands
-ssh '$host_name' "$ssh_cmds"
+if test 1 -eq $dryrun; then #DRYRUN
+	printf '%s\n' "ssh \"$host_name\" \"\"\"
+$(printf '%s\n' "$ssh_cmds" | sed -e 's/^/> /')
+\"\"\""
+else
+	ssh "$host_name" "$ssh_cmds"
+fi
