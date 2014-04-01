@@ -46,6 +46,7 @@ stop_server="invoke-rc.d apache2 stop"
 start_server="invoke-rc.d apache2 start"
 # Whether to just touch the WSGI file to auto-reload instead of restarting server
 reload_wsgi=0
+wsgi_file_path=
 
 usage() {
 	cat <<EOH
@@ -60,13 +61,19 @@ OPTIONS:
  --no-merge, -m             : don't compare your config changes in an editor
  --no-migrate, -M           : don't run South migrations command
  --host, -H "X"             : override the server hostname
- --repo-dir, -r "X"         : where is the repo? (default: "current directory")
+ --repo-dir, -r "X"         : where is the repo? (default: current directory)
  --reload-wsgi-daemon, -R   : if running in WSGI daemon mode and can reload by
                               touching the WSGI file, rather than restart
- --archive-extension, -e "X": extension used by git-archive (default: "tar")
+ --archive-extension, -e "X": extension used by git-archive (default: tar)
  --parent-path, -p "X"      : set this to the parent directory for the files
                               (default: /srv)
  --base-prefix, -b "X"      : prefix of dir-name for files (default: servermon)
+ --stop-server, -s "X"      : command for stopping the server
+                              (default: invoke-rc.d apache2 stop)
+ --start-server, -S "X"     : command for starting the server
+                              (default: invoke-rc.d apache2 start)
+ --wsgi-file-path, -w "X"   : path of WSGI file for WSGI-reloading mode
+                              (default: the pre-supplied apache wsgi file)
 
 NOTES:
 
@@ -78,8 +85,8 @@ NOTES:
  course, and file names will be whatever you set them to, but the concept is
  the same):
   * servermon is already installed and operational at
-    /srv/servermon-OLD_COMMIT_HASH
-  * /srv/servermon is a symlink pointing to /srv/servermon-OLD_COMMIT_HASH
+    \$parent_path/\$base_prefix-OLD_COMMIT_HASH
+  * \$parent_path/\$base_prefix is a symlink pointing to \$base_prefix-OLD_COMMIT_HASH
   * you need to have non-interactive (key-only-based) ssh access to the server
   * you need to have the ability to do non-interactive (passwordless) "sudo -s"
 
@@ -122,8 +129,6 @@ NOTES:
  will ony happen once).
 EOH
 }
-
-#TODO: add option to override server start/stop commands
 
 # getopts
 script_name="`printf '%s' "$0" | sed -e 's:^.*/\([^/]\+\)$:\1:'`"
@@ -170,6 +175,18 @@ while test -n "$1"; do
 		continue;;
 	--base-prefix|-b)
 		base_prefix="$2"
+		shift 2
+		continue;;
+	--stop-server|-s)
+		stop_server="$2"
+		shift 2
+		continue;;
+	--start-server|-S)
+		start_server="$2"
+		shift 2
+		continue;;
+	--wsgi-file-path|-w)
+		wsgi_file_path="$2"
 		shift 2
 		continue;;
 	--)
@@ -257,8 +274,10 @@ if test 1 -eq $migrate; then #MIGRATE
 fi;
 chown -R www-data:www-data '${base_prefix}-${commit_hash}';
 chmod -R ug=rwX,o= '${base_prefix}-${commit_hash}';
+wsgi_file_path='${wsgi_file_path:-${base_prefix}-${commit_hash}/servermon/apache/django.wsgi}';
+
 if test 1 -eq $reload_wsgi; then #RELOAD_WSGI
-	touch '${base_prefix}-${commit_hash}/servermon/apache/django.wsgi';
+	touch '$wsgi_file_path';
 	rm -f '${base_prefix};
 	ln -sf '${base_prefix}-${commit_hash}' '${base_prefix}';
 else
