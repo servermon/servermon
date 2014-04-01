@@ -68,11 +68,11 @@ OPTIONS:
  --parent-path, -p "X"      : set this to the parent directory for the files
                               (default: /srv)
  --base-prefix, -b "X"      : prefix of dir-name for files (default: servermon)
- --stop-server, -s "X"      : command for stopping the server
+ --stop-server, -s "X"      : command for stopping the server in restart-mode
                               (default: invoke-rc.d apache2 stop)
- --start-server, -S "X"     : command for starting the server
+ --start-server, -S "X"     : command for starting the server in restart-mode
                               (default: invoke-rc.d apache2 start)
- --wsgi-file-path, -w "X"   : path of WSGI file for WSGI-reloading mode
+ --wsgi-file-path, -w "X"   : path of WSGI file in reload-mode
                               (default: the pre-supplied apache wsgi file)
 
 NOTES:
