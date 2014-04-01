@@ -23,50 +23,6 @@
 
 # ...but seriously though...
 
-##
-# This should work fine (without requiring custom steps) for updating servermon
-# from version 0.4 and later (if there are no bugs, of course...) from a
-# checked out servermon git repo.
-#
-# It works by presuming the following things (replace the COMMIT_HASH bits of
-# course, and file names will be whatever you set them too, but the concept is
-# the same):
-#
-#  * servermon is already installed and operational at
-#    /srv/servermon-OLD_COMMIT_HASH
-#
-#  * /srv/servermon is a symlink pointing to /srv/servermon-OLD_COMMIT_HASH
-#
-#  * you need to have non-interactive (key-only-based) ssh access to the server
-#
-#  * you need to have the ability to do non-interactive (passwordless)
-#    "sudo -s"
-##
-
-#  NB: This script deals with commit hashes rather than release version-numbers
-#      but the servermon docs advise not updating more than one release-version
-#      at a time. Until there is time to put error-checking in the code which
-#      can grok releases' correlation to commits, and to add code to do an
-#      untar/symlink/migrations tango through one release-version at a time
-#      until it reaches the desired commit, for now this script just plays dumb
-#      and will happily try to upgrade straight to whatever commit you tell it
-#      to (or the latest commit, if you don't specify). This means you have to
-#      know how far to upgrade at a time. If not you will probably end up in a
-#      swampy tangled migrations-nightmare which will gnaw away at your soul.
-#      This is no worse than the mess you would be in if you did the same thing
-#      upgrading manually though, so it in no way diminishes the usefulness of
-#      this script, it just adds to the TODO list...
-
-#  NB: Recent versions of Django have changed file-layout. This installer
-#      defaults to expecting the new layout. If your upgrade involves the old
-#      layout this will not work (for now) without a tiny change to the script
-#      (or use dry-run and copy the commands manually, tweaking where needed).
-#      Keep in mind also that for old-Django to new-Django the .dist-based
-#      files will not be copied across (yet) because they won't be found in the
-#      expected places. For now you have to ignore the script output and do
-#      that step manually if you strike that problem (and it will ony happen
-#      once).
-
 set -e
 
 # Set/edit these here if you want them hard-coded, otherwise override by optflags
@@ -114,20 +70,56 @@ OPTIONS:
 
 NOTES:
 
+ This should work fine (without requiring custom steps) for updating servermon
+ from version 0.4 and later (if there are no installer-bugs, of course...) from
+ a checked out servermon git repo.
+
+ It works by presuming the following things (replace the COMMIT_HASH bits of
+ course, and file names will be whatever you set them to, but the concept is
+ the same):
+  * servermon is already installed and operational at
+    /srv/servermon-OLD_COMMIT_HASH
+  * /srv/servermon is a symlink pointing to /srv/servermon-OLD_COMMIT_HASH
+  * you need to have non-interactive (key-only-based) ssh access to the server
+  * you need to have the ability to do non-interactive (passwordless) "sudo -s"
+
  The editor which is used for comparing files on the server during the "merge"
  phase is taken from your \$EDITOR setting on the server. Override that in
  your environment accordingly if you wish to change it. Use of a
  "visual-compare" tool like "meld" as the editor is highy recommended, and of
  course be careful not to update the *existing* version of each file as this
- will affect the running server in unpredictable ways.
+ may affect the presently running server in unpredictable ways.
 
  It is highly recommended to do a "--dry-run" pass before running the command
  for real, just to be prudent. If you don't understand what it is about to run,
  don't run it...
 
- The --reload-wsgi-daemon option touches the wsgi file in the Apache subdir.
+ The --reload-wsgi-daemon option touches the wsgi file in the apache subdir.
  This should work when running as a daemon process under any server, but if you
  are running a custom wsgi file then you will need to do this step manually.
+
+ This script deals with commit hashes rather than release version-numbers but
+ the servermon docs advise not updating more than one release-version at a
+ time. Until there is time to put error-checking in the code which can grok
+ releases' correlation to commits, and to add code to do an
+ untar/symlink/migrations tango through one release-version at a time until it
+ reaches the desired commit, for now this script just plays dumb and will
+ happily try to upgrade straight to whatever commit you tell it to (or the
+ latest commit, if you don't specify). This means you have to know how far to
+ upgrade at a time. If not you will probably end up in a swampy tangled
+ migrations-nightmare which will gnaw away at your soul. This is no worse than
+ the mess you would be in if you did the same thing upgrading manually though,
+ so it in no way diminishes the usefulness of this script, it just adds to the
+ TODO list...
+
+ Recent versions of Django have changed file-layout. This installer defaults to
+ expecting the new layout. If your upgrade involves the old layout this will
+ not work (for now) without a tiny change to the script (or use dry-run and
+ copy the commands manually, tweaking where needed). Keep in mind also that for
+ old-Django to new-Django the .dist-based files will not be copied across (yet)
+ because they won't be found in the expected places. For now you have to ignore
+ the script output and do that step manually if you strike that problem (and it
+ will ony happen once).
 EOH
 }
 
