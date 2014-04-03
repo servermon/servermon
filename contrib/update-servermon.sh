@@ -33,7 +33,7 @@ repo_dir="$(readlink -e .)"
 dryrun=0
 updatedeps=1
 archive_extension="tar"
-
+updatedepstype="pip"
 # Set these to match your web-server's configs
 # e.g. parent_path=/srv && base_prefix=servermon -> /srv/servermon-XXX (XXX = commit hash)
 parent_path="/srv"
@@ -60,6 +60,8 @@ OPTIONS:
                               packages
  --no-merge, -m             : don't compare your config changes in an editor
  --no-migrate, -M           : don't run South migrations command
+ --update-deps-type, -u "X" : which type of update to use for deps
+                              (options: pip,apt,aptitude - default: pip)
  --host, -H "X"             : override the server hostname
  --repo-dir, -r "X"         : where is the repo? (default: current directory)
  --reload-wsgi-daemon, -R   : if running in WSGI daemon mode and can reload by
@@ -153,6 +155,21 @@ while test -n "$1"; do
 		migrate=0
 		shift
 		continue;;
+	--update-deps-type|-u)
+		case "$2" in
+		pip)
+			updatedepstype="$2"
+			shift 2
+			continue;;
+		apt|aptitude)
+			usage >&2
+			printf '* apt and aptitude deps update support is not yet implemented, please only use pip for now.\n' >&2
+			exit 1;;
+		*)
+			usage >&2
+			printf '* Invalid --update-deps-type argument: %s\n' "$2" >&2
+			exit 1;;
+		esac;;
 	--host|-H)
 		host_name="$2"
 		shift 2
@@ -260,7 +277,18 @@ for distfile in \`find '${base_prefix}-${commit_hash}' -name '*.dist' -printf '%
 done;
 if test 1 -eq $updatedeps; then #UPDATE_DEPS
 	cd '${base_prefix}-${commit_hash}';
-	pip install -r requirements.txt;
+	case $updatedepstype in
+	pip)
+		pip install -r requirements.txt;;
+	apt)
+		#TODO: work out how to tweak syntax to keep APT happy. For example: I doubt it would like 'Django>=1.2,<1.5'
+		#      then do 'apt-get install \`cat requirements.txt\`'
+		true;;
+	aptitude)
+		#TODO: see above
+		#      then do 'aptitude install \`cat requirements.txt\`'
+		true;;
+	esac
 	cd ..;
 fi;
 if test 1 -eq $migrate; then #MIGRATE
