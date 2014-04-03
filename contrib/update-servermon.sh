@@ -157,14 +157,10 @@ while test -n "$1"; do
 		continue;;
 	--update-deps-type|-u)
 		case "$2" in
-		pip)
+		pip|apt|aptitude)
 			updatedepstype="$2"
 			shift 2
 			continue;;
-		apt|aptitude)
-			usage >&2
-			printf '* apt and aptitude deps update support is not yet implemented, please only use pip for now.\n' >&2
-			exit 1;;
 		*)
 			usage >&2
 			printf '* Invalid --update-deps-type argument: %s\n' "$2" >&2
@@ -264,6 +260,24 @@ HOME=\"\${HOME:-\$(printf '%s' ~)}\";
 sudo -s -n;
 cd '$parent_path';
 $unarchive_cmd \"\${HOME}/servermon-${today}-${commit_hash}.${archive_extension}\";
+if test 1 -eq $updatedeps; then #UPDATE_DEPS
+	cd '${base_prefix}-${commit_hash}';
+	case $updatedepstype in
+	pip)
+		pip install -r requirements.txt;;
+	apt|aptitude)
+		deps=\`cat requirements.txt\`;
+		if printf '%s' '\$deps' | grep -q ','; then
+			printf '%s: Version definitions with commas not yet supported for non-pip deps-updating.\n' '$script_name' >&2;
+			# TODO: for example: I doubt it would like 'Django>=1.2,<1.5'. Getting this working will most likely involve
+			# 'sed' to split the version number and operator, 'case' to step through actions based on operator, and
+			# 'dpkg --compare-versions' to check output of 'apt-cache show'
+			exit 1;
+		fi;
+		$updatedepstype install \$deps;;
+	esac;
+	cd ..;
+fi;
 for distfile in \`find '${base_prefix}-${commit_hash}' -name '*.dist' -printf '%P\n'\`; do
 	nondistfile=\"\$(printf '%s' \"\$distfile\" | sed -e '$ s/\.dist$//')\";
 	if test -e \"${base_prefix}/\${nondistfile}\"; then
@@ -275,22 +289,6 @@ for distfile in \`find '${base_prefix}-${commit_hash}' -name '*.dist' -printf '%
 		\${EDITOR:-vi} \"${base_prefix}-${commit_hash}/\${distfile}\" \"${base_prefix}-${commit_hash}/\${nondistfile}\";
 	fi;
 done;
-if test 1 -eq $updatedeps; then #UPDATE_DEPS
-	cd '${base_prefix}-${commit_hash}';
-	case $updatedepstype in
-	pip)
-		pip install -r requirements.txt;;
-	apt)
-		#TODO: work out how to tweak syntax to keep APT happy. For example: I doubt it would like 'Django>=1.2,<1.5'
-		#      then do 'apt-get install \`cat requirements.txt\`'
-		true;;
-	aptitude)
-		#TODO: see above
-		#      then do 'aptitude install \`cat requirements.txt\`'
-		true;;
-	esac
-	cd ..;
-fi;
 if test 1 -eq $migrate; then #MIGRATE
 	for migrations_dir in '${base_prefix}/servermon'/*/migrations; do
 		migrations_destdir=\"\$(printf '%s' \"\$migrations_dir\" | sed -e 's:^${base_prefix}:${base_prefix}-${commit_hash}:')\";
