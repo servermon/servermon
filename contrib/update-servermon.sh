@@ -54,8 +54,8 @@ Usage: $script_name OPTIONS [--] [commit_hash]
 
 OPTIONS:
  --help, -h                 : this message
- --dry-run, -d              : do a dry-run, echoing invasive commands instead
-                              of executing them
+ --dry-run, -d              : do a dry-run, echoing commands instead of
+                              executing them
  --no-update-deps, -D       : don't attempt to install/update dependency
                               packages
  --no-merge, -m             : don't compare your config changes in an editor
