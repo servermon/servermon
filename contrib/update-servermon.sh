@@ -232,16 +232,6 @@ else
 	fi
 	commit_hash=`git show --pretty=format:%H HEAD | head -n 1`
 fi
-# export a commit snapshot, then send to server
-if test 1 -eq $dryrun; then
-	printf '%s\n' "git archive --prefix=${base_prefix}-${commit_hash}/ -o servermon-${today}-${commit_hash}.${archive_extension} $commit_hash"
-	printf '%s\n' "scp servermon-${today}-${commit_hash}.${archive_extension} \"${host_name}:\""
-	printf '%s\n' "rm -f servermon-${today}-${commit_hash}.${archive_extension}"
-else
-	git archive --prefix=${base_prefix}-${commit_hash}/ -o servermon-${today}-${commit_hash}.${archive_extension} $commit_hash
-	scp servermon-${today}-${commit_hash}.${archive_extension} "${host_name}:"
-	rm -f servermon-${today}-${commit_hash}.${archive_extension}
-fi
 # setup unarchive command
 case "$archive_extension" in
 	tar) unarchive_cmd='tar xpf';;
@@ -251,7 +241,6 @@ case "$archive_extension" in
 	tar.Z) unarchive_cmd='tar xpZf';;
 	*) printf 'Archive format not yet recognised.\n' >&2; exit 1;;
 esac
-
 # set commands to run on server
 ssh_cmds="\
 set -e;
@@ -269,9 +258,9 @@ if test 1 -eq $updatedeps; then #UPDATE_DEPS
 		deps=\`cat requirements.txt\`;
 		if printf '%s' '\$deps' | grep -q ','; then
 			printf '%s: Version definitions with commas not yet supported for non-pip deps-updating.\n' '$script_name' >&2;
-			# TODO: for example: I doubt it would like 'Django>=1.2,<1.5'. Getting this working will most likely involve
-			# 'sed' to split the version number and operator, 'case' to step through actions based on operator, and
-			# 'dpkg --compare-versions' to check output of 'apt-cache show'
+			# TODO: I doubt apt(itude) would like e.g. 'Django>=1.2,<1.5'. Getting this working will most likely involve
+			# 'sed/awk' to split the version number and operator, 'case' to step through actions based on operator, and
+			# 'dpkg --compare-versions' to compare output of 'apt-cache show'.
 			exit 1;
 		fi;
 		$updatedepstype install \$deps;;
@@ -314,6 +303,16 @@ else
 fi
 "
 
+# export a commit snapshot, then send to server
+if test 1 -eq $dryrun; then
+	printf '%s\n' "git archive --prefix=${base_prefix}-${commit_hash}/ -o servermon-${today}-${commit_hash}.${archive_extension} $commit_hash"
+	printf '%s\n' "scp servermon-${today}-${commit_hash}.${archive_extension} \"${host_name}:\""
+	printf '%s\n' "rm -f servermon-${today}-${commit_hash}.${archive_extension}"
+else
+	git archive --prefix=${base_prefix}-${commit_hash}/ -o servermon-${today}-${commit_hash}.${archive_extension} $commit_hash
+	scp servermon-${today}-${commit_hash}.${archive_extension} "${host_name}:"
+	rm -f servermon-${today}-${commit_hash}.${archive_extension}
+fi
 # login to server and run commands
 if test 1 -eq $dryrun; then #DRYRUN
 	printf '%s\n' "ssh \"$host_name\" \"\"\"
