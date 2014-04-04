@@ -289,12 +289,12 @@ chmod -R ug=rwX,o= '${base_prefix}-${commit_hash}';
 wsgi_file_path='${wsgi_file_path:-${base_prefix}-${commit_hash}/servermon/apache/django.wsgi}';
 
 if test 1 -eq $reload_wsgi; then #RELOAD_WSGI
-	touch '$wsgi_file_path';
-	rm -f '${base_prefix};
+	touch \"\$wsgi_file_path\";
+	rm -f '${base_prefix}';
 	ln -sf '${base_prefix}-${commit_hash}' '${base_prefix}';
 else
 	$stop_server;
-	rm -f '${base_prefix};
+	rm -f \"${base_prefix}\";
 	ln -sf '${base_prefix}-${commit_hash}' '${base_prefix}';
 	$start_server;
 fi
