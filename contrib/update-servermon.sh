@@ -33,7 +33,7 @@ repo_dir="$(readlink -e .)"
 dryrun=0
 updatedeps=1
 archive_extension="tar"
-
+updatedepstype="pip"
 # Set these to match your web-server's configs
 # e.g. parent_path=/srv && base_prefix=servermon -> /srv/servermon-XXX (XXX = commit hash)
 parent_path="/srv"
@@ -54,13 +54,15 @@ Usage: $script_name OPTIONS [--] [commit_hash]
 
 OPTIONS:
  --help, -h                 : this message
- --dry-run, -d              : do a dry-run, echoing invasive commands instead
-                              of executing them
+ --dry-run, -d              : do a dry-run, echoing commands instead of
+                              executing them
  --no-update-deps, -D       : don't attempt to install/update dependency
                               packages
  --no-merge, -m             : don't compare your config changes in an editor
  --no-migrate, -M           : don't run South migrations command
- --host, -H "X"             : override the server hostname
+ --update-deps-type, -u "X" : which type of update to use for deps
+                              (options: pip,apt,aptitude - default: pip)
+ --host, -H "X"             : override the server hostname (default: localhost)
  --repo-dir, -r "X"         : where is the repo? (default: current directory)
  --reload-wsgi-daemon, -R   : if running in WSGI daemon mode and can reload by
                               touching the WSGI file, rather than restart
@@ -153,6 +155,17 @@ while test -n "$1"; do
 		migrate=0
 		shift
 		continue;;
+	--update-deps-type|-u)
+		case "$2" in
+		pip|apt|aptitude)
+			updatedepstype="$2"
+			shift 2
+			continue;;
+		*)
+			usage >&2
+			printf '* Invalid --update-deps-type argument: %s\n' "$2" >&2
+			exit 1;;
+		esac;;
 	--host|-H)
 		host_name="$2"
 		shift 2
@@ -201,10 +214,7 @@ while test -n "$1"; do
 done
 
 # setup
-if test -z "$host_name"; then
-	printf '%s: must specify host_name.\n' "$script_name" >&2
-	exit 1
-fi
+case "$host_name" in 'http://localhost|http://127.0.0.1|http://[::1]|localhost|127.0.0.1|::1') host_name=;; esac
 today=`date +%Y%m%d`
 cd "$repo_dir"
 # use specified commit or the "latest" one
@@ -217,17 +227,7 @@ else
 		printf "Sleeping for 5 seconds so you can interrupt me if not...  ;-)\n" >&2
 		sleep 5
 	fi
-	commit_hash=`git show --pretty=format:%H HEAD`
-fi
-# export a commit snapshot, then send to server
-if test 1 -eq $dryrun; then
-	printf '%s\n' "git archive --prefix=${base_prefix}-${commit_hash}/ -o servermon-${today}-${commit_hash}.${archive_extension} $commit_hash"
-	printf '%s\n' "scp servermon-${today}-${commit_hash}.${archive_extension} \"${host_name}:\""
-	printf '%s\n' "rm -f servermon-${today}-${commit_hash}.${archive_extension}"
-else
-	git archive --prefix=${base_prefix}-${commit_hash}/ -o servermon-${today}-${commit_hash}.${archive_extension} $commit_hash
-	scp servermon-${today}-${commit_hash}.${archive_extension} "${host_name}:"
-	rm -f servermon-${today}-${commit_hash}.${archive_extension}
+	commit_hash=`git show --pretty=format:%H HEAD | head -n 1`
 fi
 # setup unarchive command
 case "$archive_extension" in
@@ -238,7 +238,6 @@ case "$archive_extension" in
 	tar.Z) unarchive_cmd='tar xpZf';;
 	*) printf 'Archive format not yet recognised.\n' >&2; exit 1;;
 esac
-
 # set commands to run on server
 ssh_cmds="\
 set -e;
@@ -247,6 +246,24 @@ HOME=\"\${HOME:-\$(printf '%s' ~)}\";
 sudo -s -n;
 cd '$parent_path';
 $unarchive_cmd \"\${HOME}/servermon-${today}-${commit_hash}.${archive_extension}\";
+if test 1 -eq $updatedeps; then #UPDATE_DEPS
+	cd '${base_prefix}-${commit_hash}';
+	case $updatedepstype in
+	pip)
+		pip install -r requirements.txt;;
+	apt|aptitude)
+		deps=\`cat requirements.txt\`;
+		if printf '%s' '\$deps' | grep -q ','; then
+			printf '%s: Version definitions with commas not yet supported for non-pip deps-updating.\n' '$script_name' >&2;
+			# TODO: I doubt apt(itude) would like e.g. 'Django>=1.2,<1.5'. Getting this working will most likely involve
+			# 'sed/awk' to split the version number and operator, 'case' to step through actions based on operator, and
+			# 'dpkg --compare-versions' to compare output of 'apt-cache show'.
+			exit 1;
+		fi;
+		$updatedepstype install \$deps;;
+	esac;
+	cd ..;
+fi;
 for distfile in \`find '${base_prefix}-${commit_hash}' -name '*.dist' -printf '%P\n'\`; do
 	nondistfile=\"\$(printf '%s' \"\$distfile\" | sed -e '$ s/\.dist$//')\";
 	if test -e \"${base_prefix}/\${nondistfile}\"; then
@@ -258,11 +275,6 @@ for distfile in \`find '${base_prefix}-${commit_hash}' -name '*.dist' -printf '%
 		\${EDITOR:-vi} \"${base_prefix}-${commit_hash}/\${distfile}\" \"${base_prefix}-${commit_hash}/\${nondistfile}\";
 	fi;
 done;
-if test 1 -eq $updatedeps; then #UPDATE_DEPS
-	cd '${base_prefix}-${commit_hash}';
-	pip install -r requirements.txt;
-	cd ..;
-fi;
 if test 1 -eq $migrate; then #MIGRATE
 	for migrations_dir in '${base_prefix}/servermon'/*/migrations; do
 		migrations_destdir=\"\$(printf '%s' \"\$migrations_dir\" | sed -e 's:^${base_prefix}:${base_prefix}-${commit_hash}:')\";
@@ -277,22 +289,50 @@ chmod -R ug=rwX,o= '${base_prefix}-${commit_hash}';
 wsgi_file_path='${wsgi_file_path:-${base_prefix}-${commit_hash}/servermon/apache/django.wsgi}';
 
 if test 1 -eq $reload_wsgi; then #RELOAD_WSGI
-	touch '$wsgi_file_path';
-	rm -f '${base_prefix};
+	touch \"\$wsgi_file_path\";
+	rm -f '${base_prefix}';
 	ln -sf '${base_prefix}-${commit_hash}' '${base_prefix}';
 else
 	$stop_server;
-	rm -f '${base_prefix};
+	rm -f \"${base_prefix}\";
 	ln -sf '${base_prefix}-${commit_hash}' '${base_prefix}';
 	$start_server;
 fi
 "
 
+# export a commit snapshot, then send to server
+if test 1 -eq $dryrun; then
+	printf '%s\n' "git archive --prefix=${base_prefix}-${commit_hash}/ -o servermon-${today}-${commit_hash}.${archive_extension} $commit_hash"
+	if test -n "$host_name"; then
+		printf '%s\n' "scp servermon-${today}-${commit_hash}.${archive_extension} \"${host_name}:\""
+		printf '%s\n' "rm -f servermon-${today}-${commit_hash}.${archive_extension}"
+	else
+		printf '%s\n' "mv -v servermon-${today}-${commit_hash}.${archive_extension} \"$HOME\""
+	fi
+else
+	git archive --prefix=${base_prefix}-${commit_hash}/ -o servermon-${today}-${commit_hash}.${archive_extension} $commit_hash
+	if test -n "$host_name"; then
+		scp servermon-${today}-${commit_hash}.${archive_extension} "${host_name}:"
+		rm -f servermon-${today}-${commit_hash}.${archive_extension}
+	else
+		mv -v servermon-${today}-${commit_hash}.${archive_extension} "$HOME"
+	fi
+fi
 # login to server and run commands
 if test 1 -eq $dryrun; then #DRYRUN
-	printf '%s\n' "ssh \"$host_name\" \"\"\"
+	if test -n "$host_name"; then
+		printf '%s\n' "ssh \"$host_name\" \"\"\"
 $(printf '%s\n' "$ssh_cmds" | sed -e 's/^/> /')
 \"\"\""
+	else
+		printf '%s\n' "eval \"\"\"
+$(printf '%s\n' "$ssh_cmds" | sed -e 's/^/> /')
+\"\"\""
+	fi
 else
-	ssh "$host_name" "$ssh_cmds"
+	if test -n "$host_name"; then
+		ssh "$host_name" "$ssh_cmds"
+	else
+		eval "$ssh_cmds"
+	fi
 fi
