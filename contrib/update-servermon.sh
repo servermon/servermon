@@ -230,7 +230,7 @@ else
 		printf "Sleeping for 5 seconds so you can interrupt me if not...  ;-)\n" >&2
 		sleep 5
 	fi
-	commit_hash=`git show --pretty=format:%H HEAD`
+	commit_hash=`git show --pretty=format:%H HEAD | head -n 1`
 fi
 # export a commit snapshot, then send to server
 if test 1 -eq $dryrun; then
