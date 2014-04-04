@@ -62,7 +62,7 @@ OPTIONS:
  --no-migrate, -M           : don't run South migrations command
  --update-deps-type, -u "X" : which type of update to use for deps
                               (options: pip,apt,aptitude - default: pip)
- --host, -H "X"             : override the server hostname
+ --host, -H "X"             : override the server hostname (default: localhost)
  --repo-dir, -r "X"         : where is the repo? (default: current directory)
  --reload-wsgi-daemon, -R   : if running in WSGI daemon mode and can reload by
                               touching the WSGI file, rather than restart
@@ -214,10 +214,7 @@ while test -n "$1"; do
 done
 
 # setup
-if test -z "$host_name"; then
-	printf '%s: must specify host_name.\n' "$script_name" >&2
-	exit 1
-fi
+case "$host_name" in 'http://localhost|http://127.0.0.1|http://[::1]|localhost|127.0.0.1|::1') host_name=;; esac
 today=`date +%Y%m%d`
 cd "$repo_dir"
 # use specified commit or the "latest" one
@@ -306,18 +303,36 @@ fi
 # export a commit snapshot, then send to server
 if test 1 -eq $dryrun; then
 	printf '%s\n' "git archive --prefix=${base_prefix}-${commit_hash}/ -o servermon-${today}-${commit_hash}.${archive_extension} $commit_hash"
-	printf '%s\n' "scp servermon-${today}-${commit_hash}.${archive_extension} \"${host_name}:\""
-	printf '%s\n' "rm -f servermon-${today}-${commit_hash}.${archive_extension}"
+	if test -n "$host_name"; then
+		printf '%s\n' "scp servermon-${today}-${commit_hash}.${archive_extension} \"${host_name}:\""
+		printf '%s\n' "rm -f servermon-${today}-${commit_hash}.${archive_extension}"
+	else
+		printf '%s\n' "mv -v servermon-${today}-${commit_hash}.${archive_extension} \"$HOME\""
+	fi
 else
 	git archive --prefix=${base_prefix}-${commit_hash}/ -o servermon-${today}-${commit_hash}.${archive_extension} $commit_hash
-	scp servermon-${today}-${commit_hash}.${archive_extension} "${host_name}:"
-	rm -f servermon-${today}-${commit_hash}.${archive_extension}
+	if test -n "$host_name"; then
+		scp servermon-${today}-${commit_hash}.${archive_extension} "${host_name}:"
+		rm -f servermon-${today}-${commit_hash}.${archive_extension}
+	else
+		mv -v servermon-${today}-${commit_hash}.${archive_extension} "$HOME"
+	fi
 fi
 # login to server and run commands
 if test 1 -eq $dryrun; then #DRYRUN
-	printf '%s\n' "ssh \"$host_name\" \"\"\"
+	if test -n "$host_name"; then
+		printf '%s\n' "ssh \"$host_name\" \"\"\"
 $(printf '%s\n' "$ssh_cmds" | sed -e 's/^/> /')
 \"\"\""
+	else
+		printf '%s\n' "eval \"\"\"
+$(printf '%s\n' "$ssh_cmds" | sed -e 's/^/> /')
+\"\"\""
+	fi
 else
-	ssh "$host_name" "$ssh_cmds"
+	if test -n "$host_name"; then
+		ssh "$host_name" "$ssh_cmds"
+	else
+		eval "$ssh_cmds"
+	fi
 fi
