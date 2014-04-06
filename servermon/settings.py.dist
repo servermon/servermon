@@ -113,6 +113,7 @@ INSTALLED_APPS = (
 #    'servermon.puppet',
 #    'servermon.hwdoc',
     'south',
+    'keyvalue',
 )
 
 SKIP_SOUTH_TESTS = True
