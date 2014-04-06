@@ -11,12 +11,41 @@ Read the following for instructions on how to upgrade between versions
 Please note that only upgrade paths for consecutive versions have been tested.
 Upgrade from 0.1 to 0.3 for example may or may not work.
 
+Maintenance
+-----------
+
+It is possible to use a maintenace page instead of stopping the
+application server in case you want to. A sample maintenance page is
+provided in /static/maintenance.html but feel free to create your own.
+
+Depending on your application server, different configuration steps will
+be required. All in all, stopping all requests to the application and
+presenting your maintenance page should be enough. Sample configuration
+stanzas are provided below
+
+Apache+wsgi
++++++++++++
+TODO
+
+Apache+mod_proxy
+++++++++++++++++
+TODO
+
+Gunicorn
+++++++++
+No can do, you should have a reverse proxy in front anyway
+
+Django runserver
+++++++++++++++++
+No can do, please tell me you are not running in production with the
+development server
+
 Upgrading from 0.6.0 to 0.6.1
 -----------------------------
 You should perform the following
 
 * Stop application server (wsgi, gunicorn, etc)
-* Untar new version (backup the old one first) on top of the old one 
+* Untar new version (backup the old one first) on top of the old one
 * Restart application server (wsgi, gunicorn, etc)
 
 Upgrading from 0.5.0 to 0.6.0
