@@ -22,6 +22,9 @@ from django.contrib import admin
 from servermon.hwdoc.models import *
 from django.utils.translation import ugettext as _
 from keyvalue.admin import KeyValueAdmin
+from keyvalue.models import Key
+
+admin.site.register(Key)
 
 class RoleInline(admin.TabularInline):
     '''

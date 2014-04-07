@@ -21,7 +21,7 @@ Module configuring Django's admin interface for keyvalue
 from django.contrib import admin
 from django.utils.translation import ugettext as _
 from django.contrib.contenttypes import generic
-from keyvalue.models import Key, KeyValue
+from keyvalue.models import KeyValue
 
 class KeyValueAdmin(generic.GenericStackedInline):
     '''
@@ -31,5 +31,3 @@ class KeyValueAdmin(generic.GenericStackedInline):
     model = KeyValue
     ct_field = 'owner_content_type'
     ct_fk_field = 'owner_object_id'
-
-admin.site.register(Key)
