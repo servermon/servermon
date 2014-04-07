@@ -19,7 +19,7 @@
      <tbody>
      {% for host in hosts %}
        <tr>
-         <td><a href="{% url "updates.views.host" "host.name" %}">{{ host.name }}</a></td>
+         <td><a href="{% url "updates.views.host" host.name %}">{{ host.name }}</a></td>
          <td>
            {% if host.update_count %}
            {{ host.update_count }} update{{ host.update_count|pluralize }}
