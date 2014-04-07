@@ -20,7 +20,7 @@
       <tbody>
       {% for update in updates %}
         <tr>
-          <td><a href="{% url "updates.views.host" "update.host.name" %}">{{ update.host.name }}</a></td>
+          <td><a href="{% url "updates.views.host" update.host.name %}">{{ update.host.name }}</a></td>
           <td>{% if update.installedVersion %}{{ update.installedVersion }}{% else %}&mdash;{% endif %}</td>
           <td>
           {% if update.get_changelog_url %}
