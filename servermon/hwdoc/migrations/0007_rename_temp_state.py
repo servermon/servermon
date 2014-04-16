@@ -4,6 +4,22 @@ from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
 
+# We monkey patch pre 0.8 south to avoid a problem with this migration failing
+# See issue #48
+from south import __version__
+if not __version__.startswith('0.8'):
+    from south.db import mysql
+    def _lookup_constraint_references(self, table_name, cname):
+        """
+        Provided an existing table and constraint, returns tuple of (foreign
+        table, column)
+        """
+        db_name = self._get_setting('NAME')
+        try:
+            return self._constraint_references[db_name][(table_name, cname)]
+        except KeyError:
+            raise IndexError  # would normally return None, see upstream #1186
+    mysql.DatabaseOperations._lookup_constraint_references = _lookup_constraint_references
 
 class Migration(SchemaMigration):
 
