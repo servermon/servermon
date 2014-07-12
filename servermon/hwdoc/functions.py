@@ -178,11 +178,10 @@ def calculate_empty_units(rack, equipment_list):
     @return: A QuerySet with virtual equipments added to
     '''
 
-    tmp = [x+y-1 for x,y in equipment_list.values_list('unit', 'model__u')]
-    units = list(equipment_list.values_list('unit', flat=True))
-    units.extend(tmp)
-    units = set(sorted(units))
-    empty_units = set(rack.model.units) - units
+    units = []
+    for z in ((x+w for w in xrange(y)) for x,y in equipment_list.values_list('unit', 'model__u')):
+        units.extend(z)
+    empty_units = set(rack.model.units) - set(sorted(units))
     equipment_list = list(equipment_list)
 
     for empty_unit in empty_units:
