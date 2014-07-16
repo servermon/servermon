@@ -253,20 +253,23 @@ if test 1 -eq $updatedeps; then #UPDATE_DEPS
 		pip install -r requirements.txt;;
 	apt|aptitude)
 		deps=\`cat requirements.txt\`;
-		if printf '%s' '\$deps' | grep -q ','; then
-			printf '%s: Version definitions with commas not yet supported for non-pip deps-updating.\n' '$script_name' >&2;
+		if printf '%s' \"\$deps\" | grep -q ','; then
+			printf '%s: Version definitions with commas not yet supported for non-pip deps-updating.\\n' '$script_name' >&2;
 			# TODO: I doubt apt(itude) would like e.g. 'Django>=1.2,<1.5'. Getting this working will most likely involve
 			# 'sed/awk' to split the version number and operator, 'case' to step through actions based on operator, and
 			# 'dpkg --compare-versions' to compare output of 'apt-cache show'.
+			exit 1;
+		else
+			printf '%s: Non-pip installs not yet supported.\\n' '$script_name' >&2;
 			exit 1;
 		fi;
 		$updatedepstype install \$deps;;
 	esac;
 	cd ..;
 fi;
-for distfile in \`find '${base_prefix}-${commit_hash}' -name '*.dist' -printf '%P\n'\`; do
-	nondistfile=\"\$(printf '%s' \"\$distfile\" | sed -e '$ s/\.dist$//')\";
-	if test -e \"${base_prefix}/\${nondistfile}\"; then
+for distfile in \`find '${base_prefix}-${commit_hash}' -name '*.dist' -printf '%P\\n'\`; do
+	nondistfile=\"\$(printf '%s' \"\$distfile\" | sed -e '\$ s/\\.dist\$//')\";
+	if test -n \"\$nondistfile\" && test -e \"${base_prefix}/\${nondistfile}\"; then
 		cp \"${base_prefix}/\${nondistfile}\" \"${base_prefix}-${commit_hash}/\${nondistfile}\";
 	else
 		cp \"${base_prefix}-${commit_hash}/\${distfile}\" \"${base_prefix}-${commit_hash}/\${nondistfile}\";
@@ -276,10 +279,17 @@ for distfile in \`find '${base_prefix}-${commit_hash}' -name '*.dist' -printf '%
 	fi;
 done;
 if test 1 -eq $migrate; then #MIGRATE
-	for migrations_dir in '${base_prefix}/servermon'/*/migrations; do
-		migrations_destdir=\"\$(printf '%s' \"\$migrations_dir\" | sed -e 's:^${base_prefix}:${base_prefix}-${commit_hash}:')\";
-		cp -a \"\$migrations_dir\" \"\$migrations_destdir\";
-	done;
+	#NB: This works, but seems to be redundant, as the migrations are distributed with the source.
+	#    Keeping for reference in case the existing (customised?) migrate path is ever needed.
+	#migrations_dirs=\"\`find -H '${base_prefix}/servermon' -name migrations -type d 2>/dev/null || true\`\";
+	#if test -z \"\$migrations_dirs\"; then
+	#	printf '%s: No migrations directories found. Possibly the file layout has changed? Skipping copying existing migrations.\\n' '$script_name';
+	#else
+	#	for migrations_dir in \$migrations_dirs; do
+	#		migrations_destdir=\"\$(printf '%s' \"\$migrations_dir\" | sed -e 's:^${base_prefix}:${base_prefix}-${commit_hash}:')\";
+	#		cp -a \"\$migrations_dir\"/* \"\$migrations_destdir\";
+	#	done;
+	#fi;
 	cd '${base_prefix}-${commit_hash}/servermon';
 	./manage.py migrate;
 	cd ../..;
