@@ -19,7 +19,7 @@ if settings.JIRA_TICKETING['auth']['type'] == 'oauth':
         'access_token': settings.JIRA_TICKETING['auth']['access_token'],
         'access_token_secret': settings.JIRA_TICKETING['auth']['access_token_secret'],
         'consumer_key': settings.JIRA_TICKETING['auth']['consumer_key'],
-        'key_cert': key_cert_data
+        'key_cert': key_cert_data,
     })
 elif settings.JIRA_TICKETING['auth']['type'] == 'basic':
     options.update(basic_auth=(
@@ -33,15 +33,42 @@ def get_tickets(equipment, closed):
     '''
     Populate tickets for equipment
     '''
-    search_string = 'text ~ "' + str(equipment.serial) + '"'
-    if settings.JIRA_TICKETING['projects']:
-        search_string += ' AND project IN (' + settings.JIRA_TICKETING['projects'] + ')'
-    if not closed:
-        search_string += ' AND status != closed'
+    _projects = settings.JIRA_TICKETING['projects']
+    _projects_defaults = settings.JIRA_TICKETING['projects_defaults']
+    if _projects:
+        projects = [project.key for project in jira.projects() if project.key in _projects.keys()]
+    else:
+        projects = []
+    # construct entire search string so we don't hammer the server repeatedly
+    search_string = 'text ~ "%s"' % equipment.serial
+    if projects:
+        _first = True
+        search_string += ' AND ('
+        for project in projects:
+            if _first:
+                search_string += ' ( '
+                _first = False
+            else:
+                search_string += ' ) OR ( '
+            search_string += 'project = "%s"' % project
+            if not closed:
+                try:
+                    _closed_string = _projects[project]['closed_string'] or _projects_defaults['closed_string']
+                except KeyError:
+                    _closed_string = _projects_defaults['closed_string']
+                search_string += ' AND status != "%s"' % _closed_string
+        search_string += ' ) )'
+    else:
+        if not closed:
+            search_string += ' AND status != "%s"' % _projects_defaults['closed_string']
     issues = list(jira.search_issues(search_string))
     for issue in issues:
         name = issue.key
-        if str(issue.fields.status) == "closed":
+        try:
+            _closed_string = _projects[issue.fields.project.key]['closed_string'] or _projects_defaults['closed_string']
+        except KeyError:
+            _closed_string = _projects_defaults['closed_string']
+        if issue.fields.status.name == _closed_string.capitalize():
             status = 'closed'
         else:
             status = 'open'
@@ -49,7 +76,7 @@ def get_tickets(equipment, closed):
             name=name,
             defaults={
                 'state': status,
-                'url': settings.JIRA_TICKETING['url']+name,
+                'url': issue.permalink(),
             },
         )
         equipment.ticket_set.add(t)
