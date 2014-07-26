@@ -35,13 +35,10 @@ def get_tickets(equipment, closed):
     '''
     _projects = settings.JIRA_TICKETING['projects']
     _projects_defaults = settings.JIRA_TICKETING['projects_defaults']
-    if _projects:
-        projects = [project.key for project in jira.projects() if project.key in _projects.keys()]
-    else:
-        projects = []
     # construct entire search string so we don't hammer the server repeatedly
     search_string = 'text ~ "%s"' % equipment.serial
-    if projects:
+    if _projects:
+        projects = [project.key for project in jira.projects() if project.key in _projects.keys()]
         _first = True
         search_string += ' AND ('
         for project in projects:
@@ -58,9 +55,8 @@ def get_tickets(equipment, closed):
                     _closed_string = _projects_defaults['closed_string']
                 search_string += ' AND status != "%s"' % _closed_string
         search_string += ' ) )'
-    else:
-        if not closed:
-            search_string += ' AND status != "%s"' % _projects_defaults['closed_string']
+    elif not closed:
+        search_string += ' AND status != "%s"' % _projects_defaults['closed_string']
     issues = list(jira.search_issues(search_string))
     for issue in issues:
         name = issue.key
