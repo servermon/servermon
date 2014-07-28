@@ -27,12 +27,11 @@ elif settings.JIRA_TICKETING['auth']['type'] == 'basic':
         settings.JIRA_TICKETING['auth']['password'],
     ))
 
-jira = JIRA(options)
-
 def get_tickets(equipment, closed):
     '''
     Populate tickets for equipment
     '''
+    jira = JIRA(**options)
     _projects = settings.JIRA_TICKETING['projects']
     _projects_defaults = settings.JIRA_TICKETING['projects_defaults']
     # construct entire search string so we don't hammer the server repeatedly
@@ -68,12 +67,17 @@ def get_tickets(equipment, closed):
             status = 'closed'
         else:
             status = 'open'
-        t, created = Ticket.objects.update_or_create(
+        # when Django 1.7 becomes the minimal required version, use update_or_create() instead here
+        # (and then the trailing update of t.state and the t.save() will not be needed)
+        t, created = Ticket.objects.get_or_create(
             name=name,
             defaults={
                 'state': status,
                 'url': issue.permalink(),
             },
         )
+        # if existing ticket retrieved by get_or_create(), url is static but state often won't be - update it manually
+        t.state = status
+        t.save()
         equipment.ticket_set.add(t)
     return equipment
