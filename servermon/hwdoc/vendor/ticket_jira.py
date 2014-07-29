@@ -67,7 +67,7 @@ def get_tickets(equipment, closed):
             status = 'closed'
         else:
             status = 'open'
-        # when Django 1.7 becomes the minimal required version, use update_or_create() instead here
+        # when Django 1.7 becomes the minimum required version, use update_or_create() instead here
         # (and then the trailing update of t.state and the t.save() will not be needed)
         t, created = Ticket.objects.get_or_create(
             name=name,
