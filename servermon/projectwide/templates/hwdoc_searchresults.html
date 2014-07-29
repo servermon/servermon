@@ -37,7 +37,7 @@
           <td>{% if result.allocation %}<a href="{% url "hwdoc.views.project" result.allocation.pk %}">{{ result.allocation.name }}</a>{% else %}&mdash;{% endif %}</td>
           <td>
           {% for ticket in result.ticket_set.all %}
-          <a href="{{ ticket.url }}">{{ ticket.name }}</a>
+          <a href="{{ ticket.url }}">{% if ticket.closed %}<del>{{ ticket.name }}</del>{% else %}{{ ticket.name }}{% endif %}</a>
           {% empty %}
           &mdash;
           </td>

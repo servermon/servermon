@@ -482,3 +482,7 @@ class Ticket(models.Model):
     def __unicode__(self):
         return 'Ticket: %s' % (self.name)
 
+    def closed(self):
+        if self.state == 'closed':
+            return True
+        return False
