@@ -123,8 +123,27 @@ DATETIME_FORMAT = "d/m/Y H:i"
 
 HOST_TIMEOUT = 1800
 
-TICKETING_SYSTEM = 'dummy' # dummy, comments are possible values
+TICKETING_SYSTEM = 'dummy' # dummy, comments, jira are possible values
 COMMENTS_TICKETING_URL = "http://ticketing.example.com/"
+JIRA_TICKETING = {
+    'url': 'http://ticketing.example.com/',
+    'projects': { # empty dict means "all projects"
+        'project1': { 'closed_string': 'closed' },
+        'project2': { 'closed_string': 'done' },
+        'project3': { 'closed_string': 'pining_for_the_fjords' },
+        'project4': {},
+    },
+    'projects_defaults': { 'closed_string': 'closed' },
+    'auth': {
+        'type': 'none', # none, basic, oauth are possible values
+        'user': '',                             # only used for basic
+        'password': '',                         # only used for basic
+        'access_token': '',                     # only used for oauth
+        'access_token_secret' = '',             # only used for oauth
+        'consumer_key' = 'jira-oauth-consumer', # only used for oauth
+        'key_cert' = '/path/to/file',           # only used for oauth
+    },
+}
 
 # Django extensions (apt-get install python-django-extensions)
 try:

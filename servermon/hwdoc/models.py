@@ -470,7 +470,7 @@ class Ticket(models.Model):
             ('closed', 'Closed'),
         )
 
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, unique=True)
     state = models.CharField(choices=STATES, max_length=10)
     equipment = models.ManyToManyField(Equipment)
     url = models.CharField(max_length=250, blank=True)

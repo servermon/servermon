@@ -82,6 +82,10 @@ everything else apart from hwdoc
 
 An application server. Gunicorn should work, apache+mod_wsgi works, django runserver works
 
+For optional Jira ticketing interaction::
+
+  $ pip install jira (or easy_install jira)
+
 Setting up the environment for Servermon
 ----------------------------------------
 
@@ -181,7 +185,7 @@ tickets are stored and their relationship to equipments. The system
 allows for vendor specific plugins for each ticketing system. To select
 you ticketing system edit settings.py and set::
 
-  TICKETING_SYSTEM = 'dummy' # dummy, comments are possible values
+  TICKETING_SYSTEM = 'dummy' # dummy, comments, jira are possible values
 
 And then the configuration for you chosen ticketing system.
 
