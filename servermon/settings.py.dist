@@ -139,9 +139,9 @@ JIRA_TICKETING = {
         'user': '',                             # only used for basic
         'password': '',                         # only used for basic
         'access_token': '',                     # only used for oauth
-        'access_token_secret' = '',             # only used for oauth
-        'consumer_key' = 'jira-oauth-consumer', # only used for oauth
-        'key_cert' = '/path/to/file',           # only used for oauth
+        'access_token_secret': '',             # only used for oauth
+        'consumer_key': 'jira-oauth-consumer', # only used for oauth
+        'key_cert': '/path/to/file',           # only used for oauth
     },
 }
 
