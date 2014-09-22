@@ -7,7 +7,7 @@ and management through Puppet.
 Servermon at this point offers two applications
 
 1) A Web frontend to the Puppet database.
-2) hwodc: A simple datacenter hardware documentation database
+2) hwdoc: A simple datacenter hardware documentation database
 
 If you have no idea what Puppet is, it is possible that you don't need
 this software. Do note however that hwdoc will still be usable even
