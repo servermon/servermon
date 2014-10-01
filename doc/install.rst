@@ -98,14 +98,22 @@ tables etc. So a temporary GRANT ALL will be needed which later can be
 dropped
 
 Temporarily provide full access to the app::
+
   mysql> grant all privileges on puppet.* to 'servermon'@'example.com';
 
 After installation is completed remember to revoke that::
+
   mysql> revoke all privileges on puppet.* from 'servermon'@'example.com';
   mysql> grant select on puppet.* to 'servermon'@'example.com';
 
-If you intend to also use hwdoc then you need to also::
+If you intend to use hwdoc then you need to also::
+
   mysql> grant update,insert,delete on puppet.* to 'servermon'@'example.com';
+
+If you follow a different procedure like installing servermon on a
+separate db from Puppet the above instructions must be modified
+accordingly (having servermon on a separate db could be useful if, for
+example, you are replicating the puppet db from a master elsewhere).
 
 Configuring urls.py
 +++++++++++++++++++
