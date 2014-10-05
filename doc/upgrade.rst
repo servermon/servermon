@@ -33,12 +33,28 @@ TODO
 
 Gunicorn
 ++++++++
-No can do, you should have a reverse proxy in front anyway
+No can do, you should have a reverse proxy in front anyway in which case
+look at the apache config above
+
+uwsgi
++++++
+No can do, you should have a reverse proxy in front anyway in which case
+look at the apache config above
 
 Django runserver
 ++++++++++++++++
 No can do, please tell me you are not running in production with the
 development server
+
+Upgrading from 0.6.1 to 0.7.0
+-----------------------------
+You should perform the following
+
+* Stop application server (wsgi, gunicorn, etc)
+* Update the make_updates.py cron to point to the new django management
+  command. Look into the installation instructions on how to set it up
+* Untar new version (backup the old one first) on top of the old one
+* Restart application server (wsgi, gunicorn, etc)
 
 Upgrading from 0.6.0 to 0.6.1
 -----------------------------

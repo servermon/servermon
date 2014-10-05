@@ -133,6 +133,22 @@ should be sufficient. However if you are installing the software at the
 same VirtualHost with some other software the above file may need
 changes depending on the top url.
 
+Setting up cron for package updates display
++++++++++++++++++++++++++++++++++++++++++++
+
+You probably want the list of updatable packages to be updated with all
+the new info. This needs a cron entry
+
+This should probably tuned to each user's installation. Assuming an
+installation in to /srv/servermon the following line is sufficient
+in a crontab::
+
+  0 0 * * * <user> /srv/servermon/manage.py make_updates --pythonpath=/srv/servermon
+
+where user is a valid system user capable of reading (root will work,
+but it is doubtfull it is a good choice. A dedicated user is probably
+better)
+
 Configuring settings.py
 +++++++++++++++++++++++
 
@@ -209,10 +225,11 @@ This should probably tuned to each user's installation. Assuming an
 installation in to /srv/servermon the following line might be
 sufficient in a crontab::
 
-  0 0 * * * user /srv/servermon/manage.py hwdoc_populate_tickets --pythonpath=/srv/servermon ALL_EQS
+  0 0 * * * <user> /srv/servermon/manage.py hwdoc_populate_tickets --pythonpath=/srv/servermon ALL_EQS
 
 where user is a valid system user capable of reading (root will work,
-depending on your installation it might be a good choice, or not)
+but it is doubtfull it is a good choice. A dedicated user is probably
+better)
 
 Branding
 ++++++++

@@ -1,8 +1,8 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*- vim:fileencoding=utf-8:
 # vim: tabstop=4:shiftwidth=4:softtabstop=4:expandtab
 
 # Copyright © 2010-2012 Greek Research and Technology Network (GRNET S.A.)
+# Copyright © 2014 Alexandros Kosiaris
 #
 # Permission to use, copy, modify, and/or distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -16,22 +16,27 @@
 # TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
 # OF THIS SOFTWARE.
 '''
-CLI utility to populate updatable packages in DB
+Django management command to populate updatable packages in DB
 '''
 
-from django.core.management import setup_environ
-import settings
+from django.core.management.base import BaseCommand
+from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _l
 
-setup_environ(settings)
-
-from util import *
 from puppet.models import Host
+from util import *
 
-def update_packages():
-    for host in Host.objects.all():
-        gen_host_updates(host)
+class Command(BaseCommand):
+    '''
+    Django management command to populate updatable packages in DB
+    '''
+    help = _l('Populate updatable packages in DB')
 
-    clean_orphan_packages()
+    def handle(self, *args, **options):
+        '''
+        Handle command
+        '''
+        for host in Host.objects.all():
+            gen_host_updates(host)
 
-if __name__ == "__main__":
-    update_packages()
+        clean_orphan_packages()
