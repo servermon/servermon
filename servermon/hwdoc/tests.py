@@ -235,11 +235,14 @@ class ViewsTestCase(unittest.TestCase):
         '''
         Command run after every test
         '''
-
+        Ticket.objects.all().delete()
         ServerManagement.objects.all().delete()
         Equipment.objects.all().delete()
         EquipmentModel.objects.all().delete()
         Vendor.objects.all().delete()
+        Rack.objects.all().delete()
+        RackRow.objects.all().delete()
+        Datacenter.objects.all().delete()
 
     def test_search_get(self):
         c = Client()
