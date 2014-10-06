@@ -56,3 +56,60 @@ else:
 
         return HttpResponse(loader.render_to_string(*args, **kwargs),
                             **httpresponse_kwargs)
+
+def monkey_patch_command_execute(name):
+    """
+    Monkey patches a django management command to give it an execute
+    function that does not sys.exit(1) on CommandError. Bug was fixed in
+    django 1.5 and hence this should only be used for less than 1.5 django
+    version
+    """
+    from django.core import management
+    from django.core.management.base import CommandError, BaseCommand
+    import types
+    # Populate the cache
+    app_name = management.get_commands()[name]
+    # Get the command
+    if isinstance(app_name, BaseCommand):
+        klass = app_name
+    else:
+        klass = management.load_command_class(app_name, name)
+
+    def execute(self, *args, **options):
+        """
+        Try to execute this command, performing model validation if
+        needed (as controlled by the attribute
+        ``self.requires_model_validation``). If the command raises a
+        ``CommandError``, intercept it and print it sensibly to
+        stderr.
+        """
+        from django.utils.encoding import smart_str
+        import sys
+        show_traceback = options.get('traceback', False)
+
+        try:
+            self.stdout = options.get('stdout', sys.stdout)
+            self.stderr = options.get('stderr', sys.stderr)
+            if self.requires_model_validation:
+                self.validate()
+            output = self.handle(*args, **options)
+            if output:
+                if self.output_transaction:
+                    # This needs to be imported here, because it relies on
+                    # settings.
+                    from django.db import connections, DEFAULT_DB_ALIAS
+                    connection = connections[options.get('database', DEFAULT_DB_ALIAS)]
+                    if connection.ops.start_transaction_sql():
+                        self.stdout.write(self.style.SQL_KEYWORD(connection.ops.start_transaction_sql()) + '\n')
+                self.stdout.write(output)
+                if self.output_transaction:
+                    self.stdout.write('\n' + self.style.SQL_KEYWORD("COMMIT;") + '\n')
+        except CommandError, e:
+            if show_traceback:
+                traceback.print_exc()
+            else:
+                self.stderr.write(smart_str(self.style.ERROR('Error: %s\n' % e)))
+    setattr(klass, 'execute', types.MethodType(execute, klass))
+    # Finalize command manipulation
+    management._commands[name] = klass
+
