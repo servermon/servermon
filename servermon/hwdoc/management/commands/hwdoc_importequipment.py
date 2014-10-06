@@ -41,68 +41,68 @@ class Command(BaseCommand):
 
         if args is None or len(args) != 1:
             raise CommandError(_('You must supply a file name'))
-        try:
-            csvname = args[0]
-        except IndexError:
-            raise CommandError(_('Error in usage. See help'))
+        csvname = args[0]
 
         count = 0
-        with open(csvname, 'rb') as f:
-            reader = csv.reader(f)
-            for row in reader:
-                (aa, eq, sn, dns, passwd, rack, unit, pdua, pdub, mac) = row[:10]
+        try:
+            with open(csvname, 'rb') as f:
+                reader = csv.reader(f)
+                for row in reader:
+                    (aa, eq, sn, dns, passwd, rack, unit, pdua, pdub, mac) = row[:10]
 
-                if eq.startswith('VMC'):
-                    eq = 'VMC'
-                elif re.match('^SC.-DS.$', eq):
-                    eq = 'DS'
-                elif eq.startswith('SC'):
-                    eq = 'SC'
-                elif eq.startswith('HN'):
-                    eq = 'HN'
-                else:
-                    continue
+                    if eq.startswith('VMC'):
+                        eq = 'VMC'
+                    elif re.match('^SC.-DS.$', eq):
+                        eq = 'DS'
+                    elif eq.startswith('SC'):
+                        eq = 'SC'
+                    elif eq.startswith('HN'):
+                        eq = 'HN'
+                    else:
+                        continue
 
-                try:
-                    rack = Rack.objects.get(name=rack)
-                except Rack.DoesNotExist:
-                    raise RuntimeError(_('The Rack %(rack)s you specified does not exist. You should create it first' % { 'rack': rack}))
+                    try:
+                        rack = Rack.objects.get(name=rack)
+                    except Rack.DoesNotExist:
+                        raise RuntimeError(_('The Rack %(rack)s you specified does not exist. You should create it first' % { 'rack': rack}))
 
-                unit = unit.split('-')[0][1:]
+                    unit = unit.split('-')[0][1:]
 
-                e = Equipment()
-                if eq == 'VMC':
-                    e.model = EquipmentModel.objects.get(name="DL385 G7")
-                    e.purpose = eq
-                elif eq == 'SC':
-                    e.model = EquipmentModel.objects.get(name="DL380 G7")
-                    e.purpose = eq
-                elif eq == 'DS':
-                    e.model = EquipmentModel.objects.get(name="DS2600")
-                    e.purpose = eq
-                elif eq == 'HN':
-                    e.model = EquipmentModel.objects.get(name="PRIMERGY RX200 S5")
-                    e.purpose = eq
+                    e = Equipment()
+                    if eq == 'VMC':
+                        e.model = EquipmentModel.objects.get(name="DL385 G7")
+                        e.purpose = eq
+                    elif eq == 'SC':
+                        e.model = EquipmentModel.objects.get(name="DL380 G7")
+                        e.purpose = eq
+                    elif eq == 'DS':
+                        e.model = EquipmentModel.objects.get(name="DS2600")
+                        e.purpose = eq
+                    elif eq == 'HN':
+                        e.model = EquipmentModel.objects.get(name="PRIMERGY RX200 S5")
+                        e.purpose = eq
 
-                e.serial = sn
-                e.rack = rack
-                e.unit = unit
-                e.save()
+                    e.serial = sn
+                    e.rack = rack
+                    e.unit = unit
+                    e.save()
 
-                if eq == 'VMC' or eq == 'SC' or eq == 'HN':
-                    s = ServerManagement()
-                    s.equipment = e
-                    if eq == 'HN':
-                        s.method = "irmc"
-                        s.username = "admin"
-                    elif eq == 'VMC' or eq == 'SC':
-                        s.method = "ilo3"
-                        s.username = "Administrator"
-                    s.hostname = dns
-                    s.password = passwd
-                    s.mac = mac
-                    s.save()
+                    if eq == 'VMC' or eq == 'SC' or eq == 'HN':
+                        s = ServerManagement()
+                        s.equipment = e
+                        if eq == 'HN':
+                            s.method = "irmc"
+                            s.username = "admin"
+                        elif eq == 'VMC' or eq == 'SC':
+                            s.method = "ilo3"
+                            s.username = "Administrator"
+                        s.hostname = dns
+                        s.password = passwd
+                        s.mac = mac
+                        s.save()
 
-                print _('OK: %(eq)s %(sn)s') % { 'eq': eq, 'sn': sn}
-                count +=1
-            print _('Total ') + str(count)
+                    print _('OK: %(eq)s %(sn)s') % { 'eq': eq, 'sn': sn}
+                    count +=1
+                print _('Total ') + str(count)
+        except IOError:
+            raise CommandError(_('No such file or directory'))

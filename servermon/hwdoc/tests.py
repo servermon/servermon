@@ -32,6 +32,7 @@ from projectwide.functions import get_search_terms
 from django.test.client import Client
 from django.core.management import call_command
 from django.conf import settings
+from django.core.management.base import CommandError
 
 import os
 
@@ -48,7 +49,8 @@ class EquipmentTestCase(unittest.TestCase):
         self.vendor = Vendor.objects.create(name='HP')
         self.model1 = EquipmentModel.objects.create(vendor=self.vendor, name='DL 385 G7', u=2)
         self.model2 = EquipmentModel.objects.create(vendor=self.vendor, name='DL 380 G7', u=2)
-        self.model2 = EquipmentModel.objects.create(vendor=self.vendor, name='Fujisu PRIMERGY 200 S', u=1)
+        self.model2 = EquipmentModel.objects.create(vendor=self.vendor, name='PRIMERGY RX200 S5', u=1)
+        self.model3 = EquipmentModel.objects.create(vendor=self.vendor, name='DS2600', u=2)
         self.rackmodel = RackModel.objects.create(
                                 vendor=self.vendor,
                                 inrow_ac=False,
@@ -341,7 +343,8 @@ class CommandsTestCase(unittest.TestCase):
         self.vendor = Vendor.objects.create(name='HP')
         self.model1 = EquipmentModel.objects.create(vendor=self.vendor, name='DL385 G7', u=2)
         self.model2 = EquipmentModel.objects.create(vendor=self.vendor, name='DL380 G7', u=2)
-        self.model2 = EquipmentModel.objects.create(vendor=self.vendor, name='Fujisu PRIMERGY 200 S', u=1)
+        self.model2 = EquipmentModel.objects.create(vendor=self.vendor, name='PRIMERGY RX200 S5', u=1)
+        self.model3 = EquipmentModel.objects.create(vendor=self.vendor, name='DS2600', u=2)
         self.rackmodel = RackModel.objects.create(
                                 vendor=self.vendor,
                                 inrow_ac=False,
@@ -408,12 +411,46 @@ class CommandsTestCase(unittest.TestCase):
     def test_importequipment(self):
         filename = 'test_importequiment.csv'
         f = open(filename,'w')
-        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s' % ( '1', 'VMC01', 'A123456',
-            'test.example.com', 'password', self.rack.name, '10', 'PDA', 'PDB',
+        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' % ( '1', 'VMC01', 'A123456',
+            'test1.example.com', 'password', self.rack.name, '10', 'PDA', 'PDB',
+            'AA:BB:CC:DD:EE:FA'))
+        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' % ( '2', 'SC0-DS1', 'B123456',
+            'test2.example.com', 'password', self.rack.name, '11', 'PDA', 'PDB',
+            'AA:BB:CC:DD:EE:FB'))
+        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' % ( '3', 'HN01', 'C123456',
+            'test3.example.com', 'password', self.rack.name, '12', 'PDA', 'PDB',
+            'AA:BB:CC:DD:EE:FC'))
+        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' % ( '4', 'DS01', 'D123456',
+            'test4.example.com', 'password', self.rack.name, '13', 'PDA', 'PDB',
+            'AA:BB:CC:DD:EE:FD'))
+        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' % ( '5', 'SC01', 'E123456',
+            'test5.example.com', 'password', self.rack.name, '14', 'PDA', 'PDB',
+            'AA:BB:CC:DD:EE:FE'))
+        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' % ( '6', 'EC01', 'F123456',
+            'test6.example.com', 'password', self.rack.name, '15', 'PDA', 'PDB',
             'AA:BB:CC:DD:EE:FF'))
         f.close()
         call_command('hwdoc_importequipment', filename)
         os.remove(filename)
+
+    def test_importequipment_nofile_specified(self):
+        try:
+            if DJANGO_VERSION[:2] < (1, 5):
+                from compat import monkey_patch_command_execute
+                monkey_patch_command_execute('hwdoc_importequipment')
+            call_command('hwdoc_importequipment')
+        except CommandError:
+            pass
+
+    def test_importequipment_nonexistent_file(self):
+        filename = 'test_importequiment.csv'
+        try:
+            if DJANGO_VERSION[:2] < (1, 5):
+                from compat import monkey_patch_command_execute
+                monkey_patch_command_execute('hwdoc_importequipment')
+            call_command('hwdoc_importequipment', filename)
+        except CommandError:
+            pass
 
     def test_importequipmentlicenses(self):
         filename = 'test_importequipmentlicenses.csv'
@@ -431,6 +468,25 @@ class CommandsTestCase(unittest.TestCase):
         call_command('hwdoc_firmware_update', self.server2.serial,
                 firmware_location='firmware')
         os.remove(filename)
+
+    def test_bmc_firmware_update_nonexistent_file(self):
+        try:
+            if DJANGO_VERSION[:2] < (1, 5):
+                from compat import monkey_patch_command_execute
+                monkey_patch_command_execute('hwdoc_firmware_update')
+            call_command('hwdoc_firmware_update', self.server2.serial,
+                    firmware_location='firmware')
+        except CommandError:
+            pass
+
+    def test_bmc_firmware_update_no_specified_file(self):
+        try:
+            if DJANGO_VERSION[:2] < (1, 5):
+                from compat import monkey_patch_command_execute
+                monkey_patch_command_execute('hwdoc_firmware_update')
+            call_command('hwdoc_firmware_update', self.server2.serial)
+        except CommandError:
+            pass
 
     def test_populate_tickets(self):
         call_command('hwdoc_populate_tickets', self.server1.serial)
