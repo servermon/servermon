@@ -28,6 +28,7 @@ else:
 from puppet.models import Host, Resource, FactValue, Fact
 from updates.models import Package, Update
 from django.test.client import Client
+from django.core.management import call_command
 
 # The following is an ugly hack for unit tests to work
 # We force managed the unmanaged models so that tables will be created
@@ -68,6 +69,7 @@ class UpdatesTestCase(unittest.TestCase):
         Commands run after every test
         '''
 
+        Host.objects.all().delete()
         Package.objects.all().delete()
         Update.objects.all().delete()
 
@@ -111,6 +113,8 @@ class ViewsTestCase(unittest.TestCase):
 
         Package.objects.all().delete()
         Host.objects.all().delete()
+        Fact.objects.all().delete()
+        FactValue.objects.all().delete()
 
     def test_hostlist(self):
         c = Client()
@@ -163,3 +167,43 @@ class ViewsTestCase(unittest.TestCase):
             response = c.get('/hosts/%s' % d)
             self.assertEqual(response.status_code, 200)
 
+class CommandsTestCase(unittest.TestCase):
+    '''
+    A test case for django management commands
+    '''
+
+    def setUp(self):
+        '''
+        Commands run before every test
+        '''
+        self.package1 = Package.objects.create(name='testpackage', sourcename='testsource')
+        self.package2 = Package.objects.create(name='testpackage2', sourcename='testsource')
+        self.host1 = Host.objects.create(name='testservermonHost1', ip='10.10.10.10')
+        self.fact1 = Fact.objects.create(name='interfaces')
+        self.fact2 = Fact.objects.create(name='macaddress_eth0')
+        self.fact3 = Fact.objects.create(name='ipaddress_eth0')
+        self.fact4 = Fact.objects.create(name='netmask_eth0')
+        self.fact5 = Fact.objects.create(name='ipaddress6_eth0')
+        self.factvalue1 = FactValue.objects.create(value='eth0',
+                fact_name=self.fact1, host=self.host1)
+        self.factvalue2 = FactValue.objects.create(value='aa:bb:cc:dd:ee:ff',
+                fact_name=self.fact2, host=self.host1)
+        self.factvalue3 = FactValue.objects.create(value='10.10.10.10',
+                fact_name=self.fact3, host=self.host1)
+        self.factvalue4 = FactValue.objects.create(value='255.255.255.0',
+                fact_name=self.fact4, host=self.host1)
+        self.factvalue5 = FactValue.objects.create(value='dead:beef::1/64',
+                fact_name=self.fact5, host=self.host1)
+
+    def tearDown(self):
+        '''
+        Commands run after every test
+        '''
+
+        Package.objects.all().delete()
+        Host.objects.all().delete()
+        Fact.objects.all().delete()
+        FactValue.objects.all().delete()
+
+    def test_make_updates(self):
+        call_command('make_updates')
