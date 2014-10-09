@@ -408,6 +408,27 @@ class CommandsTestCase(unittest.TestCase):
         call_command('hwdoc_shutdown', self.server2.serial)
         call_command('hwdoc_startup', self.server2.serial)
 
+    def test_bmc_commands_bad_call(self):
+        try:
+            if DJANGO_VERSION[:2] < (1, 5):
+                from compat import monkey_patch_command_execute
+                monkey_patch_command_execute('hwdoc_startup')
+            call_command('hwdoc_startup')
+        except CommandError:
+            pass
+
+    def test_bmc_commands_no_result(self):
+        try:
+            if DJANGO_VERSION[:2] < (1, 5):
+                from compat import monkey_patch_command_execute
+                monkey_patch_command_execute('hwdoc_startup')
+            call_command('hwdoc_startup', 'INEXISTENT_EQUIPMENT')
+        except CommandError:
+            pass
+
+    def test_bmc_commands_no_servermanagement(self):
+        call_command('hwdoc_startup', self.server1.serial)
+
     def test_importequipment(self):
         filename = 'test_importequiment.csv'
         f = open(filename,'w')
