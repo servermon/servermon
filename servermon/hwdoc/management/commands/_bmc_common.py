@@ -48,11 +48,7 @@ def handle(self, *args, **options):
 
     if args is None or len(args) != 1:
         raise CommandError(_('You must supply a key'))
-
-    try:
-        key = args[0]
-    except IndexError:
-        raise CommandError(_('Error in usage. See help'))
+    key = args[0]
 
     es = search(key)
     if es.count() == 0:
