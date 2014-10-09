@@ -41,7 +41,7 @@ test:
 	@python servermon/manage.py test --noinput
 
 coverage:
-	@python-coverage run --source=puppet,contrib,updates,hwdoc,projectwide servermon/manage.py test
+	@python-coverage run --source=servermon servermon/manage.py test --noinput
 	@python-coverage html
 
 $(BUILDDIR)/api:
