@@ -33,6 +33,7 @@ dist: 	test doc
 clean:
 	@rm -f *tar.gz
 	@rm -rf $(BUILDDIR)
+	@rm -rf htmlcov
 
 doc:	$(BUILDDIR)/api $(BUILDDIR)/html $(BUILDDIR)/text
 
