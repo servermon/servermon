@@ -428,6 +428,7 @@ class CommandsTestCase(unittest.TestCase):
         call_command('hwdoc_set_ldap_settings', self.server2.serial)
         call_command('hwdoc_set_settings', self.server2.serial)
         call_command('hwdoc_shutdown', self.server2.serial)
+        call_command('hwdoc_shutdown', self.server2.serial, force=True)
         call_command('hwdoc_startup', self.server2.serial)
 
     def test_bmc_commands_bad_call(self):
