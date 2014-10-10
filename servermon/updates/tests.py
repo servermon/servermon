@@ -50,7 +50,7 @@ class UpdatesTestCase(unittest.TestCase):
         self.host1 = Host.objects.create(name='MyHost', ip='10.10.10.10')
         print self.host1
         self.package1 = Package.objects.create(name='testpackage', sourcename='testsource')
-        self.package2 = Package.objects.create(name='testpackage', sourcename='testpackage')
+        self.package2 = Package.objects.create(name='testpackage2', sourcename='testpackage')
         print self.package1
         print self.package2
         self.update1 = Update.objects.create(package=self.package1, host=self.host1,
@@ -177,13 +177,15 @@ class CommandsTestCase(unittest.TestCase):
         Commands run before every test
         '''
         self.package1 = Package.objects.create(name='testpackage', sourcename='testsource')
-        self.package2 = Package.objects.create(name='testpackage2', sourcename='testsource')
+        self.package2 = Package.objects.create(name='testpackage2', sourcename='testsource2')
         self.host1 = Host.objects.create(name='testservermonHost1', ip='10.10.10.10')
+        self.host2 = Host.objects.create(name='testservermonHost2', ip='10.10.10.11')
         self.fact1 = Fact.objects.create(name='interfaces')
         self.fact2 = Fact.objects.create(name='macaddress_eth0')
         self.fact3 = Fact.objects.create(name='ipaddress_eth0')
         self.fact4 = Fact.objects.create(name='netmask_eth0')
         self.fact5 = Fact.objects.create(name='ipaddress6_eth0')
+        self.fact6 = Fact.objects.create(name='package_updates')
         self.factvalue1 = FactValue.objects.create(value='eth0',
                 fact_name=self.fact1, host=self.host1)
         self.factvalue2 = FactValue.objects.create(value='aa:bb:cc:dd:ee:ff',
@@ -194,6 +196,24 @@ class CommandsTestCase(unittest.TestCase):
                 fact_name=self.fact4, host=self.host1)
         self.factvalue5 = FactValue.objects.create(value='dead:beef::1/64',
                 fact_name=self.fact5, host=self.host1)
+        v="""<?xml version="1.0" ?>
+            <host name="%s">
+                <package current_version="1.0"
+                         is_security="true"
+                         name="testpackage"
+                         new_version="1.1"
+                         origin="Debian"
+                         source_name="testsource"/>
+                <package current_version="1.0"
+                         is_security="true"
+                         name="nosuchpackage"
+                         new_version="1.1"
+                         origin="Debian"
+                         source_name="nosuchsource"/>
+            </host>""" % self.host1
+        self.factvalue6 = FactValue.objects.create(value=v,
+                fact_name=self.fact6, host=self.host1)
+        print self.factvalue6
 
     def tearDown(self):
         '''
@@ -204,6 +224,7 @@ class CommandsTestCase(unittest.TestCase):
         Host.objects.all().delete()
         Fact.objects.all().delete()
         FactValue.objects.all().delete()
+        Package.objects.all().delete()
 
     def test_make_updates(self):
         call_command('make_updates')
