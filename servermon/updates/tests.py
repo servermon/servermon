@@ -50,7 +50,7 @@ class UpdatesTestCase(unittest.TestCase):
         self.host1 = Host.objects.create(name='MyHost', ip='10.10.10.10')
         print self.host1
         self.package1 = Package.objects.create(name='testpackage', sourcename='testsource')
-        self.package2 = Package.objects.create(name='testpackage2', sourcename='testpackage')
+        self.package2 = Package.objects.create(name='testpackage2', sourcename='testpackage2')
         print self.package1
         print self.package2
         self.update1 = Update.objects.create(package=self.package1, host=self.host1,
@@ -59,10 +59,15 @@ class UpdatesTestCase(unittest.TestCase):
         self.update2 = Update.objects.create(package=self.package2, host=self.host1,
                 installedVersion = '1.1', candidateVersion='1.2',
                 source = 'TestSource', origin='Ubuntu')
+        self.update3 = Update.objects.create(package=self.package2, host=self.host1,
+                installedVersion = '1.1', candidateVersion='1.2',
+                source = 'TestSource', origin='None')
         print self.update1
         print self.update1.get_changelog_url()
         print self.update2
         print self.update2.get_changelog_url()
+        print self.update3
+        print self.update3.get_changelog_url()
 
     def tearDown(self):
         '''
