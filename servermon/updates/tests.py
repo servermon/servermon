@@ -81,20 +81,28 @@ class ViewsTestCase(unittest.TestCase):
     '''
     Testing views class
     '''
-
     def setUp(self):
         '''
         Commands run before every test
         '''
 
+        # Using hwdoc's test case in order to DRY and setup a proper env for
+        # tests
+        from hwdoc.tests import EquipmentTestCase
+        EquipmentTestCase.dummy = lambda x: True
+        self.etc = EquipmentTestCase('dummy')
+        self.etc.setUp()
+
         self.package1 = Package.objects.create(name='testpackage', sourcename='testsource')
         self.package2 = Package.objects.create(name='testpackage2', sourcename='testsource')
         self.host1 = Host.objects.create(name='testservermonHost1', ip='10.10.10.10')
+        self.host2 = Host.objects.create(name='testservermonHost2', ip='10.10.10.11')
         self.fact1 = Fact.objects.create(name='interfaces')
         self.fact2 = Fact.objects.create(name='macaddress_eth0')
         self.fact3 = Fact.objects.create(name='ipaddress_eth0')
         self.fact4 = Fact.objects.create(name='netmask_eth0')
         self.fact5 = Fact.objects.create(name='ipaddress6_eth0')
+        self.fact6 = Fact.objects.create(name='serialnumber')
         self.factvalue1 = FactValue.objects.create(value='eth0',
                 fact_name=self.fact1, host=self.host1)
         self.factvalue2 = FactValue.objects.create(value='aa:bb:cc:dd:ee:ff',
@@ -105,16 +113,18 @@ class ViewsTestCase(unittest.TestCase):
                 fact_name=self.fact4, host=self.host1)
         self.factvalue5 = FactValue.objects.create(value='dead:beef::1/64',
                 fact_name=self.fact5, host=self.host1)
+        self.factvalue6 = FactValue.objects.create(value='R123457',
+                fact_name=self.fact6, host=self.host2)
 
     def tearDown(self):
         '''
         Commands run after every test
         '''
-
         Package.objects.all().delete()
         Host.objects.all().delete()
         Fact.objects.all().delete()
         FactValue.objects.all().delete()
+        self.etc.tearDown()
 
     def test_hostlist(self):
         c = Client()
@@ -149,6 +159,13 @@ class ViewsTestCase(unittest.TestCase):
             response = c.get('/packages/%s' % d)
             self.assertEqual(response.status_code, 200)
 
+    def test_existent_package_plaintext(self):
+        c = Client()
+        data = [self.package1.name, self.package2.name]
+        for d in data:
+            response = c.get('/packages/%s' % d, {'plain': 'yes'})
+            self.assertEqual(response.status_code, 200)
+
     def test_empty_host(self):
         c = Client()
         response = c.get('/hosts/%s' % '')
@@ -163,6 +180,13 @@ class ViewsTestCase(unittest.TestCase):
     def test_existent_host(self):
         c = Client()
         data = [self.host1.name]
+        for d in data:
+            response = c.get('/hosts/%s' % d)
+            self.assertEqual(response.status_code, 200)
+
+    def test_existent_host_without_interfaces(self):
+        c = Client()
+        data = [self.host2.name]
         for d in data:
             response = c.get('/hosts/%s' % d)
             self.assertEqual(response.status_code, 200)
