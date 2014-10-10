@@ -137,10 +137,7 @@ class FactValue(models.Model):
         Get a string representation of the instance
         '''
 
-        try:
-            return "%s %s: %s" % (self.host.name, str(self.fact_name), self.value)
-        except Exception:
-            return "(unknown host) %s: %s" % (str(self.fact_name), self.value)
+        return "%s %s: %s" % (self.host.name, str(self.fact_name), self.value)
 
 class ParamNames(models.Model):
     '''
