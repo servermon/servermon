@@ -90,8 +90,8 @@ class PuppetViewsTestCase(unittest.TestCase):
         '''
         self.host1 = Host.objects.create(name='testservermonHost1', ip='10.10.10.10')
         self.host2 = Host.objects.create(name='testservermonHost2', ip='10.10.10.10')
-        self.fact1 = Fact.objects.create(name='TestFact1')
-        self.fact2 = Fact.objects.create(name='TestFact2')
+        self.fact1 = Fact.objects.create(name='memorysize')
+        self.fact2 = Fact.objects.create(name='manufacturer')
         self.factv1 = FactValue.objects.create(value='TestFactValue1', fact_name=self.fact1, host=self.host1)
         self.factv2 = FactValue.objects.create(value='TestFactValue2', fact_name=self.fact2, host=self.host2)
 
