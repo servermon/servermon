@@ -323,11 +323,33 @@ class ViewsTestCase(unittest.TestCase):
                 HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
 
+    def test_subnav_bad_arg(self):
+        c = Client()
+        response = c.get('/hwdoc/subnav/%s/' % 'inexistent',
+                HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 400)
+
+    def test_subnav_no_ajax(self):
+        c = Client()
+        response = c.get('/hwdoc/subnav/%s/' % 'datacenters')
+        self.assertEqual(response.status_code, 400)
+
     def test_flotdata(self):
         c = Client()
         response = c.get('/hwdoc/flotdata/%s/' % 'datacenters',
                 HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
+
+    def test_flotdat_bad_arg(self):
+        c = Client()
+        response = c.get('/hwdoc/flotdata/%s/' % 'inexistent',
+                HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 400)
+
+    def test_flotdata_noajax(self):
+        c = Client()
+        response = c.get('/hwdoc/flotdata/%s/' % 'datacenters')
+        self.assertEqual(response.status_code, 400)
 
 class CommandsTestCase(unittest.TestCase):
     '''
