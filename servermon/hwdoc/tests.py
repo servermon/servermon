@@ -139,6 +139,12 @@ class EquipmentTestCase(unittest.TestCase):
         self.assertTrue(self.management.get_all_users())
         self.assertTrue(self.management.firmware_update())
 
+    def test_pass_change_error(self):
+        try:
+            self.management.pass_change(**{'change_username': 'me'})
+        except RuntimeError:
+            pass
+
     def test_equipment_number(self):
         self.assertEqual(Equipment.objects.all().count(), 3)
 
@@ -167,8 +173,9 @@ class EquipmentTestCase(unittest.TestCase):
     def test_assess_ticket_count(self):
         self.assertEqual(Ticket.objects.count(), self.server1.ticket_set.all().count())
 
-    def test_ticket_unicode(self):
+    def test_unicode(self):
         print(self.ticket1)
+        print(self.management)
 
 class AllocationTestCase(unittest.TestCase):
     '''
