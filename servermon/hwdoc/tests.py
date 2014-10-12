@@ -26,7 +26,8 @@ else:
     import unittest
 from hwdoc.models import Vendor, EquipmentModel, Equipment, \
     ServerManagement, Project, Rack, RackPosition, RackModel, RackRow, \
-    Datacenter, Ticket
+    Datacenter, Ticket, \
+    Email, Phone, Person, Project, Role
 from hwdoc.functions import search, populate_tickets
 from projectwide.functions import get_search_terms
 from django.test.client import Client
@@ -168,6 +169,43 @@ class EquipmentTestCase(unittest.TestCase):
 
     def test_ticket_unicode(self):
         print(self.ticket1)
+
+class AllocationTestCase(unittest.TestCase):
+    '''
+    A test case for equipment
+    '''
+
+    def setUp(self):
+        '''
+        Commands run before every test
+        '''
+        self.email1 = Email.objects.create(email="test@example.com")
+        self.phone1 = Phone.objects.create(number="5555555555")
+        self.person1 = Person.objects.create(name='test', surname='test')
+        self.person1.emails.add(self.email1)
+        self.person1.phones.add(self.phone1)
+        self.person1.save()
+        self.project1 = Project.objects.create(name='test project')
+        self.role1 = Role.objects.create(role='technical contact',
+                project=self.project1, person=self.person1)
+
+    def tearDown(self):
+        '''
+        Command run after every test
+        '''
+
+        Email.objects.all().delete()
+        Phone.objects.all().delete()
+        Person.objects.all().delete()
+        Project.objects.all().delete()
+        Role.objects.all().delete()
+
+    def test_print_check(self):
+        print self.email1
+        print self.phone1
+        print self.person1
+        print self.project1
+        print self.role1
 
 class ViewsTestCase(unittest.TestCase):
     '''
