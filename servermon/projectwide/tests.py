@@ -87,6 +87,11 @@ class ProjectWideViewsTestCase(unittest.TestCase):
         response = c.post('/search/', {'q': self.host1.name})
         self.assertEqual(response.status_code, 200)
 
+    def test_advanced_search(self):
+        c = Client()
+        response = c.post('/advancedsearch/')
+        self.assertEqual(response.status_code, 200)
+
     def test_opensearch(self):
         c = Client()
         response = c.get('/opensearch.xml')
@@ -94,5 +99,10 @@ class ProjectWideViewsTestCase(unittest.TestCase):
 
     def test_opensearch_suggestions(self):
         c = Client()
-        response = c.get('/suggest/?q=test')
+        response = c.get('/suggest/', { 'q': 'test'})
+        self.assertEqual(response.status_code, 200)
+
+    def test_opensearch_suggest_no_q(self):
+        c = Client()
+        response = c.get('/suggest/')
         self.assertEqual(response.status_code, 200)
