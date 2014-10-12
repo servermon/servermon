@@ -69,7 +69,7 @@ class EquipmentTestCase(unittest.TestCase):
                                 model = self.model1,
                                 serial = 'G123456',
                                 rack = self.rack,
-                                unit = '20',
+                                unit = 20,
                                 purpose = 'Nothing',
                             )
 
@@ -77,7 +77,7 @@ class EquipmentTestCase(unittest.TestCase):
                                 model = self.model2,
                                 serial = 'R123457',
                                 rack = self.rack,
-                                unit = '22',
+                                unit = 22,
                                 purpose = 'Nothing',
                                 comments = 'Nothing',
                             )
@@ -86,7 +86,7 @@ class EquipmentTestCase(unittest.TestCase):
                                 model = self.model2,
                                 serial = 'R123458',
                                 rack = self.rack2,
-                                unit = '23',
+                                unit = 23,
                                 purpose = 'Nothing',
                                 comments = 'Nothing',
                             )
@@ -155,7 +155,7 @@ class EquipmentTestCase(unittest.TestCase):
         self.assertEqual(search(str(self.server1.rack.name)).count(), 2)
 
     def test_search_rack_heuristic(self):
-        self.assertEqual(search(str(self.server3.rack.name + self.server3.unit)).count(), 1)
+        self.assertEqual(search('%s%s' % (self.server3.rack.name, self.server3.unit)).count(), 1)
 
     def test_search_serial(self):
         self.assertEqual(search(self.server1.serial)[0].serial, self.server1.serial)
