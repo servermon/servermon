@@ -33,7 +33,6 @@ from projectwide.functions import get_search_terms
 from django.test.client import Client
 from django.core.management import call_command
 from django.conf import settings
-from django.core.management.base import CommandError
 
 import os
 
@@ -96,12 +95,23 @@ class EquipmentTestCase(unittest.TestCase):
                             method = 'dummy',
                             hostname = 'example.com',
                             )
+        self.management2 = ServerManagement.objects.create(
+                            equipment = self.server3,
+                            method = 'error',
+                            hostname = 'example.org',
+                            )
         self.ticket1 = Ticket.objects.create(
                             name = 'myticket',
                             url = 'http://example.com/myticket',
                             state = 'open',
                             )
+        self.ticket2 = Ticket.objects.create(
+                            name = 'myticket2',
+                            url = 'http://example.com/myticket2',
+                            state = 'closed',
+                            )
         self.ticket1.equipment.add(self.server1)
+        self.ticket2.equipment.add(self.server1)
 
     def tearDown(self):
         '''
@@ -139,6 +149,9 @@ class EquipmentTestCase(unittest.TestCase):
         self.assertTrue(self.management.get_all_users())
         self.assertTrue(self.management.firmware_update())
 
+    def test_inexistent_method(self):
+        self.assertIsNone(self.management2.power_on())
+
     def test_pass_change_error(self):
         try:
             self.management.pass_change(**{'change_username': 'me'})
@@ -172,6 +185,10 @@ class EquipmentTestCase(unittest.TestCase):
 
     def test_assess_ticket_count(self):
         self.assertEqual(Ticket.objects.count(), self.server1.ticket_set.all().count())
+
+    def test_ticket_states(self):
+        self.assertFalse(self.ticket1.closed())
+        self.assertTrue(self.ticket2.closed())
 
     def test_unicode(self):
         print(self.ticket1)
@@ -475,24 +492,19 @@ class CommandsTestCase(unittest.TestCase):
         call_command('hwdoc_shutdown', self.server2.serial)
         call_command('hwdoc_shutdown', self.server2.serial, force=True)
         call_command('hwdoc_startup', self.server2.serial)
+        call_command('hwdoc_startup', self.server2.serial, verbosity=1)
 
     def test_bmc_commands_bad_call(self):
-        try:
-            if DJANGO_VERSION[:2] < (1, 5):
-                from compat import monkey_patch_command_execute
-                monkey_patch_command_execute('hwdoc_startup')
-            call_command('hwdoc_startup')
-        except CommandError:
-            pass
+        if DJANGO_VERSION[:2] < (1, 5):
+            from compat import monkey_patch_command_execute
+            monkey_patch_command_execute('hwdoc_startup')
+        call_command('hwdoc_startup')
 
     def test_bmc_commands_no_result(self):
-        try:
-            if DJANGO_VERSION[:2] < (1, 5):
-                from compat import monkey_patch_command_execute
-                monkey_patch_command_execute('hwdoc_startup')
-            call_command('hwdoc_startup', 'INEXISTENT_EQUIPMENT')
-        except CommandError:
-            pass
+        if DJANGO_VERSION[:2] < (1, 5):
+            from compat import monkey_patch_command_execute
+            monkey_patch_command_execute('hwdoc_startup')
+        call_command('hwdoc_startup', 'INEXISTENT_EQUIPMENT')
 
     def test_bmc_commands_no_servermanagement(self):
         call_command('hwdoc_startup', self.server1.serial)
@@ -523,23 +535,17 @@ class CommandsTestCase(unittest.TestCase):
         os.remove(filename)
 
     def test_importequipment_nofile_specified(self):
-        try:
-            if DJANGO_VERSION[:2] < (1, 5):
-                from compat import monkey_patch_command_execute
-                monkey_patch_command_execute('hwdoc_importequipment')
-            call_command('hwdoc_importequipment')
-        except CommandError:
-            pass
+        if DJANGO_VERSION[:2] < (1, 5):
+            from compat import monkey_patch_command_execute
+            monkey_patch_command_execute('hwdoc_importequipment')
+        call_command('hwdoc_importequipment')
 
     def test_importequipment_nonexistent_file(self):
         filename = 'test_importequiment.csv'
-        try:
-            if DJANGO_VERSION[:2] < (1, 5):
-                from compat import monkey_patch_command_execute
-                monkey_patch_command_execute('hwdoc_importequipment')
-            call_command('hwdoc_importequipment', filename)
-        except CommandError:
-            pass
+        if DJANGO_VERSION[:2] < (1, 5):
+            from compat import monkey_patch_command_execute
+            monkey_patch_command_execute('hwdoc_importequipment')
+        call_command('hwdoc_importequipment', filename)
 
     def test_importequipmentlicenses(self):
         filename = 'test_importequipmentlicenses.csv'
@@ -548,6 +554,12 @@ class CommandsTestCase(unittest.TestCase):
         f.close()
         call_command('hwdoc_importequipmentlicenses', filename)
         os.remove(filename)
+
+    def test_importequipmentlicenses_nonexistent_file(self):
+        if DJANGO_VERSION[:2] < (1, 5):
+            from compat import monkey_patch_command_execute
+            monkey_patch_command_execute('hwdoc_importequipmentlicenses')
+        call_command('hwdoc_importequipmentlicenses')
 
     def test_bmc_firmware_update(self):
         filename = 'firmware'
@@ -559,23 +571,17 @@ class CommandsTestCase(unittest.TestCase):
         os.remove(filename)
 
     def test_bmc_firmware_update_nonexistent_file(self):
-        try:
-            if DJANGO_VERSION[:2] < (1, 5):
-                from compat import monkey_patch_command_execute
-                monkey_patch_command_execute('hwdoc_firmware_update')
-            call_command('hwdoc_firmware_update', self.server2.serial,
-                    firmware_location='firmware')
-        except CommandError:
-            pass
+        if DJANGO_VERSION[:2] < (1, 5):
+            from compat import monkey_patch_command_execute
+            monkey_patch_command_execute('hwdoc_firmware_update')
+        call_command('hwdoc_firmware_update', self.server2.serial,
+                firmware_location='firmware')
 
     def test_bmc_firmware_update_no_specified_file(self):
-        try:
-            if DJANGO_VERSION[:2] < (1, 5):
-                from compat import monkey_patch_command_execute
-                monkey_patch_command_execute('hwdoc_firmware_update')
-            call_command('hwdoc_firmware_update', self.server2.serial)
-        except CommandError:
-            pass
+        if DJANGO_VERSION[:2] < (1, 5):
+            from compat import monkey_patch_command_execute
+            monkey_patch_command_execute('hwdoc_firmware_update')
+        call_command('hwdoc_firmware_update', self.server2.serial)
 
     def test_populate_tickets(self):
         call_command('hwdoc_populate_tickets', self.server1.serial)

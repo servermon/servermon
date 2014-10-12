@@ -18,7 +18,7 @@
 Django management command to import a CSV of BMC licenses
 '''
 
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 from hwdoc.models import Equipment
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
@@ -39,11 +39,7 @@ class Command(BaseCommand):
 
         if args is None or len(args) != 1:
             raise CommandError(_('You must supply a file name'))
-        try:
-            csvname = args[0]
-        except IndexError:
-            raise CommandError(_('Error in usage. See help'))
-
+        csvname = args[0]
         licenses = []
 
         with open(csvname, 'rb') as f:
