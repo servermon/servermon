@@ -167,6 +167,9 @@ class EquipmentTestCase(unittest.TestCase):
     def test_search_rack(self):
         self.assertEqual(search(str(self.server1.rack.name)).count(), 2)
 
+    def test_search_all(self):
+        self.assertEqual(search('ALL_EQS').count(), 3)
+
     def test_search_rack_heuristic(self):
         self.assertEqual(search('%s%s' % (self.server3.rack.name, self.server3.unit)).count(), 1)
 
@@ -487,7 +490,11 @@ class CommandsTestCase(unittest.TestCase):
         call_command('hwdoc_power_cycle', self.server2.serial)
         call_command('hwdoc_remove_user', self.server2.serial)
         call_command('hwdoc_reset', self.server2.serial)
-        call_command('hwdoc_set_ldap_settings', self.server2.serial)
+        call_command('hwdoc_set_ldap_settings', self.server2.serial,
+                contexts="ou=example,ou=com:ou=example,ou=org",
+                groupnames="group1:group2",
+                groupprivs="priv1:priv2",
+                groupsids="S-123:S-124")
         call_command('hwdoc_set_settings', self.server2.serial)
         call_command('hwdoc_shutdown', self.server2.serial)
         call_command('hwdoc_shutdown', self.server2.serial, force=True)
@@ -584,4 +591,9 @@ class CommandsTestCase(unittest.TestCase):
         call_command('hwdoc_firmware_update', self.server2.serial)
 
     def test_populate_tickets(self):
+        settings.TICKETING_SYSTEM='dummy'
+        call_command('hwdoc_populate_tickets', self.server1.serial)
+
+    def test_populate_tickets_inexistent_system(self):
+        settings.TICKETING_SYSTEM='nosuchthing'
         call_command('hwdoc_populate_tickets', self.server1.serial)
