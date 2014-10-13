@@ -194,8 +194,8 @@ class EquipmentTestCase(unittest.TestCase):
         self.assertTrue(self.ticket2.closed())
 
     def test_unicode(self):
-        print(self.ticket1)
-        print(self.management)
+        self.assertIsInstance(str(self.ticket1), str)
+        self.assertIsInstance(str(self.management), str)
 
 class AllocationTestCase(unittest.TestCase):
     '''
@@ -228,11 +228,11 @@ class AllocationTestCase(unittest.TestCase):
         Role.objects.all().delete()
 
     def test_print_check(self):
-        print self.email1
-        print self.phone1
-        print self.person1
-        print self.project1
-        print self.role1
+        self.assertIsInstance(str(self.email1), str)
+        self.assertIsInstance(str(self.phone1), str)
+        self.assertIsInstance(str(self.person1), str)
+        self.assertIsInstance(str(self.project1), str)
+        self.assertIsInstance(str(self.role1), str)
 
 class ViewsTestCase(unittest.TestCase):
     '''
@@ -479,42 +479,44 @@ class CommandsTestCase(unittest.TestCase):
 
     #Tests start here
     def test_bmc_commands(self):
-        call_command('hwdoc_bmc_reset', self.server2.serial)
-        call_command('hwdoc_add_user', self.server2.serial)
-        call_command('hwdoc_bmc_factory_defaults', self.server2.serial)
-        call_command('hwdoc_bmc_reset', self.server2.serial)
-        call_command('hwdoc_boot_order', self.server2.serial)
-        call_command('hwdoc_get_all_users', self.server2.serial)
-        call_command('hwdoc_license', self.server2.serial)
-        call_command('hwdoc_pass_change', self.server2.serial)
-        call_command('hwdoc_power_cycle', self.server2.serial)
-        call_command('hwdoc_remove_user', self.server2.serial)
-        call_command('hwdoc_reset', self.server2.serial)
+        call_command('hwdoc_bmc_reset', self.server2.serial, verbosity=0)
+        call_command('hwdoc_add_user', self.server2.serial, verbosity=0)
+        call_command('hwdoc_bmc_factory_defaults', self.server2.serial, verbosity=0)
+        call_command('hwdoc_bmc_reset', self.server2.serial, verbosity=0)
+        call_command('hwdoc_boot_order', self.server2.serial, verbosity=0)
+        call_command('hwdoc_get_all_users', self.server2.serial, verbosity=0)
+        call_command('hwdoc_license', self.server2.serial, verbosity=0)
+        call_command('hwdoc_pass_change', self.server2.serial, verbosity=0)
+        call_command('hwdoc_power_cycle', self.server2.serial, verbosity=0)
+        call_command('hwdoc_remove_user', self.server2.serial, verbosity=0)
+        call_command('hwdoc_reset', self.server2.serial, verbosity=0)
         call_command('hwdoc_set_ldap_settings', self.server2.serial,
                 contexts="ou=example,ou=com:ou=example,ou=org",
                 groupnames="group1:group2",
                 groupprivs="priv1:priv2",
-                groupsids="S-123:S-124")
-        call_command('hwdoc_set_settings', self.server2.serial)
-        call_command('hwdoc_shutdown', self.server2.serial)
-        call_command('hwdoc_shutdown', self.server2.serial, force=True)
-        call_command('hwdoc_startup', self.server2.serial)
+                groupsids="S-123:S-124",
+                verbosity=0)
+        call_command('hwdoc_set_settings', self.server2.serial, verbosity=0)
+        call_command('hwdoc_shutdown', self.server2.serial, verbosity=0)
+        call_command('hwdoc_shutdown', self.server2.serial, force=True, verbosity=0)
+        call_command('hwdoc_startup', self.server2.serial, verbosity=0)
+        # Actually check with verbosity=1
         call_command('hwdoc_startup', self.server2.serial, verbosity=1)
 
     def test_bmc_commands_bad_call(self):
         if DJANGO_VERSION[:2] < (1, 5):
             from compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_startup')
-        call_command('hwdoc_startup')
+        call_command('hwdoc_startup', verbosity=0)
 
     def test_bmc_commands_no_result(self):
         if DJANGO_VERSION[:2] < (1, 5):
             from compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_startup')
-        call_command('hwdoc_startup', 'INEXISTENT_EQUIPMENT')
+        call_command('hwdoc_startup', 'INEXISTENT_EQUIPMENT', verbosity=0)
 
     def test_bmc_commands_no_servermanagement(self):
-        call_command('hwdoc_startup', self.server1.serial)
+        call_command('hwdoc_startup', self.server1.serial, verbosity=0)
 
     def test_importequipment(self):
         filename = 'test_importequiment.csv'
@@ -538,28 +540,28 @@ class CommandsTestCase(unittest.TestCase):
             'test6.example.com', 'password', self.rack.name, '15', 'PDA', 'PDB',
             'AA:BB:CC:DD:EE:FF'))
         f.close()
-        call_command('hwdoc_importequipment', filename)
+        call_command('hwdoc_importequipment', filename, verbosity=0)
         os.remove(filename)
 
     def test_importequipment_nofile_specified(self):
         if DJANGO_VERSION[:2] < (1, 5):
             from compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_importequipment')
-        call_command('hwdoc_importequipment')
+        call_command('hwdoc_importequipment', verbosity=0)
 
     def test_importequipment_nonexistent_file(self):
         filename = 'test_importequiment.csv'
         if DJANGO_VERSION[:2] < (1, 5):
             from compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_importequipment')
-        call_command('hwdoc_importequipment', filename)
+        call_command('hwdoc_importequipment', filename, verbosity=0)
 
     def test_importequipmentlicenses(self):
         filename = 'test_importequipmentlicenses.csv'
         f = open(filename, 'w')
         f.write('%s,%s,%s' % ('foo', 'mylicense', self.server2.serial))
         f.close()
-        call_command('hwdoc_importequipmentlicenses', filename)
+        call_command('hwdoc_importequipmentlicenses', filename, verbosity=0)
         os.remove(filename)
 
     def test_importequipmentlicenses_nonexistent_file(self):
@@ -574,7 +576,7 @@ class CommandsTestCase(unittest.TestCase):
         f.write('THIS IS A FIRMWARE. Yeah...it is')
         f.close()
         call_command('hwdoc_firmware_update', self.server2.serial,
-                firmware_location='firmware')
+                firmware_location='firmware', verbosity=0)
         os.remove(filename)
 
     def test_bmc_firmware_update_nonexistent_file(self):
@@ -582,18 +584,18 @@ class CommandsTestCase(unittest.TestCase):
             from compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_firmware_update')
         call_command('hwdoc_firmware_update', self.server2.serial,
-                firmware_location='firmware')
+                firmware_location='firmware', verbosity=0)
 
     def test_bmc_firmware_update_no_specified_file(self):
         if DJANGO_VERSION[:2] < (1, 5):
             from compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_firmware_update')
-        call_command('hwdoc_firmware_update', self.server2.serial)
+        call_command('hwdoc_firmware_update', self.server2.serial, verbosity=0)
 
     def test_populate_tickets(self):
         settings.TICKETING_SYSTEM='dummy'
-        call_command('hwdoc_populate_tickets', self.server1.serial)
+        call_command('hwdoc_populate_tickets', self.server1.serial, verbosity=0)
 
     def test_populate_tickets_inexistent_system(self):
         settings.TICKETING_SYSTEM='nosuchthing'
-        call_command('hwdoc_populate_tickets', self.server1.serial)
+        call_command('hwdoc_populate_tickets', self.server1.serial, verbosity=0)

@@ -48,11 +48,8 @@ class UpdatesTestCase(unittest.TestCase):
         '''
 
         self.host1 = Host.objects.create(name='MyHost', ip='10.10.10.10')
-        print self.host1
         self.package1 = Package.objects.create(name='testpackage', sourcename='testsource')
         self.package2 = Package.objects.create(name='testpackage2', sourcename='testpackage2')
-        print self.package1
-        print self.package2
         self.update1 = Update.objects.create(package=self.package1, host=self.host1,
                 installedVersion = '1.1', candidateVersion='1.2',
                 source = 'TestSource', origin='Debian')
@@ -62,12 +59,6 @@ class UpdatesTestCase(unittest.TestCase):
         self.update3 = Update.objects.create(package=self.package2, host=self.host1,
                 installedVersion = '1.1', candidateVersion='1.2',
                 source = 'TestSource', origin='None')
-        print self.update1
-        print self.update1.get_changelog_url()
-        print self.update2
-        print self.update2.get_changelog_url()
-        print self.update3
-        print self.update3.get_changelog_url()
 
     def tearDown(self):
         '''
@@ -81,6 +72,17 @@ class UpdatesTestCase(unittest.TestCase):
     # Tests start here
     def test_if_host_equal(self):
         self.assertEqual(self.update1.host.name, self.package1.hosts.all()[0].name)
+
+    def test_unicode(self):
+        self.assertIsInstance(str(self.host1), str)
+        self.assertIsInstance(str(self.package1), str)
+        self.assertIsInstance(str(self.package2), str)
+        self.assertIsInstance(str(self.update1), str)
+        self.assertIsInstance(self.update1.get_changelog_url(), str)
+        self.assertIsInstance(str(self.update2), str)
+        self.assertIsInstance(self.update2.get_changelog_url(), str)
+        self.assertIsInstance(str(self.update3), str)
+        self.assertIsNone(self.update3.get_changelog_url())
 
 class ViewsTestCase(unittest.TestCase):
     '''
@@ -242,7 +244,6 @@ class CommandsTestCase(unittest.TestCase):
             </host>""" % self.host1
         self.factvalue6 = FactValue.objects.create(value=v,
                 fact_name=self.fact6, host=self.host1)
-        print self.factvalue6
 
     def tearDown(self):
         '''
