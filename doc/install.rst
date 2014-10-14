@@ -124,14 +124,8 @@ Configure web server::
 
         TODO: To be written
 
-For most cases a::
-
-  $ cd /path/to/servermon
-  $ cp urls.py.dist urls.py
-
-should be sufficient. However if you are installing the software at the
-same VirtualHost with some other software the above file may need
-changes depending on the top url.
+If you are installing the software at the same VirtualHost with some other
+software urls.py may need changes depending on the top url.
 
 Setting up cron for package updates display
 +++++++++++++++++++++++++++++++++++++++++++

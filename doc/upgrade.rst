@@ -1,4 +1,4 @@
-Servermon upgrade procedures 
+Servermon upgrade procedures
 ============================
 
 .. contents::
@@ -54,6 +54,10 @@ You should perform the following
 * Update the make_updates.py cron to point to the new django management
   command. Look into the installation instructions on how to set it up
 * Untar new version (backup the old one first) on top of the old one
+* This version changed how urls.py works. It should be sufficient to
+  have the new version in almost every case except not serving the
+  project under / in which case, patterns in urls.py should be
+  configured
 * Restart application server (wsgi, gunicorn, etc)
 
 Upgrading from 0.6.0 to 0.6.1

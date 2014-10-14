@@ -1,7 +1,6 @@
 *.pyc
 /servermon/settings.py
 .*.swp
-/servermon/urls.py
 /docbuild
 *.sqlite*
 *.db
