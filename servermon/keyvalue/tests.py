@@ -27,7 +27,7 @@ else:
 
 from keyvalue.models import Key, KeyValue
 
-class KeyTest(unittest.TestCase):
+class KeyTestCase(unittest.TestCase):
     def setUp(self):
         # We need a Model instance as an owner
         self.owner = Key.objects.create(name='Owner')

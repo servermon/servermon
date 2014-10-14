@@ -19,6 +19,7 @@ Unit tests for projectwide package
 '''
 
 from django import VERSION as DJANGO_VERSION
+from django.contrib.auth.models import User, Permission
 
 if DJANGO_VERSION[:2] >= (1, 3):
     from django.utils import unittest
@@ -57,7 +58,7 @@ class FunctionsTestCase(unittest.TestCase):
 
 class ProjectWideViewsTestCase(unittest.TestCase):
     '''
-    A test case for projectwide package 
+    A test case for projectwide package
     '''
 
     def setUp(self):
@@ -105,4 +106,126 @@ class ProjectWideViewsTestCase(unittest.TestCase):
     def test_opensearch_suggest_no_q(self):
         c = Client()
         response = c.get('/suggest/')
+        self.assertEqual(response.status_code, 200)
+
+class AdminViewsTestCase(unittest.TestCase):
+    '''
+    Testing admin views class
+    '''
+
+    def setUp(self):
+        '''
+        Command run before every test
+        '''
+        # Using hwdoc's test case in order to DRY and setup a proper env for
+        # tests
+        from hwdoc.tests import EquipmentTestCase
+        EquipmentTestCase.dummy = lambda x: True
+        self.etc = EquipmentTestCase('dummy')
+        self.etc.setUp()
+        from keyvalue.tests import KeyTestCase
+        KeyTestCase.dummy = lambda x: True
+        self.ktc = KeyTestCase('dummy')
+        self.ktc.setUp()
+
+        self.u1 = User.objects.create(username='test1', email='test1@example.com',
+                            is_staff=True, is_superuser=True)
+        self.u2 = User.objects.create(username='test2', email='test2@example.com',
+                            is_staff=True, is_superuser=False)
+        self.u3 = User.objects.create(username='test3', email='test3@example.com',
+                            is_staff=True, is_superuser=False)
+        self.p = Permission.objects.get(codename='can_change_comment')
+        self.u2.user_permissions.add(self.p)
+        self.u1.set_password('test')
+        self.u2.set_password('test')
+        self.u3.set_password('test')
+        self.u1.save()
+        self.u2.save()
+        self.u3.save()
+        self.c1 = Client()
+        self.c2 = Client()
+        self.c3 = Client()
+        self.assertTrue(self.c1.login(username='test1', password='test'))
+        self.assertTrue(self.c2.login(username='test2', password='test'))
+        self.assertTrue(self.c3.login(username='test3', password='test'))
+
+    def tearDown(self):
+        '''
+        Command run after every test
+        '''
+        self.c1.logout()
+        self.c2.logout()
+        self.c3.logout()
+        self.etc.tearDown()
+        self.ktc.tearDown()
+        User.objects.all().delete()
+
+    def test_admin_datacenter(self):
+        response = self.c1.get('/admin/hwdoc/datacenter/')
+        self.assertEqual(response.status_code, 200)
+        response = self.c3.get('/admin/hwdoc/datacenter/')
+        self.assertEqual(response.status_code, 403)
+
+    def test_admin_email(self):
+        response = self.c1.get('/admin/hwdoc/email/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_admin_equipmentmodel(self):
+        response = self.c1.get('/admin/hwdoc/equipmentmodel/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_admin_equipment(self):
+        response = self.c1.get('/admin/hwdoc/equipment/')
+        self.assertEqual(response.status_code, 200)
+        response = self.c2.get('/admin/hwdoc/equipment/')
+        self.assertEqual(response.status_code, 200)
+        response = self.c3.get('/admin/hwdoc/equipment/')
+        self.assertEqual(response.status_code, 403)
+
+    def test_admin_equipment1(self):
+        response = self.c1.get('/admin/hwdoc/equipment/1/')
+        self.assertEqual(response.status_code, 200)
+        response = self.c2.get('/admin/hwdoc/equipment/1/')
+        self.assertEqual(response.status_code, 200)
+        response = self.c3.get('/admin/hwdoc/equipment/1/')
+        self.assertEqual(response.status_code, 403)
+
+    def test_admin_person(self):
+        response = self.c1.get('/admin/hwdoc/person/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_admin_phone(self):
+        response = self.c1.get('/admin/hwdoc/phone/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_admin_project(self):
+        response = self.c1.get('/admin/hwdoc/project/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_admin_rackmodel(self):
+        response = self.c1.get('/admin/hwdoc/rackmodel/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_admin_rackrow(self):
+        response = self.c1.get('/admin/hwdoc/rackrow/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_admin_rack(self):
+        response = self.c1.get('/admin/hwdoc/rack/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_admin_ticket(self):
+        response = self.c1.get('/admin/hwdoc/ticket/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_admin_vendor(self):
+        response = self.c1.get('/admin/hwdoc/vendor/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_admin_keyvalue(self):
+        response = self.c1.get('/admin/keyvalue/key/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_admin_keyvalue1(self):
+        response = self.c1.get('/admin/keyvalue/key/1/')
         self.assertEqual(response.status_code, 200)
