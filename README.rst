@@ -1,6 +1,9 @@
 servermon
 =========
 
+.. image:: https://travis-ci.org/servermon/servermon.svg?branch=master
+    :target: https://travis-ci.org/servermon/servermon
+
 Servermon is a Django project with the aim of facilitating server monitoring
 and management through Puppet.
 
