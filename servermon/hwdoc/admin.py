@@ -286,8 +286,6 @@ class EquipmentAdmin(admin.ModelAdmin):
             self.readonly_fields = ()
             ServerManagementInline.exclude = ()
             ServerManagementInline.readonly_fields = ()
-            return super(EquipmentAdmin, self).change_view(request,
-                    object_id, extra_context=extra_context)
 
         if request.user.has_perm('hwdoc.can_change_comment'):
             self.readonly_fields = ('serial', 'rack', 'unit', 'purpose',
@@ -295,8 +293,8 @@ class EquipmentAdmin(admin.ModelAdmin):
             ServerManagementInline.readonly_fields = ('hostname', 'method', 'mac')
             ServerManagementInline.exclude = ('username', 'password',
                     'license', 'raid_license',)
-            return super(EquipmentAdmin, self).change_view(request,
-                    object_id, extra_context=extra_context)
+        return super(EquipmentAdmin, self).change_view(request,
+                object_id, extra_context=extra_context)
 
     def changelist_view(self, request, extra_context=None):
         '''
@@ -306,15 +304,12 @@ class EquipmentAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             self.list_display = EquipmentAdmin.list_display
             self.list_editable = EquipmentAdmin.list_editable
-            return super(EquipmentAdmin, self).changelist_view(request,
-                    extra_context=extra_context)
         if request.user.has_perm('hwdoc.can_change_comment'):
             self.list_editable = ['comments',]
             self.list_display = ('allocation', 'model', 'serial',
                 'rack', 'unit', 'purpose', 'comments')
-
-            return super(EquipmentAdmin, self).changelist_view(request,
-                    extra_context=extra_context)
+        return super(EquipmentAdmin, self).changelist_view(request,
+                extra_context=extra_context)
 
     def has_change_permission(self, request, obj=None):
         '''
