@@ -56,11 +56,11 @@ def subnav(request, subnav):
         'models': EquipmentModel.objects.order_by('name').all(),
     }
     urls = {
-        'datacenters': { 'view': 'servermon.hwdoc.views.datacenter', 'args': 'pk', 'append': None },
-        'racks': { 'view': 'servermon.hwdoc.views.rack', 'args': 'pk', 'append': None },
-        'projects': { 'view': 'servermon.hwdoc.views.project', 'args': 'pk', 'append': None, },
-        'rackrows': { 'view': 'servermon.hwdoc.views.rackrow', 'args': 'pk', 'append': None, },
-        'models': { 'view': 'servermon.projectwide.views.search', 'args': None, 'append': 'q=' },
+        'datacenters': { 'view': 'hwdoc.views.datacenter', 'args': 'pk', 'append': None },
+        'racks': { 'view': 'hwdoc.views.rack', 'args': 'pk', 'append': None },
+        'projects': { 'view': 'hwdoc.views.project', 'args': 'pk', 'append': None, },
+        'rackrows': { 'view': 'hwdoc.views.rackrow', 'args': 'pk', 'append': None, },
+        'models': { 'view': 'projectwide.views.search', 'args': None, 'append': 'q=' },
     }
 
     if subnav not in switch.keys():

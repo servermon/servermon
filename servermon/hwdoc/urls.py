@@ -6,7 +6,7 @@ Module containing hwdoc URLconf
 
 from django.conf.urls.defaults import *
 
-urlpatterns = patterns('servermon.hwdoc.views',
+urlpatterns = patterns('hwdoc.views',
             (r'^$', 'index'),
             (r'^subnav/(?P<subnav>[\w]+)/$', 'subnav'),
             (r'^flotdata/(?P<datatype>[\w]+)/$', 'flotdata'),

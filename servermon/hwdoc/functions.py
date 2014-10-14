@@ -43,7 +43,7 @@ def search(q):
     @return: A QuerySet with results matching all items of q
     '''
 
-    if q is None or len(q) == 0 or 'servermon.hwdoc' not in settings.INSTALLED_APPS:
+    if q is None or len(q) == 0 or 'hwdoc' not in settings.INSTALLED_APPS:
         return Equipment.objects.none()
 
     # A way to get all

@@ -102,16 +102,17 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
+# You probably want to uncomment pretty much everything here
 INSTALLED_APPS = (
 #    'django.contrib.auth',
 #    'django.contrib.admin',
 #    'django.contrib.contenttypes',
 #    'django.contrib.sessions',
 #    'django.contrib.sites',
-    'servermon.projectwide',
-#    'servermon.updates',
-#    'servermon.puppet',
-#    'servermon.hwdoc',
+    'projectwide',
+#    'updates',
+#    'puppet',
+#    'hwdoc',
     'south',
     'keyvalue',
 )
