@@ -23,7 +23,7 @@ from servermon.hwdoc.models import Project, EquipmentModel, Equipment, \
         Ticket
 from servermon.projectwide import functions as projectwide_functions
 from servermon.hwdoc import functions
-from servermon.compat import render
+from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.db.models import Count
 from django.shortcuts import get_object_or_404

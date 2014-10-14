@@ -21,7 +21,7 @@ updates views module
 
 
 from django.shortcuts import get_list_or_404, get_object_or_404
-from servermon.compat import render
+from django.shortcuts import render
 from django.db.models import Count, Sum
 from servermon.puppet.models import Host
 from servermon.updates.models import Package, Update
