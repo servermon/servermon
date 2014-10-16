@@ -3,6 +3,11 @@ servermon
 
 .. image:: https://travis-ci.org/servermon/servermon.svg?branch=master
     :target: https://travis-ci.org/servermon/servermon
+    :alt: Build Status
+
+.. image:: https://readthedocs.org/projects/servermon/badge/?version=latest
+    :target: https://readthedocs.org/projects/servermon/?badge=latest
+    :alt: Documentation Status
 
 Servermon is a Django project with the aim of facilitating server monitoring
 and management through Puppet.
