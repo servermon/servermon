@@ -292,6 +292,11 @@ class ViewsTestCase(unittest.TestCase):
                                 unit = '2',
                                 purpose = 'Nothing',
                             )
+        self.server_unracked = Equipment.objects.create(
+                                model = self.model,
+                                serial = 'unracked',
+                                purpose = 'Nothing',
+                            )
         self.ticket = Ticket.objects.create(
                             name = 'myticket',
                             url = 'http://example.com/myticket',
@@ -340,6 +345,11 @@ class ViewsTestCase(unittest.TestCase):
     def test_equipment(self):
         c = Client()
         response = c.get('/hwdoc/equipment/%s/' % self.server.pk)
+        self.assertEqual(response.status_code, 200)
+
+    def test_equipment_unracked(self):
+        c = Client()
+        response = c.get('/hwdoc/equipment/%s/' % self.server_unracked.pk)
         self.assertEqual(response.status_code, 200)
 
     def test_project(self):
