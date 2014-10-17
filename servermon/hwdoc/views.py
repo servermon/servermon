@@ -189,11 +189,11 @@ def equipment(request, equipment_id):
     equipment = get_object_or_404(Equipment,pk=equipment_id)
     try:
         equipment.prev = Equipment.objects.filter(rack=equipment.rack, unit__lt=equipment.unit).order_by('-unit')[0]
-    except IndexError:
+    except (IndexError, ValueError):
         equipment.prev = None
     try:
         equipment.next = Equipment.objects.filter(rack=equipment.rack, unit__gt=equipment.unit).order_by('unit')[0]
-    except IndexError:
+    except (IndexError, ValueError):
         equipment.next = None
 
     return render(request, template, { 'equipment': equipment, })
