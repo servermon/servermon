@@ -48,7 +48,7 @@ class ldapBackend:
     def _auth_user(self, base, username, password, l):
 
         scope = ldap.SCOPE_SUBTREE
-        filter = "uid=" + username
+        filter = '(uid=%s)' % username
         ret = ['dn', 'mail', 'givenName', 'sn']
         try:
             result_id = l.search(base, scope, filter, ret)

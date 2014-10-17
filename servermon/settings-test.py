@@ -16,3 +16,12 @@ INSTALLED_APPS = (
     'south',
     'keyvalue',
 )
+
+AUTHENTICATION_BACKENDS = (
+    'djangobackends.ldapBackend.ldapBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    )
+
+LDAP_AUTH_SETTINGS = (
+    { 'url': 'ldap://localhost/', 'base': 'ou=People,dc=example,dc=org' },
+)

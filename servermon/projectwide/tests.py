@@ -20,6 +20,8 @@ Unit tests for projectwide package
 
 from django import VERSION as DJANGO_VERSION
 from django.contrib.auth.models import User, Permission
+import ldap
+from mockldap import MockLdap
 
 if DJANGO_VERSION[:2] >= (1, 3):
     from django.utils import unittest
@@ -229,3 +231,44 @@ class AdminViewsTestCase(unittest.TestCase):
     def test_admin_keyvalue1(self):
         response = self.c1.get('/admin/keyvalue/key/1/')
         self.assertEqual(response.status_code, 200)
+
+class LDAPAuthTestCase(unittest.TestCase):
+    '''
+    Testing LDAP authentication
+    '''
+    top = ('dc=org', {'dc': 'org'})
+    top2 = ('dc=example,dc=org', {'dc': 'example'})
+    people = ('ou=people,dc=example,dc=org', {'ou': 'people'})
+    alice = ('uid=alice,ou=people,dc=example,dc=org',
+                {   'uid': 'alice',
+                    'userPassword': ['alicepw'],
+                    'mail': 'alice@example.org',
+                    'givenName': 'alice',
+                    'sn': 'Smith',
+                })
+
+    # This is the content of our mock LDAP directory. It takes the form
+    # {dn: {attr: [value, ...], ...}, ...}.
+    directory = dict([top, top2, people, alice])
+
+    @classmethod
+    def setUpClass(cls):
+        # We only need to create the MockLdap instance once. The content we
+        # pass in will be used for all LDAP connections.
+        cls.mockldap = MockLdap(cls.directory)
+
+    @classmethod
+    def tearDownClass(cls):
+        del cls.mockldap
+
+    def setUp(self):
+        self.mockldap.start()
+        self.ldapobj = self.mockldap['ldap://localhost']
+
+    def tearDown(self):
+        self.mockldap.stop()
+        del self.ldapobj
+
+    def test_login(self):
+        self.c1 = Client()
+        self.assertTrue(self.c1.login(username='alice', password='alicepw'))
