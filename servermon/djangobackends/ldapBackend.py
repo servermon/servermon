@@ -78,7 +78,7 @@ class ldapBackend:
                 user = User.objects.create_user(username, result_data[0][1]['mail'][0], None)
                 user.is_staff = settings.LDAP_AUTH_IS_STAFF
                 user.is_superuser = False
-                if 'LDAP_AUTH_GROUP' in settings:
+                if hasattr(settings, 'LDAP_AUTH_GROUP'):
                     try:
                         g = Group.objects.get(name=settings.LDAP_AUTH_GROUP)
                         user.groups.add(g)
