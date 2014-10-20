@@ -246,6 +246,10 @@ class LDAPAuthTestCase(unittest.TestCase):
                     'givenName': 'alice',
                     'sn': 'Smith',
                 })
+    bob = ('uid=bob,ou=people,dc=example,dc=org',
+                {   'uid': 'bob',
+                    'userPassword': ['bobpw'],
+                })
 
     # This is the content of our mock LDAP directory. It takes the form
     # {dn: {attr: [value, ...], ...}, ...}.
@@ -270,5 +274,17 @@ class LDAPAuthTestCase(unittest.TestCase):
         del self.ldapobj
 
     def test_login(self):
-        self.c1 = Client()
-        self.assertTrue(self.c1.login(username='alice', password='alicepw'))
+        c = Client()
+        self.assertTrue(c.login(username='alice', password='alicepw'))
+
+    def test_bad_login(self):
+        c = Client()
+        self.assertFalse(c.login(username='alice', password='wrong'))
+
+    def test_bad_ldap_account_login(self):
+        c = Client()
+        self.assertFalse(c.login(username='bob', password='bobpw'))
+
+    def test_malformed_account(self):
+        c = Client()
+        self.assertFalse(c.login(username='*', password='bobpw'))
