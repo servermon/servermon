@@ -82,7 +82,7 @@ class ldapBackend:
                 user.last_name = result_data[0][1]['sn'][0]
                 user.is_staff = settings.LDAP_AUTH_IS_STAFF
                 user.is_superuser = False
-                if settings.LDAP_AUTH_GROUP:
+                if 'LDAP_AUTH_GROUP' in settings:
                     try:
                         g = Group.objects.get(name=settings.LDAP_AUTH_GROUP)
                         user.groups.add(g)
