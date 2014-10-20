@@ -76,22 +76,20 @@ class ldapBackend:
                 user.email = result_data[0][1]['mail'][0]
                 user.first_name = result_data[0][1]['givenName'][0]
                 user.last_name = result_data[0][1]['sn'][0]
-                user.is_active = True
-                user.save()
             except:
                 user = User.objects.create_user(username, result_data[0][1]['mail'][0], None)
                 user.first_name = result_data[0][1]['givenName'][0]
                 user.last_name = result_data[0][1]['sn'][0]
                 user.is_staff = settings.LDAP_AUTH_IS_STAFF
                 user.is_superuser = False
-                user.is_active = True
                 if settings.LDAP_AUTH_GROUP:
                     try:
                         g = Group.objects.get(name=settings.LDAP_AUTH_GROUP)
                         user.groups.add(g)
-                        user.save()
                     except:
                         pass
+            user.is_active = True
+            user.save()
             return user
 
         except ldap.INVALID_CREDENTIALS:
