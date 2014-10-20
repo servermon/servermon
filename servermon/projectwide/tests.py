@@ -276,6 +276,9 @@ class LDAPAuthTestCase(unittest.TestCase):
     def test_login(self):
         c = Client()
         self.assertTrue(c.login(username='alice', password='alicepw'))
+        # Logout and try again now that the user exists checking both codepaths
+        c.logout()
+        self.assertTrue(c.login(username='alice', password='alicepw'))
 
     def test_bad_login(self):
         c = Client()
