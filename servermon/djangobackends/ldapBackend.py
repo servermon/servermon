@@ -74,12 +74,8 @@ class ldapBackend:
             try:
                 user = User.objects.get(username__exact=username)
                 user.email = result_data[0][1]['mail'][0]
-                user.first_name = result_data[0][1]['givenName'][0]
-                user.last_name = result_data[0][1]['sn'][0]
             except:
                 user = User.objects.create_user(username, result_data[0][1]['mail'][0], None)
-                user.first_name = result_data[0][1]['givenName'][0]
-                user.last_name = result_data[0][1]['sn'][0]
                 user.is_staff = settings.LDAP_AUTH_IS_STAFF
                 user.is_superuser = False
                 if 'LDAP_AUTH_GROUP' in settings:
@@ -88,6 +84,16 @@ class ldapBackend:
                         user.groups.add(g)
                     except:
                         pass
+            # Whatever the result of the two above, sync up non autorization
+            # data from LDAP to django
+            try:
+                user.first_name = result_data[0][1]['givenName'][0]
+                user.last_name = result_data[0][1]['sn'][0]
+            except KeyError:
+                #TODO: Log this
+                print "User has no givenName or sn attributes specified in LDAP. Please add them"
+                return None
+
             user.is_active = True
             user.save()
             return user
