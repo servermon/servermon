@@ -19,6 +19,7 @@ Backend to provide LDAP authentication
 '''
 
 import ldap
+import ldap.filter
 
 from django.contrib.auth.models import User, UserManager, Permission, Group
 from django.conf import settings
@@ -48,7 +49,7 @@ class ldapBackend:
     def _auth_user(self, base, username, password, l):
 
         scope = ldap.SCOPE_SUBTREE
-        filter = '(uid=%s)' % username
+        filter = "(uid=%s)" % ldap.filter.escape_filter_chars(username, escape_mode=0)
         ret = ['dn', 'mail', 'givenName', 'sn']
         try:
             result_id = l.search(base, scope, filter, ret)
