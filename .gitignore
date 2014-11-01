@@ -1,4 +1,5 @@
 *.pyc
+/dist/
 /servermon/settings.py
 .*.swp
 /docbuild
@@ -6,7 +7,7 @@
 *.db
 *~
 *.egg
-*.egg-info
+/*.egg-info
 .tox
 AUTHORS
 ChangeLog
