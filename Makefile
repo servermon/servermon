@@ -50,7 +50,7 @@ coverage:
 
 $(BUILDDIR)/api:
 	@mkdir -p $(BUILDDIR)
-	DJANGO_SETTINGS_MODULE="servermon.settings" epydoc -c doc/epydoc.conf --exclude 'migrations|manage|settings|urls' -o $(BUILDDIR)/api servermon
+	DJANGO_SETTINGS_MODULE="servermon.settings" epydoc --config doc/epydoc.conf -o $(BUILDDIR)/api
 
 $(BUILDDIR)/html: $(SPHINXFILES)
 	@mkdir -p $(BUILDDIR)
