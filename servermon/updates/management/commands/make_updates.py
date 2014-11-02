@@ -23,8 +23,11 @@ from django.core.management.base import BaseCommand
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
+from xml.dom.minidom import parseString
+from updates.models import Package, Update
+from django.db import transaction
+
 from puppet.models import Host
-from util import *
 
 class Command(BaseCommand):
     '''
@@ -39,4 +42,41 @@ class Command(BaseCommand):
         for host in Host.objects.all():
             gen_host_updates(host)
 
-        clean_orphan_packages()
+        Package.objects.filter(hosts__isnull=True).delete()
+
+    @transaction.commit_on_success
+    def gen_host_updates(host):
+        '''
+        Populate all updates
+        '''
+
+        # First let's delete them all
+        host.update_set.all().delete()
+
+        try:
+            xml = parseString(host.get_fact_value('package_updates'))
+        except:
+            return
+
+        for update in xml.getElementsByTagName("package"):
+            name = update.getAttribute("name")
+            cv = update.getAttribute("current_version")
+            nv = update.getAttribute("new_version")
+            sn = update.getAttribute("source_name")
+            org = update.getAttribute("origin")
+            is_sec = (update.getAttribute("is_security") == "true")
+
+            try:
+                p = Package.objects.filter(name=name)[0]
+            except IndexError:
+                p = None
+            if not p:
+                p = Package(name=name, sourcename=sn)
+                p.save()
+
+            u = Update(host=host, package=p,
+                    installedVersion=cv, candidateVersion=nv,
+                    origin=org,
+                    is_security=is_sec)
+
+            u.save()
