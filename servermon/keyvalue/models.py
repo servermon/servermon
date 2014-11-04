@@ -17,9 +17,9 @@
 '''
 keyvalue module's documentation.
 Each keyvalue has three items.
-1. An owner which must be an instance of a django model
-2. A key, which must be an instance of keyvalue.models.Key
-3. A value, which is a charfield
+ 1. An owner which must be an instance of a django model
+ 2. A key, which must be an instance of keyvalue.models.Key
+ 3. A value, which is a charfield
 '''
 
 from django.db import models
