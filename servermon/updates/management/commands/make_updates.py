@@ -40,12 +40,12 @@ class Command(BaseCommand):
         Handle command
         '''
         for host in Host.objects.all():
-            gen_host_updates(host)
+            self.gen_host_updates(host)
 
         Package.objects.filter(hosts__isnull=True).delete()
 
     @transaction.commit_on_success
-    def gen_host_updates(host):
+    def gen_host_updates(self, host):
         '''
         Populate all updates
         '''
