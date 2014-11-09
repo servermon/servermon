@@ -3,3 +3,4 @@ epydoc
 sphinx
 pysqlite
 mockldap
+coverage
