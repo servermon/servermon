@@ -23,9 +23,9 @@ updates views module
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.shortcuts import render
 from django.db.models import Count, Sum
-from servermon.puppet.models import Host
-from servermon.updates.models import Package, Update
-from servermon.hwdoc.models import Equipment
+from puppet.models import Host
+from updates.models import Package, Update
+from hwdoc.models import Equipment
 from IPy import IP
 
 def hostlist(request):

@@ -22,9 +22,9 @@ Important function here is search(q) which searches strings or iterables of
 strings in model Equipment.
 '''
 
-from servermon.hwdoc.models import Equipment, ServerManagement
-from servermon.projectwide.functions import canonicalize_mac
-from servermon.puppet.functions import search as puppet_search
+from hwdoc.models import Equipment, ServerManagement
+from projectwide.functions import canonicalize_mac
+from puppet.functions import search as puppet_search
 from django.db.models import Q
 from socket import gethostbyaddr, herror, gaierror, error
 from django.utils.translation import ugettext as _

@@ -164,7 +164,7 @@ Then you need to configure the project. Things to pay attention to::
   TEMPLATE_DIRS => at least '/path/to/servermon/templates' needed
   INSTALLED_APPS => (uncomment needed apps). django admin apps are a must for hwdoc
   AUTHENTICATION_BACKENDS = > comment or uncomment
-      'servermon.djangobackends.ldapBackend.ldapBackend',
+      'djangobackends.ldapBackend.ldapBackend',
       depending on whether you want LDAP user authentication or not
 
 Create database tables

@@ -19,11 +19,11 @@
 projectwide views module
 '''
 
-from servermon.puppet import functions as puppet_functions
-from servermon.hwdoc import functions as hwdoc_functions
-from servermon.projectwide import functions as projectwide_functions
-from servermon.puppet.models import Host, Fact, FactValue
-from servermon.updates.models import Package
+from puppet import functions as puppet_functions
+from hwdoc import functions as hwdoc_functions
+from projectwide import functions as projectwide_functions
+from puppet.models import Host, Fact, FactValue
+from updates.models import Package
 from django.shortcuts import render
 from django.core.exceptions import FieldError
 from django.http import HttpResponse
