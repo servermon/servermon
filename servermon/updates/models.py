@@ -20,7 +20,7 @@ updates module's functions documentation. Main models are Package and Update
 
 
 from django.db import models
-from servermon.puppet.models import Host
+from puppet.models import Host
 import re
 
 class Package(models.Model):

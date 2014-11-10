@@ -19,7 +19,7 @@ Module configuring Django's admin interface for hwdoc
 '''
 
 from django.contrib import admin
-from servermon.hwdoc.models import *
+from hwdoc.models import *
 from django.utils.translation import ugettext as _
 from keyvalue.admin import KeyValueAdmin
 

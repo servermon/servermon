@@ -2,7 +2,7 @@
 
 from south.db import db
 from django.db import models
-from servermon.hwdoc.models import *
+from hwdoc.models import *
 
 class Migration:
 

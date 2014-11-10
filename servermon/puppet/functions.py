@@ -22,7 +22,7 @@ Important function here is search(q) which searches strings or iterables of
 strings in puppet models.
 '''
 
-from servermon.puppet.models import FactValue
+from puppet.models import FactValue
 from django.db import DatabaseError
 from django.db.models import Q
 from django.utils.translation import ugettext as _
@@ -39,7 +39,7 @@ def search(q):
     @return: A QuerySet with results matching all items of q
     '''
 
-    if q is None or len(q) == 0 or 'servermon.puppet' not in settings.INSTALLED_APPS:
+    if q is None or len(q) == 0 or 'puppet' not in settings.INSTALLED_APPS:
         return FactValue.objects.none()
 
     # Working on iterables. However in case we are not given one it is cheaper

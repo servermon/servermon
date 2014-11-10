@@ -18,11 +18,11 @@
 hwdoc views module
 '''
 
-from servermon.hwdoc.models import Project, EquipmentModel, Equipment, \
+from hwdoc.models import Project, EquipmentModel, Equipment, \
         ServerManagement, Rack, RackRow, Datacenter, RackPosition, Vendor, \
         Ticket
-from servermon.projectwide import functions as projectwide_functions
-from servermon.hwdoc import functions
+from projectwide import functions as projectwide_functions
+from hwdoc import functions
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.db.models import Count

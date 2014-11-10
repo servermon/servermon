@@ -19,7 +19,7 @@
 puppet views module
 '''
 
-from servermon.puppet.models import Host, Fact, FactValue
+from puppet.models import Host, Fact, FactValue
 from django.shortcuts import render
 from django import forms
 from django.contrib.admin.widgets import FilteredSelectMultiple

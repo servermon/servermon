@@ -77,7 +77,7 @@ TEMPLATE_LOADERS = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
-    'servermon.djangobackends.context_processors.installed_apps',
+    'djangobackends.context_processors.installed_apps',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -85,13 +85,13 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'servermon.djangobackends.StripWhitespaceMiddleware.StripWhitespaceMiddleware',
+    'djangobackends.StripWhitespaceMiddleware.StripWhitespaceMiddleware',
 )
 
 ROOT_URLCONF = 'servermon.urls'
 
 AUTHENTICATION_BACKENDS = (
-#    'servermon.djangobackends.ldapBackend.ldapBackend',
+#    'djangobackends.ldapBackend.ldapBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
