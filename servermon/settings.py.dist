@@ -135,6 +135,7 @@ TICKETING_SYSTEM = 'dummy' # dummy, comments, jira are possible values
 COMMENTS_TICKETING_URL = "http://ticketing.example.com/"
 JIRA_TICKETING = {
     'url': 'http://ticketing.example.com/',
+    'search_string': 'text ~ {}', # {} replaced by double-quoted serial number for search
     'projects': { # empty dict means "all projects"
         'project1': { 'closed_string': 'closed' },
         'project2': { 'closed_string': 'done' },

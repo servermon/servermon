@@ -35,7 +35,7 @@ def get_tickets(equipment, closed):
     _projects = settings.JIRA_TICKETING['projects']
     _projects_defaults = settings.JIRA_TICKETING['projects_defaults']
     # construct entire search string so we don't hammer the server repeatedly
-    search_string = 'text ~ "%s"' % equipment.serial
+    search_string = settings.JIRA_TICKETING['search_string'].replace('{}', '"%s"' % equipment.serial)
     if _projects:
         projects = [project.key for project in jira.projects() if project.key in _projects.keys()]
         _first = True
