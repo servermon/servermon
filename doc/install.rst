@@ -66,7 +66,9 @@ Installing the software
 
 **Mandatory**.
 
-Python, Django, South is needed::
+Python, Django, South is needed.
+
+Use system provided packages::
 
   $ aptitude install python-django
   $ aptitude install python-django-south
@@ -74,6 +76,13 @@ Python, Django, South is needed::
   $ aptitude install python-ipy
   $ aptitude install python-mysqldb (or sqlite or psycopg2)
   $ aptitude install python-ldap (for user authentication via LDAP)
+
+Installation using pip::
+
+  $ pip install -r requirements.txt
+
+Deploy the software::
+
   $ mkdir /path/to/servermon
   $ tar xfvz servermon-X.Y.tar.gz -C /path/to/servermon
 
