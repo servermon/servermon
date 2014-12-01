@@ -288,7 +288,7 @@ class EquipmentAdmin(admin.ModelAdmin):
             ServerManagementInline.readonly_fields = ('hostname', 'method', 'mac')
             ServerManagementInline.exclude = ('username', 'password',
                     'license', 'raid_license',)
-        if request.user.is_superuser:
+        if request.user.has_perm('hwdoc.change_equipment'):
             self.readonly_fields = ()
             ServerManagementInline.exclude = ()
             ServerManagementInline.readonly_fields = ()
@@ -304,7 +304,7 @@ class EquipmentAdmin(admin.ModelAdmin):
             self.list_editable = ['comments',]
             self.list_display = ('allocation', 'model', 'serial',
                 'rack', 'unit', 'purpose', 'comments')
-        if request.user.is_superuser:
+        if request.user.has_perm('hwdoc.change_equipment'):
             self.list_display = EquipmentAdmin.list_display
             self.list_editable = EquipmentAdmin.list_editable
         return super(EquipmentAdmin, self).changelist_view(request,
@@ -316,7 +316,8 @@ class EquipmentAdmin(admin.ModelAdmin):
         '''
 
         if request.user.is_superuser or \
-            request.user.has_perm('hwdoc.can_change_comment'):
+            request.user.has_perm('hwdoc.can_change_comment') or \
+            request.user.has_perm('hwdoc.change_equipment'):
             return True
         return False
 

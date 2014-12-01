@@ -136,20 +136,28 @@ class AdminViewsTestCase(unittest.TestCase):
                             is_staff=True, is_superuser=False)
         self.u3 = User.objects.create(username='test3', email='test3@example.com',
                             is_staff=True, is_superuser=False)
-        self.p = Permission.objects.get(codename='can_change_comment')
-        self.u2.user_permissions.add(self.p)
+        self.u4 = User.objects.create(username='test4', email='test4@example.com',
+                            is_staff=True, is_superuser=False)
+        self.p_comment = Permission.objects.get(codename='can_change_comment')
+        self.p_c_eq = Permission.objects.get(codename='change_equipment')
+        self.u2.user_permissions.add(self.p_comment)
+        self.u4.user_permissions.add(self.p_c_eq)
         self.u1.set_password('test')
         self.u2.set_password('test')
         self.u3.set_password('test')
+        self.u4.set_password('test')
         self.u1.save()
         self.u2.save()
         self.u3.save()
+        self.u4.save()
         self.c1 = Client()
         self.c2 = Client()
         self.c3 = Client()
+        self.c4 = Client()
         self.assertTrue(self.c1.login(username='test1', password='test'))
         self.assertTrue(self.c2.login(username='test2', password='test'))
         self.assertTrue(self.c3.login(username='test3', password='test'))
+        self.assertTrue(self.c4.login(username='test4', password='test'))
 
     def tearDown(self):
         '''
@@ -158,6 +166,7 @@ class AdminViewsTestCase(unittest.TestCase):
         self.c1.logout()
         self.c2.logout()
         self.c3.logout()
+        self.c4.logout()
         self.etc.tearDown()
         self.ktc.tearDown()
         User.objects.all().delete()
@@ -183,6 +192,8 @@ class AdminViewsTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         response = self.c3.get('/admin/hwdoc/equipment/')
         self.assertEqual(response.status_code, 403)
+        response = self.c4.get('/admin/hwdoc/equipment/')
+        self.assertEqual(response.status_code, 200)
 
     def test_admin_equipment1(self):
         response = self.c1.get('/admin/hwdoc/equipment/1/')
@@ -191,6 +202,8 @@ class AdminViewsTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         response = self.c3.get('/admin/hwdoc/equipment/1/')
         self.assertEqual(response.status_code, 403)
+        response = self.c4.get('/admin/hwdoc/equipment/1/')
+        self.assertEqual(response.status_code, 200)
 
     def test_admin_person(self):
         response = self.c1.get('/admin/hwdoc/person/')
