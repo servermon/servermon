@@ -1,0 +1,2 @@
+{% for result in results.hwdoc %} {{ result.serial }},{{ result.model }},{{ result.rack }}{{result.unit|stringformat:"02d"}},{{ result.servermanagement.hostname}},{{ result.allocation.name }},{% for ticket in result.ticket_set.all %}{{ ticket.name }}{% empty %}{{ "-" }}{% endfor %},{% if result.hostname %}{{ result.hostname }}{% else %}{{ "-"}}{% endif %},
+{% endfor %}
