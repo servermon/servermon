@@ -71,8 +71,10 @@ def search(request):
     '''
     Search view. Scans request for q (GET case) or qarea (POST case) and
     searches for corresponding instances in all subapps matching the query
-    If txt is send in a GET it will display results in txt and not in html
+    If txt is sent in a GET it will display results in txt and not in html
     format
+    If csv is sent in a GET it will display results in text format separated by comma
+    and not in html format
 
     @type   request: HTTPRequest
     @param  request: Django HTTPRequest object
@@ -82,6 +84,9 @@ def search(request):
 
     if u'txt' in request.GET:
         template = 'results.txt'
+        content_type = 'text/plain'
+    elif u'csv' in request.GET:
+        template = 'results.csv'
         content_type = 'text/plain'
     else:
         template = 'results.html'
