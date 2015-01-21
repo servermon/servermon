@@ -10,6 +10,7 @@
       <th>{% trans "Front" %}</th>
       <th>{% trans "Interior" %}</th>
       <th>{% trans "Back" %}</th>
+      <th>{% trans "Orientation" %}</th>
       <th>{% trans "IPMI Hostname" %}</th>
       <th>{% trans "Project" %}</th>
       <th>{% trans "Tickets" %}</th>
@@ -33,6 +34,7 @@
           <td class="centered">{% if result.model.rack_front %}<i class="icon-ok-sign"></i>{% else %}&nbsp;{% endif %}</td>
           <td class="centered">{% if result.model.rack_interior %}<i class="icon-ok-sign"></i>{% else %}&nbsp;{% endif %}</td>
           <td class="centered">{% if result.model.rack_back %}<i class="icon-ok-sign"></i>{% else %}&nbsp;{% endif %}</td>
+	  <td>{{ result.orientation }}</td>
           <td>{% if result.servermanagement %}<a href="https://{{ result.servermanagement.hostname }}">{{ result.servermanagement.hostname }}</a>{% else %}&mdash;{% endif %}</td>
           <td>{% if result.allocation %}<a href="{% url "hwdoc.views.project" result.allocation.pk %}">{{ result.allocation.name }}</a>{% else %}&mdash;{% endif %}</td>
           <td>

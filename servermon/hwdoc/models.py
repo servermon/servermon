@@ -261,12 +261,16 @@ class Equipment(models.Model):
     Equipment model
     '''
 
+    ORIENTATIONS = ( ('Front', 'Front'),
+                     ('Back', 'Back'), )
+
     model = models.ForeignKey(EquipmentModel)
     allocation = models.ForeignKey(Project, null=True, blank=True)
     serial = models.CharField(max_length=80)
     rack = models.ForeignKey(Rack, null=True, blank=True)
     unit = models.PositiveIntegerField(null=True, blank=True)
     purpose = models.CharField(max_length=80, blank=True)
+    orientation = models.CharField(max_length=10, choices=ORIENTATIONS, default='Front')
     comments = models.TextField(blank=True)
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
