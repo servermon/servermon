@@ -372,6 +372,11 @@ class ViewsTestCase(unittest.TestCase):
         response = c.get('/hwdoc/equipment/ticketed')
         self.assertEqual(response.status_code, 200)
 
+    def test_unracked_equipment(self):
+        c = Client()
+        response = c.get('/hwdoc/equipment/unracked')
+        self.assertEqual(response.status_code, 200)
+
     def test_datacenter(self):
         c = Client()
         response = c.get('/hwdoc/datacenter/%s/' % self.dc.pk)

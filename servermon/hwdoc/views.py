@@ -174,6 +174,21 @@ def ticketed_equipment(request):
     equipments = { 'hwdoc': equipments }
     return render(request, template, { 'equipments': equipments })
 
+def unracked_equipment(request):
+    '''
+    Equipment that is not mounted into a rack. It should display all non-authenticated user viewable data
+
+    @type   request: HTTPRequest
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding HTML
+    '''
+    template = 'interesting_equipment.html'
+
+    equipments = Equipment.objects.filter(rack__isnull=True).distinct()
+    equipments = { 'hwdoc': equipments }
+    return render(request, template, { 'equipments': equipments })
+
 def equipment(request, equipment_id):
     '''
     Equipment view. It should display all non-authenticated user viewable data
