@@ -208,7 +208,7 @@ class RackRow(models.Model):
         verbose_name_plural = _(u'Rack Rows')
 
     def __unicode__(self):
-        return '%s' % (self.name)
+        return '%s in %s' % (self.name, self.dc)
 
 class RackPosition(models.Model):
     '''
