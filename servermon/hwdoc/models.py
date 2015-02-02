@@ -84,6 +84,7 @@ class Project(models.Model):
     contacts = models.ManyToManyField(Person, through='Role')
 
     class Meta:
+        ordering = ['name', ]
         verbose_name = _(u'Project')
         verbose_name_plural = _(u'Projects')
 
@@ -124,6 +125,7 @@ class Datacenter(models.Model):
     name = models.CharField(max_length=20)
 
     class Meta:
+        ordering = ['name', ]
         verbose_name = _(u'Datacenter')
         verbose_name_plural = _(u'Datacenters')
 
@@ -138,6 +140,7 @@ class Vendor(models.Model):
     name = models.CharField(max_length=80)
 
     class Meta:
+        ordering = ['name', ]
         verbose_name = _(u'Vendor')
         verbose_name_plural = _(u'Vendors')
 
@@ -189,6 +192,7 @@ class Rack(models.Model):
     name = models.CharField(max_length=80)
 
     class Meta:
+        ordering = ['name', ]
         verbose_name = _(u'Rack')
         verbose_name_plural = _(u'Racks')
 
@@ -204,6 +208,7 @@ class RackRow(models.Model):
     dc = models.ForeignKey(Datacenter, null=True, blank=True)
 
     class Meta:
+        ordering = ['name', ]
         verbose_name = _(u'Rack Row')
         verbose_name_plural = _(u'Rack Rows')
 
@@ -245,6 +250,7 @@ class EquipmentModel(Model):
                                     object_id_field='owner_object_id')
 
     class Meta:
+        ordering = ['vendor', 'name', ]
         verbose_name = _(u'Equipment Model')
         verbose_name_plural = _(u'Equipment Models')
 
