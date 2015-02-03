@@ -50,7 +50,7 @@ def subnav(request, subnav):
     # realized. The rest are lazy Querysets
     switch = {
         'datacenters': Datacenter.objects.all(),
-        'racks': Rack.objects.order_by('id').all(),
+        'racks': Rack.objects.order_by('name').all(),
         'projects': Project.objects.order_by('name').all(),
         'rackrows': RackRow.objects.order_by('id').all(),
         'models': EquipmentModel.objects.order_by('name').all(),
