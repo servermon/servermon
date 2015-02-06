@@ -171,7 +171,7 @@ class EquipmentTestCase(unittest.TestCase):
         self.assertEqual(search('ALL_EQS').count(), 3)
 
     def test_search_rack_heuristic(self):
-        self.assertEqual(search('%s%s' % (self.server3.rack.name, self.server3.unit)).count(), 1)
+        self.assertEqual(search('%sU%s' % (self.server3.rack.name, self.server3.unit)).count(), 1)
 
     def test_search_serial(self):
         self.assertEqual(search(self.server1.serial)[0].serial, self.server1.serial)
