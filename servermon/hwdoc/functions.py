@@ -68,7 +68,7 @@ def search(q):
             mac = canonicalize_mac(key)
             # A heuristic to allow user to filter queries down to the unit level
             # using a simple syntax
-            m = re.search('^(\w?\d\d)[Uu]?(\d\d)$', key)
+            m = re.search('^(\w{1,3}\d\d)[Uu](\d\d)$', key)
             if m:
                 rack = m.group(1)
                 unit = m.group(2)
