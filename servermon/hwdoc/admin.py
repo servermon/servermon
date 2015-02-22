@@ -267,12 +267,14 @@ class EquipmentAdmin(admin.ModelAdmin):
 
     list_display = ('allocation', 'model', 'serial',
             'rack', 'unit', model_u,
+            'rack_front', 'rack_interior', 'rack_back',
             mgmt_method, mgmt_username, mgmt_password,
             'purpose',)
     list_display_links = ('serial',)
     list_filter = ('model', 'rack',)
     search_fields = ['rack__name', 'unit', 'serial', 'allocation__name']
-    list_editable = ['allocation', 'rack', 'unit']
+    list_editable = ['allocation', 'rack', 'unit',
+            'rack_front', 'rack_interior', 'rack_back',]
     ordering = ('rack', 'unit',)
     inlines = [ ServerManagementInline, KeyValueAdmin ]
     actions = [ shutdown, startup, shutdown_force ]

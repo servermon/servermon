@@ -242,9 +242,6 @@ class EquipmentModel(Model):
     '''
 
     u = models.PositiveIntegerField(verbose_name="Us")
-    rack_front = models.BooleanField(default=True)
-    rack_interior = models.BooleanField(default=True)
-    rack_back = models.BooleanField(default=True)
     attrs = generic.GenericRelation(KeyValue,
                                     content_type_field='owner_content_type',
                                     object_id_field='owner_object_id')
@@ -276,6 +273,9 @@ class Equipment(models.Model):
     rack = models.ForeignKey(Rack, null=True, blank=True)
     unit = models.PositiveIntegerField(null=True, blank=True)
     purpose = models.CharField(max_length=80, blank=True)
+    rack_front = models.BooleanField(default=True)
+    rack_interior = models.BooleanField(default=True)
+    rack_back = models.BooleanField(default=True)
     orientation = models.CharField(max_length=10, choices=ORIENTATIONS, default='Front')
     comments = models.TextField(blank=True)
     added = models.DateTimeField(auto_now_add=True)
