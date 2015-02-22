@@ -31,9 +31,9 @@
           <td>{{ result.model.vendor }}&nbsp;{{ result.model.name }}</td>
           <td>{% if result.rack %}{{ result.rack }}{% else %}&mdash;{% endif %}</td>
           <td>{% if result.unit %}{% for unit in result.model.units %}{{ result.unit|add:unit|add:"-1"|stringformat:"02d" }}<br/>{% endfor %}{% else %}&mdash;{% endif %}</td>
-          <td class="centered">{% if result.model.rack_front %}<i class="icon-ok-sign"></i>{% else %}&nbsp;{% endif %}</td>
-          <td class="centered">{% if result.model.rack_interior %}<i class="icon-ok-sign"></i>{% else %}&nbsp;{% endif %}</td>
-          <td class="centered">{% if result.model.rack_back %}<i class="icon-ok-sign"></i>{% else %}&nbsp;{% endif %}</td>
+          <td class="centered">{% if result.rack_front %}<i class="icon-ok-sign"></i>{% else %}&nbsp;{% endif %}</td>
+          <td class="centered">{% if result.rack_interior %}<i class="icon-ok-sign"></i>{% else %}&nbsp;{% endif %}</td>
+          <td class="centered">{% if result.rack_back %}<i class="icon-ok-sign"></i>{% else %}&nbsp;{% endif %}</td>
 	  <td>{{ result.orientation }}</td>
           <td>{% if result.servermanagement %}<a href="https://{{ result.servermanagement.hostname }}">{{ result.servermanagement.hostname }}</a>{% else %}&mdash;{% endif %}</td>
           <td>{% if result.allocation %}<a href="{% url "hwdoc.views.project" result.allocation.pk %}">{{ result.allocation.name }}</a>{% else %}&mdash;{% endif %}</td>
