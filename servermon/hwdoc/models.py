@@ -176,7 +176,7 @@ class RackModel(Model):
         verbose_name_plural = _(u'Rack Models')
 
     def __unicode__(self):
-        return "%s %s" % (self.vendor, self.name)
+        return u'%s %s' % (self.vendor, self.name)
 
     @property
     def units(self):
