@@ -1,0 +1,43 @@
+/* table.table-rotated-270 td:before, */
+/* table.table-rotated-270 th:before { */
+/*     content: ""; */
+/*     padding: 50% 0; */
+/* } */
+table.table-rotated-270 td,
+table.table-rotated-270 th {
+    vertical-align: middle;
+    text-align: center;
+}
+table.table-rotated-270 td > div,
+table.table-rotated-270 th > div {
+    display: inline-block;
+    overflow: hidden;
+    width: 1.5em;
+}
+table.table-rotated-270 td > div > div,
+table.table-rotated-270 th > div > div {
+    display: inline-block;
+    white-space: nowrap;
+    /* line-height: 1.5; */
+    -moz-transform: rotate(-90deg);  /* FF3.5+ */
+    -o-transform: rotate(-90deg);  /* Opera 10.5 */
+    -webkit-transform: rotate(-90deg);  /* Saf3.1+, Chrome */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083);  /* IE6,IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)"; /* IE8 */
+    transform-origin: center;
+    writing-mode: bt-rl;
+    filter: flipv fliph;
+}
+table.table-rotated-270 td > div > div:after,
+table.table-rotated-270 th > div > div:after {
+    content: "";
+    display: block;
+    margin: -1.5em 0 100%;
+}
+/* table.table-rotated-270 td:before, */
+/* table.table-rotated-270 th:before { */
+/*     display: inline-block;/\* allow to vertical-center a box aside *\/ */
+/*     vertical-align: middle; */
+/*     margin: 0 -0.25em; */
+/*     padding-top: 100%; */
+/* } */

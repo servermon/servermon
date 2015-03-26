@@ -259,8 +259,11 @@ def rack(request, rack_id):
 
     equipments = functions.search(str(rack.name))
     equipments = functions.populate_hostnames(equipments)
+    equipments = functions.calculate_empty_units(rack, equipments)
 
-    equipments = { 'hwdoc': functions.calculate_empty_units(rack, equipments), }
+    equipments = { 'hwdoc': equipments,
+                   'hwdoc_ru': [e for e in equipments if e.unit > 0],
+                   'hwdoc_noru': [e for e in equipments if e.unit == 0], }
 
     return render(request, template, { 'rack': rack, 'equipments': equipments })
 
