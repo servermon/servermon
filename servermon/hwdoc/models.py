@@ -68,11 +68,11 @@ class Person(models.Model):
         verbose_name_plural = _(u'People')
 
     def __unicode__(self):
-        result =  '%s %s ' % (self.name, self.surname)
+        result =  u'%s %s ' % (self.name, self.surname)
         if self.emails.count() > 0:
-            result += '<%s> ' % ', '.join(map(lambda x: x[0], self.emails.values_list('email')))
+            result += u'<%s> ' % ', '.join(map(lambda x: x[0], self.emails.values_list('email')))
         if self.phones.count() > 0:
-            result += '%s' % ', '.join(map(lambda x: x[0], self.phones.values_list('number')))
+            result += u'%s' % ', '.join(map(lambda x: x[0], self.phones.values_list('number')))
         return result
 
 class Project(models.Model):
@@ -109,7 +109,7 @@ class Role(models.Model):
         verbose_name_plural = _(u'Roles')
 
     def __unicode__(self):
-        return _('Project: %(project)s, Person: %(name)s %(surname)s, Role: %(role)s') % {
+        return _(u'Project: %(project)s, Person: %(name)s %(surname)s, Role: %(role)s') % {
             'project': self.project.name,
             'name': self.person.name,
             'surname': self.person.surname,
@@ -197,7 +197,7 @@ class Rack(models.Model):
         verbose_name_plural = _(u'Racks')
 
     def __unicode__(self):
-        return '%s' % (self.name)
+        return u'%s' % (self.name)
 
 class RackRow(models.Model):
     '''
@@ -213,7 +213,7 @@ class RackRow(models.Model):
         verbose_name_plural = _(u'Rack Rows')
 
     def __unicode__(self):
-        return '%s in %s' % (self.name, self.dc)
+        return u'%s in %s' % (self.name, self.dc)
 
 class RackPosition(models.Model):
     '''
@@ -230,7 +230,7 @@ class RackPosition(models.Model):
         verbose_name_plural = _(u'Rack Positions in Rack Rows')
 
     def __unicode__(self):
-        return _('Rack: %(rack)s, Position: %(position)02d, RackRow: %(rackrow)s') % {
+        return _(u'Rack: %(rack)s, Position: %(position)02d, RackRow: %(rackrow)s') % {
             'rack': self.rack,
             'position': self.position,
             'rackrow': self.rr,
@@ -252,7 +252,7 @@ class EquipmentModel(Model):
         verbose_name_plural = _(u'Equipment Models')
 
     def __unicode__(self):
-        return "%s %s" % (self.vendor, self.name)
+        return u'%s %s' % (self.vendor, self.name)
 
     @property
     def units(self):
@@ -294,13 +294,13 @@ class Equipment(models.Model):
 
 
     def __unicode__(self):
-        out = ""
+        out = u''
         if self.purpose:
-            out += "%s, " % self.purpose
-        out += "%s " % self.model
+            out += u'%s, ' % self.purpose
+        out += u'%s ' % self.model
         if self.rack and self.unit:
-            out += "@ %sU%.2d " % (self.rack, self.unit)
-        out += "(%s)" % self.serial
+            out += u'@ %sU%.2d ' % (self.rack, self.unit)
+        out += u'(%s)' % self.serial
         return out
 
 class ServerManagement(models.Model):
@@ -331,7 +331,7 @@ class ServerManagement(models.Model):
         verbose_name_plural = _(u'Servers Management')
 
     def __unicode__(self):
-        return "%s for %s" % (self.get_method_display(), self.equipment)
+        return '%s for %s' % (self.get_method_display(), self.equipment)
 
     def __sm__(self, action, username, password, **kwargs):
         if username is None:
@@ -490,7 +490,7 @@ class Ticket(models.Model):
         verbose_name_plural = _(u'Tickets')
 
     def __unicode__(self):
-        return 'Ticket: %s' % (self.name)
+        return u'Ticket: %s' % (self.name)
 
     def closed(self):
         if self.state == 'closed':
