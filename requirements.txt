@@ -1,5 +1,5 @@
 pbr
-Django>=1.2,<1.5
+Django==1.6
 south
 whoosh
 ipy
