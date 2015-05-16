@@ -395,8 +395,6 @@ class ServerManagement(models.Model):
         Change password for an OOB account
         '''
 
-        if 'change_username' not in kwargs or 'newpass' not in kwargs:
-            raise RuntimeError(_('Username and/or password to be changed not given'))
         return self.__sm__('pass_change', username, password, **kwargs)
 
     def set_settings(self, username=None, password=None, **kwargs):

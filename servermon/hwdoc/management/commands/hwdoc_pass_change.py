@@ -18,7 +18,7 @@
 Django management command to change a BMC user password
 '''
 
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
@@ -52,4 +52,8 @@ class Command(BaseCommand):
         '''
 
         options['command'] = 'pass_change'
+        if not options['change_username']:
+            raise CommandError(_('Username to have password changed missing'))
+        if not options['newpass']:
+            raise CommandError(_('New password for username missing'))
         result = _bmc_common.handle(self, *args, **options)
