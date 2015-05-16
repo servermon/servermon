@@ -36,6 +36,7 @@ class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
                 make_option('-c', '--closed',
                     action='store_true',
+                    default=False,
                     dest='closed',
                     help=_l('Populated closed tickets as well')),
                     )
