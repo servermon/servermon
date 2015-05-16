@@ -3,20 +3,26 @@ import datetime
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
+from django.contrib.contenttypes.management import update_contenttypes
+import hwdoc.models
 
 class Migration(DataMigration):
 
     def forwards(self, orm):
         "Write your forwards methods here."
-        ct, created = orm['contenttypes.ContentType'].objects.get_or_create(
+        # We are forcing contenttypes to update themselves instead of waiting on
+        # the django signal post_syncdb because we need them now. Otherwise this
+        # fails and the migration fails
+        update_contenttypes(hwdoc.models, None)
+        ct = orm['contenttypes.ContentType'].objects.get(
             name='Equipment', model='equipment', app_label='hwdoc') # model must be lowercase!
         perm, created = orm['auth.permission'].objects.get_or_create(
             content_type=ct, codename='can_change_comment', defaults=dict(name=u'Can change comments'))
 
     def backwards(self, orm):
         "Write your backwards methods here."
-        ct, created = orm['contenttypes.ContentType'].objects.get_or_create(
-            name='equipment', model='equipment', app_label='hwdoc') # model must be lowercase!
+        ct = orm['contenttypes.ContentType'].objects.get(
+            name='Equipment', model='equipment', app_label='hwdoc') # model must be lowercase!
         perm, created = orm['auth.permission'].objects.get_or_create(
             content_type=ct, codename='can_change_comment')
         perm.delete()
