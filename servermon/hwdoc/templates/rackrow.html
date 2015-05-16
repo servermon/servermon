@@ -32,15 +32,18 @@
               {% if unit == eq.model.u %}
               {% if eq.ticket_set.all %}
 	      <td rowspan="{{ eq.model.u }}"><a href="{% url "hwdoc.views.equipment" eq.pk %}">{{ eq.model }}<span class="badge badge-info">i</span></a></td>
-              {% elif eq.comments %}
+              {% else %}
+              {% if eq.comments %}
 	      <td rowspan="{{ eq.model.u }}"><a href="{% url "hwdoc.views.equipment" eq.pk %}">{{ eq.model }} <span class="badge badge-warning">i</span></a></td>
               {% else %}
 	      <td rowspan="{{ eq.model.u }}"><a href="{% url "hwdoc.views.equipment" eq.pk %}">{{ eq.model }}</a></td>
               {% endif %}
               {% endif %}
+              {% endif %}
               </tr>
             {% endfor %}
-          {% elif eq.rack.model.inrow_ac %}
+	  {% else %}
+          {% if eq.rack.model.inrow_ac %}
           <tr class="error">
           <th>{{ eq.unit|stringformat:"02d" }}</th>
 	  <td><i class="icon-tint"></i></td>
@@ -49,6 +52,7 @@
           <th>{{ eq.unit|stringformat:"02d" }}</th>
           <td>&mdash;</td>
           </tr>
+          {% endif %}
           {% endif %}
           {% endfor %}
         </tbody>

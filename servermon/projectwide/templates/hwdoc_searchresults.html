@@ -46,7 +46,8 @@
           {% endfor %}
           <td>{% if result.hostname %}<a href="{% url "updates.views.host" result.hostname %}">{{ result.hostname }}</a>{% else %}&mdash;{% endif %}</td>
         </tr>
-    {% elif result.rack.model.inrow_ac %}
+    {% else %}
+    {% if result.rack.model.inrow_ac %}
     <tr class="error">
       <td><i class="icon-tint"></i></td>
       <td><i class="icon-tint"></i></td>
@@ -75,6 +76,7 @@
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
+    {% endif %}
     {% endif %}
     {% endfor %}
     </tbody>
