@@ -501,7 +501,6 @@ class CommandsTestCase(unittest.TestCase):
         call_command('hwdoc_boot_order', self.server2.serial, verbosity=0)
         call_command('hwdoc_get_all_users', self.server2.serial, verbosity=0)
         call_command('hwdoc_license', self.server2.serial, verbosity=0)
-        call_command('hwdoc_pass_change', self.server2.serial, verbosity=0)
         call_command('hwdoc_power_cycle', self.server2.serial, verbosity=0)
         call_command('hwdoc_remove_user', self.server2.serial, verbosity=0)
         call_command('hwdoc_reset', self.server2.serial, verbosity=0)
@@ -517,6 +516,12 @@ class CommandsTestCase(unittest.TestCase):
         call_command('hwdoc_startup', self.server2.serial, verbosity=0)
         # Actually check with verbosity=1
         call_command('hwdoc_startup', self.server2.serial, verbosity=1)
+
+    def test_bmc_command_pass_change(self):
+        call_command('hwdoc_pass_change', self.server2.serial,
+                change_username='username',
+                newpass='password',
+                verbosity=0)
 
     def test_bmc_commands_bad_call(self):
         if DJANGO_VERSION[:2] < (1, 5):
@@ -606,6 +611,22 @@ class CommandsTestCase(unittest.TestCase):
             from compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_firmware_update')
         call_command('hwdoc_firmware_update', self.server2.serial, verbosity=0)
+
+    def test_bmc_pass_change_no_username(self):
+        if DJANGO_VERSION[:2] < (1, 5):
+            from compat import monkey_patch_command_execute
+            monkey_patch_command_execute('hwdoc_pass_change')
+        call_command('hwdoc_pass_change', self.server2.serial,
+                newpass='password',
+                verbosity=0)
+
+    def test_bmc_pass_change_no_password(self):
+        if DJANGO_VERSION[:2] < (1, 5):
+            from compat import monkey_patch_command_execute
+            monkey_patch_command_execute('hwdoc_pass_change')
+        call_command('hwdoc_pass_change', self.server2.serial,
+                change_username='username',
+                verbosity=0)
 
     def test_populate_tickets(self):
         settings.TICKETING_SYSTEM='dummy'
