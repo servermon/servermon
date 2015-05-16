@@ -64,6 +64,7 @@ class Command(BaseCommand):
             nv = update.getAttribute("new_version")
             sn = update.getAttribute("source_name")
             org = update.getAttribute("origin")
+            # Note: facts are forcefully stringified until puppet 3.7
             is_sec = (update.getAttribute("is_security") == "true")
 
             try:
