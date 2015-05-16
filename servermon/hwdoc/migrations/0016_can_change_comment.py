@@ -9,7 +9,7 @@ class Migration(DataMigration):
     def forwards(self, orm):
         "Write your forwards methods here."
         ct, created = orm['contenttypes.ContentType'].objects.get_or_create(
-            name='equipment', model='equipment', app_label='hwdoc') # model must be lowercase!
+            name='Equipment', model='equipment', app_label='hwdoc') # model must be lowercase!
         perm, created = orm['auth.permission'].objects.get_or_create(
             content_type=ct, codename='can_change_comment', defaults=dict(name=u'Can change comments'))
 
