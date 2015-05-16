@@ -38,11 +38,13 @@ class Command(BaseCommand):
                     action='store',
                     type='string',
                     dest='change_username',
+                    default=None,
                     help=_l('Username to change password for')),
                 make_option('-n', '--newpass',
                     action='store',
                     type='string',
                     dest='newpass',
+                    default=None,
                     help=_l('New password')),
             ) + _bmc_common.option_list
 
