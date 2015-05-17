@@ -28,13 +28,13 @@ from django.shortcuts import render
 from django.core.exceptions import FieldError
 from django.http import HttpResponse
 from django.contrib.sites.models import Site
-from django.utils import simplejson
 from django.db.models import Count
 from django.db import DatabaseError
 from django.template import TemplateSyntaxError
 from datetime import datetime, timedelta
 from settings import HOST_TIMEOUT, ADMINS
 import re
+import json
 
 def index(request):
     '''
@@ -194,6 +194,6 @@ def suggest(request):
         resp[1] = resp[1] + list(results[i]['results'])
         resp[2] = resp[2] + list(results[i]['count'])
 
-    response = simplejson.dumps(resp)
+    response = json.dumps(resp)
 
     return HttpResponse(response, mimetype = 'application/x-suggestions+json')
