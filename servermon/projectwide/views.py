@@ -196,4 +196,4 @@ def suggest(request):
 
     response = json.dumps(resp)
 
-    return HttpResponse(response, mimetype = 'application/x-suggestions+json')
+    return HttpResponse(response, content_type = 'application/x-suggestions+json')
