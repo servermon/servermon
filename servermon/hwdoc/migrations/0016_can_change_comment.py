@@ -16,14 +16,18 @@ class Migration(DataMigration):
         update_contenttypes(hwdoc.models, None)
         ct = orm['contenttypes.ContentType'].objects.get(
             name='Equipment', model='equipment', app_label='hwdoc') # model must be lowercase!
-        perm, created = orm['auth.permission'].objects.get_or_create(
-            content_type=ct, codename='can_change_comment', defaults=dict(name=u'Can change comments'))
+        try:
+            perm = orm['auth.permission'].objects.get(
+                content_type=ct, codename='can_change_comment')
+        except Exception:
+            orm['auth.permission'].objects.create(
+                content_type=ct, codename='can_change_comment', name=u'Can change comments')
 
     def backwards(self, orm):
         "Write your backwards methods here."
         ct = orm['contenttypes.ContentType'].objects.get(
             name='Equipment', model='equipment', app_label='hwdoc') # model must be lowercase!
-        perm, created = orm['auth.permission'].objects.get_or_create(
+        perm = orm['auth.permission'].objects.get(
             content_type=ct, codename='can_change_comment')
         perm.delete()
 
