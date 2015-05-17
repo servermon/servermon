@@ -19,13 +19,15 @@ Unit tests for keyvalue package
 '''
 
 from django import VERSION as DJANGO_VERSION
+from django.contrib.auth.models import User, Permission
+from django.test.client import Client
+from keyvalue.models import Key, KeyValue
 
 if DJANGO_VERSION[:2] >= (1, 3):
     from django.utils import unittest
 else:
     import unittest
 
-from keyvalue.models import Key, KeyValue
 
 class KeyTestCase(unittest.TestCase):
     def setUp(self):
@@ -70,3 +72,36 @@ class KeyTestCase(unittest.TestCase):
         self.assertEqual(self.keyvalue.owner, self.owner)
         # Test __unicode__ method on KeyValue
         self.assertEqual(str(self.keyvalue), 'Key1 = Yo')
+
+class AdminViewsTestCase(unittest.TestCase):
+    '''
+    Testing admin views class
+    '''
+
+    def setUp(self):
+        '''
+        Command run before every test
+        '''
+        self.u1 = User.objects.create(username='test1', email='test1@example.com',
+                            is_staff=True, is_superuser=True)
+        self.u1.set_password('test')
+        self.u1.save()
+        self.c1 = Client()
+        self.assertTrue(self.c1.login(username='test1', password='test'))
+        self.key1 = Key.objects.create(name='Key1')
+
+    def tearDown(self):
+        '''
+        Command run after every test
+        '''
+        self.key1.delete()
+        self.c1.logout()
+        User.objects.all().delete()
+
+    def test_admin_keyvalue(self):
+        response = self.c1.get('/admin/keyvalue/key/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_admin_keyvalue1(self):
+        response = self.c1.get('/admin/keyvalue/key/%s/' % self.key1.id)
+        self.assertEqual(response.status_code, 200)
