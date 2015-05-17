@@ -13,9 +13,11 @@ INSTALLED_APPS = (
     'updates',
     'puppet',
     'hwdoc',
-    'south',
     'keyvalue',
 )
+
+if DJANGO_VERSION[:2] < (1, 7):
+        INSTALLED_APPS = INSTALLED_APPS + ('south',)
 
 AUTHENTICATION_BACKENDS = (
     'djangobackends.ldapBackend.ldapBackend',
