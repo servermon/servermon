@@ -3,8 +3,11 @@
 '''
 Module containing hwdoc URLconf
 '''
-
-from django.conf.urls.defaults import *
+from django import VERSION as DJANGO_VERSION
+if DJANGO_VERSION[:2] >= (1, 4):
+    from django.conf.urls import *
+else:
+    from django.conf.urls.defaults import *
 
 urlpatterns = patterns('hwdoc.views',
             (r'^$', 'index'),
