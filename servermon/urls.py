@@ -1,4 +1,9 @@
-from django.conf.urls import *
+from django import VERSION as DJANGO_VERSION
+if DJANGO_VERSION[:2] >= (1, 4):
+    from django.conf.urls import *
+else:
+    from django.conf.urls.defaults import *
+
 from django.conf import settings
 
 urlpatterns = patterns('',
