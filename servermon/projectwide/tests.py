@@ -26,6 +26,7 @@ if DJANGO_VERSION[:2] >= (1, 3):
     from django.utils import unittest
 else:
     import unittest
+from django.core.management import call_command
 
 from puppet.models import Host, Resource, FactValue, Fact
 from projectwide.functions import get_search_terms, canonicalize_mac
@@ -168,3 +169,24 @@ class LDAPAuthTestCase(unittest.TestCase):
     def test_malformed_account(self):
         c = Client()
         self.assertFalse(c.login(username='*', password='bobpw'))
+
+class CommandsTestCase(unittest.TestCase):
+    '''
+    A test case for django management commands
+    '''
+
+    def setUp(self):
+        '''
+        Commands run before every test
+        '''
+        pass
+
+    def tearDown(self):
+        '''
+        Command run after every test
+        '''
+        pass
+
+    #Tests start here
+    def test_bmc_commands(self):
+        call_command('dev_fixtures', yes_force_run=True)
