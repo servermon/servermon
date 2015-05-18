@@ -21,6 +21,7 @@ Django management command to populate tickets associated with Equipment
 from django.core.management.base import BaseCommand, CommandError
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
+from django.db import transaction
 
 from hwdoc.functions import populate_tickets, search
 
@@ -41,6 +42,7 @@ class Command(BaseCommand):
                     help=_l('Populated closed tickets as well')),
                     )
 
+    @transaction.commit_on_success
     def handle(self, *args, **options):
         '''
         Handle command
