@@ -30,6 +30,7 @@ from hwdoc.models import Vendor, EquipmentModel, Equipment, \
     Email, Phone, Person, Project, Role
 from hwdoc.functions import search, populate_tickets
 from projectwide.functions import get_search_terms
+
 import os
 if DJANGO_VERSION[:2] >= (1, 3):
     from django.utils import unittest
@@ -528,13 +529,19 @@ class CommandsTestCase(unittest.TestCase):
         if DJANGO_VERSION[:2] < (1, 5):
             from compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_startup')
-        call_command('hwdoc_startup', verbosity=0)
+        try:
+            call_command('hwdoc_startup', verbosity=0)
+        except CommandError:
+            pass
 
     def test_bmc_commands_no_result(self):
         if DJANGO_VERSION[:2] < (1, 5):
             from compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_startup')
-        call_command('hwdoc_startup', 'INEXISTENT_EQUIPMENT', verbosity=0)
+        try:
+            call_command('hwdoc_startup', 'INEXISTENT_EQUIPMENT', verbosity=0)
+        except CommandError:
+            pass
 
     def test_bmc_commands_no_servermanagement(self):
         call_command('hwdoc_startup', self.server1.serial, verbosity=0)
@@ -568,14 +575,20 @@ class CommandsTestCase(unittest.TestCase):
         if DJANGO_VERSION[:2] < (1, 5):
             from compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_importequipment')
-        call_command('hwdoc_importequipment', verbosity=0)
+        try:
+            call_command('hwdoc_importequipment', verbosity=0)
+        except CommandError:
+            pass
 
     def test_importequipment_nonexistent_file(self):
         filename = 'test_importequiment.csv'
         if DJANGO_VERSION[:2] < (1, 5):
             from compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_importequipment')
-        call_command('hwdoc_importequipment', filename, verbosity=0)
+        try:
+            call_command('hwdoc_importequipment', filename, verbosity=0)
+        except CommandError:
+            pass
 
     def test_importequipmentlicenses(self):
         filename = 'test_importequipmentlicenses.csv'
@@ -589,7 +602,10 @@ class CommandsTestCase(unittest.TestCase):
         if DJANGO_VERSION[:2] < (1, 5):
             from compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_importequipmentlicenses')
-        call_command('hwdoc_importequipmentlicenses')
+        try:
+            call_command('hwdoc_importequipmentlicenses')
+        except CommandError:
+            pass
 
     def test_bmc_firmware_update(self):
         filename = 'firmware'
@@ -604,30 +620,42 @@ class CommandsTestCase(unittest.TestCase):
         if DJANGO_VERSION[:2] < (1, 5):
             from compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_firmware_update')
-        call_command('hwdoc_firmware_update', self.server2.serial,
+        try:
+            call_command('hwdoc_firmware_update', self.server2.serial,
                 firmware_location='firmware', verbosity=0)
+        except CommandError:
+            pass
 
     def test_bmc_firmware_update_no_specified_file(self):
         if DJANGO_VERSION[:2] < (1, 5):
             from compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_firmware_update')
-        call_command('hwdoc_firmware_update', self.server2.serial, verbosity=0)
+        try:
+            call_command('hwdoc_firmware_update', self.server2.serial, verbosity=0)
+        except CommandError:
+            pass
 
     def test_bmc_pass_change_no_username(self):
         if DJANGO_VERSION[:2] < (1, 5):
             from compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_pass_change')
-        call_command('hwdoc_pass_change', self.server2.serial,
+        try:
+            call_command('hwdoc_pass_change', self.server2.serial,
                 newpass='password',
                 verbosity=0)
+        except CommandError:
+            pass
 
     def test_bmc_pass_change_no_password(self):
         if DJANGO_VERSION[:2] < (1, 5):
             from compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_pass_change')
-        call_command('hwdoc_pass_change', self.server2.serial,
+        try:
+            call_command('hwdoc_pass_change', self.server2.serial,
                 change_username='username',
                 verbosity=0)
+        except CommandError:
+            pass
 
     def test_populate_tickets(self):
         settings.TICKETING_SYSTEM='dummy'

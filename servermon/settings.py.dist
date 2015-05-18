@@ -1,6 +1,7 @@
 # Django settings for servermon project.
 import os
 from django.conf import global_settings
+from django import VERSION as DJANGO_VERSION
 here = lambda x: os.path.join(os.path.abspath(os.path.dirname(__file__)), x)
 
 DEBUG = True
@@ -120,9 +121,11 @@ INSTALLED_APPS = (
 #    'updates',
 #    'puppet',
 #    'hwdoc',
-    'south',
     'keyvalue',
 )
+
+if DJANGO_VERSION[:2] < (1, 7):
+    INSTALLED_APPS = INSTALLED_APPS + ('south',)
 
 SKIP_SOUTH_TESTS = True
 

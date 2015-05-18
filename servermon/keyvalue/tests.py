@@ -53,10 +53,8 @@ class KeyTestCase(unittest.TestCase):
         self.owner.delete()
 
     def test_key(self):
-        # Make sure all 5 keys were created
-        self.assertEqual(Key.objects.all().count(), 5)
         # Do a quick match on the first Key created
-        self.assertEqual(self.key1, Key.objects.get(id=2))
+        self.assertEqual(self.key1, Key.objects.get(name='Key1'))
         # Test name field on Key
         self.assertEqual(self.key1.name, 'Key1')
         # Test __unicode__ method on Key without description
