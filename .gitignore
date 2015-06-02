@@ -12,3 +12,5 @@
 AUTHORS
 ChangeLog
 .coverage
+/servermon/media/
+/servermon/static/
