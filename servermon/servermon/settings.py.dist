@@ -54,7 +54,7 @@ USE_TZ = True
 
 # Use this two variables to point to the directory where the staticfiles
 # will be collected by Django and the url under which they will be served.
-STATIC_ROOT = here('static)
+STATIC_ROOT = here('static')
 STATIC_URL = '/static/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
@@ -97,19 +97,19 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'servermon.urls'
 
 AUTHENTICATION_BACKENDS = (
-#    'servermon.djangobackends.ldapBackend.ldapBackend',
+    'servermon.djangobackends.ldapBackend.ldapBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
-#LDAP_AUTH_SETTINGS = (
-#    { 'url': 'ldap://ldap.example.org/', 'base': 'ou=People,dc=example,dc=org' },
-#)
+LDAP_AUTH_SETTINGS = (
+    { 'url': 'ldap://ldap.example.org/', 'base': 'ou=People,dc=example,dc=org' },
+)
 
-#LDAP_AUTH_GROUP = 'not-auth'
-#LDAP_AUTH_IS_STAFF = True
+LDAP_AUTH_GROUP = 'not-auth'
+LDAP_AUTH_IS_STAFF = True
 
 TEMPLATE_DIRS = (
-    here('templates'),
+    here('servermon/templates'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -139,27 +139,27 @@ DATETIME_FORMAT = "d/m/Y H:i"
 HOST_TIMEOUT = 1800
 
 TICKETING_SYSTEM = 'dummy' # dummy, comments, jira are possible values
-#COMMENTS_TICKETING_URL = "http://ticketing.example.com/"
-#JIRA_TICKETING = {
-#    'url': 'http://ticketing.example.com/',
-#    'search_string': 'text ~ {}', # {} replaced by double-quoted serial number for search
-#    'projects': { # empty dict means "all projects"
-#        'project1': { 'closed_string': 'closed' },
-#        'project2': { 'closed_string': 'done' },
-#        'project3': { 'closed_string': 'pining_for_the_fjords' },
-#        'project4': {},
-#    },
-#    'projects_defaults': { 'closed_string': 'closed' },
-#    'auth': {
-#        'type': 'none', # none, basic, oauth are possible values
-#        'user': '',                             # only used for basic
-#        'password': '',                         # only used for basic
-#        'access_token': '',                     # only used for oauth
-#        'access_token_secret': '',             # only used for oauth
-#        'consumer_key': 'jira-oauth-consumer', # only used for oauth
-#        'key_cert': '/path/to/file',           # only used for oauth
-#    },
-#}
+COMMENTS_TICKETING_URL = "http://ticketing.example.com/"
+JIRA_TICKETING = {
+    'url': 'http://ticketing.example.com/',
+    'search_string': 'text ~ {}', # {} replaced by double-quoted serial number for search
+    'projects': { # empty dict means "all projects"
+        'project1': { 'closed_string': 'closed' },
+        'project2': { 'closed_string': 'done' },
+        'project3': { 'closed_string': 'pining_for_the_fjords' },
+        'project4': {},
+    },
+    'projects_defaults': { 'closed_string': 'closed' },
+    'auth': {
+        'type': 'none', # none, basic, oauth are possible values
+        'user': '',                             # only used for basic
+        'password': '',                         # only used for basic
+        'access_token': '',                     # only used for oauth
+        'access_token_secret': '',             # only used for oauth
+        'consumer_key': 'jira-oauth-consumer', # only used for oauth
+        'key_cert': '/path/to/file',           # only used for oauth
+    },
+}
 
 # Django extensions (apt-get install python-django-extensions)
 try:
