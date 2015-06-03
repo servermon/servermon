@@ -71,6 +71,7 @@ class KeyTestCase(unittest.TestCase):
         # Test __unicode__ method on KeyValue
         self.assertEqual(str(self.keyvalue), 'Key1 = Yo')
 
+@unittest.skip("Unregistered admin site app")
 class AdminViewsTestCase(unittest.TestCase):
     '''
     Testing admin views class
