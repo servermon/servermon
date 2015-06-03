@@ -32,7 +32,9 @@ from django.db.models import Count
 from django.db import DatabaseError
 from django.template import TemplateSyntaxError
 from datetime import datetime, timedelta
-from settings import HOST_TIMEOUT, ADMINS
+from django.conf import settings
+HOST_TIMEOUT = settings.HOST_TIMEOUT
+ADMINS = settings.ADMINS
 import re
 import json
 
