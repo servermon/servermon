@@ -24,8 +24,8 @@ without a Puppet infrastructure
 Compatibility
 =============
 
-As of October 2013, we mosty support Django 1.4. Django 1.5 or later is NOT
-supported.
+For an up to date list of the Django version we support, take a look into
+requirements.txt. Those are the version tested and developed for
 
 Install
 =======
