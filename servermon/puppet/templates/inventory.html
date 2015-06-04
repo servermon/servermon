@@ -5,7 +5,7 @@
 {% block title %}{% trans "Puppet Inventory" %}{% endblock %}
 {% block heading %}{% trans "Puppet Inventory" %}{% endblock %}
 {% block content %}
-<script type="text/javascript" src="{{ MEDIA_URL }}jquery.tablefilter.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}jquery.tablefilter.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
   $table = $("#inventory").tablesorter({widthFixed: true, widgets: ['zebra']});

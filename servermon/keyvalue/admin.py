@@ -32,4 +32,4 @@ class KeyValueAdmin(generic.GenericStackedInline):
     ct_field = 'owner_content_type'
     ct_fk_field = 'owner_object_id'
 
-admin.site.register(Key)
+#admin.site.register(Key)

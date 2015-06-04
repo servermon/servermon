@@ -2,7 +2,7 @@
 import os
 from django.conf import global_settings
 from django import VERSION as DJANGO_VERSION
-here = lambda x: os.path.join(os.path.abspath(os.path.dirname(__file__)), x)
+here = lambda x: os.path.join(os.path.abspath(os.path.dirname(__file__)), '..', x)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -50,12 +50,17 @@ USE_TZ = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = here('static')
+#MEDIA_ROOT = here('media')
+
+# Use this two variables to point to the directory where the staticfiles
+# will be collected by Django and the url under which they will be served.
+STATIC_ROOT = here('static')
+STATIC_URL = '/static/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = '/static/'
+#MEDIA_URL = '/media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -65,7 +70,7 @@ MEDIA_URL = '/static/'
 #
 # serve this with e.g.
 # Alias /media  /usr/share/pyshared/django/contrib/admin/media
-ADMIN_MEDIA_PREFIX = '/media/'
+#ADMIN_MEDIA_PREFIX = '/media/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'CHANGE_THIS_IF_YOU_DONT_WANT_ALL_KINDS_OF_PROBLEMS'
@@ -78,7 +83,7 @@ TEMPLATE_LOADERS = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
-    'djangobackends.context_processors.installed_apps',
+    'servermon.djangobackends.context_processors.installed_apps',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -86,13 +91,13 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'djangobackends.StripWhitespaceMiddleware.StripWhitespaceMiddleware',
+    'servermon.djangobackends.StripWhitespaceMiddleware.StripWhitespaceMiddleware',
 )
 
 ROOT_URLCONF = 'servermon.urls'
 
 AUTHENTICATION_BACKENDS = (
-#    'djangobackends.ldapBackend.ldapBackend',
+    'servermon.djangobackends.ldapBackend.ldapBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -104,23 +109,22 @@ LDAP_AUTH_GROUP = 'not-auth'
 LDAP_AUTH_IS_STAFF = True
 
 TEMPLATE_DIRS = (
-    here('templates'),
+    here('servermon/templates'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
 
-# You probably want to uncomment pretty much everything here
 INSTALLED_APPS = (
-#    'django.contrib.auth',
-#    'django.contrib.admin',
-#    'django.contrib.contenttypes',
-#    'django.contrib.sessions',
-#    'django.contrib.sites',
+    'django.contrib.auth',
+    'django.contrib.admin',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
     'projectwide',
-#    'updates',
-#    'puppet',
-#    'hwdoc',
+    'updates',
+    'puppet',
+    'hwdoc',
     'keyvalue',
 )
 

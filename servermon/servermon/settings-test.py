@@ -20,7 +20,7 @@ if DJANGO_VERSION[:2] < (1, 7):
         INSTALLED_APPS = INSTALLED_APPS + ('south',)
 
 AUTHENTICATION_BACKENDS = (
-    'djangobackends.ldapBackend.ldapBackend',
+    'servermon.djangobackends.ldapBackend.ldapBackend',
     'django.contrib.auth.backends.ModelBackend',
     )
 

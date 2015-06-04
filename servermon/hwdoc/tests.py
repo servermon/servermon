@@ -527,7 +527,7 @@ class CommandsTestCase(unittest.TestCase):
 
     def test_bmc_commands_bad_call(self):
         if DJANGO_VERSION[:2] < (1, 5):
-            from compat import monkey_patch_command_execute
+            from hwdoc.compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_startup')
         try:
             call_command('hwdoc_startup', verbosity=0)
@@ -536,7 +536,7 @@ class CommandsTestCase(unittest.TestCase):
 
     def test_bmc_commands_no_result(self):
         if DJANGO_VERSION[:2] < (1, 5):
-            from compat import monkey_patch_command_execute
+            from hwdoc.compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_startup')
         try:
             call_command('hwdoc_startup', 'INEXISTENT_EQUIPMENT', verbosity=0)
@@ -573,7 +573,7 @@ class CommandsTestCase(unittest.TestCase):
 
     def test_importequipment_nofile_specified(self):
         if DJANGO_VERSION[:2] < (1, 5):
-            from compat import monkey_patch_command_execute
+            from hwdoc.compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_importequipment')
         try:
             call_command('hwdoc_importequipment', verbosity=0)
@@ -583,7 +583,7 @@ class CommandsTestCase(unittest.TestCase):
     def test_importequipment_nonexistent_file(self):
         filename = 'test_importequiment.csv'
         if DJANGO_VERSION[:2] < (1, 5):
-            from compat import monkey_patch_command_execute
+            from hwdoc.compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_importequipment')
         try:
             call_command('hwdoc_importequipment', filename, verbosity=0)
@@ -600,7 +600,7 @@ class CommandsTestCase(unittest.TestCase):
 
     def test_importequipmentlicenses_nonexistent_file(self):
         if DJANGO_VERSION[:2] < (1, 5):
-            from compat import monkey_patch_command_execute
+            from hwdoc.compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_importequipmentlicenses')
         try:
             call_command('hwdoc_importequipmentlicenses')
@@ -618,7 +618,7 @@ class CommandsTestCase(unittest.TestCase):
 
     def test_bmc_firmware_update_nonexistent_file(self):
         if DJANGO_VERSION[:2] < (1, 5):
-            from compat import monkey_patch_command_execute
+            from hwdoc.compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_firmware_update')
         try:
             call_command('hwdoc_firmware_update', self.server2.serial,
@@ -628,7 +628,7 @@ class CommandsTestCase(unittest.TestCase):
 
     def test_bmc_firmware_update_no_specified_file(self):
         if DJANGO_VERSION[:2] < (1, 5):
-            from compat import monkey_patch_command_execute
+            from hwdoc.compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_firmware_update')
         try:
             call_command('hwdoc_firmware_update', self.server2.serial, verbosity=0)
@@ -637,7 +637,7 @@ class CommandsTestCase(unittest.TestCase):
 
     def test_bmc_pass_change_no_username(self):
         if DJANGO_VERSION[:2] < (1, 5):
-            from compat import monkey_patch_command_execute
+            from hwdoc.compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_pass_change')
         try:
             call_command('hwdoc_pass_change', self.server2.serial,
@@ -648,7 +648,7 @@ class CommandsTestCase(unittest.TestCase):
 
     def test_bmc_pass_change_no_password(self):
         if DJANGO_VERSION[:2] < (1, 5):
-            from compat import monkey_patch_command_execute
+            from hwdoc.compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_pass_change')
         try:
             call_command('hwdoc_pass_change', self.server2.serial,
