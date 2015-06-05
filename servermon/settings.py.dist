@@ -157,6 +157,13 @@ JIRA_TICKETING = {
     },
 }
 
+# Since Django 1.7 uses migrations for itself, move old South based migrations
+# to their own directory
+SOUTH_MIGRATION_MODULES = {
+    'hwdoc': 'hwdoc.south_migrations',
+    'updates': 'updates.south_migrations',
+}
+
 # Django extensions (apt-get install python-django-extensions)
 try:
     import django_extensions
