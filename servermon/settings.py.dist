@@ -164,6 +164,9 @@ SOUTH_MIGRATION_MODULES = {
     'updates': 'updates.south_migrations',
 }
 
+# Use the old deprecated test runner for now and until we support Django 1.8
+TEST_RUNNER = 'django.test.simple.DjangoTestSuiteRunner'
+
 # Django extensions (apt-get install python-django-extensions)
 try:
     import django_extensions
