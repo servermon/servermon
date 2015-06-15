@@ -1,0 +1,3 @@
+'''
+Projectwide Django management commands
+'''

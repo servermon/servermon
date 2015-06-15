@@ -1,263 +1,8954 @@
 [
- {
-  "pk": 1, 
-  "model": "hwdoc.email", 
+{
   "fields": {
-   "email": "me.you@example.com"
-  }
- }, 
- {
-  "pk": 2, 
-  "model": "hwdoc.email", 
+    "email": "luv7t1yi3@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 121
+},
+{
   "fields": {
-   "email": "he.she@example.com"
-  }
- }, 
- {
-  "pk": 3, 
-  "model": "hwdoc.email", 
+    "email": "cncnsfdejb@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 122
+},
+{
   "fields": {
-   "email": "we.you@example.com"
-  }
- }, 
- {
-  "pk": 1, 
-  "model": "hwdoc.phone", 
+    "email": "w11ykp3@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 123
+},
+{
   "fields": {
-   "number": "5555555"
-  }
- }, 
- {
-  "pk": 2, 
-  "model": "hwdoc.phone", 
+    "email": "x917am4jo@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 124
+},
+{
   "fields": {
-   "number": "7555555"
-  }
- }, 
- {
-  "pk": 3, 
-  "model": "hwdoc.phone", 
+    "email": "1cv3ngurkj@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 125
+},
+{
   "fields": {
-   "number": "8555555"
-  }
- }, 
- {
-  "pk": 1, 
-  "model": "hwdoc.person", 
+    "email": "o086ao@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 126
+},
+{
   "fields": {
-   "phones": [
-    1
-   ], 
-   "surname": "you", 
-   "name": "me", 
-   "emails": [
-    1
-   ]
-  }
- }, 
- {
-  "pk": 2, 
-  "model": "hwdoc.person", 
+    "email": "ut1eg7@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 127
+},
+{
   "fields": {
-   "phones": [
-    2
-   ], 
-   "surname": "she", 
-   "name": "he", 
-   "emails": [
-    2
-   ]
-  }
- }, 
- {
-  "pk": 3, 
-  "model": "hwdoc.person", 
+    "email": "64c2aqbd@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 128
+},
+{
   "fields": {
-   "phones": [
-    2
-   ], 
-   "surname": "you", 
-   "name": "we", 
-   "emails": [
-    3
-   ]
-  }
- }, 
- {
-  "pk": 1, 
-  "model": "hwdoc.project", 
+    "email": "wfh4z48@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 129
+},
+{
   "fields": {
-   "name": "virt"
-  }
- }, 
- {
-  "pk": 2, 
-  "model": "hwdoc.project", 
+    "email": "be2rr8h@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 130
+},
+{
   "fields": {
-   "name": "pert"
-  }
- }, 
- {
-  "pk": 3, 
-  "model": "hwdoc.project", 
+    "email": "wtk6olfgel@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 131
+},
+{
   "fields": {
-   "name": "iperf"
-  }
- }, 
- {
-  "pk": 1, 
-  "model": "hwdoc.role", 
+    "email": "kwwctvls1@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 132
+},
+{
   "fields": {
-   "project": 1, 
-   "person": 1, 
-   "role": "manager"
-  }
- }, 
- {
-  "pk": 2, 
-  "model": "hwdoc.role", 
+    "email": "5ya43e2yd@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 133
+},
+{
   "fields": {
-   "project": 2, 
-   "person": 2, 
-   "role": "manager"
-  }
- }, 
- {
-  "pk": 3, 
-  "model": "hwdoc.role", 
+    "email": "0jbloycq@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 134
+},
+{
   "fields": {
-   "project": 3, 
-   "person": 3, 
-   "role": "manager"
-  }
- }, 
- {
-  "pk": 1, 
-  "model": "hwdoc.rack", 
+    "email": "yzcnk5@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 135
+},
+{
   "fields": {
-   "mounted_depth": 60, 
-   "model": 1
-  }
- }, 
- {
-  "pk": 1, 
-  "model": "hwdoc.equipment", 
+    "email": "nudxkd@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 136
+},
+{
   "fields": {
-   "updated": "2012-05-26 01:35:47", 
-   "added": "2012-05-26 01:35:47", 
-   "comments": "", 
-   "rack": 1, 
-   "allocation": null, 
-   "purpose": "VMWARE", 
-   "model": 4, 
-   "serial": "sdfsdfdsf", 
-   "unit": 1
-  }
- }, 
- {
-  "pk": 2, 
-  "model": "hwdoc.equipment", 
+    "email": "i313bq@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 137
+},
+{
   "fields": {
-   "updated": "2012-05-26 01:35:47", 
-   "added": "2012-05-26 01:35:47", 
-   "comments": "", 
-   "rack": 1, 
-   "allocation": null, 
-   "purpose": "VMWARE", 
-   "model": 4, 
-   "serial": "VM101010", 
-   "unit": 2
-  }
- }, 
- {
-  "pk": 3, 
-  "model": "hwdoc.equipment", 
+    "email": "uwsae07b@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 138
+},
+{
   "fields": {
-   "updated": "2012-05-26 01:35:47", 
-   "added": "2012-05-26 01:35:47", 
-   "comments": "", 
-   "rack": 1, 
-   "allocation": null, 
-   "purpose": "VMWARE", 
-   "model": 4, 
-   "serial": "VM202020", 
-   "unit": 3
-  }
- }, 
- {
-  "pk": 4, 
-  "model": "hwdoc.equipment", 
+    "email": "twxoeeq5@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 139
+},
+{
   "fields": {
-   "updated": "2012-05-26 01:35:47", 
-   "added": "2012-05-26 01:35:47", 
-   "comments": "", 
-   "rack": 1, 
-   "allocation": null, 
-   "purpose": "VMWARE", 
-   "model": 4, 
-   "serial": "vM606060", 
-   "unit": 8
-  }
- }, 
- {
-  "pk": 5, 
-  "model": "hwdoc.equipment", 
+    "email": "lrom14@example.com"
+  },
+  "model": "hwdoc.email",
+  "pk": 140
+},
+{
   "fields": {
-   "updated": "2012-05-26 01:35:47", 
-   "added": "2012-05-26 01:35:47", 
-   "comments": "", 
-   "rack": 1, 
-   "allocation": null, 
-   "purpose": "VMWARE", 
-   "model": 2, 
-   "serial": "SXI202020", 
-   "unit": 20
-  }
- }, 
- {
-  "pk": 6, 
-  "model": "hwdoc.equipment", 
+    "number": "4871043558"
+  },
+  "model": "hwdoc.phone",
+  "pk": 121
+},
+{
   "fields": {
-   "updated": "2012-05-26 01:35:47", 
-   "added": "2012-05-26 01:35:47", 
-   "comments": "", 
-   "rack": null, 
-   "allocation": null, 
-   "purpose": "VMWARE", 
-   "model": 2, 
-   "serial": "KIT101010", 
-   "unit": 1
-  }
- }, 
- {
-  "pk": 7, 
-  "model": "hwdoc.equipment", 
+    "number": "7145801970"
+  },
+  "model": "hwdoc.phone",
+  "pk": 122
+},
+{
   "fields": {
-   "updated": "2012-05-26 01:35:47", 
-   "added": "2012-05-26 01:35:47", 
-   "comments": "", 
-   "rack": 1, 
-   "allocation": null, 
-   "purpose": "VMWARE", 
-   "model": 4, 
-   "serial": "merf", 
-   "unit": 12
-  }
- }, 
- {
-  "pk": 1, 
-  "model": "hwdoc.servermanagement", 
+    "number": "2238394774"
+  },
+  "model": "hwdoc.phone",
+  "pk": 123
+},
+{
   "fields": {
-   "username": "admin", 
-   "updated": "2012-05-26 01:35:47", 
-   "added": "2012-05-26 01:35:47", 
-   "license": "", 
-   "raid_license": "", 
-   "hostname": "irmc0101.example.com", 
-   "equipment": 1, 
-   "mac": "01:02:03:04:05:07", 
-   "password": "admin", 
-   "method": "irmc"
-  }
- }
+    "number": "4044205862"
+  },
+  "model": "hwdoc.phone",
+  "pk": 124
+},
+{
+  "fields": {
+    "number": "4740646521"
+  },
+  "model": "hwdoc.phone",
+  "pk": 125
+},
+{
+  "fields": {
+    "number": "4103841985"
+  },
+  "model": "hwdoc.phone",
+  "pk": 126
+},
+{
+  "fields": {
+    "number": "7835980168"
+  },
+  "model": "hwdoc.phone",
+  "pk": 127
+},
+{
+  "fields": {
+    "number": "0484412539"
+  },
+  "model": "hwdoc.phone",
+  "pk": 128
+},
+{
+  "fields": {
+    "number": "6509053178"
+  },
+  "model": "hwdoc.phone",
+  "pk": 129
+},
+{
+  "fields": {
+    "number": "6302219258"
+  },
+  "model": "hwdoc.phone",
+  "pk": 130
+},
+{
+  "fields": {
+    "number": "7854284324"
+  },
+  "model": "hwdoc.phone",
+  "pk": 131
+},
+{
+  "fields": {
+    "number": "4062526596"
+  },
+  "model": "hwdoc.phone",
+  "pk": 132
+},
+{
+  "fields": {
+    "number": "2911489065"
+  },
+  "model": "hwdoc.phone",
+  "pk": 133
+},
+{
+  "fields": {
+    "number": "6822669358"
+  },
+  "model": "hwdoc.phone",
+  "pk": 134
+},
+{
+  "fields": {
+    "number": "2021150004"
+  },
+  "model": "hwdoc.phone",
+  "pk": 135
+},
+{
+  "fields": {
+    "number": "0483653948"
+  },
+  "model": "hwdoc.phone",
+  "pk": 136
+},
+{
+  "fields": {
+    "number": "7088991417"
+  },
+  "model": "hwdoc.phone",
+  "pk": 137
+},
+{
+  "fields": {
+    "number": "1997709631"
+  },
+  "model": "hwdoc.phone",
+  "pk": 138
+},
+{
+  "fields": {
+    "number": "9582367434"
+  },
+  "model": "hwdoc.phone",
+  "pk": 139
+},
+{
+  "fields": {
+    "number": "6361400772"
+  },
+  "model": "hwdoc.phone",
+  "pk": 140
+},
+{
+  "fields": {
+    "phones": [
+      122,
+      123,
+      135
+    ],
+    "surname": "Qh1",
+    "name": "Bd7c3qy",
+    "emails": [
+      128
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 121
+},
+{
+  "fields": {
+    "phones": [
+      129,
+      132
+    ],
+    "surname": "Yz1r5bff0y",
+    "name": "C0xzs8",
+    "emails": [
+      132
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 122
+},
+{
+  "fields": {
+    "phones": [
+      121,
+      125
+    ],
+    "surname": "Oe3755hr89",
+    "name": "Ujx6",
+    "emails": [
+      127,
+      134
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 123
+},
+{
+  "fields": {
+    "phones": [
+      132
+    ],
+    "surname": "Xv17ket",
+    "name": "W7q7fcuuj",
+    "emails": [
+      128
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 124
+},
+{
+  "fields": {
+    "phones": [
+      127
+    ],
+    "surname": "6iw4",
+    "name": "Zbxztls",
+    "emails": [
+      121,
+      131
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 125
+},
+{
+  "fields": {
+    "phones": [
+      130
+    ],
+    "surname": "Ul3iq",
+    "name": "9kuong",
+    "emails": [
+      126,
+      135
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 126
+},
+{
+  "fields": {
+    "phones": [
+      134,
+      137,
+      140
+    ],
+    "surname": "Xy54wgxo",
+    "name": "O3g7n4mq3",
+    "emails": [
+      137,
+      139
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 127
+},
+{
+  "fields": {
+    "phones": [
+      132,
+      134,
+      138
+    ],
+    "surname": "6islomdgf",
+    "name": "I44",
+    "emails": [
+      134
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 128
+},
+{
+  "fields": {
+    "phones": [
+      121,
+      122,
+      131
+    ],
+    "surname": "Xibgoct",
+    "name": "5s3kd2ay",
+    "emails": [
+      132
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 129
+},
+{
+  "fields": {
+    "phones": [
+      121,
+      122,
+      130
+    ],
+    "surname": "Bdlujbqnwy",
+    "name": "6eg",
+    "emails": [
+      137
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 130
+},
+{
+  "fields": {
+    "phones": [
+      127,
+      133,
+      134
+    ],
+    "surname": "Boc2r6ky",
+    "name": "1m24ixmh7x",
+    "emails": [
+      131
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 131
+},
+{
+  "fields": {
+    "phones": [
+      130,
+      134
+    ],
+    "surname": "6qm5yfs",
+    "name": "09xywcy",
+    "emails": [
+      123,
+      138
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 132
+},
+{
+  "fields": {
+    "phones": [
+      127,
+      130
+    ],
+    "surname": "E8663ipon",
+    "name": "E19ptd",
+    "emails": [
+      130
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 133
+},
+{
+  "fields": {
+    "phones": [
+      130
+    ],
+    "surname": "I3gky",
+    "name": "Ylfvb",
+    "emails": [
+      123,
+      128
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 134
+},
+{
+  "fields": {
+    "phones": [
+      124,
+      130,
+      137
+    ],
+    "surname": "F3wnqy6ccp",
+    "name": "Q45nkk94",
+    "emails": [
+      123,
+      131
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 135
+},
+{
+  "fields": {
+    "phones": [
+      134
+    ],
+    "surname": "2h1d",
+    "name": "1c66nrtc1",
+    "emails": [
+      122
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 136
+},
+{
+  "fields": {
+    "phones": [
+      134,
+      138
+    ],
+    "surname": "4p0sjcaj",
+    "name": "Qg5zd3b",
+    "emails": [
+      125
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 137
+},
+{
+  "fields": {
+    "phones": [
+      133,
+      135,
+      136
+    ],
+    "surname": "Zyvp1r",
+    "name": "Ywc",
+    "emails": [
+      135
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 138
+},
+{
+  "fields": {
+    "phones": [
+      131,
+      138
+    ],
+    "surname": "162cvivl",
+    "name": "T0y285bwy",
+    "emails": [
+      137
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 139
+},
+{
+  "fields": {
+    "phones": [
+      125,
+      139
+    ],
+    "surname": "4wut4",
+    "name": "8xl5c0s",
+    "emails": [
+      135
+    ]
+  },
+  "model": "hwdoc.person",
+  "pk": 140
+},
+{
+  "fields": {
+    "name": "Hwmpaem1"
+  },
+  "model": "hwdoc.project",
+  "pk": 121
+},
+{
+  "fields": {
+    "name": "B3bjwz6v"
+  },
+  "model": "hwdoc.project",
+  "pk": 122
+},
+{
+  "fields": {
+    "name": "K7yxv9c"
+  },
+  "model": "hwdoc.project",
+  "pk": 123
+},
+{
+  "fields": {
+    "name": "S0j1z9l98"
+  },
+  "model": "hwdoc.project",
+  "pk": 124
+},
+{
+  "fields": {
+    "name": "Qw9tb8my"
+  },
+  "model": "hwdoc.project",
+  "pk": 125
+},
+{
+  "fields": {
+    "name": "Et8cs7"
+  },
+  "model": "hwdoc.project",
+  "pk": 126
+},
+{
+  "fields": {
+    "name": "B8i1zgj813"
+  },
+  "model": "hwdoc.project",
+  "pk": 127
+},
+{
+  "fields": {
+    "name": "3g7lhbzdq3"
+  },
+  "model": "hwdoc.project",
+  "pk": 128
+},
+{
+  "fields": {
+    "name": "Ivbtbh44"
+  },
+  "model": "hwdoc.project",
+  "pk": 129
+},
+{
+  "fields": {
+    "name": "26p1whg26"
+  },
+  "model": "hwdoc.project",
+  "pk": 130
+},
+{
+  "fields": {
+    "name": "Xkdv8w5q"
+  },
+  "model": "hwdoc.project",
+  "pk": 131
+},
+{
+  "fields": {
+    "name": "Yjko5e8m7t"
+  },
+  "model": "hwdoc.project",
+  "pk": 132
+},
+{
+  "fields": {
+    "name": "Be8ocd9"
+  },
+  "model": "hwdoc.project",
+  "pk": 133
+},
+{
+  "fields": {
+    "name": "5qjvf8g4u"
+  },
+  "model": "hwdoc.project",
+  "pk": 134
+},
+{
+  "fields": {
+    "name": "O35elv"
+  },
+  "model": "hwdoc.project",
+  "pk": 135
+},
+{
+  "fields": {
+    "name": "C0acqr"
+  },
+  "model": "hwdoc.project",
+  "pk": 136
+},
+{
+  "fields": {
+    "name": "5l1tnm"
+  },
+  "model": "hwdoc.project",
+  "pk": 137
+},
+{
+  "fields": {
+    "name": "Rd6nek"
+  },
+  "model": "hwdoc.project",
+  "pk": 138
+},
+{
+  "fields": {
+    "name": "V3bxhvd4b"
+  },
+  "model": "hwdoc.project",
+  "pk": 139
+},
+{
+  "fields": {
+    "name": "Eyl9hj"
+  },
+  "model": "hwdoc.project",
+  "pk": 140
+},
+{
+  "fields": {
+    "project": 129,
+    "person": 123,
+    "role": "manager"
+  },
+  "model": "hwdoc.role",
+  "pk": 74
+},
+{
+  "fields": {
+    "project": 131,
+    "person": 134,
+    "role": "manager"
+  },
+  "model": "hwdoc.role",
+  "pk": 75
+},
+{
+  "fields": {
+    "project": 132,
+    "person": 128,
+    "role": "manager"
+  },
+  "model": "hwdoc.role",
+  "pk": 76
+},
+{
+  "fields": {
+    "project": 134,
+    "person": 122,
+    "role": "manager"
+  },
+  "model": "hwdoc.role",
+  "pk": 77
+},
+{
+  "fields": {
+    "project": 135,
+    "person": 139,
+    "role": "manager"
+  },
+  "model": "hwdoc.role",
+  "pk": 78
+},
+{
+  "fields": {
+    "project": 137,
+    "person": 130,
+    "role": "manager"
+  },
+  "model": "hwdoc.role",
+  "pk": 79
+},
+{
+  "fields": {
+    "project": 138,
+    "person": 136,
+    "role": "manager"
+  },
+  "model": "hwdoc.role",
+  "pk": 80
+},
+{
+  "fields": {
+    "project": 140,
+    "person": 140,
+    "role": "manager"
+  },
+  "model": "hwdoc.role",
+  "pk": 81
+},
+{
+  "fields": {
+    "project": 122,
+    "person": 135,
+    "role": "manager"
+  },
+  "model": "hwdoc.role",
+  "pk": 82
+},
+{
+  "fields": {
+    "project": 124,
+    "person": 130,
+    "role": "manager"
+  },
+  "model": "hwdoc.role",
+  "pk": 83
+},
+{
+  "fields": {
+    "project": 125,
+    "person": 140,
+    "role": "manager"
+  },
+  "model": "hwdoc.role",
+  "pk": 84
+},
+{
+  "fields": {
+    "project": 126,
+    "person": 121,
+    "role": "manager"
+  },
+  "model": "hwdoc.role",
+  "pk": 85
+},
+{
+  "fields": {
+    "project": 127,
+    "person": 125,
+    "role": "manager"
+  },
+  "model": "hwdoc.role",
+  "pk": 86
+},
+{
+  "fields": {
+    "name": "Pt5o651"
+  },
+  "model": "hwdoc.datacenter",
+  "pk": 31
+},
+{
+  "fields": {
+    "name": "Zof48um6"
+  },
+  "model": "hwdoc.datacenter",
+  "pk": 32
+},
+{
+  "fields": {
+    "name": "Xyp85wkvka"
+  },
+  "model": "hwdoc.datacenter",
+  "pk": 33
+},
+{
+  "fields": {
+    "name": "Upyc153r"
+  },
+  "model": "hwdoc.datacenter",
+  "pk": 34
+},
+{
+  "fields": {
+    "name": "X3suf4z"
+  },
+  "model": "hwdoc.datacenter",
+  "pk": 35
+},
+{
+  "fields": {
+    "name": "Fujitsu"
+  },
+  "model": "hwdoc.vendor",
+  "pk": 31
+},
+{
+  "fields": {
+    "name": "HP"
+  },
+  "model": "hwdoc.vendor",
+  "pk": 32
+},
+{
+  "fields": {
+    "name": "Dell"
+  },
+  "model": "hwdoc.vendor",
+  "pk": 33
+},
+{
+  "fields": {
+    "name": "IBM"
+  },
+  "model": "hwdoc.vendor",
+  "pk": 34
+},
+{
+  "fields": {
+    "name": "Huawei"
+  },
+  "model": "hwdoc.vendor",
+  "pk": 35
+},
+{
+  "fields": {
+    "min_mounting_depth": 40,
+    "vendor": 35,
+    "name": "bzweee",
+    "inrow_ac": false,
+    "height": 40,
+    "width": 50,
+    "max_mounting_depth": 50
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 121
+},
+{
+  "fields": {
+    "min_mounting_depth": 20,
+    "vendor": 33,
+    "name": "9tscv25",
+    "inrow_ac": true,
+    "height": 30,
+    "width": 50,
+    "max_mounting_depth": 40
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 122
+},
+{
+  "fields": {
+    "min_mounting_depth": 40,
+    "vendor": 33,
+    "name": "fvd6zefcox",
+    "inrow_ac": true,
+    "height": 40,
+    "width": 40,
+    "max_mounting_depth": 60
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 123
+},
+{
+  "fields": {
+    "min_mounting_depth": 20,
+    "vendor": 35,
+    "name": "huo4i5",
+    "inrow_ac": false,
+    "height": 40,
+    "width": 60,
+    "max_mounting_depth": 50
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 124
+},
+{
+  "fields": {
+    "min_mounting_depth": 35,
+    "vendor": 32,
+    "name": "mgobmcp",
+    "inrow_ac": false,
+    "height": 50,
+    "width": 60,
+    "max_mounting_depth": 60
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 125
+},
+{
+  "fields": {
+    "min_mounting_depth": 25,
+    "vendor": 32,
+    "name": "7d3c7d97y",
+    "inrow_ac": false,
+    "height": 52,
+    "width": 50,
+    "max_mounting_depth": 40
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 126
+},
+{
+  "fields": {
+    "min_mounting_depth": 20,
+    "vendor": 33,
+    "name": "f0t78mp",
+    "inrow_ac": false,
+    "height": 52,
+    "width": 40,
+    "max_mounting_depth": 60
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 127
+},
+{
+  "fields": {
+    "min_mounting_depth": 35,
+    "vendor": 32,
+    "name": "i4gmag1",
+    "inrow_ac": false,
+    "height": 42,
+    "width": 50,
+    "max_mounting_depth": 40
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 128
+},
+{
+  "fields": {
+    "min_mounting_depth": 35,
+    "vendor": 35,
+    "name": "r4clwj",
+    "inrow_ac": true,
+    "height": 30,
+    "width": 60,
+    "max_mounting_depth": 40
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 129
+},
+{
+  "fields": {
+    "min_mounting_depth": 40,
+    "vendor": 33,
+    "name": "v3m1w58mvu",
+    "inrow_ac": false,
+    "height": 30,
+    "width": 50,
+    "max_mounting_depth": 60
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 130
+},
+{
+  "fields": {
+    "min_mounting_depth": 40,
+    "vendor": 33,
+    "name": "xdku69ahhm",
+    "inrow_ac": true,
+    "height": 52,
+    "width": 40,
+    "max_mounting_depth": 40
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 131
+},
+{
+  "fields": {
+    "min_mounting_depth": 40,
+    "vendor": 32,
+    "name": "d7ho9c",
+    "inrow_ac": false,
+    "height": 52,
+    "width": 40,
+    "max_mounting_depth": 60
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 132
+},
+{
+  "fields": {
+    "min_mounting_depth": 25,
+    "vendor": 33,
+    "name": "7abo3me",
+    "inrow_ac": false,
+    "height": 50,
+    "width": 60,
+    "max_mounting_depth": 40
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 133
+},
+{
+  "fields": {
+    "min_mounting_depth": 35,
+    "vendor": 34,
+    "name": "abizfz4",
+    "inrow_ac": false,
+    "height": 50,
+    "width": 50,
+    "max_mounting_depth": 60
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 134
+},
+{
+  "fields": {
+    "min_mounting_depth": 35,
+    "vendor": 33,
+    "name": "axgcky7",
+    "inrow_ac": false,
+    "height": 42,
+    "width": 40,
+    "max_mounting_depth": 40
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 135
+},
+{
+  "fields": {
+    "min_mounting_depth": 40,
+    "vendor": 32,
+    "name": "g9j73xa",
+    "inrow_ac": false,
+    "height": 42,
+    "width": 60,
+    "max_mounting_depth": 60
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 136
+},
+{
+  "fields": {
+    "min_mounting_depth": 40,
+    "vendor": 34,
+    "name": "fpcxnxz71",
+    "inrow_ac": false,
+    "height": 50,
+    "width": 60,
+    "max_mounting_depth": 60
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 137
+},
+{
+  "fields": {
+    "min_mounting_depth": 35,
+    "vendor": 33,
+    "name": "ilwrd3mw",
+    "inrow_ac": false,
+    "height": 30,
+    "width": 50,
+    "max_mounting_depth": 50
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 138
+},
+{
+  "fields": {
+    "min_mounting_depth": 40,
+    "vendor": 32,
+    "name": "cs7mi2",
+    "inrow_ac": false,
+    "height": 40,
+    "width": 60,
+    "max_mounting_depth": 50
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 139
+},
+{
+  "fields": {
+    "min_mounting_depth": 40,
+    "vendor": 34,
+    "name": "chxnr8",
+    "inrow_ac": false,
+    "height": 50,
+    "width": 50,
+    "max_mounting_depth": 40
+  },
+  "model": "hwdoc.rackmodel",
+  "pk": 140
+},
+{
+  "fields": {
+    "model": 135,
+    "name": "8VLOX",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 481
+},
+{
+  "fields": {
+    "model": 127,
+    "name": "KDU0QTU",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 482
+},
+{
+  "fields": {
+    "model": 136,
+    "name": "CB4U1",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 483
+},
+{
+  "fields": {
+    "model": 131,
+    "name": "7JSU33Q",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 484
+},
+{
+  "fields": {
+    "model": 136,
+    "name": "8KQVSO",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 485
+},
+{
+  "fields": {
+    "model": 128,
+    "name": "JRPGL8BZ",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 486
+},
+{
+  "fields": {
+    "model": 137,
+    "name": "FC8MAJ",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 487
+},
+{
+  "fields": {
+    "model": 128,
+    "name": "4S89G",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 488
+},
+{
+  "fields": {
+    "model": 132,
+    "name": "I3GZ",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 489
+},
+{
+  "fields": {
+    "model": 122,
+    "name": "TOVFTAXE",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 490
+},
+{
+  "fields": {
+    "model": 125,
+    "name": "W7YOW",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 491
+},
+{
+  "fields": {
+    "model": 126,
+    "name": "GNBKL2OR",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 492
+},
+{
+  "fields": {
+    "model": 133,
+    "name": "68EN",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 493
+},
+{
+  "fields": {
+    "model": 124,
+    "name": "I8E69EI",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 494
+},
+{
+  "fields": {
+    "model": 140,
+    "name": "WJIT6XWU",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 495
+},
+{
+  "fields": {
+    "model": 129,
+    "name": "RO1VN",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 496
+},
+{
+  "fields": {
+    "model": 129,
+    "name": "IUH2",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 497
+},
+{
+  "fields": {
+    "model": 132,
+    "name": "AW7Q0631",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 498
+},
+{
+  "fields": {
+    "model": 121,
+    "name": "GCCE",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 499
+},
+{
+  "fields": {
+    "model": 128,
+    "name": "ILM5CS",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 500
+},
+{
+  "fields": {
+    "model": 136,
+    "name": "NM81O",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 501
+},
+{
+  "fields": {
+    "model": 123,
+    "name": "SFKGK9",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 502
+},
+{
+  "fields": {
+    "model": 132,
+    "name": "NKXI5",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 503
+},
+{
+  "fields": {
+    "model": 130,
+    "name": "Z679I5",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 504
+},
+{
+  "fields": {
+    "model": 121,
+    "name": "4WS7PU7",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 505
+},
+{
+  "fields": {
+    "model": 138,
+    "name": "BCEV909K",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 506
+},
+{
+  "fields": {
+    "model": 126,
+    "name": "T6DII",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 507
+},
+{
+  "fields": {
+    "model": 130,
+    "name": "NMC71",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 508
+},
+{
+  "fields": {
+    "model": 129,
+    "name": "1UKVUHN",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 509
+},
+{
+  "fields": {
+    "model": 126,
+    "name": "XZKYBHO",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 510
+},
+{
+  "fields": {
+    "model": 137,
+    "name": "CQN6EFCC",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 511
+},
+{
+  "fields": {
+    "model": 130,
+    "name": "LD0NB",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 512
+},
+{
+  "fields": {
+    "model": 135,
+    "name": "2WLBR65",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 513
+},
+{
+  "fields": {
+    "model": 134,
+    "name": "VFS2",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 514
+},
+{
+  "fields": {
+    "model": 138,
+    "name": "3UDAP",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 515
+},
+{
+  "fields": {
+    "model": 134,
+    "name": "V4QM59M",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 516
+},
+{
+  "fields": {
+    "model": 123,
+    "name": "TS9WQ",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 517
+},
+{
+  "fields": {
+    "model": 137,
+    "name": "WC9G30",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 518
+},
+{
+  "fields": {
+    "model": 139,
+    "name": "8QWGBK",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 519
+},
+{
+  "fields": {
+    "model": 139,
+    "name": "P5WHZ",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 520
+},
+{
+  "fields": {
+    "model": 136,
+    "name": "TSE5R",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 521
+},
+{
+  "fields": {
+    "model": 134,
+    "name": "JG0K",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 522
+},
+{
+  "fields": {
+    "model": 125,
+    "name": "O0DKYQ",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 523
+},
+{
+  "fields": {
+    "model": 132,
+    "name": "04RE",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 524
+},
+{
+  "fields": {
+    "model": 134,
+    "name": "484PD",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 525
+},
+{
+  "fields": {
+    "model": 137,
+    "name": "1Y3LL",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 526
+},
+{
+  "fields": {
+    "model": 140,
+    "name": "6WJZ81G",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 527
+},
+{
+  "fields": {
+    "model": 136,
+    "name": "ZSDMZ",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 528
+},
+{
+  "fields": {
+    "model": 137,
+    "name": "JJEQ",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 529
+},
+{
+  "fields": {
+    "model": 121,
+    "name": "J7CKD",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 530
+},
+{
+  "fields": {
+    "model": 128,
+    "name": "T81E36",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 531
+},
+{
+  "fields": {
+    "model": 128,
+    "name": "Q66S",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 532
+},
+{
+  "fields": {
+    "model": 136,
+    "name": "QNIJGNIW",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 533
+},
+{
+  "fields": {
+    "model": 134,
+    "name": "1VJWT",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 534
+},
+{
+  "fields": {
+    "model": 124,
+    "name": "3DZGXBFF",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 535
+},
+{
+  "fields": {
+    "model": 121,
+    "name": "8T2S",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 536
+},
+{
+  "fields": {
+    "model": 131,
+    "name": "5WWT57",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 537
+},
+{
+  "fields": {
+    "model": 134,
+    "name": "18V8I1TR",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 538
+},
+{
+  "fields": {
+    "model": 130,
+    "name": "0WAYHR90",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 539
+},
+{
+  "fields": {
+    "model": 132,
+    "name": "ZXVAJT7",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 540
+},
+{
+  "fields": {
+    "model": 140,
+    "name": "DNDHD",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 541
+},
+{
+  "fields": {
+    "model": 138,
+    "name": "VAHD4MI",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 542
+},
+{
+  "fields": {
+    "model": 134,
+    "name": "8UL2Y",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 543
+},
+{
+  "fields": {
+    "model": 130,
+    "name": "1EO7U7WB",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 544
+},
+{
+  "fields": {
+    "model": 130,
+    "name": "X4TSAAD",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 545
+},
+{
+  "fields": {
+    "model": 137,
+    "name": "140XG",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 546
+},
+{
+  "fields": {
+    "model": 135,
+    "name": "L877FD",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 547
+},
+{
+  "fields": {
+    "model": 127,
+    "name": "VLV2KCXB",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 548
+},
+{
+  "fields": {
+    "model": 138,
+    "name": "O6TMLOM",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 549
+},
+{
+  "fields": {
+    "model": 124,
+    "name": "MAS64",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 550
+},
+{
+  "fields": {
+    "model": 126,
+    "name": "RAEDB6",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 551
+},
+{
+  "fields": {
+    "model": 136,
+    "name": "HFG7",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 552
+},
+{
+  "fields": {
+    "model": 122,
+    "name": "FUPFEE3X",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 553
+},
+{
+  "fields": {
+    "model": 127,
+    "name": "4GFNC",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 554
+},
+{
+  "fields": {
+    "model": 129,
+    "name": "CUYC56O",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 555
+},
+{
+  "fields": {
+    "model": 134,
+    "name": "70RWJZ",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 556
+},
+{
+  "fields": {
+    "model": 121,
+    "name": "DY8B",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 557
+},
+{
+  "fields": {
+    "model": 121,
+    "name": "ATA88MAM",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 558
+},
+{
+  "fields": {
+    "model": 129,
+    "name": "JURDZM",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 559
+},
+{
+  "fields": {
+    "model": 138,
+    "name": "7VJX13ZZ",
+    "mounted_depth": 60
+  },
+  "model": "hwdoc.rack",
+  "pk": 560
+},
+{
+  "fields": {
+    "name": "JITGEEJMB",
+    "dc": 31
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 121
+},
+{
+  "fields": {
+    "name": "H544V38CIS",
+    "dc": 32
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 122
+},
+{
+  "fields": {
+    "name": "KUQUN7M",
+    "dc": 32
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 123
+},
+{
+  "fields": {
+    "name": "J6NX3T3XY",
+    "dc": 34
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 124
+},
+{
+  "fields": {
+    "name": "9SOWV1",
+    "dc": 33
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 125
+},
+{
+  "fields": {
+    "name": "0T7MRCS6",
+    "dc": 33
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 126
+},
+{
+  "fields": {
+    "name": "AW20U8T",
+    "dc": 32
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 127
+},
+{
+  "fields": {
+    "name": "XZOFIGBU",
+    "dc": 34
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 128
+},
+{
+  "fields": {
+    "name": "CXQMDYN",
+    "dc": 34
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 129
+},
+{
+  "fields": {
+    "name": "WGL3VXB52",
+    "dc": 32
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 130
+},
+{
+  "fields": {
+    "name": "I08AG6R",
+    "dc": 31
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 131
+},
+{
+  "fields": {
+    "name": "YW2RBH4KJ",
+    "dc": 33
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 132
+},
+{
+  "fields": {
+    "name": "4OBCN2ZL7",
+    "dc": 31
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 133
+},
+{
+  "fields": {
+    "name": "SFBPJH",
+    "dc": 35
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 134
+},
+{
+  "fields": {
+    "name": "RFH7L4DUM",
+    "dc": 35
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 135
+},
+{
+  "fields": {
+    "name": "QS6N47XIS",
+    "dc": 31
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 136
+},
+{
+  "fields": {
+    "name": "DE5FPH",
+    "dc": 32
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 137
+},
+{
+  "fields": {
+    "name": "2XDI0UCDWR",
+    "dc": 32
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 138
+},
+{
+  "fields": {
+    "name": "WJV0AU3",
+    "dc": 33
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 139
+},
+{
+  "fields": {
+    "name": "LUARXHHO",
+    "dc": 31
+  },
+  "model": "hwdoc.rackrow",
+  "pk": 140
+},
+{
+  "fields": {
+    "position": 1,
+    "rack": 481,
+    "rr": 133
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 481
+},
+{
+  "fields": {
+    "position": 7,
+    "rack": 482,
+    "rr": 132
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 482
+},
+{
+  "fields": {
+    "position": 8,
+    "rack": 483,
+    "rr": 123
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 483
+},
+{
+  "fields": {
+    "position": 0,
+    "rack": 484,
+    "rr": 124
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 484
+},
+{
+  "fields": {
+    "position": 4,
+    "rack": 485,
+    "rr": 139
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 485
+},
+{
+  "fields": {
+    "position": 3,
+    "rack": 486,
+    "rr": 140
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 486
+},
+{
+  "fields": {
+    "position": 8,
+    "rack": 487,
+    "rr": 138
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 487
+},
+{
+  "fields": {
+    "position": 3,
+    "rack": 488,
+    "rr": 133
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 488
+},
+{
+  "fields": {
+    "position": 6,
+    "rack": 489,
+    "rr": 137
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 489
+},
+{
+  "fields": {
+    "position": 4,
+    "rack": 490,
+    "rr": 132
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 490
+},
+{
+  "fields": {
+    "position": 6,
+    "rack": 491,
+    "rr": 136
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 491
+},
+{
+  "fields": {
+    "position": 1,
+    "rack": 492,
+    "rr": 135
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 492
+},
+{
+  "fields": {
+    "position": 7,
+    "rack": 493,
+    "rr": 121
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 493
+},
+{
+  "fields": {
+    "position": 2,
+    "rack": 494,
+    "rr": 132
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 494
+},
+{
+  "fields": {
+    "position": 3,
+    "rack": 495,
+    "rr": 132
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 495
+},
+{
+  "fields": {
+    "position": 2,
+    "rack": 496,
+    "rr": 139
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 496
+},
+{
+  "fields": {
+    "position": 4,
+    "rack": 497,
+    "rr": 135
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 497
+},
+{
+  "fields": {
+    "position": 0,
+    "rack": 498,
+    "rr": 131
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 498
+},
+{
+  "fields": {
+    "position": 0,
+    "rack": 499,
+    "rr": 129
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 499
+},
+{
+  "fields": {
+    "position": 4,
+    "rack": 500,
+    "rr": 121
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 500
+},
+{
+  "fields": {
+    "position": 4,
+    "rack": 501,
+    "rr": 129
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 501
+},
+{
+  "fields": {
+    "position": 1,
+    "rack": 502,
+    "rr": 124
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 502
+},
+{
+  "fields": {
+    "position": 4,
+    "rack": 503,
+    "rr": 137
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 503
+},
+{
+  "fields": {
+    "position": 4,
+    "rack": 504,
+    "rr": 123
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 504
+},
+{
+  "fields": {
+    "position": 4,
+    "rack": 505,
+    "rr": 135
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 505
+},
+{
+  "fields": {
+    "position": 0,
+    "rack": 506,
+    "rr": 140
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 506
+},
+{
+  "fields": {
+    "position": 7,
+    "rack": 507,
+    "rr": 121
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 507
+},
+{
+  "fields": {
+    "position": 6,
+    "rack": 508,
+    "rr": 123
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 508
+},
+{
+  "fields": {
+    "position": 2,
+    "rack": 509,
+    "rr": 140
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 509
+},
+{
+  "fields": {
+    "position": 6,
+    "rack": 510,
+    "rr": 133
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 510
+},
+{
+  "fields": {
+    "position": 1,
+    "rack": 511,
+    "rr": 136
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 511
+},
+{
+  "fields": {
+    "position": 6,
+    "rack": 512,
+    "rr": 139
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 512
+},
+{
+  "fields": {
+    "position": 3,
+    "rack": 513,
+    "rr": 138
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 513
+},
+{
+  "fields": {
+    "position": 3,
+    "rack": 514,
+    "rr": 126
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 514
+},
+{
+  "fields": {
+    "position": 4,
+    "rack": 515,
+    "rr": 122
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 515
+},
+{
+  "fields": {
+    "position": 1,
+    "rack": 516,
+    "rr": 136
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 516
+},
+{
+  "fields": {
+    "position": 7,
+    "rack": 517,
+    "rr": 131
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 517
+},
+{
+  "fields": {
+    "position": 7,
+    "rack": 518,
+    "rr": 134
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 518
+},
+{
+  "fields": {
+    "position": 2,
+    "rack": 519,
+    "rr": 126
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 519
+},
+{
+  "fields": {
+    "position": 1,
+    "rack": 520,
+    "rr": 135
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 520
+},
+{
+  "fields": {
+    "position": 6,
+    "rack": 521,
+    "rr": 130
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 521
+},
+{
+  "fields": {
+    "position": 4,
+    "rack": 522,
+    "rr": 132
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 522
+},
+{
+  "fields": {
+    "position": 4,
+    "rack": 523,
+    "rr": 140
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 523
+},
+{
+  "fields": {
+    "position": 3,
+    "rack": 524,
+    "rr": 123
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 524
+},
+{
+  "fields": {
+    "position": 2,
+    "rack": 525,
+    "rr": 137
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 525
+},
+{
+  "fields": {
+    "position": 3,
+    "rack": 526,
+    "rr": 136
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 526
+},
+{
+  "fields": {
+    "position": 8,
+    "rack": 527,
+    "rr": 139
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 527
+},
+{
+  "fields": {
+    "position": 7,
+    "rack": 528,
+    "rr": 130
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 528
+},
+{
+  "fields": {
+    "position": 8,
+    "rack": 529,
+    "rr": 130
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 529
+},
+{
+  "fields": {
+    "position": 8,
+    "rack": 530,
+    "rr": 139
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 530
+},
+{
+  "fields": {
+    "position": 6,
+    "rack": 531,
+    "rr": 126
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 531
+},
+{
+  "fields": {
+    "position": 5,
+    "rack": 532,
+    "rr": 121
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 532
+},
+{
+  "fields": {
+    "position": 4,
+    "rack": 533,
+    "rr": 123
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 533
+},
+{
+  "fields": {
+    "position": 0,
+    "rack": 534,
+    "rr": 121
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 534
+},
+{
+  "fields": {
+    "position": 4,
+    "rack": 535,
+    "rr": 127
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 535
+},
+{
+  "fields": {
+    "position": 4,
+    "rack": 536,
+    "rr": 129
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 536
+},
+{
+  "fields": {
+    "position": 8,
+    "rack": 537,
+    "rr": 140
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 537
+},
+{
+  "fields": {
+    "position": 6,
+    "rack": 538,
+    "rr": 139
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 538
+},
+{
+  "fields": {
+    "position": 7,
+    "rack": 539,
+    "rr": 127
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 539
+},
+{
+  "fields": {
+    "position": 8,
+    "rack": 540,
+    "rr": 125
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 540
+},
+{
+  "fields": {
+    "position": 2,
+    "rack": 541,
+    "rr": 129
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 541
+},
+{
+  "fields": {
+    "position": 5,
+    "rack": 542,
+    "rr": 139
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 542
+},
+{
+  "fields": {
+    "position": 0,
+    "rack": 543,
+    "rr": 123
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 543
+},
+{
+  "fields": {
+    "position": 1,
+    "rack": 544,
+    "rr": 128
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 544
+},
+{
+  "fields": {
+    "position": 4,
+    "rack": 545,
+    "rr": 136
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 545
+},
+{
+  "fields": {
+    "position": 2,
+    "rack": 546,
+    "rr": 139
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 546
+},
+{
+  "fields": {
+    "position": 2,
+    "rack": 547,
+    "rr": 121
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 547
+},
+{
+  "fields": {
+    "position": 4,
+    "rack": 548,
+    "rr": 127
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 548
+},
+{
+  "fields": {
+    "position": 8,
+    "rack": 549,
+    "rr": 133
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 549
+},
+{
+  "fields": {
+    "position": 6,
+    "rack": 550,
+    "rr": 122
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 550
+},
+{
+  "fields": {
+    "position": 2,
+    "rack": 551,
+    "rr": 130
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 551
+},
+{
+  "fields": {
+    "position": 1,
+    "rack": 552,
+    "rr": 137
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 552
+},
+{
+  "fields": {
+    "position": 3,
+    "rack": 553,
+    "rr": 129
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 553
+},
+{
+  "fields": {
+    "position": 0,
+    "rack": 554,
+    "rr": 133
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 554
+},
+{
+  "fields": {
+    "position": 3,
+    "rack": 555,
+    "rr": 124
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 555
+},
+{
+  "fields": {
+    "position": 5,
+    "rack": 556,
+    "rr": 124
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 556
+},
+{
+  "fields": {
+    "position": 7,
+    "rack": 557,
+    "rr": 128
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 557
+},
+{
+  "fields": {
+    "position": 7,
+    "rack": 558,
+    "rr": 136
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 558
+},
+{
+  "fields": {
+    "position": 5,
+    "rack": 559,
+    "rr": 133
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 559
+},
+{
+  "fields": {
+    "position": 5,
+    "rack": 560,
+    "rr": 131
+  },
+  "model": "hwdoc.rackposition",
+  "pk": 560
+},
+{
+  "fields": {
+    "u": 8,
+    "vendor": 35,
+    "name": "Proliant DL380"
+  },
+  "model": "hwdoc.equipmentmodel",
+  "pk": 91
+},
+{
+  "fields": {
+    "u": 4,
+    "vendor": 31,
+    "name": "Proliant DL380"
+  },
+  "model": "hwdoc.equipmentmodel",
+  "pk": 92
+},
+{
+  "fields": {
+    "u": 1,
+    "vendor": 34,
+    "name": "Someother"
+  },
+  "model": "hwdoc.equipmentmodel",
+  "pk": 93
+},
+{
+  "fields": {
+    "u": 5,
+    "vendor": 35,
+    "name": "Someother"
+  },
+  "model": "hwdoc.equipmentmodel",
+  "pk": 94
+},
+{
+  "fields": {
+    "u": 6,
+    "vendor": 32,
+    "name": "Someother"
+  },
+  "model": "hwdoc.equipmentmodel",
+  "pk": 95
+},
+{
+  "fields": {
+    "u": 8,
+    "vendor": 31,
+    "name": "Someother"
+  },
+  "model": "hwdoc.equipmentmodel",
+  "pk": 96
+},
+{
+  "fields": {
+    "u": 5,
+    "vendor": 33,
+    "name": "PowerEdge 1950"
+  },
+  "model": "hwdoc.equipmentmodel",
+  "pk": 97
+},
+{
+  "fields": {
+    "u": 8,
+    "vendor": 34,
+    "name": "Proliant DL380"
+  },
+  "model": "hwdoc.equipmentmodel",
+  "pk": 98
+},
+{
+  "fields": {
+    "u": 8,
+    "vendor": 32,
+    "name": "Proliant DL380"
+  },
+  "model": "hwdoc.equipmentmodel",
+  "pk": 99
+},
+{
+  "fields": {
+    "u": 6,
+    "vendor": 32,
+    "name": "PowerEdge 1950"
+  },
+  "model": "hwdoc.equipmentmodel",
+  "pk": 100
+},
+{
+  "fields": {
+    "u": 1,
+    "vendor": 31,
+    "name": "PowerEdge 1950"
+  },
+  "model": "hwdoc.equipmentmodel",
+  "pk": 101
+},
+{
+  "fields": {
+    "u": 10,
+    "vendor": 34,
+    "name": "PowerEdge 1950"
+  },
+  "model": "hwdoc.equipmentmodel",
+  "pk": 102
+},
+{
+  "fields": {
+    "u": 4,
+    "vendor": 33,
+    "name": "Someother"
+  },
+  "model": "hwdoc.equipmentmodel",
+  "pk": 103
+},
+{
+  "fields": {
+    "u": 1,
+    "vendor": 33,
+    "name": "Proliant DL380"
+  },
+  "model": "hwdoc.equipmentmodel",
+  "pk": 104
+},
+{
+  "fields": {
+    "u": 3,
+    "vendor": 35,
+    "name": "PowerEdge 1950"
+  },
+  "model": "hwdoc.equipmentmodel",
+  "pk": 105
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.860Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 549,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.860Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 96,
+    "serial": "0BLHI3KH",
+    "unit": 3
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1201
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.860Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 556,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.860Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 96,
+    "serial": "B7NPARH0",
+    "unit": 6
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1202
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.860Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 519,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.860Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 99,
+    "serial": "M4O7VU1NX3YFWO",
+    "unit": 12
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1203
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.860Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 551,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.860Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 97,
+    "serial": "F01HPA",
+    "unit": 24
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1204
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.861Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 527,
+    "allocation": 127,
+    "added": "2015-06-15T17:00:07.860Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 93,
+    "serial": "GM5E1E0M4",
+    "unit": 49
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1205
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.861Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 503,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.861Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 104,
+    "serial": "AESHFHVA1N12K",
+    "unit": 50
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1206
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.861Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 516,
+    "allocation": 129,
+    "added": "2015-06-15T17:00:07.861Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 103,
+    "serial": "OPHRX2MW07",
+    "unit": 22
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1207
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.861Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 481,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.861Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 101,
+    "serial": "J74V1L61FBLD",
+    "unit": 25
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1208
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.861Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 535,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.861Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 93,
+    "serial": "VHHH3G3OR3H",
+    "unit": 24
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1209
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.861Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 122,
+    "added": "2015-06-15T17:00:07.861Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 103,
+    "serial": "VHN97MIRQIBJAN",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1210
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.861Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 558,
+    "allocation": 135,
+    "added": "2015-06-15T17:00:07.861Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 96,
+    "serial": "TQTWD9",
+    "unit": 29
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1211
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.861Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 489,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.861Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 99,
+    "serial": "UP6ZHDWOOWK1F15",
+    "unit": 43
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1212
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.861Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 538,
+    "allocation": 124,
+    "added": "2015-06-15T17:00:07.861Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 104,
+    "serial": "4V7A240EMITUTN",
+    "unit": 34
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1213
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.861Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 536,
+    "allocation": 124,
+    "added": "2015-06-15T17:00:07.861Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 96,
+    "serial": "JU1VAKG38",
+    "unit": 16
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1214
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.861Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 519,
+    "allocation": 134,
+    "added": "2015-06-15T17:00:07.861Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 104,
+    "serial": "4V1CMREPJW2KMU",
+    "unit": 39
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1215
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.861Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 540,
+    "allocation": 128,
+    "added": "2015-06-15T17:00:07.861Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "KZZEO6Z2ZB6WAW",
+    "unit": 39
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1216
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.861Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 556,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.861Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 105,
+    "serial": "TNI7NX",
+    "unit": 34
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1217
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.861Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 510,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.861Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 101,
+    "serial": "TJJLSMJ933M",
+    "unit": 42
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1218
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.861Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 504,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.861Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 93,
+    "serial": "QUHRLO",
+    "unit": 29
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1219
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.861Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 536,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.861Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 101,
+    "serial": "2KK3KSF06DMCXPK",
+    "unit": 40
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1220
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.862Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 516,
+    "allocation": 124,
+    "added": "2015-06-15T17:00:07.862Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "E0NCUT8RMGARVEG",
+    "unit": 17
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1221
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.862Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 524,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.862Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 101,
+    "serial": "21MLCL",
+    "unit": 46
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1222
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.862Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 501,
+    "allocation": 124,
+    "added": "2015-06-15T17:00:07.862Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 95,
+    "serial": "WIGY0V3",
+    "unit": 16
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1223
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.862Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 535,
+    "allocation": 134,
+    "added": "2015-06-15T17:00:07.862Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 104,
+    "serial": "PIWE4OV8M",
+    "unit": 11
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1224
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.862Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 540,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.862Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "CCWXKI",
+    "unit": 26
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1225
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.862Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "Test comment",
+    "rack": 535,
+    "allocation": 128,
+    "added": "2015-06-15T17:00:07.862Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "OR2BTGQURSF99RU",
+    "unit": 2
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1226
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.862Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 132,
+    "added": "2015-06-15T17:00:07.862Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "63PZX1D4",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1227
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.862Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.862Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 102,
+    "serial": "ZPKXPEGLGFEH40",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1228
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.862Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 515,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.862Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "V45A10",
+    "unit": 10
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1229
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.862Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 495,
+    "allocation": 127,
+    "added": "2015-06-15T17:00:07.862Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 93,
+    "serial": "79YUTO0W4XYJVO",
+    "unit": 43
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1230
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.862Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.862Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "RB8WSNBTKQ1S60",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1231
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.862Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 138,
+    "added": "2015-06-15T17:00:07.862Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 99,
+    "serial": "GAM0JY4UFI",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1232
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.862Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 500,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.862Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 93,
+    "serial": "OSXU2765VF0",
+    "unit": 10
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1233
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.862Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 488,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.862Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 101,
+    "serial": "LPDZI4C9NEMTH",
+    "unit": 42
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1234
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.862Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "Test comment",
+    "rack": null,
+    "allocation": 125,
+    "added": "2015-06-15T17:00:07.862Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "HGVL4KH",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1235
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.863Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 483,
+    "allocation": 129,
+    "added": "2015-06-15T17:00:07.863Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 101,
+    "serial": "ZFMLLQEL21M",
+    "unit": 20
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1236
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.863Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 523,
+    "allocation": 137,
+    "added": "2015-06-15T17:00:07.863Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 100,
+    "serial": "UITPLDNEDSXN",
+    "unit": 15
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1237
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.863Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 516,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.863Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 96,
+    "serial": "YJ4W1YKXBM6",
+    "unit": 21
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1238
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.863Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 521,
+    "allocation": 137,
+    "added": "2015-06-15T17:00:07.863Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 102,
+    "serial": "OMO643",
+    "unit": 26
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1239
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.863Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 513,
+    "allocation": 138,
+    "added": "2015-06-15T17:00:07.863Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "UENJXYJZE6U6",
+    "unit": 17
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1240
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.863Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 530,
+    "allocation": 137,
+    "added": "2015-06-15T17:00:07.863Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 101,
+    "serial": "B11D7H553OE",
+    "unit": 1
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1241
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.863Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 505,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.863Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 104,
+    "serial": "QYEHIC",
+    "unit": 13
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1242
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.863Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 501,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.863Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 100,
+    "serial": "IW811C3",
+    "unit": 7
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1243
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.863Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 527,
+    "allocation": 133,
+    "added": "2015-06-15T17:00:07.863Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 101,
+    "serial": "H7JE78",
+    "unit": 19
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1244
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.863Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 524,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.863Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 96,
+    "serial": "LZF5PQXF866A",
+    "unit": 39
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1245
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.863Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 506,
+    "allocation": 138,
+    "added": "2015-06-15T17:00:07.863Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 96,
+    "serial": "9D6RGOUH902ECT",
+    "unit": 23
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1246
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.863Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 550,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.863Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 102,
+    "serial": "4ILG11",
+    "unit": 19
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1247
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.863Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 514,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.863Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 102,
+    "serial": "0N6KJJUVFE8",
+    "unit": 15
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1248
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.863Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 547,
+    "allocation": 133,
+    "added": "2015-06-15T17:00:07.863Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 102,
+    "serial": "UO4D1YE0ZM53N",
+    "unit": 12
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1249
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.863Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 507,
+    "allocation": 121,
+    "added": "2015-06-15T17:00:07.863Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "CQFAKOGKD8OIH8A",
+    "unit": 20
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1250
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.864Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 554,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.864Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 104,
+    "serial": "MK738YSI25F",
+    "unit": 44
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1251
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.864Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 540,
+    "allocation": 123,
+    "added": "2015-06-15T17:00:07.864Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 104,
+    "serial": "1E6BFIGDLV0V",
+    "unit": 49
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1252
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.864Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.864Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 97,
+    "serial": "81N4KH",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1253
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.864Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 543,
+    "allocation": 122,
+    "added": "2015-06-15T17:00:07.864Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "99ELY1AX",
+    "unit": 22
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1254
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.864Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "Test comment",
+    "rack": 538,
+    "allocation": 136,
+    "added": "2015-06-15T17:00:07.864Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 101,
+    "serial": "NDWC9WHUUQW",
+    "unit": 27
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1255
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.864Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 516,
+    "allocation": 138,
+    "added": "2015-06-15T17:00:07.864Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "7RK43UBAJ8",
+    "unit": 25
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1256
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.864Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.864Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 99,
+    "serial": "ETD1V9ZRM34Q",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1257
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.864Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 515,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.864Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 101,
+    "serial": "YEBRQHK2ZT",
+    "unit": 6
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1258
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.864Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 494,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.864Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 103,
+    "serial": "GO5HPO",
+    "unit": 24
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1259
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.864Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "Test comment",
+    "rack": 538,
+    "allocation": 128,
+    "added": "2015-06-15T17:00:07.864Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 93,
+    "serial": "K60L56JM91LN",
+    "unit": 25
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1260
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.864Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 518,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.864Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 97,
+    "serial": "LAL6FCMX",
+    "unit": 17
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1261
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.864Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 514,
+    "allocation": 130,
+    "added": "2015-06-15T17:00:07.864Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 105,
+    "serial": "CJIQF09AL",
+    "unit": 27
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1262
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.864Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 507,
+    "allocation": 131,
+    "added": "2015-06-15T17:00:07.864Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 102,
+    "serial": "U7HRFJC",
+    "unit": 31
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1263
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.864Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 539,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.864Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 95,
+    "serial": "MP6Q9BNX036G3",
+    "unit": 16
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1264
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.864Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 521,
+    "allocation": 124,
+    "added": "2015-06-15T17:00:07.864Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 99,
+    "serial": "D6FLD8M4AZ",
+    "unit": 11
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1265
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.865Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 532,
+    "allocation": 130,
+    "added": "2015-06-15T17:00:07.865Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 96,
+    "serial": "JQ86L6P4O297",
+    "unit": 12
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1266
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.865Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 482,
+    "allocation": 127,
+    "added": "2015-06-15T17:00:07.865Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "RZ8G64TXY2GU",
+    "unit": 25
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1267
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.865Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 529,
+    "allocation": 122,
+    "added": "2015-06-15T17:00:07.865Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "1F557BM44X43C2X",
+    "unit": 35
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1268
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.865Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "Test comment",
+    "rack": 485,
+    "allocation": 140,
+    "added": "2015-06-15T17:00:07.865Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 102,
+    "serial": "MROX075SW243A9",
+    "unit": 21
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1269
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.865Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 137,
+    "added": "2015-06-15T17:00:07.865Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "0PT4QEV1",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1270
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.865Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 486,
+    "allocation": 139,
+    "added": "2015-06-15T17:00:07.865Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 101,
+    "serial": "XRJAH1",
+    "unit": 34
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1271
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.865Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 539,
+    "allocation": 132,
+    "added": "2015-06-15T17:00:07.865Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "DK21LH843FA",
+    "unit": 17
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1272
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.865Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 131,
+    "added": "2015-06-15T17:00:07.865Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "SRM5J5",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1273
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.865Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "Test comment",
+    "rack": null,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.865Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "OQOOF5H7LLPB0",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1274
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.865Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 546,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.865Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 95,
+    "serial": "MAG0BI",
+    "unit": 40
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1275
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.865Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "Test comment",
+    "rack": 515,
+    "allocation": 128,
+    "added": "2015-06-15T17:00:07.865Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 104,
+    "serial": "YI4RNGQP6J",
+    "unit": 2
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1276
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.869Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 550,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.869Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 105,
+    "serial": "ZEHNZCF5JKJCQ",
+    "unit": 15
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1277
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.869Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.869Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 98,
+    "serial": "9JPALT7",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1278
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.870Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 556,
+    "allocation": 136,
+    "added": "2015-06-15T17:00:07.870Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 98,
+    "serial": "H88LQ9K",
+    "unit": 6
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1279
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.870Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "Test comment",
+    "rack": null,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.870Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 92,
+    "serial": "DFU8DC6JZP6N",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1280
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.870Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "Test comment",
+    "rack": 550,
+    "allocation": 122,
+    "added": "2015-06-15T17:00:07.870Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "LXKJZGIYF",
+    "unit": 14
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1281
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.870Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 539,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.870Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 95,
+    "serial": "3FSYQ9BCS60",
+    "unit": 16
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1282
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.870Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 516,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.870Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "EHL3C61T",
+    "unit": 43
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1283
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.870Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 522,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.870Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 95,
+    "serial": "OEMHWX",
+    "unit": 6
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1284
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.870Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 522,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.870Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 98,
+    "serial": "OW0CGEQWUCS1",
+    "unit": 15
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1285
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.870Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 486,
+    "allocation": 125,
+    "added": "2015-06-15T17:00:07.870Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 105,
+    "serial": "BP7VV3Z",
+    "unit": 14
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1286
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.870Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 526,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.870Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 104,
+    "serial": "0FHSWDOQS",
+    "unit": 46
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1287
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.870Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 505,
+    "allocation": 125,
+    "added": "2015-06-15T17:00:07.870Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 102,
+    "serial": "7MRSZO505A3JY",
+    "unit": 9
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1288
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.870Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 140,
+    "added": "2015-06-15T17:00:07.870Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 99,
+    "serial": "E5PFBYSC",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1289
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.870Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 516,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.870Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 96,
+    "serial": "HDMTKC2F",
+    "unit": 13
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1290
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.870Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 503,
+    "allocation": 139,
+    "added": "2015-06-15T17:00:07.870Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 96,
+    "serial": "0RAA4F",
+    "unit": 4
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1291
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.870Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 528,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.870Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 99,
+    "serial": "JGGU8J35O5L4R",
+    "unit": 32
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1292
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.870Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 534,
+    "allocation": 131,
+    "added": "2015-06-15T17:00:07.870Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 93,
+    "serial": "KQ6OA9395I2RMG",
+    "unit": 49
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1293
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.871Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 140,
+    "added": "2015-06-15T17:00:07.871Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 98,
+    "serial": "KKFQIX",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1294
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.871Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 548,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.871Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "JYWOLJ54B",
+    "unit": 6
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1295
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.871Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 495,
+    "allocation": 133,
+    "added": "2015-06-15T17:00:07.871Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 105,
+    "serial": "PF7YC70T89",
+    "unit": 33
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1296
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.871Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 494,
+    "allocation": 130,
+    "added": "2015-06-15T17:00:07.871Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 97,
+    "serial": "Q0VT5Q17SFIV",
+    "unit": 29
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1297
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.871Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 541,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.871Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 97,
+    "serial": "LSF16QJJ33PSO9",
+    "unit": 19
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1298
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.871Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "Test comment",
+    "rack": 534,
+    "allocation": 132,
+    "added": "2015-06-15T17:00:07.871Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 97,
+    "serial": "2M5FJW0D2",
+    "unit": 21
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1299
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.871Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 536,
+    "allocation": 125,
+    "added": "2015-06-15T17:00:07.871Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "7DUU4KO5P",
+    "unit": 24
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1300
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.871Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 528,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.871Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 100,
+    "serial": "PTLS3VCSV7R7",
+    "unit": 9
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1301
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.871Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "Test comment",
+    "rack": null,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.871Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "9AOK7OIUUEF0FMT",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1302
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.871Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 534,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.871Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 105,
+    "serial": "IUPEHD8PTL",
+    "unit": 17
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1303
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.871Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 535,
+    "allocation": 134,
+    "added": "2015-06-15T17:00:07.871Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 93,
+    "serial": "BUUFDZ",
+    "unit": 18
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1304
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.871Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 507,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.871Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 99,
+    "serial": "KPPI12",
+    "unit": 25
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1305
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.871Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 125,
+    "added": "2015-06-15T17:00:07.871Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 97,
+    "serial": "6PX0TIDWT1",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1306
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.871Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 519,
+    "allocation": 130,
+    "added": "2015-06-15T17:00:07.871Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 104,
+    "serial": "RGKSBG7CJPQ",
+    "unit": 20
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1307
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.871Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 489,
+    "allocation": 126,
+    "added": "2015-06-15T17:00:07.871Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 93,
+    "serial": "MQZCUR21JE6",
+    "unit": 16
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1308
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.872Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 483,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.872Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 102,
+    "serial": "7GUI9EI3M",
+    "unit": 11
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1309
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.872Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 507,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.872Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "KO1FEK06XRA9G",
+    "unit": 27
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1310
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.872Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 136,
+    "added": "2015-06-15T17:00:07.872Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "79GZY7K8LBKHXKH",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1311
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.872Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 508,
+    "allocation": 138,
+    "added": "2015-06-15T17:00:07.872Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 105,
+    "serial": "RAWBTBXM2XDLWU",
+    "unit": 3
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1312
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.872Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 483,
+    "allocation": 138,
+    "added": "2015-06-15T17:00:07.872Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 92,
+    "serial": "LR3DLF",
+    "unit": 10
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1313
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.872Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 539,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.872Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 102,
+    "serial": "KEVFGE",
+    "unit": 17
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1314
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.872Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 536,
+    "allocation": 126,
+    "added": "2015-06-15T17:00:07.872Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 93,
+    "serial": "H7OMOOSV",
+    "unit": 39
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1315
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.872Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 503,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.872Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "JZ8CGQFCRCQ3SSR",
+    "unit": 30
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1316
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.872Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "Test comment",
+    "rack": 533,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.872Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 97,
+    "serial": "YX75BL",
+    "unit": 23
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1317
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.872Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 511,
+    "allocation": 136,
+    "added": "2015-06-15T17:00:07.872Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 104,
+    "serial": "V5MSNFN3OZEB",
+    "unit": 2
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1318
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.872Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 499,
+    "allocation": 131,
+    "added": "2015-06-15T17:00:07.872Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "E7ZC8TAM25K9WR",
+    "unit": 35
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1319
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.872Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 539,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.872Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 102,
+    "serial": "D2H0NOX",
+    "unit": 2
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1320
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.873Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 538,
+    "allocation": 126,
+    "added": "2015-06-15T17:00:07.873Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 92,
+    "serial": "RG88PGXP6SG4LF",
+    "unit": 28
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1321
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.873Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 529,
+    "allocation": 129,
+    "added": "2015-06-15T17:00:07.873Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 104,
+    "serial": "STVLROTSE3VDEG",
+    "unit": 33
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1322
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.873Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 506,
+    "allocation": 124,
+    "added": "2015-06-15T17:00:07.873Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 98,
+    "serial": "2N3QESQYFROWN6Y",
+    "unit": 12
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1323
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.873Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 515,
+    "allocation": 132,
+    "added": "2015-06-15T17:00:07.873Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 93,
+    "serial": "IFLPB0",
+    "unit": 2
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1324
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.873Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 546,
+    "allocation": 134,
+    "added": "2015-06-15T17:00:07.873Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "XHRM25U34L2L",
+    "unit": 34
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1325
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.873Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.873Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 102,
+    "serial": "NGDOMQIT",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1326
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.873Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "Test comment",
+    "rack": 533,
+    "allocation": 121,
+    "added": "2015-06-15T17:00:07.873Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "U43T89D8S",
+    "unit": 32
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1327
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.873Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 546,
+    "allocation": 136,
+    "added": "2015-06-15T17:00:07.873Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 95,
+    "serial": "YYBCXOLS0ME3JB",
+    "unit": 21
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1328
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.873Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 121,
+    "added": "2015-06-15T17:00:07.873Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 98,
+    "serial": "2PZKOF4A4IHXF",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1329
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.873Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 491,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.873Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 105,
+    "serial": "G0H49FU7",
+    "unit": 31
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1330
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.873Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "Test comment",
+    "rack": 500,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.873Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 104,
+    "serial": "UKZ0DVMZP8",
+    "unit": 38
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1331
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.873Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 526,
+    "allocation": 138,
+    "added": "2015-06-15T17:00:07.873Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 101,
+    "serial": "X4P1N3BNO",
+    "unit": 20
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1332
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.873Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 127,
+    "added": "2015-06-15T17:00:07.873Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 98,
+    "serial": "P1924I9V58",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1333
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.873Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 545,
+    "allocation": 123,
+    "added": "2015-06-15T17:00:07.873Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 97,
+    "serial": "DE5JPWXOW",
+    "unit": 15
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1334
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.873Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 546,
+    "allocation": 123,
+    "added": "2015-06-15T17:00:07.873Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 97,
+    "serial": "7K8T5D9TN",
+    "unit": 39
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1335
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.874Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 486,
+    "allocation": 140,
+    "added": "2015-06-15T17:00:07.874Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 105,
+    "serial": "19C89P6",
+    "unit": 12
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1336
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.874Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 514,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.874Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 96,
+    "serial": "PTEALZOXJ2EX",
+    "unit": 27
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1337
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.874Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "Test comment",
+    "rack": 495,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.874Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 104,
+    "serial": "BN3THTA",
+    "unit": 11
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1338
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.874Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 501,
+    "allocation": 130,
+    "added": "2015-06-15T17:00:07.874Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 98,
+    "serial": "C1RNB0YRSI92N",
+    "unit": 7
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1339
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.874Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 547,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.874Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 102,
+    "serial": "BERZUM2UXK",
+    "unit": 7
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1340
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.874Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 130,
+    "added": "2015-06-15T17:00:07.874Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "4SK1RAL5YW2SR5",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1341
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.874Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "Test comment",
+    "rack": 482,
+    "allocation": 123,
+    "added": "2015-06-15T17:00:07.874Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 101,
+    "serial": "PF8ZSKG364QF2KM",
+    "unit": 29
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1342
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.874Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 518,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.874Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 105,
+    "serial": "ZWKALR0UXVLXD4",
+    "unit": 8
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1343
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.874Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 126,
+    "added": "2015-06-15T17:00:07.874Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 96,
+    "serial": "AREGPQZZND66VE",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1344
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.874Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 495,
+    "allocation": 121,
+    "added": "2015-06-15T17:00:07.874Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 95,
+    "serial": "1H4VV8DI5C3G",
+    "unit": 38
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1345
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.874Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 513,
+    "allocation": 130,
+    "added": "2015-06-15T17:00:07.874Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 92,
+    "serial": "JBJFAQOXTMZM",
+    "unit": 32
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1346
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.874Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 533,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.874Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 92,
+    "serial": "URZ29DBV",
+    "unit": 12
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1347
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.874Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 135,
+    "added": "2015-06-15T17:00:07.874Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 96,
+    "serial": "W1AXL4OE3SP9GX",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1348
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.874Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 526,
+    "allocation": 123,
+    "added": "2015-06-15T17:00:07.874Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 103,
+    "serial": "P8JPL6OSV4VGI3",
+    "unit": 31
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1349
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.874Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.874Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 102,
+    "serial": "BXRU5JCU2T",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1350
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.875Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 548,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.875Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 102,
+    "serial": "4TK6R9W",
+    "unit": 32
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1351
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.875Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 541,
+    "allocation": 136,
+    "added": "2015-06-15T17:00:07.875Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 93,
+    "serial": "HQ8WDRN0H",
+    "unit": 28
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1352
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.878Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 544,
+    "allocation": 132,
+    "added": "2015-06-15T17:00:07.878Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 93,
+    "serial": "J1G050ABC68",
+    "unit": 30
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1353
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.878Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 540,
+    "allocation": 122,
+    "added": "2015-06-15T17:00:07.878Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 102,
+    "serial": "WEW05VLZCVS09IN",
+    "unit": 2
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1354
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.878Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 508,
+    "allocation": 122,
+    "added": "2015-06-15T17:00:07.878Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "CWOJOZ789WK",
+    "unit": 19
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1355
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.878Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 508,
+    "allocation": 136,
+    "added": "2015-06-15T17:00:07.878Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 100,
+    "serial": "SH1721TR4M9F",
+    "unit": 10
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1356
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.878Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 539,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.878Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 95,
+    "serial": "60AAHZ5",
+    "unit": 6
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1357
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.878Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 549,
+    "allocation": 126,
+    "added": "2015-06-15T17:00:07.878Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "UJX5F1O96Y9HW3",
+    "unit": 10
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1358
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.878Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 132,
+    "added": "2015-06-15T17:00:07.878Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 98,
+    "serial": "SNQLD1NEY3CY7O",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1359
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.878Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 536,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.878Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "5PDYY84ON",
+    "unit": 24
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1360
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.878Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 558,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.878Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 93,
+    "serial": "BX4PG3D6QPLWL",
+    "unit": 8
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1361
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.878Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 551,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.878Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 96,
+    "serial": "GKDIFCLOWLPCPX",
+    "unit": 29
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1362
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.878Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 510,
+    "allocation": 131,
+    "added": "2015-06-15T17:00:07.878Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 97,
+    "serial": "EH5PEPC",
+    "unit": 42
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1363
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.879Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.879Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 97,
+    "serial": "SC1NZLEVEWUNSFO",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1364
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.879Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 521,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.879Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 99,
+    "serial": "RHHVEAANNJ7LHA",
+    "unit": 17
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1365
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.879Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 506,
+    "allocation": 128,
+    "added": "2015-06-15T17:00:07.879Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 101,
+    "serial": "SZ8I53G",
+    "unit": 24
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1366
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.879Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 560,
+    "allocation": 139,
+    "added": "2015-06-15T17:00:07.879Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "D8DJPDZAD1DF5Z",
+    "unit": 22
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1367
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.879Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 546,
+    "allocation": 135,
+    "added": "2015-06-15T17:00:07.879Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 98,
+    "serial": "19NIHVNO0JTRGO6",
+    "unit": 30
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1368
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.879Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 126,
+    "added": "2015-06-15T17:00:07.879Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 97,
+    "serial": "MV9TEGLADZNWN5W",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1369
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.879Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 127,
+    "added": "2015-06-15T17:00:07.879Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "6RF075TD",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1370
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.879Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 518,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.879Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 99,
+    "serial": "1ZO1FXO0AQJ",
+    "unit": 15
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1371
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.879Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "Test comment",
+    "rack": 511,
+    "allocation": 133,
+    "added": "2015-06-15T17:00:07.879Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 101,
+    "serial": "5CYPYYAI2QPG1KH",
+    "unit": 1
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1372
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.879Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 523,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.879Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "69E14RWXK2HZJU",
+    "unit": 11
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1373
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.879Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 527,
+    "allocation": 134,
+    "added": "2015-06-15T17:00:07.879Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 105,
+    "serial": "BQ31LDPFVLWAE",
+    "unit": 4
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1374
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.879Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.879Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "NQNST9LD73RSL12",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1375
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.879Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 482,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.879Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 93,
+    "serial": "CDDREGYF4HO9G",
+    "unit": 35
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1376
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.879Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 557,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.879Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 101,
+    "serial": "SHSDL85JV951AFE",
+    "unit": 32
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1377
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.879Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "Test comment",
+    "rack": 512,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.879Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 101,
+    "serial": "N3XWC1HFF",
+    "unit": 28
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1378
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.880Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 515,
+    "allocation": 140,
+    "added": "2015-06-15T17:00:07.880Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 105,
+    "serial": "R68HGCRNA",
+    "unit": 25
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1379
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.880Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 510,
+    "allocation": 133,
+    "added": "2015-06-15T17:00:07.880Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 102,
+    "serial": "8P248871O9",
+    "unit": 35
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1380
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.880Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 139,
+    "added": "2015-06-15T17:00:07.880Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "QUYL1Y",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1381
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.880Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 530,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.880Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 91,
+    "serial": "98Q5J9B",
+    "unit": 12
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1382
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.880Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 136,
+    "added": "2015-06-15T17:00:07.880Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 103,
+    "serial": "9FE8KRQPFP",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1383
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.880Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 493,
+    "allocation": 140,
+    "added": "2015-06-15T17:00:07.880Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 105,
+    "serial": "1Z37BWBZ5E1LE0",
+    "unit": 9
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1384
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.880Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 506,
+    "allocation": 139,
+    "added": "2015-06-15T17:00:07.880Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 97,
+    "serial": "18KCIXFHBO",
+    "unit": 11
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1385
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.880Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 538,
+    "allocation": 136,
+    "added": "2015-06-15T17:00:07.880Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 99,
+    "serial": "XVBH9PPHZZ",
+    "unit": 42
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1386
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.880Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.880Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 92,
+    "serial": "8JJV14VRAPEX5",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1387
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.880Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 138,
+    "added": "2015-06-15T17:00:07.880Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 99,
+    "serial": "NCYGYSE2JB8",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1388
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.880Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 529,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.880Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 101,
+    "serial": "ZRXWUIZWBB",
+    "unit": 42
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1389
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.880Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "Test comment",
+    "rack": 534,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.880Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 93,
+    "serial": "I7UHNS69WRJ",
+    "unit": 28
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1390
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.880Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 481,
+    "allocation": 134,
+    "added": "2015-06-15T17:00:07.880Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 104,
+    "serial": "R4FFUSP7F",
+    "unit": 35
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1391
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.880Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 506,
+    "allocation": 132,
+    "added": "2015-06-15T17:00:07.880Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 105,
+    "serial": "JDQLTG2SQR7",
+    "unit": 18
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1392
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.881Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 133,
+    "added": "2015-06-15T17:00:07.881Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 99,
+    "serial": "2F3JB321",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1393
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.881Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 137,
+    "added": "2015-06-15T17:00:07.881Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 103,
+    "serial": "9XWASRUF",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1394
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.881Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": 133,
+    "added": "2015-06-15T17:00:07.881Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 94,
+    "serial": "JZZ4DH9U8QPH",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1395
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.881Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 538,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.881Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 93,
+    "serial": "6NXASDPF",
+    "unit": 35
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1396
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.881Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 556,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.881Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 98,
+    "serial": "JMKJR3",
+    "unit": 37
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1397
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.881Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 552,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.881Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 92,
+    "serial": "DUZPAHR0G0RF",
+    "unit": 15
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1398
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.881Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": 528,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.881Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 101,
+    "serial": "RU1P3RV",
+    "unit": 22
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1399
+},
+{
+  "fields": {
+    "updated": "2015-06-15T17:00:07.881Z",
+    "rack_front": true,
+    "orientation": "Front",
+    "comments": "",
+    "rack": null,
+    "allocation": null,
+    "added": "2015-06-15T17:00:07.881Z",
+    "rack_back": true,
+    "purpose": "",
+    "rack_interior": true,
+    "model": 102,
+    "serial": "0U9HAS5CY",
+    "unit": null
+  },
+  "model": "hwdoc.equipment",
+  "pk": 1400
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.920Z",
+    "added": "2015-06-15T17:00:07.920Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "ygz8mk1.example.com",
+    "equipment": 1397,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 2
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.920Z",
+    "added": "2015-06-15T17:00:07.920Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "z440plr.example.com",
+    "equipment": 1230,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 3
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.920Z",
+    "added": "2015-06-15T17:00:07.920Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "bjqicnmdlosbuw5r8.example.com",
+    "equipment": 1220,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 4
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.920Z",
+    "added": "2015-06-15T17:00:07.920Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "497v9d1dq0fvtjuni839.example.com",
+    "equipment": 1385,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 5
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.920Z",
+    "added": "2015-06-15T17:00:07.920Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "08356elmbtw7t2c.example.com",
+    "equipment": 1326,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 6
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.920Z",
+    "added": "2015-06-15T17:00:07.920Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "qhapl44nzsv8t.example.com",
+    "equipment": 1368,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 7
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.920Z",
+    "added": "2015-06-15T17:00:07.920Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "5wtghf9.example.com",
+    "equipment": 1387,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 8
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.920Z",
+    "added": "2015-06-15T17:00:07.920Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "b4i45u3y6cmhhwovuk0m.example.com",
+    "equipment": 1312,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 9
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.920Z",
+    "added": "2015-06-15T17:00:07.920Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "te75p8.example.com",
+    "equipment": 1376,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 10
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.920Z",
+    "added": "2015-06-15T17:00:07.920Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "1cwfij0ag2wo2shi23k.example.com",
+    "equipment": 1286,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 11
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.920Z",
+    "added": "2015-06-15T17:00:07.920Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "1ncg97d0z.example.com",
+    "equipment": 1297,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 12
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.920Z",
+    "added": "2015-06-15T17:00:07.920Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "smy89bjo1tu.example.com",
+    "equipment": 1267,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 13
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.920Z",
+    "added": "2015-06-15T17:00:07.920Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "5x9wb6vt.example.com",
+    "equipment": 1300,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 14
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.921Z",
+    "added": "2015-06-15T17:00:07.921Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "oyfeieolk.example.com",
+    "equipment": 1235,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 15
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.921Z",
+    "added": "2015-06-15T17:00:07.921Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "u526sx3qr.example.com",
+    "equipment": 1374,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 16
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.921Z",
+    "added": "2015-06-15T17:00:07.921Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "eb8lzak1ikn.example.com",
+    "equipment": 1342,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 17
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.921Z",
+    "added": "2015-06-15T17:00:07.921Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "oa3rzb07e918.example.com",
+    "equipment": 1321,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 18
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.921Z",
+    "added": "2015-06-15T17:00:07.921Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "khs4xgkz.example.com",
+    "equipment": 1255,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 19
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.921Z",
+    "added": "2015-06-15T17:00:07.921Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "6e0zx1ssheaj4yqxd.example.com",
+    "equipment": 1336,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 20
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.921Z",
+    "added": "2015-06-15T17:00:07.921Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "k7uri1qrsk3cklulm.example.com",
+    "equipment": 1291,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 21
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.921Z",
+    "added": "2015-06-15T17:00:07.921Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "gv5lr1aqvhcf7w.example.com",
+    "equipment": 1290,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 22
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.921Z",
+    "added": "2015-06-15T17:00:07.921Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "6apsbuz5a0fv.example.com",
+    "equipment": 1343,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 23
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.921Z",
+    "added": "2015-06-15T17:00:07.921Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "781cldl8.example.com",
+    "equipment": 1283,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 24
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.921Z",
+    "added": "2015-06-15T17:00:07.921Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "54emiuml6t4i.example.com",
+    "equipment": 1257,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 25
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.921Z",
+    "added": "2015-06-15T17:00:07.921Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "19f3ozma0nfb3ksjoil.example.com",
+    "equipment": 1400,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 26
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.921Z",
+    "added": "2015-06-15T17:00:07.921Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "ethtt1i5c.example.com",
+    "equipment": 1360,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 27
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.921Z",
+    "added": "2015-06-15T17:00:07.921Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "6ocn4ryoveccv.example.com",
+    "equipment": 1390,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 28
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.921Z",
+    "added": "2015-06-15T17:00:07.921Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "e4ubbkt4nl.example.com",
+    "equipment": 1386,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 29
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.921Z",
+    "added": "2015-06-15T17:00:07.921Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "pbwjb60ckgqrb.example.com",
+    "equipment": 1373,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 30
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.921Z",
+    "added": "2015-06-15T17:00:07.921Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "sh1kj0i8.example.com",
+    "equipment": 1377,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 31
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.921Z",
+    "added": "2015-06-15T17:00:07.921Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "xj32qy4scmr.example.com",
+    "equipment": 1356,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 32
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.921Z",
+    "added": "2015-06-15T17:00:07.921Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "a16ferbv8hew91nszgk5.example.com",
+    "equipment": 1205,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 33
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.922Z",
+    "added": "2015-06-15T17:00:07.922Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "hmsldjpuerd8.example.com",
+    "equipment": 1304,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 34
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.922Z",
+    "added": "2015-06-15T17:00:07.922Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "1gwbl25sc5gugg2zv.example.com",
+    "equipment": 1227,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 35
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.922Z",
+    "added": "2015-06-15T17:00:07.922Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "yrpjfc.example.com",
+    "equipment": 1340,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 36
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.922Z",
+    "added": "2015-06-15T17:00:07.922Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "bu3c0cakgbh6pl94v4r9.example.com",
+    "equipment": 1352,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 37
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.922Z",
+    "added": "2015-06-15T17:00:07.922Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "hlgwev68i7vy9m.example.com",
+    "equipment": 1250,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 38
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.922Z",
+    "added": "2015-06-15T17:00:07.922Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "58m2wvlvu7.example.com",
+    "equipment": 1218,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 39
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.922Z",
+    "added": "2015-06-15T17:00:07.922Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "8fuzxn72tzm885g.example.com",
+    "equipment": 1366,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 40
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.922Z",
+    "added": "2015-06-15T17:00:07.922Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "i2ds5ky26j9bg.example.com",
+    "equipment": 1350,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 41
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.922Z",
+    "added": "2015-06-15T17:00:07.922Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "etlx6ozv.example.com",
+    "equipment": 1367,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 42
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.922Z",
+    "added": "2015-06-15T17:00:07.922Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "jnpd9tt75h.example.com",
+    "equipment": 1363,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 43
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.922Z",
+    "added": "2015-06-15T17:00:07.922Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "qzrmcs.example.com",
+    "equipment": 1232,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 44
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.922Z",
+    "added": "2015-06-15T17:00:07.922Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "ltuxy9foxfh5wm.example.com",
+    "equipment": 1353,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 45
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.922Z",
+    "added": "2015-06-15T17:00:07.922Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "sf2a6tr7sqzexn53m.example.com",
+    "equipment": 1213,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 46
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.922Z",
+    "added": "2015-06-15T17:00:07.922Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "ugo3r9g.example.com",
+    "equipment": 1203,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 47
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.922Z",
+    "added": "2015-06-15T17:00:07.922Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "bbih9nva7qxeeopu.example.com",
+    "equipment": 1383,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 48
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.922Z",
+    "added": "2015-06-15T17:00:07.922Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "io23k5drzh.example.com",
+    "equipment": 1214,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 49
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.922Z",
+    "added": "2015-06-15T17:00:07.922Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "18kh2nn8tcbhn80n.example.com",
+    "equipment": 1393,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 50
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.922Z",
+    "added": "2015-06-15T17:00:07.922Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "8ff4ougqflrtubl5cxux.example.com",
+    "equipment": 1204,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 51
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.923Z",
+    "added": "2015-06-15T17:00:07.923Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "8gz6j543wophov.example.com",
+    "equipment": 1301,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 52
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.923Z",
+    "added": "2015-06-15T17:00:07.923Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "m3kth5juek80op53a9.example.com",
+    "equipment": 1217,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 53
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.923Z",
+    "added": "2015-06-15T17:00:07.923Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "dkpha64dz43c.example.com",
+    "equipment": 1242,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 54
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.923Z",
+    "added": "2015-06-15T17:00:07.923Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "m8hbjezrof7p52uhiuf.example.com",
+    "equipment": 1375,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 55
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.923Z",
+    "added": "2015-06-15T17:00:07.923Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "qmvbovt.example.com",
+    "equipment": 1306,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 56
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.923Z",
+    "added": "2015-06-15T17:00:07.923Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "iliznxpjnrf844.example.com",
+    "equipment": 1313,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 57
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.923Z",
+    "added": "2015-06-15T17:00:07.923Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "qvjlhvv.example.com",
+    "equipment": 1256,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 58
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.923Z",
+    "added": "2015-06-15T17:00:07.923Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "hak7zbb6ph.example.com",
+    "equipment": 1331,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 59
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.923Z",
+    "added": "2015-06-15T17:00:07.923Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "5ezzasyhfwa98zzq.example.com",
+    "equipment": 1372,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 60
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.923Z",
+    "added": "2015-06-15T17:00:07.923Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "0orxy8rkraasbzcz121.example.com",
+    "equipment": 1357,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 61
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.923Z",
+    "added": "2015-06-15T17:00:07.923Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "gnw0jm1mza3ji3p8xt.example.com",
+    "equipment": 1323,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 62
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.923Z",
+    "added": "2015-06-15T17:00:07.923Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "xhdigauezgm.example.com",
+    "equipment": 1299,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 63
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.923Z",
+    "added": "2015-06-15T17:00:07.923Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "e6lb6ai2zguahum0.example.com",
+    "equipment": 1355,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 64
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.923Z",
+    "added": "2015-06-15T17:00:07.923Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "k1g9us446b.example.com",
+    "equipment": 1247,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 65
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.923Z",
+    "added": "2015-06-15T17:00:07.923Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "x23ty4axov382et8.example.com",
+    "equipment": 1317,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 66
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.923Z",
+    "added": "2015-06-15T17:00:07.923Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "c1aq4pe7q83.example.com",
+    "equipment": 1380,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 67
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.923Z",
+    "added": "2015-06-15T17:00:07.923Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "f0dw7m2bpqi14.example.com",
+    "equipment": 1228,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 68
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.923Z",
+    "added": "2015-06-15T17:00:07.923Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "e2jy1ut16pwd0.example.com",
+    "equipment": 1327,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 69
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.923Z",
+    "added": "2015-06-15T17:00:07.923Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "wxo6jpe94.example.com",
+    "equipment": 1215,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 70
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.924Z",
+    "added": "2015-06-15T17:00:07.924Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "zlhs7gt5066reh.example.com",
+    "equipment": 1207,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 71
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.924Z",
+    "added": "2015-06-15T17:00:07.924Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "mewltxlpkt8ku22lym9.example.com",
+    "equipment": 1221,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 72
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.924Z",
+    "added": "2015-06-15T17:00:07.924Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "li7vr9g.example.com",
+    "equipment": 1316,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 73
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.924Z",
+    "added": "2015-06-15T17:00:07.924Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "fq4stwwdb.example.com",
+    "equipment": 1211,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 74
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.924Z",
+    "added": "2015-06-15T17:00:07.924Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "2h81bd.example.com",
+    "equipment": 1295,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 75
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.924Z",
+    "added": "2015-06-15T17:00:07.924Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "ryr3u9yf0hhkq1jlrbv6.example.com",
+    "equipment": 1274,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 76
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.924Z",
+    "added": "2015-06-15T17:00:07.924Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "8t6x0pfgymg.example.com",
+    "equipment": 1271,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 77
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.924Z",
+    "added": "2015-06-15T17:00:07.924Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "ywymsn7nq.example.com",
+    "equipment": 1388,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 78
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.924Z",
+    "added": "2015-06-15T17:00:07.924Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "d09oa88u6z0.example.com",
+    "equipment": 1382,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 79
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.924Z",
+    "added": "2015-06-15T17:00:07.924Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "3t960kwer65h5q37.example.com",
+    "equipment": 1371,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 80
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.924Z",
+    "added": "2015-06-15T17:00:07.924Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "r28vdqqjo.example.com",
+    "equipment": 1233,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 81
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.924Z",
+    "added": "2015-06-15T17:00:07.924Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "tbvtwk2tjpt5.example.com",
+    "equipment": 1329,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 82
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.924Z",
+    "added": "2015-06-15T17:00:07.924Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "njtv7sc3tnpt7op.example.com",
+    "equipment": 1285,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 83
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.924Z",
+    "added": "2015-06-15T17:00:07.924Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "ue167sc6mgd.example.com",
+    "equipment": 1365,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 84
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.924Z",
+    "added": "2015-06-15T17:00:07.924Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "rhls1t12xg.example.com",
+    "equipment": 1216,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 85
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.924Z",
+    "added": "2015-06-15T17:00:07.924Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "j50im8l1m82.example.com",
+    "equipment": 1302,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 86
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.924Z",
+    "added": "2015-06-15T17:00:07.924Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "9zxh05vs9q6bdqah4js7.example.com",
+    "equipment": 1238,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 87
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.924Z",
+    "added": "2015-06-15T17:00:07.924Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "owqos0g49v711.example.com",
+    "equipment": 1308,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 88
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.925Z",
+    "added": "2015-06-15T17:00:07.924Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "gjot1qepvnj1.example.com",
+    "equipment": 1378,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 89
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.925Z",
+    "added": "2015-06-15T17:00:07.925Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "8wgnczqux3.example.com",
+    "equipment": 1315,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 90
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.925Z",
+    "added": "2015-06-15T17:00:07.925Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "ibgrntum1iwzlfir.example.com",
+    "equipment": 1246,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 91
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.925Z",
+    "added": "2015-06-15T17:00:07.925Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "9b9t7b.example.com",
+    "equipment": 1244,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 92
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.925Z",
+    "added": "2015-06-15T17:00:07.925Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "4ik5pfkat3.example.com",
+    "equipment": 1341,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 93
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.925Z",
+    "added": "2015-06-15T17:00:07.925Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "6u8ui5pqjuoc4.example.com",
+    "equipment": 1337,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 94
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.925Z",
+    "added": "2015-06-15T17:00:07.925Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "lly4spnj.example.com",
+    "equipment": 1303,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 95
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.925Z",
+    "added": "2015-06-15T17:00:07.925Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "tn91wht5y.example.com",
+    "equipment": 1396,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 96
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.925Z",
+    "added": "2015-06-15T17:00:07.925Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "qw8nqj9cct547ww3m.example.com",
+    "equipment": 1296,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 97
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.925Z",
+    "added": "2015-06-15T17:00:07.925Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "r38uu8tmi2.example.com",
+    "equipment": 1280,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 98
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.925Z",
+    "added": "2015-06-15T17:00:07.925Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "pb789h7q35cwi2m.example.com",
+    "equipment": 1346,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 99
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.925Z",
+    "added": "2015-06-15T17:00:07.925Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "qnlkexvxwnzi.example.com",
+    "equipment": 1335,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 100
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.930Z",
+    "added": "2015-06-15T17:00:07.930Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "r3q6tt3rht.example.com",
+    "equipment": 1268,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 101
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.930Z",
+    "added": "2015-06-15T17:00:07.930Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "jnhjmjpdjqhcqknij.example.com",
+    "equipment": 1348,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 102
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.930Z",
+    "added": "2015-06-15T17:00:07.930Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "gwhr21f.example.com",
+    "equipment": 1236,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 103
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.930Z",
+    "added": "2015-06-15T17:00:07.930Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "61qw4vbtos.example.com",
+    "equipment": 1276,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 104
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.930Z",
+    "added": "2015-06-15T17:00:07.930Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "wxn4z5lzh4vs.example.com",
+    "equipment": 1229,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 105
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.930Z",
+    "added": "2015-06-15T17:00:07.930Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "rh8ymh28abgckvftdde.example.com",
+    "equipment": 1223,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 106
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.930Z",
+    "added": "2015-06-15T17:00:07.930Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "f9zxva0y9.example.com",
+    "equipment": 1358,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 107
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.930Z",
+    "added": "2015-06-15T17:00:07.930Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "0gkfbh6ug8u98q2xcl.example.com",
+    "equipment": 1322,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 108
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.930Z",
+    "added": "2015-06-15T17:00:07.930Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "r5tlkantd.example.com",
+    "equipment": 1264,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 109
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.930Z",
+    "added": "2015-06-15T17:00:07.930Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "bh5f74.example.com",
+    "equipment": 1258,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 110
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.930Z",
+    "added": "2015-06-15T17:00:07.930Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "007avgjekhg0kx.example.com",
+    "equipment": 1398,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 111
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.931Z",
+    "added": "2015-06-15T17:00:07.931Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "37lqt5084iarxba.example.com",
+    "equipment": 1239,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 112
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.931Z",
+    "added": "2015-06-15T17:00:07.931Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "xbg6ejqzeoi9c.example.com",
+    "equipment": 1311,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 113
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.931Z",
+    "added": "2015-06-15T17:00:07.931Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "1au03gknmmqeqbjo36.example.com",
+    "equipment": 1349,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 114
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.931Z",
+    "added": "2015-06-15T17:00:07.931Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "8xp774eca8emj4i.example.com",
+    "equipment": 1293,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 115
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.931Z",
+    "added": "2015-06-15T17:00:07.931Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "j6t8bcunz7zule.example.com",
+    "equipment": 1361,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 116
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.931Z",
+    "added": "2015-06-15T17:00:07.931Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "epvssf.example.com",
+    "equipment": 1282,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 117
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.931Z",
+    "added": "2015-06-15T17:00:07.931Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "irb1qzkbyzx2kutg7.example.com",
+    "equipment": 1270,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 118
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.931Z",
+    "added": "2015-06-15T17:00:07.931Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "a57kezs35f.example.com",
+    "equipment": 1273,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 119
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.931Z",
+    "added": "2015-06-15T17:00:07.931Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "vnmpgyeakle.example.com",
+    "equipment": 1249,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 120
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.931Z",
+    "added": "2015-06-15T17:00:07.931Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "tz13g4kvpt6c8.example.com",
+    "equipment": 1354,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 121
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.931Z",
+    "added": "2015-06-15T17:00:07.931Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "47qg8i64zri3a.example.com",
+    "equipment": 1245,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 122
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.931Z",
+    "added": "2015-06-15T17:00:07.931Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "ckwiq6wusd.example.com",
+    "equipment": 1314,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 123
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.931Z",
+    "added": "2015-06-15T17:00:07.931Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "g4lpyxyxuqie.example.com",
+    "equipment": 1347,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 124
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.931Z",
+    "added": "2015-06-15T17:00:07.931Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "2dxwiislapf.example.com",
+    "equipment": 1222,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 125
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.931Z",
+    "added": "2015-06-15T17:00:07.931Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "5vjlilmbxg782obbf.example.com",
+    "equipment": 1344,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 126
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.931Z",
+    "added": "2015-06-15T17:00:07.931Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "rpxqk6cmkdhmxv.example.com",
+    "equipment": 1231,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 127
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.931Z",
+    "added": "2015-06-15T17:00:07.931Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "ukg417r9y3a3r.example.com",
+    "equipment": 1265,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 128
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.932Z",
+    "added": "2015-06-15T17:00:07.932Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "x9h1zj7twnbba.example.com",
+    "equipment": 1243,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 129
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.932Z",
+    "added": "2015-06-15T17:00:07.932Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "ccqi9m70piqkfpp.example.com",
+    "equipment": 1381,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 130
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.932Z",
+    "added": "2015-06-15T17:00:07.932Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "dfdfti.example.com",
+    "equipment": 1289,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 131
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.932Z",
+    "added": "2015-06-15T17:00:07.932Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "kue6a03.example.com",
+    "equipment": 1324,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 132
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.932Z",
+    "added": "2015-06-15T17:00:07.932Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "ob132933b7tcy3zf9ura.example.com",
+    "equipment": 1389,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 133
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.932Z",
+    "added": "2015-06-15T17:00:07.932Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "5jbhh3ztrnf1dpk.example.com",
+    "equipment": 1261,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 134
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.932Z",
+    "added": "2015-06-15T17:00:07.932Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "2wzi9liarz9rd47yyn.example.com",
+    "equipment": 1201,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 135
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.932Z",
+    "added": "2015-06-15T17:00:07.932Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "1epovr3.example.com",
+    "equipment": 1277,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 136
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.932Z",
+    "added": "2015-06-15T17:00:07.932Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "fn8ozxh.example.com",
+    "equipment": 1359,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 137
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.932Z",
+    "added": "2015-06-15T17:00:07.932Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "hdma7n9o3djbgqulxn.example.com",
+    "equipment": 1278,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 138
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.932Z",
+    "added": "2015-06-15T17:00:07.932Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "xxp0wrp3v4cvq1km.example.com",
+    "equipment": 1262,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 139
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.932Z",
+    "added": "2015-06-15T17:00:07.932Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "ur36skxi.example.com",
+    "equipment": 1279,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 140
+},
+{
+  "fields": {
+    "username": "",
+    "updated": "2015-06-15T17:00:07.932Z",
+    "added": "2015-06-15T17:00:07.932Z",
+    "license": "",
+    "raid_license": "",
+    "hostname": "26edne4m9nk97bxx08.example.com",
+    "equipment": 1248,
+    "mac": "",
+    "password": "",
+    "method": "dummy"
+  },
+  "model": "hwdoc.servermanagement",
+  "pk": 141
+}
 ]
