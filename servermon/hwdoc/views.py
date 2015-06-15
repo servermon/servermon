@@ -264,9 +264,8 @@ def rack(request, rack_id):
         rack.get_empty_units()))
     equipments = sorted(equipments, key=lambda eq: eq.unit, reverse=True)
 
-    equipments = { 'hwdoc': equipments,
-                   'hwdoc_ru': [e for e in equipments if e.unit > 0],
-                   'hwdoc_noru': [e for e in equipments if e.unit == 0], }
+    equipments = { 'hwdoc': [e for e in equipments if e.unit > 0],
+                   'hwdoc_zero_u': [e for e in equipments if e.unit == 0], }
 
     return render(request, template, { 'rack': rack, 'equipments': equipments })
 
