@@ -291,7 +291,7 @@ def rackrow(request, rackrow_id):
         equipments = list(equipments)
         equipments.extend(map(lambda x: Equipment(unit=x, rack=rack.rack),
             rack.rack.get_empty_units()))
-        equipments = sorted(equipments, key=lambda eq: eq.unit, reverse=True)
+        rack.equipments = sorted(equipments, key=lambda eq: eq.unit, reverse=True)
     return render(request, template, {
         'rackrow': rackrow,
         'racks': racks,
