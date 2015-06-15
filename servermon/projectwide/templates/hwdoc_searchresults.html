@@ -1,13 +1,13 @@
 {% load i18n %}
 {% load url from future %}
   <div id="equip-container" class="row-fluid">
-{% if results.hwdoc_noru %}
+{% if results.hwdoc_zero_u %}
   <div class="span2">
   <table class="table table-striped table-rotated-270">
     <tbody>
     <tr>
       <th><div><div>{% trans "Serial" %}</div></div></th>
-      {% for result in results.hwdoc_noru %}
+      {% for result in results.hwdoc_zero_u %}
       {% if result.serial %}
       <td><div><div><a href="{% url "hwdoc.views.equipment" result.pk %}">{{ result.serial }}</a></div></div></td>
       {% endif %}
@@ -15,19 +15,19 @@
     </tr>
     <tr>
       <th><div><div>{% trans "Model" %}</div></div></th>
-      {% for result in results.hwdoc_noru %}
+      {% for result in results.hwdoc_zero_u %}
       <td><div><div>{{ result.model.vendor }}&nbsp;{{ result.model.name }}</div></div></td>
       {% endfor %}
     </tr>
     <tr>
       <th><div><div>{% trans "Rack" %}</div></div></th>
-      {% for result in results.hwdoc_noru %}
+      {% for result in results.hwdoc_zero_u %}
       <td><div><div>{{ result.rack }}</div></div></td>
       {% endfor %}
     </tr>
     <tr>
       <th><div><div>{% trans "IPMI" %}</div></div></th>
-      {% for result in results.hwdoc_noru %}
+      {% for result in results.hwdoc_zero_u %}
       <td><div><div><a href="https://{{ result.servermanagement.hostname }}">{{ result.servermanagement.hostname }}</a></div></div></td>
       {% endfor %}
     </tr>
@@ -48,12 +48,13 @@
       <th>{% trans "Front" %}</th>
       <th>{% trans "Interior" %}</th>
       <th>{% trans "Back" %}</th>
+      <th>{% trans "Orientation" %}</th>
       <th>{% trans "IPMI Hostname" %}</th>
       <th>{% trans "Project" %}</th>
       <th>{% trans "Tickets" %}</th>
       <th>{% trans "Hostname" %}</th>
     </tr>
-    {% for result in results.hwdoc_ru %}
+    {% for result in results.hwdoc %}
     {% if result.serial %}
         <tr>
           {% if result.ticket_set.all %}
@@ -68,14 +69,15 @@
           <td>{{ result.model.vendor }}&nbsp;{{ result.model.name }}</td>
           <td>{{ result.rack }}</td>
 	  <td>{% for unit in result.model.units %}{{ result.unit|add:unit|add:"-1"|stringformat:"02d" }}<br/>{% endfor %}</td>
-          <td class="centered">{% if result.model.rack_front %}<i class="icon-ok-sign"></i>{% else %}&nbsp;{% endif %}</td>
-          <td class="centered">{% if result.model.rack_interior %}<i class="icon-ok-sign"></i>{% else %}&nbsp;{% endif %}</td>
-          <td class="centered">{% if result.model.rack_back %}<i class="icon-ok-sign"></i>{% else %}&nbsp;{% endif %}</td>
-          <td><a href="https://{{ result.servermanagement.hostname }}">{{ result.servermanagement.hostname }}</a></td>
+          <td class="centered">{% if result.rack_front %}<i class="icon-ok-sign"></i>{% else %}&nbsp;{% endif %}</td>
+          <td class="centered">{% if result.rack_interior %}<i class="icon-ok-sign"></i>{% else %}&nbsp;{% endif %}</td>
+          <td class="centered">{% if result.rack_back %}<i class="icon-ok-sign"></i>{% else %}&nbsp;{% endif %}</td>
+          <td>{{ result.orientation }}</td>
+          <td>{% if result.servermanagement %}<a href="https://{{ result.servermanagement.hostname }}">{{ result.servermanagement.hostname }}</a>{% else %}&mdash;{% endif %}</td>
           <td>{% if result.allocation %}<a href="{% url "hwdoc.views.project" result.allocation.pk %}">{{ result.allocation.name }}</a>{% else %}&mdash;{% endif %}</td>
           <td>
           {% for ticket in result.ticket_set.all %}
-          <a href="{{ ticket.url }}">{{ ticket.name }}</a>
+          <a href="{{ ticket.url }}">{% if ticket.closed %}<del>{{ ticket.name }}</del>{% else %}{{ ticket.name }}{% endif %}</a>
           {% empty %}
           &mdash;
           </td>
@@ -96,6 +98,7 @@
       <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
+      <td>&nbsp;</td>
     {% else %}
     <tr class="success">
       <td>&nbsp;</td>
@@ -105,6 +108,7 @@
       <td class="centered">&nbsp;</td>
       <td class="centered">&nbsp;</td>
       <td class="centered">&nbsp;</td>
+      <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
