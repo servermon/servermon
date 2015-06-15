@@ -133,6 +133,9 @@ class EquipmentTestCase(unittest.TestCase):
     def test_if_servers_in_same_rack(self):
         self.assertEqual(self.server1.rack, self.server2.rack)
 
+    def test_rack_empty_units(self):
+        self.assertIsInstance(self.rack.get_empty_units(), set)
+
     def test_dummy_management_fuctions(self):
         self.assertTrue(self.management.power_on())
         self.assertTrue(self.management.power_off())

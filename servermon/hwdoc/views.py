@@ -257,9 +257,12 @@ def rack(request, rack_id):
     except (IndexError, RackPosition.DoesNotExist):
         rack.next = None
 
-    equipments = functions.search(str(rack.name))
+    equipments = rack.equipment_set.all()
     equipments = functions.populate_hostnames(equipments)
-    equipments = functions.calculate_empty_units(rack, equipments)
+    equipments = list(equipments)
+    equipments.extend(map(lambda x: Equipment(unit=x, rack=rack),
+        rack.get_empty_units()))
+    equipments = sorted(equipments, key=lambda eq: eq.unit, reverse=True)
 
     equipments = { 'hwdoc': equipments,
                    'hwdoc_ru': [e for e in equipments if e.unit > 0],
@@ -282,9 +285,13 @@ def rackrow(request, rackrow_id):
     rackrow = get_object_or_404(RackRow, pk=rackrow_id)
     racks = rackrow.rackposition_set.select_related()
     for rack in racks:
-        equipments = rack.rack.equipment_set.select_related('model__vendor',
-                                                            'model')
-        rack.equipments = functions.calculate_empty_units(rack.rack, equipments)
+        equipments = rack.rack.equipment_set.all().select_related(
+                'model__vendor',
+                'model')
+        equipments = list(equipments)
+        equipments.extend(map(lambda x: Equipment(unit=x, rack=rack.rack),
+            rack.rack.get_empty_units()))
+        equipments = sorted(equipments, key=lambda eq: eq.unit, reverse=True)
     return render(request, template, {
         'rackrow': rackrow,
         'racks': racks,

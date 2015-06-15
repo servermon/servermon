@@ -199,6 +199,26 @@ class Rack(models.Model):
     def __unicode__(self):
         return u'%s' % (self.name)
 
+    def get_empty_units(self, related=None):
+        '''
+        Calculates the empty units in a rack and returns them in a list
+
+        @type  self: Rack
+        @param self: An Instance of Model Rack
+
+        @rtype: list
+        @return: A list with empty units
+        '''
+
+        equipment_list = self.equipment_set.all()
+        if related:
+            equipment_list = equipment_list.select_related(*related)
+        units = []
+        for z in ((x+w for w in range(y)) for x,y in equipment_list.values_list('unit', 'model__u')):
+            units.extend(z)
+        empty_units = set(self.model.units) - set(sorted(units))
+        return empty_units
+
 class RackRow(models.Model):
     '''
     Racks in a row are a RackRow
