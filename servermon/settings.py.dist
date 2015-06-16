@@ -168,6 +168,10 @@ SOUTH_MIGRATION_MODULES = {
     'updates': 'updates.south_migrations',
 }
 
+# Silence the erroneous 1_6.W001 check. It was removed in
+# https://code.djangoproject.com/ticket/23469 anyway
+SILENCED_SYSTEM_CHECKS = ['1_6.W001']
+
 # Django extensions (apt-get install python-django-extensions)
 try:
     import django_extensions
