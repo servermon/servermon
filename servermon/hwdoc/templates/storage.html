@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block heading %}{{ storage }}{% endblock %}
+{% block content %}
+<div class="row-fluid text-center">
+  <div id="storage" class="span8 offset2">
+    <h3>{% trans "Storage Info" %}</h3>
+    <table class="table table-striped table-condensed">
+      <tbody>
+        <tr><th>{% trans "Name" %}:</th><td>{{ datacenter.name }}</td></tr>
+      </tbody>
+    </table>
+    <h3>{% trans "Stored Equipment Info" %}</h3>
+    {% with equipments as results %}
+    {% include "hwdoc_searchresults.html" %}
+    {% endwith %}
+  </div>
+  <div class="span2"></div>
+</div>
+{% endblock %}

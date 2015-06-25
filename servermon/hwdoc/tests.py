@@ -26,7 +26,7 @@ from django.conf import settings
 from django.contrib.auth.models import User, Permission
 from hwdoc.models import Vendor, EquipmentModel, Equipment, \
     ServerManagement, Project, Rack, RackPosition, RackModel, RackRow, \
-    Datacenter, Ticket, \
+    Datacenter, Storage, Ticket, \
     Email, Phone, Person, Project, Role
 from hwdoc.functions import search, populate_tickets
 from projectwide.functions import get_search_terms
@@ -65,6 +65,8 @@ class EquipmentTestCase(unittest.TestCase):
         self.rack = Rack.objects.create(model=self.rackmodel, name='testrack')
         self.rack2 = Rack.objects.create(model=self.rackmodel, name='R02')
         RackPosition.objects.create(rack=self.rack, rr=self.rackrow, position=10)
+        self.storage = Storage.objects.create(name='Test DCs storage',
+                dc=self.dc)
 
         self.server1 = Equipment.objects.create(
                                 model = self.model1,
@@ -128,6 +130,7 @@ class EquipmentTestCase(unittest.TestCase):
         Rack.objects.all().delete()
         RackRow.objects.all().delete()
         Datacenter.objects.all().delete()
+        Storage.objects.all().delete()
 
     # Tests start here
     def test_if_servers_in_same_rack(self):
@@ -274,6 +277,8 @@ class ViewsTestCase(unittest.TestCase):
         self.rackrow = RackRow.objects.create(name='1st rackrow', dc=self.dc)
         RackPosition.objects.create(rack=self.rack, rr=self.rackrow, position=10)
         self.racknotinrow = Rack.objects.create(model=self.rackmodel, name='racknotinrow')
+        self.storage = Storage.objects.create(name='Test DCs storage',
+                dc=self.dc)
 
         self.server_unallocated = Equipment.objects.create(
                                 model = self.model,
@@ -320,6 +325,7 @@ class ViewsTestCase(unittest.TestCase):
         Rack.objects.all().delete()
         RackRow.objects.all().delete()
         Datacenter.objects.all().delete()
+        Storage.objects.all().delete()
 
     def test_search_get(self):
         c = Client()

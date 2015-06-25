@@ -20,7 +20,7 @@ hwdoc views module
 
 from hwdoc.models import Project, EquipmentModel, Equipment, \
         ServerManagement, Rack, RackRow, Datacenter, RackPosition, Vendor, \
-        Ticket
+        Ticket, Storage
 from projectwide import functions as projectwide_functions
 from hwdoc import functions
 from django.shortcuts import render
@@ -310,6 +310,7 @@ def datacenter(request, datacenter_id):
 
     datacenter = get_object_or_404(Datacenter, pk=datacenter_id)
     rackrows = datacenter.rackrow_set.all()
+    storages = datacenter.storage_set.all()
     for rackrow in rackrows:
         equipments = Equipment.objects.filter(rack__rackposition__rr__name=rackrow.name)
         equipments = equipments.exclude(ticket__isnull=True)
@@ -318,5 +319,23 @@ def datacenter(request, datacenter_id):
     return render(request, template, {
         'datacenter': datacenter,
         'rackrows': rackrows,
+        'storages': storages,
         })
 
+def storage(request, storage_id):
+    '''
+    Storage view. It should display all non-authenticated user viewable data
+
+    @type   request: HTTPRequest
+    @param  request: Django HTTPRequest object
+    @rtype: HTTPResponse
+    @return: HTTPResponse object rendering corresponding HTML
+    '''
+
+    template = 'storage.html'
+
+    storage = get_object_or_404(Storage, pk=storage_id)
+    equipments = storage.equipment_set.all()
+    return render(request, template, {
+            'equipments': {'hwdoc': equipments},
+        })

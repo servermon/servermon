@@ -29,6 +29,18 @@
       {% endfor %}
       </tbody>
     </table>
+    <table class="table table-striped table-condensed">
+      <tbody>
+      <tr>
+        <th>{% trans "Storage Facilities" %}</th>
+      </tr>
+      {% for storage in storages %}
+      <tr>
+        <td><a href="{% url "hwdoc.views.storage" storage.pk %}">{{ storage.name }}</a></td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
   </div>
   <div class="span2"></div>
 </div>

@@ -235,6 +235,22 @@ class RackRow(models.Model):
     def __unicode__(self):
         return u'%s in %s' % (self.name, self.dc)
 
+class Storage(models.Model):
+    '''
+    Datacenter may have storage facilities
+    '''
+
+    name = models.CharField(max_length=80, unique=True)
+    dc = models.ForeignKey(Datacenter)
+
+    class Meta:
+        ordering = ['name', ]
+        verbose_name = _(u'Storage')
+        verbose_name_plural = _(u'Storages')
+
+    def __unicode__(self):
+        return u'%s in %s' % (self.name, self.dc)
+
 class RackPosition(models.Model):
     '''
     Racks can be positioned in a RackRow
@@ -297,6 +313,7 @@ class Equipment(models.Model):
     rack_interior = models.BooleanField(default=True)
     rack_back = models.BooleanField(default=True)
     orientation = models.CharField(max_length=10, choices=ORIENTATIONS, default='Front')
+    storage = models.ForeignKey(Storage, null=True, blank=True)
     comments = models.TextField(blank=True)
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
