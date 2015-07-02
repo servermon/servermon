@@ -18,6 +18,7 @@
 Unit tests for projectwide package
 '''
 
+import os
 from django import VERSION as DJANGO_VERSION
 import ldap
 from mockldap import MockLdap
@@ -189,4 +190,4 @@ class CommandsTestCase(unittest.TestCase):
 
     #Tests start here
     def test_bmc_commands(self):
-        call_command('dev_fixtures', yes_force_run=True)
+        call_command('dev_fixtures', yes_force_run=True, dry_run=True)
