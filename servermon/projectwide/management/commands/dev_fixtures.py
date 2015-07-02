@@ -53,6 +53,11 @@ class Command(BaseCommand):
                         dest='yes_force_run',
                         default=False,
                         help=_l('Required. Force the run to happen')),
+                    make_option('-n', '--dry_run',
+                        action='store_true',
+                        dest='dry_run',
+                        default=False,
+                        help=_l('Dry run, mostly for testing the generation itself')),
                     make_option('--fact_number',
                         action='store',
                         type='int',
@@ -207,6 +212,10 @@ class Command(BaseCommand):
             self.create_hwdoc_equipments(options['equipment_number'])
             # Keep stdout
             stdout = sys.stdout
+            if dry_run:
+                transaction.rollback()
+                return
+
             for i in ['puppet', 'updates', 'hwdoc']:
                 # Note: The with construct does not play well with this as the
                 # resource will be closed when calling the function
