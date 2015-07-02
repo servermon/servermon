@@ -19,9 +19,11 @@ Module configuring Django's admin interface for hwdoc
 '''
 
 from django.contrib import admin
+from django import forms
 from hwdoc.models import *
 from django.utils.translation import ugettext as _
 from keyvalue.admin import KeyValueAdmin
+
 
 class RoleInline(admin.TabularInline):
     '''
@@ -277,6 +279,21 @@ class EquipmentAdmin(admin.ModelAdmin):
     ordering = ('rack', 'unit',)
     inlines = [ ServerManagementInline, KeyValueAdmin ]
     actions = [ shutdown, startup, shutdown_force ]
+
+    def get_form(self, request, obj=None, **kwargs):
+        def clean(self):
+            cleaned_data = super(self.__class__, self).clean()
+            rack = cleaned_data['rack']
+            unit = cleaned_data['unit']
+            if rack and not unit:
+                raise forms.ValidationError(_('You have forgotten about unit'))
+            if unit and not rack:
+                raise forms.ValidationError(_('You have forgotten about rack'))
+            return cleaned_data
+
+        form = super(EquipmentAdmin, self).get_form(request, obj, **kwargs)
+        form.clean = clean
+        return form
 
     def change_view(self, request, object_id, extra_context=None):
         '''
