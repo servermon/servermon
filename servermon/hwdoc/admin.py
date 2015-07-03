@@ -88,6 +88,7 @@ admin.site.register(Project, ProjectAdmin)
 admin.site.register(Vendor)
 admin.site.register(RackModel)
 admin.site.register(Ticket)
+admin.site.register(Storage)
 
 class DatacenterAdmin(admin.ModelAdmin):
     '''
@@ -285,10 +286,14 @@ class EquipmentAdmin(admin.ModelAdmin):
             cleaned_data = super(self.__class__, self).clean()
             rack = cleaned_data['rack']
             unit = cleaned_data['unit']
+            storage = cleaned_data['storage']
             if rack and not unit:
                 raise forms.ValidationError(_('You have forgotten about unit'))
             if unit and not rack:
                 raise forms.ValidationError(_('You have forgotten about rack'))
+            if storage and rack:
+                raise forms.ValidationError(_('An equipment can not be both \
+                    mounted on a Rack and stored in Storage'))
             return cleaned_data
 
         form = super(EquipmentAdmin, self).get_form(request, obj, **kwargs)

@@ -22,5 +22,6 @@ urlpatterns = patterns('hwdoc.views',
             (r'^rack/(?P<rack_id>[\d]+)/$', 'rack'),
             (r'^rackrow/(?P<rackrow_id>[\d]+)/$', 'rackrow'),
             (r'^datacenter/(?P<datacenter_id>[\d]+)/$', 'datacenter'),
+            (r'^storage/(?P<storage_id>[\d]+)/$', 'storage'),
             )
 

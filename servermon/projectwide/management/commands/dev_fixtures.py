@@ -36,7 +36,7 @@ from puppet.models import Fact, Host, FactValue
 from updates.models import Package, Update
 from hwdoc.models import Email, Phone, Person, Project, Role, \
         Vendor, RackModel, Datacenter, RackRow, Rack, RackPosition, \
-        EquipmentModel, Equipment, ServerManagement
+        EquipmentModel, Equipment, ServerManagement, Storage
 from django.core.management import call_command
 
 class Command(BaseCommand):
@@ -124,6 +124,12 @@ class Command(BaseCommand):
                         dest='rack_number',
                         default=80,
                         help=_l('Number of rack to autocreate')),
+                    make_option('--storage_number',
+                        action='store',
+                        type='int',
+                        dest='storage_number',
+                        default=7,
+                        help=_l('Number of storages to autocreate')),
                     make_option('--equipment_number',
                         action='store',
                         type='int',
@@ -209,10 +215,11 @@ class Command(BaseCommand):
             self.create_hwdoc_datacenters(options['datacenter_number'])
             self.create_hwdoc_rackrows(options['rackrow_number'])
             self.create_hwdoc_racks(options['rack_number'])
+            self.create_hwdoc_storages(options['storage_number'])
             self.create_hwdoc_equipments(options['equipment_number'])
             # Keep stdout
             stdout = sys.stdout
-            if dry_run:
+            if options['dry_run']:
                 transaction.rollback()
                 return
 
@@ -456,16 +463,27 @@ class Command(BaseCommand):
                     rr=random.choice(rackrows))
             rp.save()
 
+    def create_hwdoc_storages(self, storage_number):
+        datacenters = list(Datacenter.objects.all())
+        storages = []
+        print 'Creating %s datacenters' % storage_number
+        for i in range(storage_number):
+            storage = Command.id_generator(random.randint(6, 10)).capitalize()
+            storages.append(Storage(name=storage,
+                dc=random.choice(datacenters)))
+        Storage.objects.bulk_create(storages)
+
     def create_hwdoc_equipments(self, equipment_number, domain_name='example.com'):
         equipments = []
         hosts = list(Host.objects.all()) # Fetch them all as an optimization
         racks = list(Rack.objects.all()) # Fetch them all as an optimization
+        storages = list(Storage.objects.all())
         projects = list(Project.objects.all()) # Fetch them all as an optimization
         print 'Creating %s equipments' % len(hosts)
 
         # This is really the NP-hard problem, discrete knapsack. Well, a
         # variation but solving it well is out of the scope, so using a dumb
-        # algorith probabilistic algorith to assign a box a u
+        # probabilistic algorith to assign a box a u
         def assign_u(e):
             rack = None
             units = None
@@ -502,6 +520,9 @@ class Command(BaseCommand):
             r, u = assign_u(e)
             if r:
                 e.rack, e.unit = assign_u(e)
+            elif random.randint(1, 10) >= 9:
+                # 90% in some storage
+                e.storage = random.choice(storages)
             # 50% allocated to a project
             if random.randint(1, 10) >= 5:
                e.allocation = random.choice(projects)
@@ -513,7 +534,7 @@ class Command(BaseCommand):
         # And now add ServerManagement to 70% of them
         eqs = list(Equipment.objects.all())
         servermanagements = []
-        will_get_sm = random.sample(eqs, len(eqs)*7/10)  # Too bored to do 0.8 and cast to int
+        will_get_sm = random.sample(eqs, len(eqs)*7/10)  # Too bored to do 0.7 and cast to int
         for i in will_get_sm:
             servermanagements.append(
                 ServerManagement(
