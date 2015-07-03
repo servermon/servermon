@@ -329,7 +329,6 @@ class Equipment(models.Model):
         verbose_name = _(u'Equipment')
         verbose_name_plural = _(u'Equipments')
 
-
     def __unicode__(self):
         out = u''
         if self.purpose:
@@ -339,6 +338,15 @@ class Equipment(models.Model):
             out += u'@ %sU%.2d ' % (self.rack, self.unit)
         out += u'(%s)' % self.serial
         return out
+
+    @property
+    def dc(self):
+        if self.rack:
+            return self.rack.rackposition.rr.dc
+        elif self.storage:
+            return self.storage.dc
+        else:
+            return None
 
 class ServerManagement(models.Model):
     '''

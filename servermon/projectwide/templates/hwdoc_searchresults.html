@@ -43,6 +43,7 @@
     <tr>
       <th>{% trans "Serial" %}</th>
       <th>{% trans "Model" %}</th>
+      <th>{% trans "DC" %}</th>
       <th>{% trans "Rack" %}</th>
       <th>{% trans "Unit" %}</th>
       <th>{% trans "Front" %}</th>
@@ -67,6 +68,7 @@
           {% endif %}
           {% endif %}
           <td>{{ result.model.vendor }}&nbsp;{{ result.model.name }}</td>
+          <td>{{ result.dc }}</td>
           <td>{{ result.rack }}</td>
 	  <td>{% for unit in result.model.units %}{{ result.unit|add:unit|add:"-1"|stringformat:"02d" }}<br/>{% endfor %}</td>
           <td class="centered">{% if result.rack_front %}<i class="icon-ok-sign"></i>{% else %}&nbsp;{% endif %}</td>
