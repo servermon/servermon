@@ -24,6 +24,11 @@
       text-align: center;
     }
   }
+  .scrollable-dropdown-menu {
+      max-height: 500px;
+      overflow-y: auto;
+      overflow-x: hidden;
+  }
   </style>
   {% block extrahead %}{% endblock %}
 
@@ -77,17 +82,17 @@
                   </ul>
                 </li>
 		<li id="racks" class="dropdown-submenu"><a href="#" class="hwdocfetchable" data-get="{% url "hwdoc.views.subnav" "racks"  %}">{% trans "Racks" %}</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu scrollable-dropdown-menu">
                     <li><a href="#">{% trans "Loading" %}</a></li>
                   </ul>
                 </li>
 		<li id="rackrows" class="dropdown-submenu"><a href="#" class="hwdocfetchable" data-get="{% url "hwdoc.views.subnav" "rackrows" %}">{% trans "Rack Rows" %}</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu scrollable-dropdown-menu">
                     <li><a href="#">{% trans "Loading" %}</a></li>
                   </ul>
                 </li>
 		<li id="models" class="dropdown-submenu"><a href="#" class="hwdocfetchable" data-get="{% url "hwdoc.views.subnav" "models" %}">{% trans "Hardware Models" %}</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu scrollable-dropdown-menu">
                     <li><a href="#">{% trans "Loading" %}</a></li>
                   </ul>
                 </li>
