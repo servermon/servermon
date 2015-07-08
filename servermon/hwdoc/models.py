@@ -301,7 +301,8 @@ class Equipment(models.Model):
     '''
 
     ORIENTATIONS = ( ('Front', 'Front'),
-                     ('Back', 'Back'), )
+                     ('Back', 'Back'),
+                     ('NA', 'Not Applicable'), )
 
     model = models.ForeignKey(EquipmentModel)
     allocation = models.ForeignKey(Project, null=True, blank=True)
