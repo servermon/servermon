@@ -7,5 +7,6 @@ flake8
 epydoc
 sphinx
 pysqlite
+mock<1.1.0
 mockldap
 coverage
