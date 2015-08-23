@@ -56,16 +56,9 @@ def monkey_patch_command_execute(name):
                 self.validate()
             output = self.handle(*args, **options)
             if output:
-                if self.output_transaction:
-                    # This needs to be imported here, because it relies on
-                    # settings.
-                    from django.db import connections, DEFAULT_DB_ALIAS
-                    connection = connections[options.get('database', DEFAULT_DB_ALIAS)]
-                    if connection.ops.start_transaction_sql():
-                        self.stdout.write(self.style.SQL_KEYWORD(connection.ops.start_transaction_sql()) + '\n')
-                self.stdout.write(output)
-                if self.output_transaction:
-                    self.stdout.write('\n' + self.style.SQL_KEYWORD("COMMIT;") + '\n')
+                # Since this is only used for error catching an actual body in
+                # this is useless. Just pass
+                pass
         except CommandError, e:
             if show_traceback:
                 traceback.print_exc()
