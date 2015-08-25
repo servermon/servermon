@@ -6,7 +6,7 @@ servermon
     :alt: Build Status
 
 .. image:: https://readthedocs.org/projects/servermon/badge/?version=latest
-    :target: https://readthedocs.org/projects/servermon/?badge=latest
+    :target: https://readthedocs.org/projects/servermon/
     :alt: Documentation Status
 
 Servermon is a Django project with the aim of facilitating server monitoring
