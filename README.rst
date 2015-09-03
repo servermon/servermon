@@ -9,6 +9,12 @@ servermon
     :target: https://readthedocs.org/projects/servermon/
     :alt: Documentation Status
 
+.. image:: https://coveralls.io/repos/servermon/servermon/badge.svg?branch=master&service=github
+   :target: https://coveralls.io/github/servermon/servermon?branch=master
+   :alt: Code Coverage Status
+
+
+
 Servermon is a Django project with the aim of facilitating server monitoring
 and management through Puppet.
 
