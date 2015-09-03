@@ -10,3 +10,4 @@ pysqlite
 mock<1.1.0
 mockldap
 coverage
+coveralls
