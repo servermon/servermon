@@ -481,7 +481,7 @@ class CommandsTestCase(unittest.TestCase):
                                 rack = self.rack,
                                 unit = '22',
                                 purpose = 'Nothing',
-                                comments = 'Nothing',
+                                comments = 'http://ticketing.example.com/012345',
                             )
 
         self.management = ServerManagement.objects.create (
@@ -499,6 +499,9 @@ class CommandsTestCase(unittest.TestCase):
         Equipment.objects.all().delete()
         EquipmentModel.objects.all().delete()
         Vendor.objects.all().delete()
+        # Also clear tickets that may be created by commands
+        Ticket.objects.all().delete()
+
 
     #Tests start here
     def test_bmc_commands(self):
@@ -670,8 +673,7 @@ class CommandsTestCase(unittest.TestCase):
     def test_populate_tickets_comments(self):
         settings.TICKETING_SYSTEM='comments'
         settings.COMMENTS_TICKETING_URL='http://ticketing.example.com/'
-        self.server2.comments = 'http://ticketing.example.com/012345'
-        call_command('hwdoc_populate_tickets', self.server1.serial, verbosity=0)
+        call_command('hwdoc_populate_tickets', self.server2.serial, verbosity=0)
 
     def test_populate_tickets_inexistent_system(self):
         settings.TICKETING_SYSTEM='nosuchthing'
