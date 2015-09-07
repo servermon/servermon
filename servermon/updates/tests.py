@@ -253,3 +253,31 @@ class CommandsTestCase(unittest.TestCase):
 
     def test_make_updates(self):
         call_command('make_updates')
+
+class MigrationsTestCase(unittest.TestCase):
+    '''
+    A test case for migration testing
+    '''
+
+    def setUp(self):
+        # Do a fake migration first to update the migration history.
+        call_command('migrate', 'updates',
+                     fake=True, verbosity=0, no_initial_data=True)
+        # Then rollback to the start
+        call_command('migrate', 'updates', '0001_initial',
+                     verbosity=0, no_initial_data=True)
+
+    def tearDown(self):
+        # We do need to tidy up and take the database to its final
+        # state so that we don't get errors when the final truncating
+        # happens.
+        call_command('migrate', 'updates',
+                     verbosity=0, no_initial_data=True)
+
+    def test_migrate_full_forwards(self):
+        call_command('migrate', 'updates',
+                     verbosity=0, no_initial_data=True)
+
+    def test_migrate_full_backwards(self):
+        call_command('migrate', 'updates', '0001_initial',
+                     verbosity=0, no_initial_data=True)
