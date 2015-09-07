@@ -18,14 +18,8 @@
 Unit tests for puppet package
 '''
 
-from django import VERSION as DJANGO_VERSION
-
-if DJANGO_VERSION[:2] >= (1, 3):
-    from django.utils import unittest
-else:
-    import unittest
-
 from django.test.client import Client
+from django.utils import unittest
 from puppet.models import Fact, Host, FactValue, ParamNames, ParamValues, PuppetTags, \
                     ResourceTags, SourceFile, Resource
 

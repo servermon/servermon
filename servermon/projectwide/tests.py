@@ -19,19 +19,15 @@ Unit tests for projectwide package
 '''
 
 import os
-from django import VERSION as DJANGO_VERSION
 import ldap
 from mockldap import MockLdap
 
-if DJANGO_VERSION[:2] >= (1, 3):
-    from django.utils import unittest
-else:
-    import unittest
+from django.utils import unittest
+from django.test.client import Client
 from django.core.management import call_command
 
 from puppet.models import Host, Resource, FactValue, Fact
 from projectwide.functions import get_search_terms, canonicalize_mac
-from django.test.client import Client
 
 # The following is an ugly hack for unit tests to work
 # We force managed the unmanaged models so that tables will be created
