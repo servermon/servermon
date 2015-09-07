@@ -20,6 +20,7 @@ Unit tests for hwdoc package
 
 from django import VERSION as DJANGO_VERSION
 
+from django.utils import unittest
 from django.test.client import Client
 from django.core.management import call_command, CommandError
 from django.conf import settings
@@ -32,10 +33,6 @@ from hwdoc.functions import search, populate_tickets
 from projectwide.functions import get_search_terms
 
 import os
-if DJANGO_VERSION[:2] >= (1, 3):
-    from django.utils import unittest
-else:
-    import unittest
 
 
 class EquipmentTestCase(unittest.TestCase):

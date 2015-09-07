@@ -18,17 +18,12 @@
 Unit tests for updates package
 '''
 
-from django import VERSION as DJANGO_VERSION
-
-if DJANGO_VERSION[:2] >= (1, 3):
-    from django.utils import unittest
-else:
-    import unittest
+from django.test.client import Client
+from django.utils import unittest
+from django.core.management import call_command
 
 from puppet.models import Host, Resource, FactValue, Fact
 from updates.models import Package, Update
-from django.test.client import Client
-from django.core.management import call_command
 
 # The following is an ugly hack for unit tests to work
 # We force managed the unmanaged models so that tables will be created

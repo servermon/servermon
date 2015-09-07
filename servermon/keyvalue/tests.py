@@ -18,15 +18,10 @@
 Unit tests for keyvalue package
 '''
 
-from django import VERSION as DJANGO_VERSION
 from django.contrib.auth.models import User, Permission
 from django.test.client import Client
+from django.utils import unittest
 from keyvalue.models import Key, KeyValue
-
-if DJANGO_VERSION[:2] >= (1, 3):
-    from django.utils import unittest
-else:
-    import unittest
 
 
 class KeyTestCase(unittest.TestCase):
