@@ -788,3 +788,31 @@ class AdminViewsTestCase(EquipmentTestCase):
     def test_admin_vendor(self):
         response = self.c1.get('/admin/hwdoc/vendor/')
         self.assertEqual(response.status_code, 200)
+
+class MigrationsTestCase(unittest.TestCase):
+    '''
+    A test case for migration testing
+    '''
+
+    def setUp(self):
+        # Do a fake migration first to update the migration history.
+        call_command('migrate', 'hwdoc',
+                     fake=True, verbosity=0, no_initial_data=True)
+        # Then rollback to the start
+        call_command('migrate', 'hwdoc', '0001_initial',
+                     verbosity=0, no_initial_data=True)
+
+    def tearDown(self):
+        # We do need to tidy up and take the database to its final
+        # state so that we don't get errors when the final truncating
+        # happens.
+        call_command('migrate', 'hwdoc',
+                     verbosity=0, no_initial_data=True)
+
+    def test_migrate_full_forwards(self):
+        call_command('migrate', 'hwdoc',
+                     verbosity=0, no_initial_data=True)
+
+    def test_migrate_full_backwards(self):
+        call_command('migrate', 'hwdoc', '0001_initial',
+                     verbosity=0, no_initial_data=True)
