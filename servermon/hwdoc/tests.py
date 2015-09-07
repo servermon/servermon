@@ -102,13 +102,13 @@ class EquipmentTestCase(unittest.TestCase):
                             hostname = 'example.org',
                             )
         self.ticket1 = Ticket.objects.create(
-                            name = 'myticket',
-                            url = 'http://example.com/myticket',
+                            name = '012345',
+                            url = 'http://ticketing.example.com/012345',
                             state = 'open',
                             )
         self.ticket2 = Ticket.objects.create(
                             name = 'myticket2',
-                            url = 'http://example.com/myticket2',
+                            url = 'http://ticketing.example.com/myticket2',
                             state = 'closed',
                             )
         self.ticket1.equipment.add(self.server1)
@@ -665,6 +665,12 @@ class CommandsTestCase(unittest.TestCase):
 
     def test_populate_tickets(self):
         settings.TICKETING_SYSTEM='dummy'
+        call_command('hwdoc_populate_tickets', self.server1.serial, verbosity=0)
+
+    def test_populate_tickets_comments(self):
+        settings.TICKETING_SYSTEM='comments'
+        settings.COMMENTS_TICKETING_URL='htt://ticketing.example.com/'
+        self.server2.comments = 'http://ticketing.example.com/012345'
         call_command('hwdoc_populate_tickets', self.server1.serial, verbosity=0)
 
     def test_populate_tickets_inexistent_system(self):
