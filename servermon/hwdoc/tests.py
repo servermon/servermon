@@ -669,7 +669,7 @@ class CommandsTestCase(unittest.TestCase):
 
     def test_populate_tickets_comments(self):
         settings.TICKETING_SYSTEM='comments'
-        settings.COMMENTS_TICKETING_URL='htt://ticketing.example.com/'
+        settings.COMMENTS_TICKETING_URL='http://ticketing.example.com/'
         self.server2.comments = 'http://ticketing.example.com/012345'
         call_command('hwdoc_populate_tickets', self.server1.serial, verbosity=0)
 
