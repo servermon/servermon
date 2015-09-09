@@ -28,6 +28,7 @@ from django.db.models import Q
 from django.utils.translation import ugettext as _
 from django.conf import settings
 
+
 def search(q):
     '''
     Searches in Puppet models model for various info
@@ -55,21 +56,21 @@ def search(q):
         for key in q:
             base = FactValue.objects.filter(value__icontains=key)
             base = base.filter(
-                    Q(fact_name__name='fqdn')|
-                    Q(fact_name__name__startswith='macaddress_')|
-                    Q(fact_name__name__startswith='ipaddress_')|
-                    Q(fact_name__name__startswith='ipaddress6_')|
-                    Q(fact_name__name__startswith='lldpswport_')|
-                    Q(fact_name__name='lldpparents')|
-                    Q(fact_name__name='manufacturer')|
-                    Q(fact_name__name='productname')|
-                    Q(fact_name__name='puppetclass')|
-                    Q(fact_name__name='system_serial_number')|
-                    Q(fact_name__name='ipmi_dns')|
-                    Q(fact_name__name='ipmi_ipaddress')|
-                    Q(fact_name__name='ipmi_macaddress')|
-                    Q(fact_name__name='rackunit')
-                    )
+                Q(fact_name__name='fqdn') |
+                Q(fact_name__name__startswith='macaddress_') |
+                Q(fact_name__name__startswith='ipaddress_') |
+                Q(fact_name__name__startswith='ipaddress6_') |
+                Q(fact_name__name__startswith='lldpswport_') |
+                Q(fact_name__name='lldpparents') |
+                Q(fact_name__name='manufacturer') |
+                Q(fact_name__name='productname') |
+                Q(fact_name__name='puppetclass') |
+                Q(fact_name__name='system_serial_number') |
+                Q(fact_name__name='ipmi_dns') |
+                Q(fact_name__name='ipmi_ipaddress') |
+                Q(fact_name__name='ipmi_macaddress') |
+                Q(fact_name__name='rackunit')
+            )
             ids.extend(base.distinct().values_list('id', flat=True))
         ids = list(set(ids))
         ret = FactValue.objects.filter(pk__in=ids)

@@ -19,12 +19,12 @@ Django management command to change boot order
 '''
 
 from django.core.management.base import BaseCommand
-from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
 from optparse import make_option
 
 import _bmc_common
+
 
 class Command(BaseCommand):
     '''
@@ -34,18 +34,18 @@ class Command(BaseCommand):
     args = '[key]'
 
     option_list = BaseCommand.option_list + (
-                make_option('-o', '--once',
+        make_option('-o', '--once',
                     action='store_true',
                     dest='once',
                     default=False,
                     help=_l('Set once off boot device. --list argument is also needed. Only first value used')),
-                make_option('-l', '--list',
+        make_option('-l', '--list',
                     action='store',
                     type='string',
                     dest='boot_list',
                     default='',
                     help=_l('Comma separated list of boot devices. Valid values depend on backend')),
-            ) + _bmc_common.option_list
+    ) + _bmc_common.option_list
 
     def handle(self, *args, **options):
         '''
@@ -53,4 +53,4 @@ class Command(BaseCommand):
         '''
         options['command'] = 'boot_order'
         options['boot_list'] = options['boot_list'].split(',')
-        result = _bmc_common.handle(self, *args, **options)
+        _bmc_common.handle(self, *args, **options)

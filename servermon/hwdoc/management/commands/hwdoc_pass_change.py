@@ -26,6 +26,7 @@ from optparse import make_option
 
 import _bmc_common
 
+
 class Command(BaseCommand):
     '''
     Django management command to change a BMC user password
@@ -34,19 +35,19 @@ class Command(BaseCommand):
     args = '[key]'
 
     option_list = BaseCommand.option_list + (
-                make_option('-c', '--change_username',
+        make_option('-c', '--change_username',
                     action='store',
                     type='string',
                     dest='change_username',
                     default=None,
                     help=_l('Username to change password for')),
-                make_option('-n', '--newpass',
+        make_option('-n', '--newpass',
                     action='store',
                     type='string',
                     dest='newpass',
                     default=None,
                     help=_l('New password')),
-            ) + _bmc_common.option_list
+    ) + _bmc_common.option_list
 
     def handle(self, *args, **options):
         '''
@@ -58,4 +59,4 @@ class Command(BaseCommand):
             raise CommandError(_('Username to have password changed missing'))
         if not options['newpass']:
             raise CommandError(_('New password for username missing'))
-        result = _bmc_common.handle(self, *args, **options)
+        _bmc_common.handle(self, *args, **options)

@@ -36,6 +36,7 @@ from settings import HOST_TIMEOUT, ADMINS
 import re
 import json
 
+
 def index(request):
     '''
     First page view
@@ -65,7 +66,8 @@ def index(request):
         'updatecount': updatecount,
         'packagecount': packagecount,
         'securitycount': securitycount,
-        })
+    })
+
 
 def search(request):
     '''
@@ -99,26 +101,23 @@ def search(request):
     else:
         key = None
 
-    results = {
-        'hwdoc': None,
-        'puppet': None,
-        'updates': None,
-        }
+    results = {'hwdoc': None, 'puppet': None, 'updates': None, }
 
     results['puppet'] = puppet_functions.search(key).select_related()
     results['hwdoc'] = hwdoc_functions.search(key).select_related(
-                        'servermanagement', 'rack', 'model',
+                        'servermanagement', 'rack', 'model',  # noqa
                         'model__vendor', 'allocation')
 
     results['hwdoc'] = hwdoc_functions.populate_hostnames(results['hwdoc'])
 
     try:
         return render(request, template,
-                    { 'results': results, },
-                    content_type=content_type)
+                      {'results': results},
+                      content_type=content_type)
     except TemplateSyntaxError as e:
         if re.search('too many SQL variables', e.message):
             return render(request, 'error.html', content_type=content_type)
+
 
 def advancedsearch(request):
     '''
@@ -131,6 +130,7 @@ def advancedsearch(request):
     '''
 
     return render(request, 'advancedsearch.html')
+
 
 def opensearch(request):
     '''
@@ -148,11 +148,12 @@ def opensearch(request):
     except IndexError:
         contact = 'none@example.com'
 
-    return render(request, 'opensearch.xml', {
-                 'opensearchbaseurl': "http://%s" % fqdn,
-                 'fqdn': fqdn,
-                 'contact': contact,
-             }, content_type = 'application/opensearchdescription+xml')
+    return render(request, 'opensearch.xml',
+                  {'opensearchbaseurl': "http://%s" % fqdn,
+                   'fqdn': fqdn,
+                   'contact': contact},
+                  content_type='application/opensearchdescription+xml')
+
 
 def suggest(request):
     '''
@@ -169,19 +170,16 @@ def suggest(request):
     else:
         key = None
 
-    results = {
-        'hwdoc': dict(),
-        'puppet': dict(),
-        }
+    results = {'hwdoc': dict(),
+               'puppet': dict(), }
 
-    k = {   'hwdoc': 'serial',
-            'puppet': 'value',
-        }
+    k = {'hwdoc': 'serial',
+         'puppet': 'value', }
 
     puppet = puppet_functions.search(key).annotate(Count('value'))
     hwdoc = hwdoc_functions.search(key).annotate(Count('serial'))
 
-    for i,v in k.items():
+    for i, v in k.items():
         try:
             results[i]['results'] = locals()[i].values_list('%s' % v, flat=True)
             results[i]['count'] = locals()[i].values_list('%s__count' % v, flat=True)
@@ -196,4 +194,4 @@ def suggest(request):
 
     response = json.dumps(resp)
 
-    return HttpResponse(response, content_type = 'application/x-suggestions+json')
+    return HttpResponse(response, content_type='application/x-suggestions+json')

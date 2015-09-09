@@ -32,6 +32,7 @@ Resource._meta.managed = True
 FactValue._meta.managed = True
 Fact._meta.managed = True
 
+
 class UpdatesTestCase(unittest.TestCase):
     '''
     A test case for updates app
@@ -45,15 +46,18 @@ class UpdatesTestCase(unittest.TestCase):
         self.host1 = Host.objects.create(name='MyHost', ip='10.10.10.10')
         self.package1 = Package.objects.create(name='testpackage', sourcename='testsource')
         self.package2 = Package.objects.create(name='testpackage2', sourcename='testpackage2')
-        self.update1 = Update.objects.create(package=self.package1, host=self.host1,
-                installedVersion = '1.1', candidateVersion='1.2',
-                source = 'TestSource', origin='Debian')
-        self.update2 = Update.objects.create(package=self.package2, host=self.host1,
-                installedVersion = '1.1', candidateVersion='1.2',
-                source = 'TestSource', origin='Ubuntu')
-        self.update3 = Update.objects.create(package=self.package2, host=self.host1,
-                installedVersion = '1.1', candidateVersion='1.2',
-                source = 'TestSource', origin='None')
+        self.update1 = Update.objects.create(
+            package=self.package1, host=self.host1,
+            installedVersion='1.1', candidateVersion='1.2',
+            source='TestSource', origin='Debian')
+        self.update2 = Update.objects.create(
+            package=self.package2, host=self.host1,
+            installedVersion='1.1', candidateVersion='1.2',
+            source='TestSource', origin='Ubuntu')
+        self.update3 = Update.objects.create(
+            package=self.package2, host=self.host1,
+            installedVersion='1.1', candidateVersion='1.2',
+            source='TestSource', origin='None')
 
     def tearDown(self):
         '''
@@ -78,6 +82,7 @@ class UpdatesTestCase(unittest.TestCase):
         self.assertIsInstance(self.update2.get_changelog_url(), str)
         self.assertIsInstance(str(self.update3), str)
         self.assertIsNone(self.update3.get_changelog_url())
+
 
 class ViewsTestCase(unittest.TestCase):
     '''
@@ -105,18 +110,24 @@ class ViewsTestCase(unittest.TestCase):
         self.fact4 = Fact.objects.create(name='netmask_eth0')
         self.fact5 = Fact.objects.create(name='ipaddress6_eth0')
         self.fact6 = Fact.objects.create(name='serialnumber')
-        self.factvalue1 = FactValue.objects.create(value='eth0',
-                fact_name=self.fact1, host=self.host1)
-        self.factvalue2 = FactValue.objects.create(value='aa:bb:cc:dd:ee:ff',
-                fact_name=self.fact2, host=self.host1)
-        self.factvalue3 = FactValue.objects.create(value='10.10.10.10',
-                fact_name=self.fact3, host=self.host1)
-        self.factvalue4 = FactValue.objects.create(value='255.255.255.0',
-                fact_name=self.fact4, host=self.host1)
-        self.factvalue5 = FactValue.objects.create(value='dead:beef::1/64',
-                fact_name=self.fact5, host=self.host1)
-        self.factvalue6 = FactValue.objects.create(value='R123457',
-                fact_name=self.fact6, host=self.host2)
+        self.factvalue1 = FactValue.objects.create(
+            value='eth0',
+            fact_name=self.fact1, host=self.host1)
+        self.factvalue2 = FactValue.objects.create(
+            value='aa:bb:cc:dd:ee:ff',
+            fact_name=self.fact2, host=self.host1)
+        self.factvalue3 = FactValue.objects.create(
+            value='10.10.10.10',
+            fact_name=self.fact3, host=self.host1)
+        self.factvalue4 = FactValue.objects.create(
+            value='255.255.255.0',
+            fact_name=self.fact4, host=self.host1)
+        self.factvalue5 = FactValue.objects.create(
+            value='dead:beef::1/64',
+            fact_name=self.fact5, host=self.host1)
+        self.factvalue6 = FactValue.objects.create(
+            value='R123457',
+            fact_name=self.fact6, host=self.host2)
 
     def tearDown(self):
         '''
@@ -176,7 +187,7 @@ class ViewsTestCase(unittest.TestCase):
 
     def test_nonexistent_host(self):
         c = Client()
-        response = c.get('/hosts/%s' % 'nosuchhost' )
+        response = c.get('/hosts/%s' % 'nosuchhost')
         self.assertEqual(response.status_code, 404)
 
     def test_existent_host(self):
@@ -192,6 +203,7 @@ class ViewsTestCase(unittest.TestCase):
         for d in data:
             response = c.get('/hosts/%s' % d)
             self.assertEqual(response.status_code, 200)
+
 
 class CommandsTestCase(unittest.TestCase):
     '''
@@ -212,17 +224,22 @@ class CommandsTestCase(unittest.TestCase):
         self.fact4 = Fact.objects.create(name='netmask_eth0')
         self.fact5 = Fact.objects.create(name='ipaddress6_eth0')
         self.fact6 = Fact.objects.create(name='package_updates')
-        self.factvalue1 = FactValue.objects.create(value='eth0',
-                fact_name=self.fact1, host=self.host1)
-        self.factvalue2 = FactValue.objects.create(value='aa:bb:cc:dd:ee:ff',
-                fact_name=self.fact2, host=self.host1)
-        self.factvalue3 = FactValue.objects.create(value='10.10.10.10',
-                fact_name=self.fact3, host=self.host1)
-        self.factvalue4 = FactValue.objects.create(value='255.255.255.0',
-                fact_name=self.fact4, host=self.host1)
-        self.factvalue5 = FactValue.objects.create(value='dead:beef::1/64',
-                fact_name=self.fact5, host=self.host1)
-        v="""<?xml version="1.0" ?>
+        self.factvalue1 = FactValue.objects.create(
+            value='eth0',
+            fact_name=self.fact1, host=self.host1)
+        self.factvalue2 = FactValue.objects.create(
+            value='aa:bb:cc:dd:ee:ff',
+            fact_name=self.fact2, host=self.host1)
+        self.factvalue3 = FactValue.objects.create(
+            value='10.10.10.10',
+            fact_name=self.fact3, host=self.host1)
+        self.factvalue4 = FactValue.objects.create(
+            value='255.255.255.0',
+            fact_name=self.fact4, host=self.host1)
+        self.factvalue5 = FactValue.objects.create(
+            value='dead:beef::1/64',
+            fact_name=self.fact5, host=self.host1)
+        v = """<?xml version="1.0" ?>
             <host name="%s">
                 <package current_version="1.0"
                          is_security="true"
@@ -237,8 +254,9 @@ class CommandsTestCase(unittest.TestCase):
                          origin="Debian"
                          source_name="nosuchsource"/>
             </host>""" % self.host1
-        self.factvalue6 = FactValue.objects.create(value=v,
-                fact_name=self.fact6, host=self.host1)
+        self.factvalue6 = FactValue.objects.create(
+            value=v,
+            fact_name=self.fact6, host=self.host1)
 
     def tearDown(self):
         '''
@@ -253,6 +271,7 @@ class CommandsTestCase(unittest.TestCase):
 
     def test_make_updates(self):
         call_command('make_updates')
+
 
 class MigrationsTestCase(unittest.TestCase):
     '''

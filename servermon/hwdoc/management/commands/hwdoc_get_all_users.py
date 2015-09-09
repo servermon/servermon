@@ -19,12 +19,10 @@ Django management command to add user to BMC
 '''
 
 from django.core.management.base import BaseCommand
-from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
-from optparse import make_option
-
 import _bmc_common
+
 
 class Command(BaseCommand):
     '''
@@ -41,4 +39,4 @@ class Command(BaseCommand):
         '''
 
         options['command'] = 'get_all_users'
-        result = _bmc_common.handle(self, *args, **options)
+        _bmc_common.handle(self, *args, **options)

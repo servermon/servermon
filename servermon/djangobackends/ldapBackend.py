@@ -21,8 +21,9 @@ Backend to provide LDAP authentication
 import ldap
 import ldap.filter
 
-from django.contrib.auth.models import User, UserManager, Permission, Group
+from django.contrib.auth.models import User, Group
 from django.conf import settings
+
 
 class ldapBackend:
     def authenticate(self, username=None, password=None):
@@ -68,7 +69,7 @@ class ldapBackend:
 
             # Corner case here with users not having a mail attribute
             if 'mail' not in result_data[0][1]:
-                result_data[0][1]['mail'] = ['',]
+                result_data[0][1]['mail'] = ['', ]
 
             # The user existed and authenticated. Get the user
             # record or create one with no privileges.
@@ -91,7 +92,7 @@ class ldapBackend:
                 user.first_name = result_data[0][1]['givenName'][0]
                 user.last_name = result_data[0][1]['sn'][0]
             except KeyError:
-                #TODO: Log this
+                # TODO: Log this
                 print "User has no givenName or sn attributes specified in LDAP. Please add them"
                 return None
 

@@ -23,6 +23,7 @@ from django.db import models
 from puppet.models import Host
 import re
 
+
 class Package(models.Model):
     '''
     A Debian package
@@ -40,6 +41,7 @@ class Package(models.Model):
             return self.name
         else:
             return "%s (%s)" % (self.name, self.sourcename)
+
 
 class Update(models.Model):
     '''
@@ -77,5 +79,5 @@ class Update(models.Model):
             'initial': self.package.sourcename[0],
             'source': self.package.sourcename,
             'version': re.sub(r'[0-9]+:', '', self.candidateVersion),
-            'slug': self.candidateVersion.replace('+','_')
+            'slug': self.candidateVersion.replace('+', '_')
         }

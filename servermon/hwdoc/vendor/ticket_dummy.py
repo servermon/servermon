@@ -20,6 +20,7 @@ Module containing dummy implementations of django management commands
 Idea is to be able to use it for unit tests and as a reference
 '''
 
+
 def get_tickets(equipment, closed):
     '''
     Populate tickets for equipment

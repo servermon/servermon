@@ -24,6 +24,7 @@ from django.shortcuts import render
 from django import forms
 from django.contrib.admin.widgets import FilteredSelectMultiple
 
+
 def inventory(request):
     '''
     Puppet inventory view. Will display a pre-selected list of facts
@@ -58,18 +59,19 @@ def inventory(request):
 
     facts = FactValue.objects.all()
     facts = facts.filter(fact_name__name__in=keys)
-    facts = facts.order_by('host') # itertools.groupby needs sorted input
-    facts = facts.select_related() # performance optimization
+    facts = facts.order_by('host')  # itertools.groupby needs sorted input
+    facts = facts.select_related()  # performance optimization
 
     hosts = []
     from itertools import groupby
     for key, values in groupby(facts, key=lambda x: x.host.name):
-        host = {'name': key }
+        host = {'name': key}
         for v in values:
             host[v.name] = v.value
         hosts.append(host)
 
-    return render(request, "inventory.html", {'hosts': hosts})
+    return render(request, 'inventory.html', {'hosts': hosts})
+
 
 def query(request):
     '''
@@ -82,21 +84,23 @@ def query(request):
     '''
 
     class MatrixForm(forms.Form):
-        hosts = forms.ModelMultipleChoiceField(queryset=Host.objects.all(),
-                widget=FilteredSelectMultiple("hosts", is_stacked=False))
-        facts = forms.ModelMultipleChoiceField(queryset=Fact.objects.all()
-                    .exclude(name__startswith='---')        # ruby objects
-                    .exclude(name__startswith='package_updates')
-                    .exclude(name__startswith='macaddress_') # VMs have tons of network interfaces :/
-                    .exclude(name__startswith='ipaddress_')
-                    .exclude(name__startswith='ipaddress6_')
-                    .exclude(name__startswith='network_')
-                    .exclude(name__startswith='netmask_'),
-                widget=FilteredSelectMultiple("parameters", is_stacked=False))
+        hosts = forms.ModelMultipleChoiceField(
+            queryset=Host.objects.all(),
+            widget=FilteredSelectMultiple('hosts', is_stacked=False))
+        facts = forms.ModelMultipleChoiceField(
+            queryset=Fact.objects.all()
+            .exclude(name__startswith='---')  # ruby objects
+            .exclude(name__startswith='package_updates')
+            .exclude(name__startswith='macaddress_')  # VMs have tons of network interfaces :/
+            .exclude(name__startswith='ipaddress_')
+            .exclude(name__startswith='ipaddress6_')
+            .exclude(name__startswith='network_')
+            .exclude(name__startswith='netmask_'),
+            widget=FilteredSelectMultiple('parameters', is_stacked=False))
 
     if request.method == 'GET':
         f = MatrixForm(label_suffix='')
-        return render(request, "query.html", { 'form': f })
+        return render(request, 'query.html', {'form': f})
     else:
         f = MatrixForm(request.POST)
         if f.is_valid():
@@ -109,18 +113,17 @@ def query(request):
             values = FactValue.objects.all()
             values = values.filter(fact_name__in=f.cleaned_data['facts'])
             values = values.filter(host__in=f.cleaned_data['hosts'])
-            values = values.order_by('host') # itertools.groupby needs sorted input
-            values = values.select_related() # performance optimization
+            values = values.order_by('host')  # itertools.groupby needs sorted input
+            values = values.select_related()  # performance optimization
 
             from itertools import groupby
             for key, values in groupby(values, key=lambda x: x.host.name):
                 row = {}
                 for v in values:
                     row[v.name] = v.value
-                row = [ row.get(k, None) for k in facts ]
-                results.append({'host': key, 'facts': row })
+                row = [row.get(k, None) for k in facts]
+                results.append({'host': key, 'facts': row})
 
-            return render(request, "query_results.html", { 'facts': facts, 'results': results })
+            return render(request, 'query_results.html', {'facts': facts, 'results': results})
         else:
-            return render(request, "query.html", { 'form': f })
-
+            return render(request, 'query.html', {'form': f})

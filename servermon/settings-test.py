@@ -1,4 +1,4 @@
-from settings import *
+from settings import *  # noqa
 
 DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
 DATABASES['default']['NAME'] = 'servermon-test.db'
@@ -22,8 +22,8 @@ if DJANGO_VERSION[:2] < (1, 7):
 AUTHENTICATION_BACKENDS = (
     'djangobackends.ldapBackend.ldapBackend',
     'django.contrib.auth.backends.ModelBackend',
-    )
+)
 
 LDAP_AUTH_SETTINGS = (
-    { 'url': 'ldap://localhost/', 'base': 'ou=People,dc=example,dc=org' },
+    {'url': 'ldap://localhost/', 'base': 'ou=People,dc=example,dc=org'},
 )

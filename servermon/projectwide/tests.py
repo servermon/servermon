@@ -18,8 +18,6 @@
 Unit tests for projectwide package
 '''
 
-import os
-import ldap
 from mockldap import MockLdap
 
 from django.utils import unittest
@@ -36,6 +34,7 @@ Resource._meta.managed = True
 FactValue._meta.managed = True
 Fact._meta.managed = True
 
+
 class FunctionsTestCase(unittest.TestCase):
     '''
     Testing functions class
@@ -47,7 +46,7 @@ class FunctionsTestCase(unittest.TestCase):
         self.assertEqual(canonicalize_mac('11:11:22:22:33:33'), '11:11:22:22:33:33')
 
     def test_free_text_search(self):
-        text=u'''
+        text = u'''
         This is a text that is not going to make any sense
         '''
 
@@ -111,7 +110,7 @@ class ProjectWideViewsTestCase(unittest.TestCase):
 
     def test_free_text_search_post(self):
         c = Client()
-        strings = [ 'this is a dummy string', '0.0', '.example.tld' ]
+        strings = ['this is a dummy string', '0.0', '.example.tld']
         for s in strings:
             response = c.post('/search/', {'qarea': s})
             self.assertEqual(response.status_code, 200)
@@ -123,13 +122,14 @@ class ProjectWideViewsTestCase(unittest.TestCase):
 
     def test_opensearch_suggestions(self):
         c = Client()
-        response = c.get('/suggest/', { 'q': 'test'})
+        response = c.get('/suggest/', {'q': 'test'})
         self.assertEqual(response.status_code, 200)
 
     def test_opensearch_suggest_no_q(self):
         c = Client()
         response = c.get('/suggest/')
         self.assertEqual(response.status_code, 200)
+
 
 class LDAPAuthTestCase(unittest.TestCase):
     '''
@@ -139,16 +139,14 @@ class LDAPAuthTestCase(unittest.TestCase):
     top2 = ('dc=example,dc=org', {'dc': 'example'})
     people = ('ou=people,dc=example,dc=org', {'ou': 'people'})
     alice = ('uid=alice,ou=people,dc=example,dc=org',
-                {   'uid': 'alice',
-                    'userPassword': ['alicepw'],
-                    'mail': 'alice@example.org',
-                    'givenName': 'alice',
-                    'sn': 'Smith',
-                })
+             {'uid': 'alice',
+              'userPassword': ['alicepw'],
+              'mail': 'alice@example.org',
+              'givenName': 'alice',
+              'sn': 'Smith', })
     bob = ('uid=bob,ou=people,dc=example,dc=org',
-                {   'uid': 'bob',
-                    'userPassword': ['bobpw'],
-                })
+           {'uid': 'bob',
+            'userPassword': ['bobpw'], })
 
     # This is the content of our mock LDAP directory. It takes the form
     # {dn: {attr: [value, ...], ...}, ...}.
@@ -191,6 +189,7 @@ class LDAPAuthTestCase(unittest.TestCase):
         c = Client()
         self.assertFalse(c.login(username='*', password='bobpw'))
 
+
 class CommandsTestCase(unittest.TestCase):
     '''
     A test case for django management commands
@@ -208,7 +207,7 @@ class CommandsTestCase(unittest.TestCase):
         '''
         pass
 
-    #Tests start here
+    # Tests start here
     def test_bmc_commands(self):
         call_command('dev_fixtures', yes_force_run=True, dry_run=True)
         call_command('dev_fixtures', yes_force_run=True, dry_run=False)

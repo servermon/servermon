@@ -20,20 +20,21 @@ Unit tests for puppet package
 
 from django.test.client import Client
 from django.utils import unittest
-from puppet.models import Fact, Host, FactValue, ParamNames, ParamValues, PuppetTags, \
-                    ResourceTags, SourceFile, Resource
+from puppet.models import Fact, Host, FactValue, ParamNames, \
+    ParamValues, PuppetTags, ResourceTags, SourceFile, Resource
 
 # The following is an ugly hack for unit tests to work
 # We force managed the unmanaged models so that tables will be created
-Fact._meta.managed=True
-Host._meta.managed=True
-FactValue._meta.managed=True
-ParamNames._meta.managed=True
-ParamValues._meta.managed=True
-PuppetTags._meta.managed=True
-ResourceTags._meta.managed=True
-SourceFile._meta.managed=True
-Resource._meta.managed=True
+Fact._meta.managed = True
+Host._meta.managed = True
+FactValue._meta.managed = True
+ParamNames._meta.managed = True
+ParamValues._meta.managed = True
+PuppetTags._meta.managed = True
+ResourceTags._meta.managed = True
+SourceFile._meta.managed = True
+Resource._meta.managed = True
+
 
 class PuppetTestCase(unittest.TestCase):
     '''
@@ -74,6 +75,7 @@ class PuppetTestCase(unittest.TestCase):
     def test_if_fact_equal_with_self(self):
         self.assertEqual(self.factv1.name, self.factv1.fact_name.name)
 
+
 class PuppetViewsTestCase(unittest.TestCase):
     '''
     A test case for servermon package
@@ -96,7 +98,6 @@ class PuppetViewsTestCase(unittest.TestCase):
         Host.objects.all().delete()
         Fact.objects.all().delete()
         FactValue.objects.all().delete()
-
 
     def test_inventory(self):
         c = Client()

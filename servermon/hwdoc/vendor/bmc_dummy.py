@@ -20,11 +20,13 @@ Module containing dummy implementations of django management commands
 Idea is to be able to use it for unit tests and as a reference
 '''
 
+
 def power_on(hostname, username, password, **kwargs):
     '''
     Power on command
     '''
     return True
+
 
 def power_off(hostname, username, password, **kwargs):
     '''
@@ -32,11 +34,13 @@ def power_off(hostname, username, password, **kwargs):
     '''
     return True
 
+
 def power_off_acpi(hostname, username, password, **kwargs):
     '''
     Power off using ACPI command
     '''
     return True
+
 
 def power_cycle(hostname, username, password, **kwargs):
     '''
@@ -44,11 +48,13 @@ def power_cycle(hostname, username, password, **kwargs):
     '''
     return True
 
+
 def power_reset(hostname, username, password, **kwargs):
     '''
     Warm boot command
     '''
     return True
+
 
 def pass_change(hostname, username, password, **kwargs):
     '''
@@ -56,11 +62,13 @@ def pass_change(hostname, username, password, **kwargs):
     '''
     return True
 
+
 def set_settings(hostname, username, password, **kwargs):
     '''
     Set BMC settings
     '''
     return True
+
 
 def set_ldap_settings(hostname, username, password, **kwargs):
     '''
@@ -68,11 +76,13 @@ def set_ldap_settings(hostname, username, password, **kwargs):
     '''
     return True
 
+
 def boot_order(hostname, username, password, **kwargs):
     '''
     Set boot order
     '''
     return True
+
 
 def license_set(hostname, username, password, **kwargs):
     '''
@@ -80,11 +90,13 @@ def license_set(hostname, username, password, **kwargs):
     '''
     return True
 
+
 def bmc_reset(hostname, username, password, **kwargs):
     '''
     Reset BMC
     '''
     return True
+
 
 def bmc_factory_defaults(hostname, username, password, **kwargs):
     '''
@@ -92,11 +104,13 @@ def bmc_factory_defaults(hostname, username, password, **kwargs):
     '''
     return True
 
+
 def add_user(hostname, username, password, **kwargs):
     '''
     Add a user to the BMC
     '''
     return True
+
 
 def remove_user(hostname, username, password, **kwargs):
     '''
@@ -104,15 +118,16 @@ def remove_user(hostname, username, password, **kwargs):
     '''
     return True
 
+
 def get_all_users(hostname, username, password, **kwargs):
     '''
     Get a list of all configured users on the BMC
     '''
     return True
 
+
 def firmware_update(hostname, username, password, **kwargs):
     '''
     Performs a firmware update of the BMC
     '''
     return True
-

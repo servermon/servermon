@@ -19,7 +19,6 @@
 updates views module
 '''
 
-
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.shortcuts import render
 from django.db.models import Count, Sum
@@ -28,15 +27,18 @@ from updates.models import Package, Update
 from hwdoc.models import Equipment
 from IPy import IP
 
+
 def hostlist(request):
     hosts = Host.objects.annotate(update_count=Count('update'),
                                   security_count=Sum('update__is_security'))
-    return render(request, 'hostlist.html', {'hosts': hosts })
+    return render(request, 'hostlist.html', {'hosts': hosts})
+
 
 def packagelist(request):
     packages = Package.objects.annotate(host_count=Count('hosts'),
                                         security_count=Sum('update__is_security'))
-    return render(request, 'packagelist.html', {'packages': packages })
+    return render(request, 'packagelist.html', {'packages': packages})
+
 
 def package(request, packagename):
     # there may be multiple Package with same name but different sourcename
@@ -46,6 +48,7 @@ def package(request, packagename):
     if "plain" in request.GET:
         return render(request, "package.txt", {"updates": updates}, content_type="text/plain")
     return render(request, 'packageview.html', {'package': package, 'updates': updates})
+
 
 def host(request, hostname):
     host = get_object_or_404(Host, name=hostname)
@@ -63,17 +66,17 @@ def host(request, hostname):
     interfaces = []
     for iface in iflist:
         d = {}
-        iface1 = iface.replace(':','_')
+        iface1 = iface.replace(':', '_')
         mac = host.get_fact_value('macaddress_%s' % iface1)
         ip = host.get_fact_value('ipaddress_%s' % iface1)
         netmask = host.get_fact_value('netmask_%s' % iface1)
         ip6 = host.get_fact_value('ipaddress6_%s' % iface1)
 
-        d = { 'iface': iface,
-              'mac': mac }
+        d = {'iface': iface,
+             'mac': mac}
 
         if netmask and ip:
-            d['ipaddr'] = "%s/%d" % (ip, IP(ip).make_net(netmask).prefixlen())
+            d['ipaddr'] = '%s/%d' % (ip, IP(ip).make_net(netmask).prefixlen())
 
         if ip6:
             d['ipaddr6'] = ip6
@@ -94,67 +97,63 @@ def host(request, hostname):
     ]
 
     for fact, label in fields:
-        system.append({ 'name': label, 'value': host.get_fact_value(fact) })
+        system.append({'name': label, 'value': host.get_fact_value(fact)})
 
-    system.append({ 'name': 'Processor type',
-        'value': ", ".join([ p['value'] for p in host.factvalue_set.filter(fact_name__name__startswith='processor').exclude(fact_name__name='processorcount').values('value').distinct() ]),
+    system.append({
+        'name': 'Processor type',
+        'value': ', '.join([p['value'] for p in host.factvalue_set.filter(fact_name__name__startswith='processor').exclude(fact_name__name='processorcount').values('value').distinct()]),
     })
 
-    system.append({ 'name': 'Operating System',
-        'value': "%s %s" % (host.get_fact_value('operatingsystem'), host.get_fact_value('operatingsystemrelease'))
-        })
-    system.append({ 'name': 'Memory',
-        'value': "%s (%s free)" % (host.get_fact_value('memorytotal'), host.get_fact_value('memoryfree'))
-        })
+    system.append({
+        'name': 'Operating System',
+        'value': '%s %s' % (host.get_fact_value('operatingsystem'), host.get_fact_value('operatingsystemrelease'))
+    })
+    system.append({
+        'name': 'Memory',
+        'value': '%s (%s free)' % (host.get_fact_value('memorytotal'), host.get_fact_value('memoryfree'))
+    })
 
-    system.append({ 'name': 'Puppet classes',
-        'value': ", ".join([ f.value for f in  host.factvalue_set.filter(fact_name__name='puppetclass') ])
-        })
+    system.append({
+        'name': 'Puppet classes',
+        'value': ', '.join([f.value for f in host.factvalue_set.filter(fact_name__name='puppetclass')])
+    })
 
     # Location info part
     try:
         eq = Equipment.objects.get(serial=host.get_fact_value('serialnumber'))
-        location.append({ 'name': 'Rack Unit',
-            'value': "%s" % (
-                eq.unit
-                )
-            })
-        location.append({ 'name': 'Rack',
-            'value': "%s" % (
-                eq.rack
-                )
-            })
-        location.append({ 'name': 'Rack Row',
-            'value': "%s" % (
-                eq.rack.rackposition.rr
-                )
-            })
-        location.append({ 'name': 'IPMI Method',
-            'value': "%s" % (
-                eq.servermanagement.method
-                )
-            })
-        location.append({ 'name': 'IPMI Hostname',
-            'value': "%s" % (
-                eq.servermanagement.hostname
-                )
-            })
-        location.append({ 'name': 'IPMI MAC',
-            'value': "%s" % (
-                eq.servermanagement.mac
-                )
-            })
-        location.append({ 'name': 'Datacenter',
-            'value': "%s" % (
-                eq.rack.rackposition.rr.dc
-                )
-            })
+        location.append({
+            'name': 'Rack Unit',
+            'value': '%s' % eq.unit
+        })
+        location.append({
+            'name': 'Rack',
+            'value': '%s' % eq.rack
+        })
+        location.append({
+            'name': 'Rack Row',
+            'value': '%s' % eq.rack.rackposition.rr
+        })
+        location.append({
+            'name': 'IPMI Method',
+            'value': '%s' % eq.servermanagement.method
+        })
+        location.append({
+            'name': 'IPMI Hostname',
+            'value': '%s' % eq.servermanagement.hostname
+        })
+        location.append({
+            'name': 'IPMI MAC',
+            'value': '%s' % eq.servermanagement.mac
+        })
+        location.append({
+            'name': 'Datacenter',
+            'value': '%s' % eq.rack.rackposition.rr.dc
+        })
     except:
-        location.append({ 'name': 'Location',
-            'value': "%s" % (
-                'No location information found'
-                )
-            })
+        location.append({
+            'name': 'Location',
+            'value': '%s' % 'No location information found'
+        })
 
     # Updates info
     updates = Update.objects.filter(host=host).order_by('package__name')
@@ -166,4 +165,4 @@ def host(request, hostname):
         'interfaces': interfaces,
         'system': system,
         'location': location,
-        })
+    })

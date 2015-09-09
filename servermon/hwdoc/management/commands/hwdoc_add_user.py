@@ -26,6 +26,7 @@ from optparse import make_option
 
 import _bmc_common
 
+
 class Command(BaseCommand):
     '''
     Django management command to add user to BMC
@@ -34,22 +35,22 @@ class Command(BaseCommand):
     args = '[key]'
 
     option_list = BaseCommand.option_list + (
-                make_option('--newuser_fullname',
+        make_option('--newuser_fullname',
                     action='store',
                     dest='newuser_fullname',
                     default='',
                     help=_('Specify the fullname of the new user')),
-                make_option('--newuser_username',
+        make_option('--newuser_username',
                     action='store',
                     dest='newuser_username',
                     default='',
                     help=_('Specify the username of the new user')),
-                make_option('--newuser_password',
+        make_option('--newuser_password',
                     action='store',
                     dest='newuser_password',
                     default='',
                     help=_('Specify the password of the new user')),
-            ) + _bmc_common.option_list
+    ) + _bmc_common.option_list
 
     def handle(self, *args, **options):
         '''
@@ -57,4 +58,4 @@ class Command(BaseCommand):
         '''
 
         options['command'] = 'add_user'
-        result = _bmc_common.handle(self, *args, **options)
+        _bmc_common.handle(self, *args, **options)

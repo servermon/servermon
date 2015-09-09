@@ -20,7 +20,6 @@ Django management command to populate updatable packages in DB
 '''
 
 from django.core.management.base import BaseCommand
-from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
 from xml.dom.minidom import parseString
@@ -28,6 +27,7 @@ from updates.models import Package, Update
 from django.db import transaction
 
 from puppet.models import Host
+
 
 class Command(BaseCommand):
     '''
@@ -76,8 +76,8 @@ class Command(BaseCommand):
                 p.save()
 
             u = Update(host=host, package=p,
-                    installedVersion=cv, candidateVersion=nv,
-                    origin=org,
-                    is_security=is_sec)
+                       installedVersion=cv, candidateVersion=nv,
+                       origin=org,
+                       is_security=is_sec)
 
             u.save()

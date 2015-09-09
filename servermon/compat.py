@@ -19,6 +19,7 @@
 Compat functions for old versions of Django
 '''
 
+
 def monkey_patch_command_execute(name):
     """
     Monkey patches a django management command to give it an execute
@@ -47,7 +48,6 @@ def monkey_patch_command_execute(name):
         """
         from django.utils.encoding import smart_str
         import sys
-        show_traceback = options.get('traceback', False)
 
         try:
             self.stdout = options.get('stdout', sys.stdout)
@@ -60,11 +60,7 @@ def monkey_patch_command_execute(name):
                 # this is useless. Just pass
                 pass
         except CommandError, e:
-            if show_traceback:
-                traceback.print_exc()
-            else:
                 self.stderr.write(smart_str(self.style.ERROR('Error: %s\n' % e)))
     setattr(klass, 'execute', types.MethodType(execute, klass))
     # Finalize command manipulation
     management._commands[name] = klass
-

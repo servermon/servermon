@@ -19,9 +19,9 @@ Module configuring Django's admin interface for keyvalue
 '''
 
 from django.contrib import admin
-from django.utils.translation import ugettext as _
 from django.contrib.contenttypes import generic
 from keyvalue.models import Key, KeyValue
+
 
 class KeyValueAdmin(generic.GenericStackedInline):
     '''

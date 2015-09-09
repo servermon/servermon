@@ -27,6 +27,7 @@ from optparse import make_option
 
 import _bmc_common
 
+
 class Command(BaseCommand):
     '''
     Django management command to upgrade BMC firmware
@@ -35,13 +36,13 @@ class Command(BaseCommand):
     args = '[key]'
 
     option_list = BaseCommand.option_list + (
-                make_option('-f', '--firmware',
+        make_option('-f', '--firmware',
                     action='store',
                     type='string',
                     dest='firmware_location',
                     default=None,
                     help=_l('Firmware file location')),
-            ) + _bmc_common.option_list
+    ) + _bmc_common.option_list
 
     def handle(self, *args, **options):
         '''
@@ -56,4 +57,4 @@ class Command(BaseCommand):
         if not isfile(options['firmware_location']):
             raise CommandError(_('Firmware file not found. Check command input'))
 
-        result = _bmc_common.handle(self, *args, **options)
+        _bmc_common.handle(self, *args, **options)

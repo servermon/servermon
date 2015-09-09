@@ -18,6 +18,7 @@
 Django management command to populate tickets associated with Equipment
 '''
 
+import sys
 from django.core.management.base import BaseCommand, CommandError
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
@@ -27,6 +28,7 @@ from hwdoc.functions import populate_tickets, search
 
 from optparse import make_option
 
+
 class Command(BaseCommand):
     '''
     Django management command to populate tickets associated with Equipment
@@ -35,12 +37,12 @@ class Command(BaseCommand):
     args = '[key]'
 
     option_list = BaseCommand.option_list + (
-                make_option('-c', '--closed',
+        make_option('-c', '--closed',
                     action='store_true',
                     default=False,
                     dest='closed',
                     help=_l('Populated closed tickets as well')),
-                    )
+    )
 
     @transaction.commit_on_success
     def handle(self, *args, **options):
@@ -58,4 +60,4 @@ class Command(BaseCommand):
             sys.exit(1)
 
         es = search(key)
-        result = populate_tickets(es, options['closed'])
+        populate_tickets(es, options['closed'])

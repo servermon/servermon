@@ -22,24 +22,24 @@ from django.core.management.base import CommandError
 from hwdoc.models import ServerManagement
 from hwdoc.functions import search
 from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy as _l
 
 from optparse import make_option
 
 option_list = (
-            make_option('-u', '--username',
+    make_option('-u', '--username',
                 action='store',
                 type='string',
                 dest='username',
                 default=None,
                 help=_('Provide username used to login to BMC')),
-            make_option('-p', '--password',
+    make_option('-p', '--password',
                 action='store',
                 type='string',
                 dest='password',
                 default=None,
                 help=_('Provide password used to login to BMC')),
-        )
+)
+
 
 def handle(self, *args, **options):
     '''
@@ -68,7 +68,7 @@ def handle(self, *args, **options):
                 opts.pop(term)
         command = getattr(e.servermanagement, options['command'])
         result = command(options['username'], options['password'], **opts)
-        #TODO: Figure out what to do with this
+        # TODO: Figure out what to do with this
         if int(options['verbosity']) > 1:
             print result
     return
