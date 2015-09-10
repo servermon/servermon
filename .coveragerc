@@ -4,3 +4,4 @@ source = servermon
 omit =
 	servermon/hwdoc/vendor/bmc_ilo3.py
 	servermon/hwdoc/vendor/ticket_jira.py
+	servermon/apt2xml.py
