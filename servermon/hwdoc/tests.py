@@ -824,3 +824,13 @@ class MigrationsTestCase(unittest.TestCase):
     def test_migrate_full_backwards(self):
         call_command('migrate', 'hwdoc', '0001_initial',
                      verbosity=0, no_initial_data=True)
+
+    def test_migration_0005_migrate_states(self):
+        call_command('migrate', 'hwdoc', '0004_auto__add_field_equipment_temp',
+                     verbosity=0, no_initial_data=True)
+        self.vendor = Vendor.objects.create(name='vendor')
+        self.model = Model.objects.create(vendor=self.vendor, name='model', u=2)
+        for i in range(6):
+            Equipment.objects.create(model=self.model,serial='a%s' % i, state=i)
+        call_command('migrate', 'hwdoc', '0005_migrate_states',
+                     verbosity=0, no_initial_data=True)
