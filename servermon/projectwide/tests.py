@@ -187,3 +187,5 @@ class CommandsTestCase(unittest.TestCase):
     #Tests start here
     def test_bmc_commands(self):
         call_command('dev_fixtures', yes_force_run=True, dry_run=True)
+        call_command('dev_fixtures', yes_force_run=True, dry_run=False)
+        call_command('dev_fixtures', yes_force_run=False, dry_run=True)
