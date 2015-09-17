@@ -19,12 +19,12 @@ Django management command to set LDAP BMC settings
 '''
 
 from django.core.management.base import BaseCommand
-from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
 from optparse import make_option
 
 import _bmc_common
+
 
 class Command(BaseCommand):
     '''
@@ -34,21 +34,21 @@ class Command(BaseCommand):
     args = '[key]'
 
     option_list = BaseCommand.option_list + (
-                make_option('--ldap_enable', action='store', dest='ldap_enable', help=_l('Enable LDAP authentication. Valid values: Yes, No')),
-                make_option('--local_users_enable', action='store', dest='local_users_enable', help=_l('Enable/disable local users')),
-                make_option('--ldap_server', action='store', dest='ldap_server', help=_l('LDAP server')),
-                make_option('--lom_dn', action='store', dest='lom_dn', help=_l('iLO3 HP extended schema object dn')),
-                make_option('--lom_password', action='store', dest='lom_password', help=_l('iLO3 HP extended schema object dn password')),
-                make_option('--ldap_group_enable', action='store', dest='ldap_group_enable', help=_l('Enable/disable ldap groups')),
-                make_option('--kerberos_realm', action='store', dest='kerberos_realm', help=_l('Kerberos realm. iLO3 support only')),
-                make_option('--kdc_ip', action='store', dest='kdc_ip', help=_l('KDC Kerberos IP. iLO3 support only')),
-                make_option('--kdc_port', action='store', dest='kdc_port', help=_l('KDC Kerberos port. iLO3 support only')),
+        make_option('--ldap_enable', action='store', dest='ldap_enable', help=_l('Enable LDAP authentication. Valid values: Yes, No')),
+        make_option('--local_users_enable', action='store', dest='local_users_enable', help=_l('Enable/disable local users')),
+        make_option('--ldap_server', action='store', dest='ldap_server', help=_l('LDAP server')),
+        make_option('--lom_dn', action='store', dest='lom_dn', help=_l('iLO3 HP extended schema object dn')),
+        make_option('--lom_password', action='store', dest='lom_password', help=_l('iLO3 HP extended schema object dn password')),
+        make_option('--ldap_group_enable', action='store', dest='ldap_group_enable', help=_l('Enable/disable ldap groups')),
+        make_option('--kerberos_realm', action='store', dest='kerberos_realm', help=_l('Kerberos realm. iLO3 support only')),
+        make_option('--kdc_ip', action='store', dest='kdc_ip', help=_l('KDC Kerberos IP. iLO3 support only')),
+        make_option('--kdc_port', action='store', dest='kdc_port', help=_l('KDC Kerberos port. iLO3 support only')),
 
-                make_option('--contexts', action='store', dest='contexts', default=None, help=_l('List of comma separated contexts')),
-                make_option('--groupnames', action='store', dest='groupnames', default=None, help=_l('LDAP group names')),
-                make_option('--groupprivs', action='store', dest='groupprivs', default=None, help=_l('LDAP group privileges. iLO3 support only')),
-                make_option('--groupsids', action='store', dest='groupsids', default=None, help=_l('LDAP group AD SIDs. iLO3 support only')),
-            ) + _bmc_common.option_list
+        make_option('--contexts', action='store', dest='contexts', default=None, help=_l('List of comma separated contexts')),
+        make_option('--groupnames', action='store', dest='groupnames', default=None, help=_l('LDAP group names')),
+        make_option('--groupprivs', action='store', dest='groupprivs', default=None, help=_l('LDAP group privileges. iLO3 support only')),
+        make_option('--groupsids', action='store', dest='groupsids', default=None, help=_l('LDAP group AD SIDs. iLO3 support only')),
+    ) + _bmc_common.option_list
 
     def handle(self, *args, **options):
         '''
@@ -66,4 +66,4 @@ class Command(BaseCommand):
                 options['groupprivs'] = options['groupprivs'].split(':')
             if s == 'groupsids' and options['groupsids'] is not None:
                 options['groupsids'] = options['groupsids'].split(':')
-        result = _bmc_common.handle(self, *args, **options)
+        _bmc_common.handle(self, *args, **options)

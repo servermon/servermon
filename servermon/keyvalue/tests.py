@@ -18,7 +18,7 @@
 Unit tests for keyvalue package
 '''
 
-from django.contrib.auth.models import User, Permission
+from django.contrib.auth.models import User
 from django.test.client import Client
 from django.utils import unittest
 from keyvalue.models import Key, KeyValue
@@ -66,6 +66,7 @@ class KeyTestCase(unittest.TestCase):
         # Test __unicode__ method on KeyValue
         self.assertEqual(str(self.keyvalue), 'Key1 = Yo')
 
+
 class AdminViewsTestCase(unittest.TestCase):
     '''
     Testing admin views class
@@ -76,7 +77,7 @@ class AdminViewsTestCase(unittest.TestCase):
         Command run before every test
         '''
         self.u1 = User.objects.create(username='test1', email='test1@example.com',
-                            is_staff=True, is_superuser=True)
+                                      is_staff=True, is_superuser=True)
         self.u1.set_password('test')
         self.u1.save()
         self.c1 = Client()

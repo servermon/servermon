@@ -23,6 +23,7 @@ from django.utils.translation import ugettext as _
 from django.contrib.contenttypes import generic
 from keyvalue.models import KeyValue
 
+
 # Allocation models #
 class Email(models.Model):
     '''
@@ -38,6 +39,7 @@ class Email(models.Model):
     def __unicode__(self):
         return self.email
 
+
 class Phone(models.Model):
     '''
     Phone Model. Represents a phone. No special checks are done for user input
@@ -51,6 +53,7 @@ class Phone(models.Model):
 
     def __unicode__(self):
         return self.number
+
 
 class Person(models.Model):
     '''
@@ -68,12 +71,13 @@ class Person(models.Model):
         verbose_name_plural = _(u'People')
 
     def __unicode__(self):
-        result =  u'%s %s ' % (self.name, self.surname)
+        result = u'%s %s ' % (self.name, self.surname)
         if self.emails.count() > 0:
             result += u'<%s> ' % ', '.join(map(lambda x: x[0], self.emails.values_list('email')))
         if self.phones.count() > 0:
             result += u'%s' % ', '.join(map(lambda x: x[0], self.phones.values_list('number')))
         return result
+
 
 class Project(models.Model):
     '''
@@ -91,15 +95,16 @@ class Project(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Role(models.Model):
     '''
     Roles for projects
     '''
 
     ROLES = (
-                ('manager', 'Manager' ),
-                ('technical', 'Techinal Person'),
-            )
+        ('manager', 'Manager'),
+        ('technical', 'Techinal Person'),
+    )
     role = models.CharField(max_length=80, choices=ROLES)
     project = models.ForeignKey(Project)
     person = models.ForeignKey(Person)
@@ -114,7 +119,8 @@ class Role(models.Model):
             'name': self.person.name,
             'surname': self.person.surname,
             'role': self.role,
-            }
+        }
+
 
 # Equipment models #
 class Datacenter(models.Model):
@@ -132,6 +138,7 @@ class Datacenter(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Vendor(models.Model):
     '''
     Equipments have Models and belong to Vendors
@@ -147,6 +154,7 @@ class Vendor(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Model(models.Model):
     '''
     Abstract class for all vendor models
@@ -159,6 +167,7 @@ class Model(models.Model):
         abstract = True
         verbose_name = _(u'Model')
         verbose_name_plural = _(u'Models')
+
 
 class RackModel(Model):
     '''
@@ -181,6 +190,7 @@ class RackModel(Model):
     @property
     def units(self):
         return reversed(range(1, self.height + 1))
+
 
 class Rack(models.Model):
     '''
@@ -214,10 +224,11 @@ class Rack(models.Model):
         if related:
             equipment_list = equipment_list.select_related(*related)
         units = []
-        for z in ((x+w for w in range(y)) for x,y in equipment_list.values_list('unit', 'model__u')):
+        for z in ((x + w for w in range(y)) for x, y in equipment_list.values_list('unit', 'model__u')):
             units.extend(z)
         empty_units = set(self.model.units) - set(sorted(units))
         return empty_units
+
 
 class RackRow(models.Model):
     '''
@@ -235,6 +246,7 @@ class RackRow(models.Model):
     def __unicode__(self):
         return u'%s in %s' % (self.name, self.dc)
 
+
 class Storage(models.Model):
     '''
     Datacenter may have storage facilities
@@ -250,6 +262,7 @@ class Storage(models.Model):
 
     def __unicode__(self):
         return u'%s in %s' % (self.name, self.dc)
+
 
 class RackPosition(models.Model):
     '''
@@ -270,7 +283,8 @@ class RackPosition(models.Model):
             'rack': self.rack,
             'position': self.position,
             'rackrow': self.rr,
-            }
+        }
+
 
 class EquipmentModel(Model):
     '''
@@ -300,9 +314,11 @@ class Equipment(models.Model):
     Equipment model
     '''
 
-    ORIENTATIONS = ( ('Front', 'Front'),
-                     ('Back', 'Back'),
-                     ('NA', 'Not Applicable'), )
+    ORIENTATIONS = (
+        ('Front', 'Front'),
+        ('Back', 'Back'),
+        ('NA', 'Not Applicable'),
+    )
 
     model = models.ForeignKey(EquipmentModel)
     allocation = models.ForeignKey(Project, null=True, blank=True)
@@ -325,8 +341,8 @@ class Equipment(models.Model):
     class Meta:
         ordering = ['rack', '-unit']
         permissions = (
-                ('can_change_comment', 'Can change comments'),
-                )
+            ('can_change_comment', 'Can change comments'),
+        )
         verbose_name = _(u'Equipment')
         verbose_name_plural = _(u'Equipments')
 
@@ -349,6 +365,7 @@ class Equipment(models.Model):
         else:
             return None
 
+
 class ServerManagement(models.Model):
     '''
     Equipments that can be managed have a ServerManagement counterpanrt
@@ -356,12 +373,12 @@ class ServerManagement(models.Model):
 
     equipment = models.OneToOneField(Equipment)
     METHODS = (
-            ('ilo2', 'HP iLO 2'),
-            ('ilo3', 'HP iLO 3'),
-            ('irmc', 'Fujitsu iRMC'),
-            ('ipmi', 'Generic IPMI'),
-            ('dummy', 'Dummy Method Backend'),
-        )
+        ('ilo2', 'HP iLO 2'),
+        ('ilo3', 'HP iLO 3'),
+        ('irmc', 'Fujitsu iRMC'),
+        ('ipmi', 'Generic IPMI'),
+        ('dummy', 'Dummy Method Backend'),
+    )
     method = models.CharField(choices=METHODS, max_length=10)
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -384,7 +401,7 @@ class ServerManagement(models.Model):
             username = self.username
         if password is None:
             password = self.password
-        if action == 'license_set' and ( 'license' not in kwargs or kwargs['license'] is None):
+        if action == 'license_set' and ('license' not in kwargs or kwargs['license'] is None):
             kwargs['license'] = self.license
 
         try:
@@ -515,14 +532,15 @@ class ServerManagement(models.Model):
 
 # Auxiliary models
 
+
 class Ticket(models.Model):
     '''
     A ticket associated with a model
     '''
     STATES = (
-            ('open', 'Open'),
-            ('closed', 'Closed'),
-        )
+        ('open', 'Open'),
+        ('closed', 'Closed'),
+    )
 
     name = models.CharField(max_length=20, unique=True)
     state = models.CharField(choices=STATES, max_length=10)

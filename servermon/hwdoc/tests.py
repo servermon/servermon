@@ -26,10 +26,10 @@ from django.core.management import call_command, CommandError
 from django.conf import settings
 from django.contrib.auth.models import User, Permission
 from hwdoc.models import Vendor, EquipmentModel, Equipment, \
-    ServerManagement, Project, Rack, RackPosition, RackModel, RackRow, \
+    ServerManagement, Rack, RackPosition, RackModel, RackRow, \
     Datacenter, Storage, Ticket, \
     Email, Phone, Person, Project, Role
-from hwdoc.functions import search, populate_tickets
+from hwdoc.functions import search
 from projectwide.functions import get_search_terms
 
 import os
@@ -51,66 +51,66 @@ class EquipmentTestCase(unittest.TestCase):
         self.model2 = EquipmentModel.objects.create(vendor=self.vendor, name='PRIMERGY RX200 S5', u=1)
         self.model3 = EquipmentModel.objects.create(vendor=self.vendor, name='DS2600', u=2)
         self.rackmodel = RackModel.objects.create(
-                                vendor=self.vendor,
-                                inrow_ac=False,
-                                max_mounting_depth = 99,
-                                min_mounting_depth = 19,
-                                height = 42,
-                                width = 19)
+            vendor=self.vendor,
+            inrow_ac=False,
+            max_mounting_depth=99,
+            min_mounting_depth=19,
+            height=42,
+            width=19
+        )
         self.dc = Datacenter.objects.create(name='Test DC')
         self.rackrow = RackRow.objects.create(name='testing', dc=self.dc)
         self.rack = Rack.objects.create(model=self.rackmodel, name='testrack')
         self.rack2 = Rack.objects.create(model=self.rackmodel, name='R02')
         RackPosition.objects.create(rack=self.rack, rr=self.rackrow, position=10)
-        self.storage = Storage.objects.create(name='Test DCs storage',
-                dc=self.dc)
+        self.storage = Storage.objects.create(name='Test DCs storage', dc=self.dc)
 
         self.server1 = Equipment.objects.create(
-                                model = self.model1,
-                                serial = 'G123456',
-                                rack = self.rack,
-                                unit = 20,
-                                purpose = 'Nothing',
-                            )
+            model=self.model1,
+            serial='G123456',
+            rack=self.rack,
+            unit=20,
+            purpose='Nothing',
+        )
 
         self.server2 = Equipment.objects.create(
-                                model = self.model2,
-                                serial = 'R123457',
-                                rack = self.rack,
-                                unit = 22,
-                                purpose = 'Nothing',
-                                comments = 'Nothing',
-                            )
+            model=self.model2,
+            serial='R123457',
+            rack=self.rack,
+            unit=22,
+            purpose='Nothing',
+            comments='Nothing',
+        )
 
         self.server3 = Equipment.objects.create(
-                                model = self.model2,
-                                serial = 'R123458',
-                                rack = self.rack2,
-                                unit = 23,
-                                purpose = 'Nothing',
-                                comments = 'Nothing',
-                            )
+            model=self.model2,
+            serial='R123458',
+            rack=self.rack2,
+            unit=23,
+            purpose='Nothing',
+            comments='Nothing',
+        )
 
         self.management = ServerManagement.objects.create(
-                            equipment = self.server2,
-                            method = 'dummy',
-                            hostname = 'example.com',
-                            )
+            equipment=self.server2,
+            method='dummy',
+            hostname='example.com',
+        )
         self.management2 = ServerManagement.objects.create(
-                            equipment = self.server3,
-                            method = 'error',
-                            hostname = 'example.org',
-                            )
+            equipment=self.server3,
+            method='error',
+            hostname='example.org',
+        )
         self.ticket1 = Ticket.objects.create(
-                            name = '012345',
-                            url = 'http://ticketing.example.com/012345',
-                            state = 'open',
-                            )
+            name='012345',
+            url='http://ticketing.example.com/012345',
+            state='open',
+        )
         self.ticket2 = Ticket.objects.create(
-                            name = 'myticket2',
-                            url = 'http://ticketing.example.com/myticket2',
-                            state = 'closed',
-                            )
+            name='myticket2',
+            url='http://ticketing.example.com/myticket2',
+            state='closed',
+        )
         self.ticket1.equipment.add(self.server1)
         self.ticket2.equipment.add(self.server1)
 
@@ -183,7 +183,7 @@ class EquipmentTestCase(unittest.TestCase):
         self.assertEqual(search(self.server2.serial)[0].serial, self.server2.serial)
 
     def test_free_text_search(self):
-        text=u'''
+        text = u'''
         This is a text that is not going to make any sense apart from containing
         a hostname for a server (aka example.com) and a rackunit aka R10U22
         '''
@@ -202,6 +202,7 @@ class EquipmentTestCase(unittest.TestCase):
         self.assertIsInstance(str(self.ticket1), str)
         self.assertIsInstance(str(self.management), str)
 
+
 class AllocationTestCase(unittest.TestCase):
     '''
     A test case for equipment
@@ -218,8 +219,8 @@ class AllocationTestCase(unittest.TestCase):
         self.person1.phones.add(self.phone1)
         self.person1.save()
         self.project1 = Project.objects.create(name='test project')
-        self.role1 = Role.objects.create(role='technical contact',
-                project=self.project1, person=self.person1)
+        self.role1 = Role.objects.create(
+            role='technical contact', project=self.project1, person=self.person1)
 
     def tearDown(self):
         '''
@@ -239,6 +240,7 @@ class AllocationTestCase(unittest.TestCase):
         self.assertIsInstance(str(self.project1), str)
         self.assertIsInstance(str(self.role1), str)
 
+
 class ViewsTestCase(unittest.TestCase):
     '''
     Testing views class
@@ -252,62 +254,34 @@ class ViewsTestCase(unittest.TestCase):
         self.vendor = Vendor.objects.create(name='HP')
         self.model = EquipmentModel.objects.create(vendor=self.vendor, name='DL 385 G7', u=2)
         self.rackmodel = RackModel.objects.create(
-                                vendor=self.vendor,
-                                inrow_ac=False,
-                                max_mounting_depth = 99,
-                                min_mounting_depth = 19,
-                                height = 42,
-                                width = 19)
+            vendor=self.vendor, inrow_ac=False, max_mounting_depth=99,
+            min_mounting_depth=19, height=42, width=19)
         self.rack = Rack.objects.create(model=self.rackmodel, name='testrack')
         self.project = Project.objects.create(name='project')
 
         self.server = Equipment.objects.create(
-                                model = self.model,
-                                serial = 'dontcare',
-                                rack = self.rack,
-                                unit = '2',
-                                purpose = 'Nothing',
-                                allocation = self.project,
-                            )
+            model=self.model, serial='dontcare', rack=self.rack,
+            unit='2', purpose='Nothing', allocation=self.project,)
 
         self.dc = Datacenter.objects.create(name='Test DC')
         self.rackrow = RackRow.objects.create(name='1st rackrow', dc=self.dc)
         RackPosition.objects.create(rack=self.rack, rr=self.rackrow, position=10)
         self.racknotinrow = Rack.objects.create(model=self.rackmodel, name='racknotinrow')
-        self.storage = Storage.objects.create(name='Test DCs storage',
-                dc=self.dc)
+        self.storage = Storage.objects.create(name='Test DCs storage', dc=self.dc)
 
         self.server_unallocated = Equipment.objects.create(
-                                model = self.model,
-                                serial = 'unallocated',
-                                rack = self.rack,
-                                unit = '2',
-                                purpose = 'Nothing',
-                            )
+            model=self.model, serial='unallocated', rack=self.rack,
+            unit='2', purpose='Nothing',)
         self.server_commented = Equipment.objects.create(
-                                model = self.model,
-                                serial = 'commented',
-                                rack = self.rack,
-                                unit = '2',
-                                purpose = 'Nothing',
-                                comments = 'blah blah',
-                            )
+            model=self.model, serial='commented', rack=self.rack, unit='2',
+            purpose='Nothing', comments='blah blah',)
         self.server_ticketed = Equipment.objects.create(
-                                model = self.model,
-                                serial = 'ticketed',
-                                rack = self.rack,
-                                unit = '2',
-                                purpose = 'Nothing',
-                            )
+            model=self.model, serial='ticketed', rack=self.rack, unit='2',
+            purpose='Nothing',)
         self.server_unracked = Equipment.objects.create(
-                                model = self.model,
-                                serial = 'unracked',
-                                purpose = 'Nothing',
-                            )
+            model=self.model, serial='unracked', purpose='Nothing',)
         self.ticket = Ticket.objects.create(
-                            name = 'myticket',
-                            url = 'http://example.com/myticket',
-                            state = 'open')
+            name='myticket', url='http://example.com/myticket', state='open')
         self.server_ticketed.ticket_set.add(self.ticket)
 
     def tearDown(self):
@@ -392,13 +366,13 @@ class ViewsTestCase(unittest.TestCase):
     def test_subnav(self):
         c = Client()
         response = c.get('/hwdoc/subnav/%s/' % 'datacenters',
-                HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+                         HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
 
     def test_subnav_bad_arg(self):
         c = Client()
         response = c.get('/hwdoc/subnav/%s/' % 'inexistent',
-                HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+                         HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 400)
 
     def test_subnav_no_ajax(self):
@@ -409,19 +383,20 @@ class ViewsTestCase(unittest.TestCase):
     def test_flotdata(self):
         c = Client()
         response = c.get('/hwdoc/flotdata/%s/' % 'datacenters',
-                HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+                         HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
 
     def test_flotdat_bad_arg(self):
         c = Client()
         response = c.get('/hwdoc/flotdata/%s/' % 'inexistent',
-                HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+                         HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 400)
 
     def test_flotdata_noajax(self):
         c = Client()
         response = c.get('/hwdoc/flotdata/%s/' % 'datacenters')
         self.assertEqual(response.status_code, 400)
+
 
 class CommandsTestCase(unittest.TestCase):
     '''
@@ -440,39 +415,23 @@ class CommandsTestCase(unittest.TestCase):
         self.model2 = EquipmentModel.objects.create(vendor=self.vendor, name='PRIMERGY RX200 S5', u=1)
         self.model3 = EquipmentModel.objects.create(vendor=self.vendor, name='DS2600', u=2)
         self.rackmodel = RackModel.objects.create(
-                                vendor=self.vendor,
-                                inrow_ac=False,
-                                max_mounting_depth = 99,
-                                min_mounting_depth = 19,
-                                height = 42,
-                                width = 19)
+            vendor=self.vendor, inrow_ac=False, max_mounting_depth=99, min_mounting_depth=19,
+            height=42, width=19)
         self.dc = Datacenter.objects.create(name='Test DC')
         self.rackrow = RackRow.objects.create(name='testing', dc=self.dc)
         self.rack = Rack.objects.create(model=self.rackmodel, name='testrack')
         RackPosition.objects.create(rack=self.rack, rr=self.rackrow, position=10)
 
         self.server1 = Equipment.objects.create(
-                                model = self.model1,
-                                serial = 'G123456',
-                                rack = self.rack,
-                                unit = '20',
-                                purpose = 'Nothing',
-                            )
+            model=self.model1, serial='G123456', rack=self.rack,
+            unit='20', purpose='Nothing',)
 
         self.server2 = Equipment.objects.create(
-                                model = self.model2,
-                                serial = 'R123457',
-                                rack = self.rack,
-                                unit = '22',
-                                purpose = 'Nothing',
-                                comments = 'http://ticketing.example.com/012345',
-                            )
+            model=self.model2, serial='R123457', rack=self.rack, unit='22',
+            purpose='Nothing', comments='http://ticketing.example.com/012345',)
 
-        self.management = ServerManagement.objects.create (
-                            equipment = self.server2,
-                            method = 'dummy',
-                            hostname = 'example.com',
-                            )
+        self.management = ServerManagement.objects.create(
+            equipment=self.server2, method='dummy', hostname='example.com',)
 
     def tearDown(self):
         '''
@@ -486,8 +445,7 @@ class CommandsTestCase(unittest.TestCase):
         # Also clear tickets that may be created by commands
         Ticket.objects.all().delete()
 
-
-    #Tests start here
+    # Tests start here
     def test_bmc_commands(self):
         call_command('hwdoc_bmc_reset', self.server2.serial, verbosity=0)
         call_command('hwdoc_add_user', self.server2.serial, verbosity=0)
@@ -500,11 +458,11 @@ class CommandsTestCase(unittest.TestCase):
         call_command('hwdoc_remove_user', self.server2.serial, verbosity=0)
         call_command('hwdoc_reset', self.server2.serial, verbosity=0)
         call_command('hwdoc_set_ldap_settings', self.server2.serial,
-                contexts="ou=example,ou=com:ou=example,ou=org",
-                groupnames="group1:group2",
-                groupprivs="priv1:priv2",
-                groupsids="S-123:S-124",
-                verbosity=0)
+                     contexts='ou=example,ou=com:ou=example,ou=org',
+                     groupnames='group1:group2',
+                     groupprivs='priv1:priv2',
+                     groupsids='S-123:S-124',
+                     verbosity=0)
         call_command('hwdoc_set_settings', self.server2.serial, verbosity=0)
         call_command('hwdoc_shutdown', self.server2.serial, verbosity=0)
         call_command('hwdoc_shutdown', self.server2.serial, force=True, verbosity=0)
@@ -514,9 +472,9 @@ class CommandsTestCase(unittest.TestCase):
 
     def test_bmc_command_pass_change(self):
         call_command('hwdoc_pass_change', self.server2.serial,
-                change_username='username',
-                newpass='password',
-                verbosity=0)
+                     change_username='username',
+                     newpass='password',
+                     verbosity=0)
 
     def test_bmc_commands_bad_call(self):
         if DJANGO_VERSION[:2] < (1, 5):
@@ -541,25 +499,25 @@ class CommandsTestCase(unittest.TestCase):
 
     def test_importequipment(self):
         filename = 'test_importequiment.csv'
-        f = open(filename,'w')
-        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' % ( '1', 'VMC01', 'A123456',
-            'test1.example.com', 'password', self.rack.name, '10', 'PDA', 'PDB',
-            'AA:BB:CC:DD:EE:FA'))
-        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' % ( '2', 'SC0-DS1', 'B123456',
-            'test2.example.com', 'password', self.rack.name, '11', 'PDA', 'PDB',
-            'AA:BB:CC:DD:EE:FB'))
-        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' % ( '3', 'HN01', 'C123456',
-            'test3.example.com', 'password', self.rack.name, '12', 'PDA', 'PDB',
-            'AA:BB:CC:DD:EE:FC'))
-        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' % ( '4', 'DS01', 'D123456',
-            'test4.example.com', 'password', self.rack.name, '13', 'PDA', 'PDB',
-            'AA:BB:CC:DD:EE:FD'))
-        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' % ( '5', 'SC01', 'E123456',
-            'test5.example.com', 'password', self.rack.name, '14', 'PDA', 'PDB',
-            'AA:BB:CC:DD:EE:FE'))
-        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' % ( '6', 'EC01', 'F123456',
-            'test6.example.com', 'password', self.rack.name, '15', 'PDA', 'PDB',
-            'AA:BB:CC:DD:EE:FF'))
+        f = open(filename, 'w')
+        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' % (
+            '1', 'VMC01', 'A123456', 'test1.example.com', 'password', self.rack.name,
+            '10', 'PDA', 'PDB', 'AA:BB:CC:DD:EE:FA'))
+        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' % (
+            '2', 'SC0-DS1', 'B123456', 'test2.example.com', 'password', self.rack.name,
+            '11', 'PDA', 'PDB', 'AA:BB:CC:DD:EE:FB'))
+        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' % (
+            '3', 'HN01', 'C123456', 'test3.example.com', 'password', self.rack.name,
+            '12', 'PDA', 'PDB', 'AA:BB:CC:DD:EE:FC'))
+        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' % (
+            '4', 'DS01', 'D123456', 'test4.example.com', 'password', self.rack.name,
+            '13', 'PDA', 'PDB', 'AA:BB:CC:DD:EE:FD'))
+        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' % (
+            '5', 'SC01', 'E123456', 'test5.example.com', 'password', self.rack.name,
+            '14', 'PDA', 'PDB', 'AA:BB:CC:DD:EE:FE'))
+        f.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' % (
+            '6', 'EC01', 'F123456', 'test6.example.com', 'password', self.rack.name,
+            '15', 'PDA', 'PDB', 'AA:BB:CC:DD:EE:FF'))
         f.close()
         call_command('hwdoc_importequipment', filename, verbosity=0)
         os.remove(filename)
@@ -605,8 +563,10 @@ class CommandsTestCase(unittest.TestCase):
         f = open(filename, 'w')
         f.write('THIS IS A FIRMWARE. Yeah...it is')
         f.close()
-        call_command('hwdoc_firmware_update', self.server2.serial,
-                firmware_location='firmware', verbosity=0)
+        call_command('hwdoc_firmware_update',
+                     self.server2.serial,
+                     firmware_location='firmware',
+                     verbosity=0)
         os.remove(filename)
 
     def test_bmc_firmware_update_nonexistent_file(self):
@@ -614,8 +574,10 @@ class CommandsTestCase(unittest.TestCase):
             from compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_firmware_update')
         try:
-            call_command('hwdoc_firmware_update', self.server2.serial,
-                firmware_location='firmware', verbosity=0)
+            call_command('hwdoc_firmware_update',
+                         self.server2.serial,
+                         firmware_location='firmware',
+                         verbosity=0)
         except CommandError:
             pass
 
@@ -633,9 +595,10 @@ class CommandsTestCase(unittest.TestCase):
             from compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_pass_change')
         try:
-            call_command('hwdoc_pass_change', self.server2.serial,
-                newpass='password',
-                verbosity=0)
+            call_command('hwdoc_pass_change',
+                         self.server2.serial,
+                         newpass='password',
+                         verbosity=0)
         except CommandError:
             pass
 
@@ -644,24 +607,26 @@ class CommandsTestCase(unittest.TestCase):
             from compat import monkey_patch_command_execute
             monkey_patch_command_execute('hwdoc_pass_change')
         try:
-            call_command('hwdoc_pass_change', self.server2.serial,
-                change_username='username',
-                verbosity=0)
+            call_command('hwdoc_pass_change',
+                         self.server2.serial,
+                         change_username='username',
+                         verbosity=0)
         except CommandError:
             pass
 
     def test_populate_tickets(self):
-        settings.TICKETING_SYSTEM='dummy'
+        settings.TICKETING_SYSTEM = 'dummy'
         call_command('hwdoc_populate_tickets', self.server1.serial, verbosity=0)
 
     def test_populate_tickets_comments(self):
-        settings.TICKETING_SYSTEM='comments'
-        settings.COMMENTS_TICKETING_URL='http://ticketing.example.com/'
+        settings.TICKETING_SYSTEM = 'comments'
+        settings.COMMENTS_TICKETING_URL = 'http://ticketing.example.com/'
         call_command('hwdoc_populate_tickets', self.server2.serial, verbosity=0)
 
     def test_populate_tickets_inexistent_system(self):
-        settings.TICKETING_SYSTEM='nosuchthing'
+        settings.TICKETING_SYSTEM = 'nosuchthing'
         call_command('hwdoc_populate_tickets', self.server1.serial, verbosity=0)
+
 
 class AdminViewsTestCase(EquipmentTestCase):
     '''
@@ -672,17 +637,17 @@ class AdminViewsTestCase(EquipmentTestCase):
         '''
         Command run before every test
         '''
-	# Let's call our parent so we can benefit from it's fields
-	super(AdminViewsTestCase, self).setUp()
+        # Let's call our parent so we can benefit from it's fields
+        super(AdminViewsTestCase, self).setUp()
 
-        self.u1 = User.objects.create(username='test1', email='test1@example.com',
-                            is_staff=True, is_superuser=True)
-        self.u2 = User.objects.create(username='test2', email='test2@example.com',
-                            is_staff=True, is_superuser=False)
-        self.u3 = User.objects.create(username='test3', email='test3@example.com',
-                            is_staff=True, is_superuser=False)
-        self.u4 = User.objects.create(username='test4', email='test4@example.com',
-                            is_staff=True, is_superuser=False)
+        self.u1 = User.objects.create(
+            username='test1', email='test1@example.com', is_staff=True, is_superuser=True)
+        self.u2 = User.objects.create(
+            username='test2', email='test2@example.com', is_staff=True, is_superuser=False)
+        self.u3 = User.objects.create(
+            username='test3', email='test3@example.com', is_staff=True, is_superuser=False)
+        self.u4 = User.objects.create(
+            username='test4', email='test4@example.com', is_staff=True, is_superuser=False)
         self.p_comment = Permission.objects.get(codename='can_change_comment')
         self.p_c_eq = Permission.objects.get(codename='change_equipment')
         self.u2.user_permissions.add(self.p_comment)
@@ -713,7 +678,7 @@ class AdminViewsTestCase(EquipmentTestCase):
         self.c3.logout()
         self.c4.logout()
         User.objects.all().delete()
-	super(AdminViewsTestCase, self).tearDown()
+        super(AdminViewsTestCase, self).tearDown()
 
     def test_admin_datacenter(self):
         response = self.c1.get('/admin/hwdoc/datacenter/')
@@ -780,6 +745,7 @@ class AdminViewsTestCase(EquipmentTestCase):
     def test_admin_vendor(self):
         response = self.c1.get('/admin/hwdoc/vendor/')
         self.assertEqual(response.status_code, 200)
+
 
 class MigrationsTestCase(unittest.TestCase):
     '''

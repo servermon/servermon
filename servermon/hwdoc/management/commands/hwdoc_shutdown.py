@@ -26,6 +26,7 @@ from optparse import make_option
 
 import _bmc_common
 
+
 class Command(BaseCommand):
     '''
     Django management command to shutdown equipment
@@ -34,12 +35,12 @@ class Command(BaseCommand):
     args = '[key]'
 
     option_list = BaseCommand.option_list + (
-                make_option('--force',
+        make_option('--force',
                     action='store_true',
                     dest='force',
                     default=False,
                     help=_('Force shutdown instead of sending an ACPI power off signal')),
-            ) + _bmc_common.option_list
+    ) + _bmc_common.option_list
 
     def handle(self, *args, **options):
         '''
@@ -51,4 +52,4 @@ class Command(BaseCommand):
         else:
             options['command'] = 'power_off_acpi'
 
-        result = _bmc_common.handle(self, *args, **options)
+        _bmc_common.handle(self, *args, **options)

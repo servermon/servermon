@@ -26,6 +26,7 @@ from optparse import make_option
 
 import _bmc_common
 
+
 class Command(BaseCommand):
     '''
     Django management command to remove user from the BMC
@@ -34,12 +35,12 @@ class Command(BaseCommand):
     args = '[key]'
 
     option_list = BaseCommand.option_list + (
-                make_option('--deluser_username',
+        make_option('--deluser_username',
                     action='store',
                     dest='deluser_username',
                     default='',
                     help=_('Specify the username of the user to be deleted')),
-            ) + _bmc_common.option_list
+    ) + _bmc_common.option_list
 
     def handle(self, *args, **options):
         '''
@@ -47,4 +48,4 @@ class Command(BaseCommand):
         '''
 
         options['command'] = 'remove_user'
-        result = _bmc_common.handle(self, *args, **options)
+        _bmc_common.handle(self, *args, **options)

@@ -19,12 +19,12 @@ Django management command to change BMC licsnse
 '''
 
 from django.core.management.base import BaseCommand
-from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
 from optparse import make_option
 
 import _bmc_common
+
 
 class Command(BaseCommand):
     '''
@@ -34,12 +34,12 @@ class Command(BaseCommand):
     args = '[key]'
 
     option_list = BaseCommand.option_list + (
-                make_option('-l', '--license',
+        make_option('-l', '--license',
                     action='store',
                     type='string',
                     dest='license',
                     help=_l('License key. Valid value depends on backend')),
-            ) + _bmc_common.option_list
+    ) + _bmc_common.option_list
 
     def handle(self, *args, **options):
         '''
@@ -47,4 +47,4 @@ class Command(BaseCommand):
         '''
 
         options['command'] = 'license_set'
-        result = _bmc_common.handle(self, *args, **options)
+        _bmc_common.handle(self, *args, **options)

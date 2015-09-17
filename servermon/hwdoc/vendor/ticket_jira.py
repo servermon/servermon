@@ -27,6 +27,7 @@ elif settings.JIRA_TICKETING['auth']['type'] == 'basic':
         settings.JIRA_TICKETING['auth']['password'],
     ))
 
+
 def get_tickets(equipment, closed):
     '''
     Populate tickets for equipment

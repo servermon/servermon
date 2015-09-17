@@ -22,6 +22,7 @@ inspecting the puppet database
 
 from django.db import models
 
+
 class SourceFile(models.Model):
     '''
     Modeling the respective puppet concept.
@@ -31,9 +32,11 @@ class SourceFile(models.Model):
     path = models.CharField(max_length=255, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(null=True, blank=True)
+
     class Meta:
         db_table = u'source_files'
         managed = False
+
 
 class Fact(models.Model):
     '''
@@ -43,9 +46,10 @@ class Fact(models.Model):
     name = models.CharField(max_length=255)
     updated_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(null=True, blank=True)
+
     class Meta:
         db_table = u'fact_names'
-        ordering = [ 'name' ]
+        ordering = ['name']
         managed = False
 
     def __unicode__(self):
@@ -53,7 +57,8 @@ class Fact(models.Model):
         Get a string representation of the instance
         '''
 
-        return self.name.replace('_',' ').rstrip()
+        return self.name.replace('_', ' ').rstrip()
+
 
 class Host(models.Model):
     '''
@@ -73,7 +78,7 @@ class Host(models.Model):
 
     class Meta:
         db_table = u'hosts'
-        ordering = ['name',]
+        ordering = ['name', ]
         managed = False
 
     def __unicode__(self):
@@ -93,6 +98,7 @@ class Host(models.Model):
         except:
             return default
 
+
 class Resource(models.Model):
     '''
     Modeling the respective puppet concept.
@@ -106,9 +112,11 @@ class Resource(models.Model):
     line = models.IntegerField(null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(null=True, blank=True)
+
     class Meta:
         db_table = u'resources'
         managed = False
+
 
 class FactValue(models.Model):
     '''
@@ -120,6 +128,7 @@ class FactValue(models.Model):
     host = models.ForeignKey(Host)
     updated_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(null=True, blank=True)
+
     class Meta:
         db_table = u'fact_values'
         managed = False
@@ -139,6 +148,7 @@ class FactValue(models.Model):
 
         return "%s %s: %s" % (self.host.name, str(self.fact_name), self.value)
 
+
 class ParamNames(models.Model):
     '''
     Modeling the respective puppet concept.
@@ -147,9 +157,11 @@ class ParamNames(models.Model):
     name = models.CharField(max_length=255)
     updated_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(null=True, blank=True)
+
     class Meta:
         db_table = u'param_names'
         managed = False
+
 
 class ParamValues(models.Model):
     '''
@@ -162,9 +174,11 @@ class ParamValues(models.Model):
     resource = models.ForeignKey(Resource, null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(null=True, blank=True)
+
     class Meta:
         db_table = u'param_values'
         managed = False
+
 
 class PuppetTags(models.Model):
     '''
@@ -174,9 +188,11 @@ class PuppetTags(models.Model):
     name = models.CharField(max_length=255, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(null=True, blank=True)
+
     class Meta:
         db_table = u'puppet_tags'
         managed = False
+
 
 class ResourceTags(models.Model):
     '''
@@ -187,7 +203,7 @@ class ResourceTags(models.Model):
     puppet_tag = models.ForeignKey(PuppetTags, null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(null=True, blank=True)
+
     class Meta:
         db_table = u'resource_tags'
         managed = False
-

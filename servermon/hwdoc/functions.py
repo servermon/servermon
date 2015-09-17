@@ -22,7 +22,7 @@ Important function here is search(q) which searches strings or iterables of
 strings in model Equipment.
 '''
 
-from hwdoc.models import Equipment, ServerManagement
+from hwdoc.models import Equipment
 from projectwide.functions import canonicalize_mac
 from puppet.functions import search as puppet_search
 from django.db.models import Q
@@ -31,6 +31,7 @@ from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.db import DatabaseError
 import re
+
 
 def search(q):
     '''
@@ -77,18 +78,18 @@ def search(q):
                 unit = None
 
             result = Equipment.objects.filter(
-                                            Q(serial=key)|
-                                            Q(rack__name__contains=key)|
-                                            Q(rack__name__iexact=rack)|
-                                            Q(model__name__icontains=key)|
-                                            Q(allocation__name__icontains=key)|
-                                            Q(allocation__contacts__name__icontains=key)|
-                                            Q(allocation__contacts__surname__icontains=key)|
-                                            Q(servermanagement__mac__icontains=mac)|
-                                            Q(servermanagement__hostname__icontains=key)|
-                                            Q(servermanagement__hostname=dns)|
-                                            Q(attrs__value__icontains=key)
-                                            )
+                Q(serial=key) |
+                Q(rack__name__contains=key) |
+                Q(rack__name__iexact=rack) |
+                Q(model__name__icontains=key) |
+                Q(allocation__name__icontains=key) |
+                Q(allocation__contacts__name__icontains=key) |
+                Q(allocation__contacts__surname__icontains=key) |
+                Q(servermanagement__mac__icontains=mac) |
+                Q(servermanagement__hostname__icontains=key) |
+                Q(servermanagement__hostname=dns) |
+                Q(attrs__value__icontains=key)
+            )
             if unit:
                 result = result.filter(unit=unit)
             ids.extend(result.distinct().values_list('id', flat=True))
@@ -98,6 +99,7 @@ def search(q):
         return Equipment.objects.none()
         # TODO: Log this
         raise RuntimeError(_('An error occured while querying db: %(databaseerror)s') % {'databaseerror': e})
+
 
 def populate_tickets(equipment_list, closed=False):
     '''
@@ -131,6 +133,7 @@ def populate_tickets(equipment_list, closed=False):
             print e
             return equipment_list
     return equipment_list
+
 
 def populate_hostnames(equipment_list):
     '''

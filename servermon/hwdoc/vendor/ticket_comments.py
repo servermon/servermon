@@ -24,12 +24,14 @@ from hwdoc.models import Ticket
 from django.conf import settings
 import re
 
+
 def get_tickets(equipment, closed):
     '''
     Populate tickets for equipment
     '''
-    m = re.search('((?:%s[0-9]+)\s*)+' % settings.COMMENTS_TICKETING_URL,
-            str(equipment.comments), re.DOTALL)
+    m = re.search(
+        '((?:%s[0-9]+)\s*)+' % settings.COMMENTS_TICKETING_URL,
+        str(equipment.comments), re.DOTALL)
     if m:
         tickets = m.group(0).split()
         equipment.ticket_set.exclude(name__in=tickets).delete()
@@ -38,9 +40,10 @@ def get_tickets(equipment, closed):
             try:
                 t = Ticket.objects.get(name=name)
             except Ticket.DoesNotExist:
-                t = Ticket( state='open', # NOTE: Yeap hardcoded.
-                            url=ticket,
-                            name=name)
+                t = Ticket(
+                    state='open',  # NOTE: Yeap hardcoded.
+                    url=ticket,
+                    name=name)
                 t.save()
             equipment.ticket_set.add(t)
     return equipment

@@ -21,11 +21,13 @@ HP iLO3 implementation of hwdoc Django management commmands
 import httplib2
 import socket
 
+
 def power_on(hostname, username, password, **kwargs):
     '''
     Power on command
     '''
     return __send__(hostname, username, password, __power_on_command__())
+
 
 def power_off(hostname, username, password, **kwargs):
     '''
@@ -33,11 +35,13 @@ def power_off(hostname, username, password, **kwargs):
     '''
     return __send__(hostname, username, password, __power_off_command__())
 
+
 def power_off_acpi(hostname, username, password, **kwargs):
     '''
     Power off using ACPI command
     '''
     return __send__(hostname, username, password, __power_off_acpi_command__())
+
 
 def power_cycle(hostname, username, password, **kwargs):
     '''
@@ -45,34 +49,42 @@ def power_cycle(hostname, username, password, **kwargs):
     '''
     return __send__(hostname, username, password, __power_cycle_command__())
 
+
 def power_reset(hostname, username, password, **kwargs):
     '''
     Warm boot command
     '''
     return __send__(hostname, username, password, __power_reset_command__())
 
+
 def pass_change(hostname, username, password, **kwargs):
     '''
     Change BMC password
     '''
-    return __send__(hostname, username, password, __pass_change_command__(
-        kwargs['change_username'], kwargs['newpass']))
+    return __send__(
+        hostname, username, password,
+        __pass_change_command__(kwargs['change_username'], kwargs['newpass']))
+
 
 def set_settings(hostname, username, password, **kwargs):
     '''
     Set BMC settings
     '''
-    return __send__(hostname, username, password,
-            __mod_global_settings_command__(**kwargs) +
-            __mod_network_settings_command__(**kwargs) +
-            __power_on_delay_command__(**kwargs))
+    return __send__(
+        hostname, username, password,
+        __mod_global_settings_command__(**kwargs) +
+        __mod_network_settings_command__(**kwargs) +
+        __power_on_delay_command__(**kwargs))
+
 
 def set_ldap_settings(hostname, username, password, **kwargs):
     '''
     Set BMC LDAP settings
     '''
-    return __send__(hostname, username, password,
-            __mod_directory_command__(**kwargs))
+    return __send__(
+        hostname, username, password,
+        __mod_directory_command__(**kwargs))
+
 
 def boot_order(hostname, username, password, **kwargs):
     '''
@@ -80,11 +92,13 @@ def boot_order(hostname, username, password, **kwargs):
     '''
     return __send__(hostname, username, password, __boot_order_command__(**kwargs))
 
+
 def license_set(hostname, username, password, **kwargs):
     '''
     Set BMC License
     '''
     return __send__(hostname, username, password, __license_set_command__(**kwargs))
+
 
 def bmc_reset(hostname, username, password, **kwargs):
     '''
@@ -92,11 +106,13 @@ def bmc_reset(hostname, username, password, **kwargs):
     '''
     return __send__(hostname, username, password, __reset_rib_command__())
 
+
 def bmc_factory_defaults(hostname, username, password, **kwargs):
     '''
     Reset BMC to factory defaults
     '''
     return __send__(hostname, username, password, __factory_defaults_command__())
+
 
 def add_user(hostname, username, password, **kwargs):
     '''
@@ -104,17 +120,20 @@ def add_user(hostname, username, password, **kwargs):
     '''
     return __send__(hostname, username, password, __add_user_command__(**kwargs))
 
+
 def remove_user(hostname, username, password, **kwargs):
     '''
     Remove a user from iLO
     '''
     return __send__(hostname, username, password, __remove_user_command__(**kwargs))
 
+
 def get_all_users(hostname, username, password, **kwargs):
     '''
     Get a list of all configured users to the iLO
     '''
     return __send__(hostname, username, password, __get_all_users_command__(**kwargs))
+
 
 def firmware_update(hostname, username, password, **kwargs):
     '''
@@ -128,22 +147,22 @@ def firmware_update(hostname, username, password, **kwargs):
         return False
 
     content_type, body = encode_multipart_formdata(
-                                        (('fileType', ''),),
-                                        (('fwimgfile', kwargs['firmware_location'], f),),
-                                        )
+        (('fileType', ''), ),
+        (('fwimgfile', kwargs['firmware_location'], f), ),
+    )
     extras = {
         'Content-Type': content_type,
         'body': body,
-        }
+    }
 
-    response = __send__(hostname, username, password, __firmware_update_command__(**kwargs), extras)
     try:
-        extras = {'Cookie': extras['Cookie'],}
+        extras = {'Cookie': extras['Cookie']}
     except IndexError:
         # TODO: Log this
         print "Failed to get Cookie from iLO"
         return False
-    return  __send__(hostname, username, password, __firmware_update_command__(**kwargs), extras)
+    return __send__(hostname, username, password, __firmware_update_command__(**kwargs), extras)
+
 
 # Beneath this line iLO3 specifics start
 def __send__(hostname, username, password, command, extras=None):
@@ -156,24 +175,20 @@ def __send__(hostname, username, password, command, extras=None):
 
     body = str(body)
     headers = {
-                'TE': 'chunked',
-                'Connection': 'close',
-              }
+        'TE': 'chunked',
+        'Connection': 'close',
+    }
     url = 'https://%s/ribcl' % str(hostname)
     if extras is not None:
-        if  'Content-Type' in extras.keys():
-            headers.update({'Content-Type': extras['Content-Type'],})
+        if 'Content-Type' in extras.keys():
+            headers.update({'Content-Type': extras['Content-Type']})
             body = str(extras['body'])
             url = 'https://%s/cgi-bin/uploadRibclFiles' % str(hostname)
         else:
             headers.update(extras)
     try:
         resp, content = h.request(
-                            url,
-                            'POST',
-                            body = body,
-                            headers = headers,
-                        )
+            url, 'POST', body=body, headers=headers)
     except (httplib2.ServerNotFoundError, socket.error) as e:
         # TODO: Log this. For now just print
         print e
@@ -181,6 +196,7 @@ def __send__(hostname, username, password, command, extras=None):
     if extras is not None and 'set-cookie' in resp:
         extras['Cookie'] = resp['set-cookie']
     return content
+
 
 def encode_multipart_formdata(fields, files):
     '''
@@ -208,6 +224,7 @@ def encode_multipart_formdata(fields, files):
     content_type = 'multipart/form-data; boundary=%s' % BOUNDARY
     return content_type, body
 
+
 def __power_on_command__():
     command = '''
     <SERVER_INFO MODE="write">
@@ -215,6 +232,7 @@ def __power_on_command__():
     </SERVER_INFO>
     '''
     return command.strip()
+
 
 def __power_off_command__():
     command = '''
@@ -224,6 +242,7 @@ def __power_off_command__():
     '''
     return command.strip()
 
+
 def __power_off_acpi_command__():
     command = '''
     <SERVER_INFO MODE="write">
@@ -231,6 +250,7 @@ def __power_off_acpi_command__():
     </SERVER_INFO>
     '''
     return command.strip()
+
 
 def __power_cycle_command__():
     command = '''
@@ -240,6 +260,7 @@ def __power_cycle_command__():
     '''
     return command.strip()
 
+
 def __power_reset_command__():
     command = '''
     <SERVER_INFO MODE="write">
@@ -247,6 +268,7 @@ def __power_reset_command__():
     </SERVER_INFO>
     '''
     return command.strip()
+
 
 def __pass_change_command__(username, newpass):
     command = '''
@@ -258,12 +280,13 @@ def __pass_change_command__(username, newpass):
     ''' % (username, newpass)
     return command.strip()
 
+
 def __mod_network_settings_command__(**kwargs):
     # TODO: This has not yet been exported to any django management command.
     # As a result only defaults are used, but are good enough for now.
 
     for i in kwargs.keys():
-        if kwargs[i] == None:
+        if kwargs[i] is None:
             kwargs.pop(i)
     kwargs.setdefault('dhcp_enable', 'Yes')
 
@@ -358,38 +381,38 @@ def __mod_network_settings_command__(**kwargs):
 
 def __mod_global_settings_command__(**kwargs):
     for i in kwargs.keys():
-        if kwargs[i] == None:
+        if kwargs[i] is None:
             kwargs.pop(i)
 
     serial_speeds = {
-            '9600'  : '1',
-            '19200' : '2',
-            '38400' : '3',
-            '57600' : '4',
-            '115200': '5',
-            }
+        '9600': '1',
+        '19200': '2',
+        '38400': '3',
+        '57600': '4',
+        '115200': '5',
+    }
     if 'serial_cli_speed' in kwargs:
         try:
             kwargs['serial_cli_speed'] = serial_speeds[kwargs['serial_cli_speed']]
         except KeyError:
             raise RuntimeError('Serial speed given makes no sense for iLO3 backend')
 
-    kwargs.setdefault('session_timeout','30')
-    kwargs.setdefault('ilo_enabled','Y')
-    kwargs.setdefault('f8_prompt_enabled','Y')
-    kwargs.setdefault('f8_login_required','N')
-    kwargs.setdefault('https_port','443')
-    kwargs.setdefault('http_port','80')
-    kwargs.setdefault('remote_console_port','17990')
-    kwargs.setdefault('virtual_media_port','17988')
-    kwargs.setdefault('ssh_port','22')
-    kwargs.setdefault('ssh_status','Y')
-    kwargs.setdefault('serial_cli_status','3')
+    kwargs.setdefault('session_timeout', '30')
+    kwargs.setdefault('ilo_enabled', 'Y')
+    kwargs.setdefault('f8_prompt_enabled', 'Y')
+    kwargs.setdefault('f8_login_required', 'N')
+    kwargs.setdefault('https_port', '443')
+    kwargs.setdefault('http_port', '80')
+    kwargs.setdefault('remote_console_port', '17990')
+    kwargs.setdefault('virtual_media_port', '17988')
+    kwargs.setdefault('ssh_port', '22')
+    kwargs.setdefault('ssh_status', 'Y')
+    kwargs.setdefault('serial_cli_status', '3')
     kwargs.setdefault('serial_cli_speed', '5')
-    kwargs.setdefault('min_password','8')
-    kwargs.setdefault('auth_fail_logging','3')
-    kwargs.setdefault('rbsu_post_ip','Y')
-    kwargs.setdefault('enforce_aes','N')
+    kwargs.setdefault('min_password', '8')
+    kwargs.setdefault('auth_fail_logging', '3')
+    kwargs.setdefault('rbsu_post_ip', 'Y')
+    kwargs.setdefault('enforce_aes', 'N')
 
     command = '''
 <RIB_INFO mode="write">
@@ -415,6 +438,7 @@ def __mod_global_settings_command__(**kwargs):
     ''' % kwargs
     return command
 
+
 def __boot_order_command__(**kwargs):
     '''
     Valid values: CDROM, FLOPPY, HDD, NETWORK, USB
@@ -439,6 +463,7 @@ def __boot_order_command__(**kwargs):
         ''' % boot_list
     return command
 
+
 def __power_on_delay_command__(**kwargs):
     # TODO: This has not yet been exported to any django management command.
     # As a result only defaults are used, but are good enough for now.
@@ -451,6 +476,7 @@ def __power_on_delay_command__(**kwargs):
     ''' % kwargs
     return command
 
+
 def __license_set_command__(**kwargs):
     command = '''
     <RIB_INFO MODE="write">
@@ -461,9 +487,10 @@ def __license_set_command__(**kwargs):
     ''' % kwargs
     return command
 
+
 def __mod_directory_command__(**kwargs):
     for i in kwargs.keys():
-        if kwargs[i] == None:
+        if kwargs[i] is None:
             kwargs.pop(i)
     kwargs.setdefault('ldap_enable', 'No')
     kwargs.setdefault('local_users_enable', 'Yes')
@@ -486,7 +513,7 @@ def __mod_directory_command__(**kwargs):
     i = 0
     contexts_command = ''
     for context in kwargs['contexts']:
-        contexts_command += '<DIR_USER_CONTEXT_%s VALUE="%s"/>' % (i+1, kwargs['contexts'][i])
+        contexts_command += '<DIR_USER_CONTEXT_%s VALUE="%s"/>' % (i + 1, kwargs['contexts'][i])
         i = i + 1
 
     # Group names handling
@@ -494,7 +521,7 @@ def __mod_directory_command__(**kwargs):
     i = 0
     groupnames_command = ''
     for groupname in kwargs['groupnames']:
-        groupnames_command += '<DIR_GRPACCT%s_NAME VALUE="%s"/>' % (i+1, kwargs['groupnames'][i])
+        groupnames_command += '<DIR_GRPACCT%s_NAME VALUE="%s"/>' % (i + 1, kwargs['groupnames'][i])
         i = i + 1
 
     # Group PRIVs handling
@@ -502,7 +529,7 @@ def __mod_directory_command__(**kwargs):
     i = 0
     groupprivs_command = ''
     for grouppriv in kwargs['groupprivs']:
-        groupprivs_command += '<DIR_GRPACCT%s_PRIV VALUE="%s"/>' % (i+1, kwargs['groupprivs'][i])
+        groupprivs_command += '<DIR_GRPACCT%s_PRIV VALUE="%s"/>' % (i + 1, kwargs['groupprivs'][i])
         i = i + 1
 
     # Group SIDs handling
@@ -510,7 +537,7 @@ def __mod_directory_command__(**kwargs):
     i = 0
     groupsids_command = ''
     for groupsid in kwargs['groupsids']:
-        groupsids_command += '<DIR_GRPACCT%s_SID VALUE="%s"/>' % (i+1, kwargs['groupsids'][i])
+        groupsids_command += '<DIR_GRPACCT%s_SID VALUE="%s"/>' % (i + 1, kwargs['groupsids'][i])
         i = i + 1
 
     othersettings = '''
@@ -540,6 +567,7 @@ def __mod_directory_command__(**kwargs):
     ''' % (othersettings, contexts_command, groupnames_command, groupprivs_command, groupsids_command)
     return command
 
+
 def __reset_rib_command__():
     command = '''
     <RIB_INFO MODE="write">
@@ -548,6 +576,7 @@ def __reset_rib_command__():
     '''
     return command.strip()
 
+
 def __factory_defaults_command__():
     command = '''
     <RIB_INFO MODE="write">
@@ -555,6 +584,7 @@ def __factory_defaults_command__():
     </RIB_INFO>
     '''
     return command.strip()
+
 
 def __add_user_command__(**kwargs):
     kwargs.setdefault('admin', 'N')
@@ -579,6 +609,7 @@ def __add_user_command__(**kwargs):
     ''' % kwargs
     return command.strip()
 
+
 def __get_all_users_command__(**kwargs):
     command = '''
     <USER_INFO MODE="read">
@@ -586,6 +617,7 @@ def __get_all_users_command__(**kwargs):
     </USER_INFO>
     '''
     return command.strip()
+
 
 def __remove_user_command__(**kwargs):
     command = '''
@@ -595,6 +627,7 @@ def __remove_user_command__(**kwargs):
     ''' % kwargs
     return command.strip()
 
+
 def __firmware_update_command__(**kwargs):
     command = '''
     <RIB_INFO MODE="write">
@@ -603,13 +636,3 @@ def __firmware_update_command__(**kwargs):
     </RIB_INFO>
     ''' % kwargs
     return command.strip()
-
-# TODO: Implement these too and figure out differences
-def __power_reset_command__():
-    command = '''
-    <SERVER_INFO MODE="write">
-        <RESET_SERVER/>
-    </SERVER_INFO>
-    '''
-    return command.strip()
-

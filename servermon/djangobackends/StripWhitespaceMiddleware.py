@@ -16,6 +16,7 @@ https://code.djangoproject.com/wiki/StripWhitespaceMiddleware
 
 import re
 
+
 class StripWhitespaceMiddleware(object):
     """
     Strips leading and trailing whitespace from response content.
@@ -25,7 +26,6 @@ class StripWhitespaceMiddleware(object):
         self.whitespace = re.compile('^\s*\n', re.MULTILINE)
         self.whitespace_lead = re.compile('^\s+', re.MULTILINE)
         self.whitespace_trail = re.compile('\s+$', re.MULTILINE)
-
 
     def process_response(self, request, response):
         if "text/plain" in response['Content-Type']:
@@ -38,4 +38,4 @@ class StripWhitespaceMiddleware(object):
                 response.content = self.whitespace.sub('', response.content)
             return response
         else:
-            return response   
+            return response

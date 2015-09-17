@@ -26,6 +26,7 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
+
 class Key(models.Model):
     '''
     The key part of the key value pair
@@ -47,6 +48,7 @@ class Key(models.Model):
             verbose_name = verbose_name.replace('_', ' ')
             self.verbose_name = verbose_name.replace('.', ' ')
         super(Key, self).save(*args, **kwargs)
+
 
 class KeyValue(models.Model):
     '''

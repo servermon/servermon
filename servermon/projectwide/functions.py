@@ -24,10 +24,9 @@ canonicalize_mac(key) is a function taken as MAC address as a string and
 returning it in the proper format (aka aa:bb:cc:dd:ff:ee)
 '''
 
-from django.db.models import Q
 from whoosh.analysis import SpaceSeparatedTokenizer, StopFilter
-from django.utils.translation import ugettext as _
 import re
+
 
 def canonicalize_mac(key):
     '''
@@ -40,7 +39,7 @@ def canonicalize_mac(key):
     @return: The MAC address in canonical format
     '''
 
-    string = key.lower().replace(':','').replace('-','').replace('.','')
+    string = key.lower().replace(':', '').replace('-', '').replace('.', '')
     result = ''
 
     count = 0
@@ -50,6 +49,7 @@ def canonicalize_mac(key):
         result += s
         count += 1
     return result
+
 
 def get_search_terms(text):
     '''
@@ -63,9 +63,9 @@ def get_search_terms(text):
     '''
 
     stoplist = ['and', 'is', 'it', 'an', 'as', 'at', 'have', 'in', 'yet', 'if',
-            'from', 'for', 'when', 'by', 'to', 'you', 'be', 'we', 'that', 'may',
-            'not', 'with', 'tbd', 'a', 'on', 'your', 'this', 'of', 'us', 'will',
-            'can', 'the', 'or', 'are', 'up', 'down', 'ip',]
+                'from', 'for', 'when', 'by', 'to', 'you', 'be', 'we', 'that', 'may',
+                'not', 'with', 'tbd', 'a', 'on', 'your', 'this', 'of', 'us', 'will',
+                'can', 'the', 'or', 'are', 'up', 'down', 'ip', ]
 
     analyzer = SpaceSeparatedTokenizer() | StopFilter(stoplist=stoplist)
 
@@ -73,6 +73,6 @@ def get_search_terms(text):
 
     # TODO: When we go to whoosh 2.x we can drop the following and use a whoosh
     # SubstitutionFilter to the analyzer above
-    tokens = set([re.sub('[\(\)/]','',x) for x in tokens])
+    tokens = set([re.sub('[\(\)/]', '', x) for x in tokens])
 
     return tokens

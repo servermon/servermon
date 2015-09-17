@@ -20,7 +20,7 @@ Module configuring Django's admin interface for hwdoc
 
 from django.contrib import admin
 from django import forms
-from hwdoc.models import *
+from hwdoc.models import *  # noqa
 from django.utils.translation import ugettext as _
 from keyvalue.admin import KeyValueAdmin
 
@@ -32,6 +32,7 @@ class RoleInline(admin.TabularInline):
 
     model = Role
     extra = 1
+
 
 class ProjectAdmin(admin.ModelAdmin):
     '''
@@ -49,6 +50,7 @@ class EmailInline(admin.TabularInline):
     model = Person.emails.through
     extra = 1
 
+
 class PhoneInline(admin.TabularInline):
     '''
     Phone Admin Manager
@@ -57,26 +59,29 @@ class PhoneInline(admin.TabularInline):
     model = Person.phones.through
     extra = 1
 
+
 class EmailAdmin(admin.ModelAdmin):
     '''
     Email Admin Manager
     '''
 
-    inlines = [ EmailInline ]
+    inlines = [EmailInline]
+
 
 class PhoneAdmin(admin.ModelAdmin):
     '''
     Phone Admin Manager
     '''
 
-    inlines = [ PhoneInline ]
+    inlines = [PhoneInline]
+
 
 class PersonAdmin(admin.ModelAdmin):
     '''
     Person Admin Manager
     '''
 
-    inlines = [ EmailInline, PhoneInline, RoleInline]
+    inlines = [EmailInline, PhoneInline, RoleInline]
     search_fields = ('name', 'surname')
     exclude = ('phones', 'emails')
 
@@ -90,6 +95,7 @@ admin.site.register(RackModel)
 admin.site.register(Ticket)
 admin.site.register(Storage)
 
+
 class DatacenterAdmin(admin.ModelAdmin):
     '''
     Datacenter Admin Manager
@@ -100,12 +106,14 @@ class DatacenterAdmin(admin.ModelAdmin):
 
 admin.site.register(Datacenter, DatacenterAdmin)
 
+
 class RackPositionInline(admin.TabularInline):
     '''
     RackPositionInline Admin Manager
     '''
 
     model = RackPosition
+
 
 class RackAdmin(admin.ModelAdmin):
     '''
@@ -142,10 +150,11 @@ class RackAdmin(admin.ModelAdmin):
 
     list_display = ('name', 'mounted_depth', 'model', rr, position)
     list_editable = ('mounted_depth', 'model')
-    inlines = [ RackPositionInline, ]
+    inlines = [RackPositionInline, ]
 
 admin.site.register(Rack, RackAdmin)
 admin.site.register(RackRow)
+
 
 def shutdown(modeladmin, request, queryset):
     '''
@@ -161,6 +170,7 @@ def shutdown(modeladmin, request, queryset):
 
 shutdown.short_description = _('Shuts down an equipment')
 
+
 def startup(modeladmin, request, queryset):
     '''
     Starts up a machine
@@ -174,6 +184,7 @@ def startup(modeladmin, request, queryset):
         obj.servermanagement.power_on()
 
 startup.short_description = _('Starts up an equipment')
+
 
 def shutdown_force(modeladmin, request, queryset):
     '''
@@ -195,9 +206,10 @@ class EquipmentModelAdmin(admin.ModelAdmin):
     Equipment Model Admin Manager
     '''
 
-    inlines = [ KeyValueAdmin, ]
+    inlines = [KeyValueAdmin, ]
 
 admin.site.register(EquipmentModel, EquipmentModelAdmin)
+
 
 class ServerManagementInline(admin.StackedInline):
     '''
@@ -207,6 +219,7 @@ class ServerManagementInline(admin.StackedInline):
     model = ServerManagement
     verbose_name = 'Server Management (optional)'
     verbose_name_plural = 'Servers Management (optional)'
+
 
 class EquipmentAdmin(admin.ModelAdmin):
     '''
@@ -269,17 +282,17 @@ class EquipmentAdmin(admin.ModelAdmin):
     model_u.short_description = 'Us'
 
     list_display = ('allocation', 'model', 'serial',
-            'rack', 'unit', model_u,
-            'rack_front', 'rack_interior', 'rack_back',
-            mgmt_method, mgmt_username, mgmt_password)
-    list_display_links = ('serial',)
-    list_filter = ('model', 'rack',)
+                    'rack', 'unit', model_u,
+                    'rack_front', 'rack_interior', 'rack_back',
+                    mgmt_method, mgmt_username, mgmt_password)
+    list_display_links = ('serial', )
+    list_filter = ('model', 'rack', )
     search_fields = ['rack__name', 'unit', 'serial', 'allocation__name']
     list_editable = ['allocation', 'rack', 'unit',
-            'rack_front', 'rack_interior', 'rack_back',]
+                     'rack_front', 'rack_interior', 'rack_back']
     ordering = ('rack', 'unit',)
-    inlines = [ ServerManagementInline, KeyValueAdmin ]
-    actions = [ shutdown, startup, shutdown_force ]
+    inlines = [ServerManagementInline, KeyValueAdmin]
+    actions = [shutdown, startup, shutdown_force]
 
     def get_form(self, request, obj=None, **kwargs):
         def clean(self):
@@ -307,16 +320,16 @@ class EquipmentAdmin(admin.ModelAdmin):
 
         if request.user.has_perm('hwdoc.can_change_comment'):
             self.readonly_fields = ('serial', 'rack', 'unit', 'purpose',
-            'allocation', 'model', )
+                                    'allocation', 'model', )
             ServerManagementInline.readonly_fields = ('hostname', 'method', 'mac')
             ServerManagementInline.exclude = ('username', 'password',
-                    'license', 'raid_license',)
+                                              'license', 'raid_license',)
         if request.user.has_perm('hwdoc.change_equipment'):
             self.readonly_fields = ()
             ServerManagementInline.exclude = ()
             ServerManagementInline.readonly_fields = ()
-        return super(EquipmentAdmin, self).change_view(request,
-                object_id, extra_context=extra_context)
+        return super(EquipmentAdmin, self).change_view(
+            request, object_id, extra_context=extra_context)
 
     def changelist_view(self, request, extra_context=None):
         '''
@@ -324,14 +337,14 @@ class EquipmentAdmin(admin.ModelAdmin):
         '''
 
         if request.user.has_perm('hwdoc.can_change_comment'):
-            self.list_editable = ['comments',]
+            self.list_editable = ['comments', ]
             self.list_display = ('allocation', 'model', 'serial',
-                'rack', 'unit', 'purpose', 'comments')
+                                 'rack', 'unit', 'purpose', 'comments')
         if request.user.has_perm('hwdoc.change_equipment'):
             self.list_display = EquipmentAdmin.list_display
             self.list_editable = EquipmentAdmin.list_editable
-        return super(EquipmentAdmin, self).changelist_view(request,
-                extra_context=extra_context)
+        return super(EquipmentAdmin, self).changelist_view(
+            request, extra_context=extra_context)
 
     def has_change_permission(self, request, obj=None):
         '''
@@ -340,7 +353,7 @@ class EquipmentAdmin(admin.ModelAdmin):
 
         if request.user.is_superuser or \
             request.user.has_perm('hwdoc.can_change_comment') or \
-            request.user.has_perm('hwdoc.change_equipment'):
+                request.user.has_perm('hwdoc.change_equipment'):
             return True
         return False
 
