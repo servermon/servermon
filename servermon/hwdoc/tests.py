@@ -324,27 +324,6 @@ class ViewsTestCase(unittest.TestCase):
         Datacenter.objects.all().delete()
         Storage.objects.all().delete()
 
-    def test_search_get(self):
-        c = Client()
-        data = ['', 'dummy', '562346', 'R5U21', 'UI2354']
-        for d in data:
-            response = c.get('/search/', {'q': d})
-            self.assertEqual(response.status_code, 200)
-
-    def test_search_get_txt(self):
-        c = Client()
-        data = ['', 'dummy', '562346', 'R5U21', 'UI2354']
-        for d in data:
-            response = c.get('/search/', {'q': d, 'txt': 'yes'})
-            self.assertEqual(response.status_code, 200)
-
-    def test_free_text_search_post(self):
-        c = Client()
-        strings = [ 'this is a dummy string', '0.0', '.example.tld' ]
-        for s in strings:
-            response = c.post('/search/', {'qarea': s})
-            self.assertEqual(response.status_code, 200)
-
     def test_index(self):
         c = Client()
         response = c.get('/hwdoc/')

@@ -84,13 +84,37 @@ class ProjectWideViewsTestCase(unittest.TestCase):
 
     def test_correct_search(self):
         c = Client()
-        response = c.post('/search/', {'q': self.host1.name})
+        response = c.get('/search/', {'q': self.host1.name})
+        self.assertEqual(response.status_code, 200)
+
+    def test_correct_search_txt(self):
+        c = Client()
+        response = c.get('/search/', {'q': self.host1.name, 'txt': 'yes'})
+        self.assertEqual(response.status_code, 200)
+
+    def test_correct_search_csv(self):
+        c = Client()
+        response = c.get('/search/', {'q': self.host1.name, 'csv': 'yes'})
         self.assertEqual(response.status_code, 200)
 
     def test_advanced_search(self):
         c = Client()
         response = c.post('/advancedsearch/')
         self.assertEqual(response.status_code, 200)
+
+    def test_random_search_get(self):
+        c = Client()
+        data = ['', 'dummy', '562346', 'R5U21', 'UI2354']
+        for d in data:
+            response = c.get('/search/', {'q': d})
+            self.assertEqual(response.status_code, 200)
+
+    def test_free_text_search_post(self):
+        c = Client()
+        strings = [ 'this is a dummy string', '0.0', '.example.tld' ]
+        for s in strings:
+            response = c.post('/search/', {'qarea': s})
+            self.assertEqual(response.status_code, 200)
 
     def test_opensearch(self):
         c = Client()
