@@ -390,6 +390,11 @@ class ViewsTestCase(unittest.TestCase):
         response = c.get('/hwdoc/datacenter/%s/' % self.dc.pk)
         self.assertEqual(response.status_code, 200)
 
+    def test_storage(self):
+        c = Client()
+        response = c.get('/hwdoc/storage/%s/' % self.storage.pk)
+        self.assertEqual(response.status_code, 200)
+
     def test_rackrow(self):
         c = Client()
         response = c.get('/hwdoc/rackrow/%s/' % self.rackrow.pk)
