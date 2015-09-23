@@ -1,0 +1,7 @@
+Application server examples
+===========================
+
+This directory holds various configuration example for app servers,
+known to work. Targeted specifically at Debian based distributions, but
+PRs are welcome to support other distros
+

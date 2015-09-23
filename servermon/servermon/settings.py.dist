@@ -4,6 +4,7 @@ from django.conf import global_settings
 from django import VERSION as DJANGO_VERSION
 here = lambda x: os.path.join(os.path.abspath(os.path.dirname(__file__)), x)
 
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -165,6 +166,11 @@ LDAP_AUTH_IS_STAFF = True
 # South
 if DJANGO_VERSION[:2] < (1, 7):
     INSTALLED_APPS = INSTALLED_APPS + ('south',)
+
+# Use the old pre 1.6 testrunner
+if DJANGO_VERSION[:2] >= (1, 6):
+    TEST_RUNNER = 'django.test.simple.DjangoTestSuiteRunner'
+
 SKIP_SOUTH_TESTS = True
 
 # Settings for puppet views
@@ -207,9 +213,6 @@ SOUTH_MIGRATION_MODULES = {
 # Silence the erroneous 1_6.W001 check. It was removed in
 # https://code.djangoproject.com/ticket/23469 anyway
 SILENCED_SYSTEM_CHECKS = ['1_6.W001']
-
-# Use the old pre 1.6 testrunner
-TEST_RUNNER = 'django.test.simple.DjangoTestSuiteRunner'
 
 # Django extensions (apt-get install python-django-extensions)
 try:
