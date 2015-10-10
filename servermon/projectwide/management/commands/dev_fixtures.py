@@ -35,6 +35,39 @@ from hwdoc.models import Email, Phone, Person, Project, Role, \
     EquipmentModel, Equipment, ServerManagement, Storage
 from django.core.management import call_command
 
+PRODUCT_NAMES = {
+    'Dell': [
+        'PowerEdge 1950',
+        'PowerEdge 2950',
+        'Poweredge R610',
+        'Poweredge R820',
+    ],
+    'HP': [
+        'Proliant DL380 G1',
+        'Proliant DL380 G2',
+        'Proliant DL380 G3',
+        'Proliant DL380 G4',
+        'Proliant DL380 G5',
+        'Proliant DL385 G3',
+        'Proliant DL385 G4',
+        'Proliant DL385 G5',
+    ],
+    'Fujitsu': [
+        'PRIMERGY RX200 S5',
+        'PRIMERGY RX200 S6',
+        'PRIMERGY RX200 S7',
+    ],
+    'IBM': [
+        'System x3550',
+    ],
+    'Someother': [
+        'Random model 1',
+        'Random model 2',
+        'Random model 3',
+        'Random model 4',
+    ],
+}
+
 
 class Command(BaseCommand):
     '''
@@ -134,6 +167,7 @@ class Command(BaseCommand):
                     default=1000,
                     help=_l('Number of equipment to autocreate')),
     )
+
     well_known_facts = {
         'interfaces': lambda x: random.choice(['eth0', 'eth0,eth1', 'eth0,eth1,eth2', 'eth0,eth1,eth2,eth3', ]),
         'macaddress_eth0': lambda x: '%s:%s:%s:%s:%s:%s' % (
@@ -150,8 +184,8 @@ class Command(BaseCommand):
         'serialnumber': lambda x: Command.id_generator(random.randint(6, 15)).upper(),
         'bios_date': lambda x: random.choice(['10/01/2015', '20/05/2013', '10/03/2010']),
         'bios_version': lambda x: random.choice(['1.2', '1.3', '3.5']),
-        'manufacturer': lambda x: random.choice(['Dell', 'HP', 'IBM', 'Fujitsu', 'Huawei']),
-        'productname': lambda x: random.choice(['PowerEdge 1950', 'Proliant DL380', 'Someother']),
+        'manufacturer': lambda x: random.choice(['Dell', 'HP', 'IBM', 'Fujitsu', 'Someother']),
+        'productname': lambda x: random.choice(PRODUCT_NAMES[x.manufacturer]),
         'processorcount': lambda x: random.choice(['2', '4', '6', '8', '16', '24', '48']),
         'architecture': lambda x: random.choice(['amd64', 'i386']),
         'virtual': lambda x: random.choice(['True', 'False']),
@@ -289,6 +323,8 @@ class Command(BaseCommand):
                     host=host,
                     value=value)
                 )
+                # This is a hack to get fact value lookups before saving
+                setattr(host, wk_fact.name, value)
         FactValue.objects.bulk_create(fact_values)
 
     def create_updates_packages(self, package_number):
