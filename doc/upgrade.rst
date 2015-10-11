@@ -58,6 +58,8 @@ You should perform the following
   have the new version in almost every case except not serving the
   project under / in which case, patterns in urls.py should be
   configured
+* Run migrations. Make sure you are using Django version < 1.7 otherwise
+  these step will not work. Django 1.7 is not supported
 * Restart application server (wsgi, gunicorn, etc)
 
 Upgrading from 0.6.0 to 0.6.1
