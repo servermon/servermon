@@ -95,6 +95,39 @@ def host(request, hostname):
         ('virtual', 'Machine Type'),
         ('uptime', 'Uptime'),
     ]
+    attrs = (
+        {
+            'name': 'Rack Unit',
+            'value': lambda x: '%s' % x.unit
+        },
+        {
+            'name': 'Rack',
+            'value': lambda x: '%s' % x.rack,
+            'link': lambda x: '%s' % x.rack.get_absolute_url()
+        },
+        {
+            'name': 'Rack Row',
+            'value': lambda x: '%s' % x.rack.rackposition.rr
+        },
+        {
+            'name': 'IPMI Method',
+            'value': lambda x: '%s' % x.servermanagement.method
+        },
+        {
+            'name': 'IPMI Hostname',
+            'value': lambda x: '%s' % x.servermanagement.hostname,
+            'link': lambda x: 'https://%s' % x.servermanagement.hostname
+        },
+        {
+            'name': 'IPMI MAC',
+            'value': lambda x: '%s' % x.servermanagement.mac
+        },
+        {
+            'name': 'Datacenter',
+            'value': lambda x: '%s' % x.rack.rackposition.rr.dc,
+            'link': lambda x: '%s' % x.rack.rackposition.rr.dc.get_absolute_url()
+        },
+    )
 
     for fact, label in fields:
         system.append({'name': label, 'value': host.get_fact_value(fact)})
@@ -113,48 +146,29 @@ def host(request, hostname):
         'value': '%s (%s free)' % (host.get_fact_value('memorytotal'), host.get_fact_value('memoryfree'))
     })
 
-    system.append({
-        'name': 'Puppet classes',
-        'value': ', '.join([f.value for f in host.factvalue_set.filter(fact_name__name='puppetclass')])
-    })
-
     # Location info part
     try:
         eq = Equipment.objects.get(serial=host.get_fact_value('serialnumber'))
-        location.append({
-            'name': 'Rack Unit',
-            'value': '%s' % eq.unit
-        })
-        location.append({
-            'name': 'Rack',
-            'value': '%s' % eq.rack
-        })
-        location.append({
-            'name': 'Rack Row',
-            'value': '%s' % eq.rack.rackposition.rr
-        })
-        location.append({
-            'name': 'IPMI Method',
-            'value': '%s' % eq.servermanagement.method
-        })
-        location.append({
-            'name': 'IPMI Hostname',
-            'value': '%s' % eq.servermanagement.hostname
-        })
-        location.append({
-            'name': 'IPMI MAC',
-            'value': '%s' % eq.servermanagement.mac
-        })
-        location.append({
-            'name': 'Datacenter',
-            'value': '%s' % eq.rack.rackposition.rr.dc
-        })
-    except:
+    except Equipment.DoesNotExist:
         location.append({
             'name': 'Location',
             'value': '%s' % 'No location information found'
         })
-
+        eq = None
+    if eq:
+        for attr in attrs:
+            try:
+                tmp = {
+                    'name': attr['name'],
+                    'value': attr['value'](eq)
+                }
+            except:
+                continue
+            try:
+                tmp['link'] = attr['link'](eq)
+            except:
+                pass
+            location.append(tmp)
     # Updates info
     updates = Update.objects.filter(host=host).order_by('package__name')
     updates = updates.select_related()

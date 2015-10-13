@@ -35,11 +35,13 @@
       {% if attr.value %}
       <tr>
         <th>{{ attr.name }}</th>
-        {% ifequal attr.name "IPMI Hostname" %}
-        <td><a href="https://{{ attr.value }}">{{ attr.value }}</a></td>
-        {% else %}
-        <td>{{ attr.value }}</td>
-        {% endifequal %}
+	<td>
+	{% if attr.link %}
+        <a href="{{ attr.link }}">{{ attr.value }}</a>
+	{% else %}
+        {{ attr.value }}
+	{% endif %}
+	</td>
       </tr>
       {% endif %}
       {% endfor %}

@@ -138,6 +138,10 @@ class Datacenter(models.Model):
     def __unicode__(self):
         return self.name
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('hwdoc.views.datacenter', [str(self.id)])
+
 
 class Vendor(models.Model):
     '''
@@ -228,6 +232,10 @@ class Rack(models.Model):
             units.extend(z)
         empty_units = set(self.model.units) - set(sorted(units))
         return empty_units
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('hwdoc.views.rack', [str(self.id)])
 
 
 class RackRow(models.Model):
