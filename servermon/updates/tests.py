@@ -104,6 +104,7 @@ class ViewsTestCase(unittest.TestCase):
         self.package2 = Package.objects.create(name='testpackage2', sourcename='testsource')
         self.host1 = Host.objects.create(name='testservermonHost1', ip='10.10.10.10')
         self.host2 = Host.objects.create(name='testservermonHost2', ip='10.10.10.11')
+        self.host3 = Host.objects.create(name='testservermonHost3', ip='10.10.10.12')
         self.fact1 = Fact.objects.create(name='interfaces')
         self.fact2 = Fact.objects.create(name='macaddress_eth0')
         self.fact3 = Fact.objects.create(name='ipaddress_eth0')
@@ -128,6 +129,9 @@ class ViewsTestCase(unittest.TestCase):
         self.factvalue6 = FactValue.objects.create(
             value='R123457',
             fact_name=self.fact6, host=self.host2)
+        self.factvalue7 = FactValue.objects.create(
+            value='G123456',
+            fact_name=self.fact6, host=self.host3)
 
     def tearDown(self):
         '''
@@ -192,7 +196,7 @@ class ViewsTestCase(unittest.TestCase):
 
     def test_existent_host(self):
         c = Client()
-        data = [self.host1.name]
+        data = [self.host1.name, self.host2.name, self.host3.name]
         for d in data:
             response = c.get('/hosts/%s' % d)
             self.assertEqual(response.status_code, 200)
