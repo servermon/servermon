@@ -35,6 +35,7 @@ class Command(BaseCommand):
     '''
     help = _l('Populate updatable packages in DB')
 
+    @transaction.commit_on_success
     def handle(self, *args, **options):
         '''
         Handle command
@@ -44,7 +45,6 @@ class Command(BaseCommand):
 
         Package.objects.filter(hosts__isnull=True).delete()
 
-    @transaction.commit_on_success
     def gen_host_updates(self, host):
         '''
         Populate all updates
