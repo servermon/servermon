@@ -348,7 +348,7 @@ class Command(BaseCommand):
                 updates.append(Update(
                     package=package,
                     host=host,
-                    installedVersion=random.choice(['1.0-1', '1.5-2', '1.0-2', '4.2-1', '5.6']),
+                    installedVersion=random.choice(['', '1.0-1', '1.5-2', '1.0-2', '4.2-1', '5.6']),
                     candidateVersion=random.choice(['1.0-2', '1.5-3', '1.0-6', '4.3-1', '5.7']),
                     source=Command.id_generator(5),
                     origin=random.choice(['Debian', 'Ubuntu']),
