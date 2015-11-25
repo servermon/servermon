@@ -39,6 +39,10 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
+  $('.dist-upgrade').tooltip();
+});
+
+$(document).ready(function() {
   $('.hwdocfetchable').on('click', function(event) {
       event.preventDefault();
       event.stopPropagation();
