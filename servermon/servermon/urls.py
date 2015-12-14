@@ -27,8 +27,3 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
         (r'^admin/', include(admin.site.urls)),  # noqa
         (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     )
-# Static files
-if settings.DEBUG:
-    urlpatterns += patterns(
-        'django.views.static', (r'^static/(?P<path>.*)$', 'serve', {'document_root': settings.MEDIA_ROOT}),
-    )

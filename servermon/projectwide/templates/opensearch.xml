@@ -17,7 +17,7 @@
     <Developer>Alexandros Kosiaris</Developer>
     <Query role="example" searchTerms="ggc" />
     <SyndicationRight>open</SyndicationRight>
-    <Image width="16" height="16" type="image/png">{{ MEDIA_URL }}opensearch.png</Image>
+    <Image width="16" height="16" type="image/png">{{ STATIC_URL }}opensearch.png</Image>
     <Url type="text/html" template="{{ opensearchbaseurl }}{% url "projectwide.views.search" %}?q={searchTerms}"/>
     <Url type="application/x-suggestions+json" template="{{ opensearchbaseurl }}{% url "projectwide.views.suggest" %}?q={searchTerms}"/>
     <Attribution>
@@ -25,8 +25,8 @@
     </Attribution>
     <moz:UpdateInterval>7</moz:UpdateInterval>
     <moz:UpdateUrl>{{ opensearchbaseurl }}{% url "opensearch" %}</moz:UpdateUrl>
-    <moz:Image width="16" height="16">{{ MEDIA_URL }}opensearch.png</moz:Image>
-    <moz:IconUpdateUrl>{{ MEDIA_URL }}opensearch.png</moz:IconUpdateUrl>
+    <moz:Image width="16" height="16">{{ STATIC_URL }}opensearch.png</moz:Image>
+    <moz:IconUpdateUrl>{{ STATIC_URL }}opensearch.png</moz:IconUpdateUrl>
     <moz:SearchForm>{{ opensearchbaseurl }}{% url "projectwide.views.search" %}</moz:SearchForm>
 </OpenSearchDescription>
 

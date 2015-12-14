@@ -168,7 +168,6 @@ Then you need to configure the project. Things to pay attention to::
   DEBUG = False when in production
   DATABASES => Fill it with needed info
   TIME_ZONE => If you care about correct timestamps
-  MEDIA_URL => Pretty self explanatory
   STATIC_URL => (static media directory)
   LDAP_AUTH_SETTINGS => if any
   TEMPLATE_DIRS => at least '/path/to/servermon/templates' needed
