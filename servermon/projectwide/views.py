@@ -32,7 +32,7 @@ from django.db.models import Count
 from django.db import DatabaseError
 from django.template import TemplateSyntaxError
 from datetime import datetime, timedelta
-from settings import HOST_TIMEOUT, ADMINS
+from django.conf import settings
 import re
 import json
 
@@ -47,7 +47,7 @@ def index(request):
     @return: HTTPResponse object rendering corresponding HTML
     '''
 
-    timeout = datetime.now() - timedelta(seconds=HOST_TIMEOUT)
+    timeout = datetime.now() - timedelta(seconds=settings.HOST_TIMEOUT)
 
     hosts = Host.objects.all()
     problemhosts = Host.objects.filter(updated_at__lte=timeout).order_by('-updated_at')
@@ -144,7 +144,7 @@ def opensearch(request):
 
     fqdn = Site.objects.get_current().domain
     try:
-        contact = ADMINS[0][0]
+        contact = settings.ADMINS[0][0]
     except IndexError:
         contact = 'none@example.com'
 
