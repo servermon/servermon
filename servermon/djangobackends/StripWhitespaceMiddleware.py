@@ -1,4 +1,4 @@
-"""
+'''
 Tightens up response content by removed superflous line breaks and whitespace.
 By Doug Van Horn
 
@@ -12,9 +12,14 @@ Modified regex to strip leading/trailing white space from every line, not just t
 
 Shamelessly stolen code from:
 https://code.djangoproject.com/wiki/StripWhitespaceMiddleware
-"""
+'''
 
 import re
+from django import VERSION as DJANGO_VERSION
+if DJANGO_VERSION[:2] >= (1, 5):
+    from django.http.response import HttpResponseNotModified
+else:
+    from django.http import HttpResponseNotModified
 
 
 class StripWhitespaceMiddleware(object):
@@ -28,7 +33,11 @@ class StripWhitespaceMiddleware(object):
         self.whitespace_trail = re.compile('\s+$', re.MULTILINE)
 
     def process_response(self, request, response):
-        if "text/plain" in response['Content-Type']:
+        # HttpResponseNotModified does not have a Content-Type header.
+        # See https://code.djangoproject.com/ticket/11340
+        if type(response) == HttpResponseNotModified:
+            return response
+        if 'text/plain' in response['Content-Type']:
             if hasattr(self, 'whitespace_lead'):
                 response.content = self.whitespace_lead.sub('', response.content)
             if hasattr(self, 'whitespace_trail'):
