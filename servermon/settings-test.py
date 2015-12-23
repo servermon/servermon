@@ -27,3 +27,7 @@ AUTHENTICATION_BACKENDS = (
 LDAP_AUTH_SETTINGS = (
     {'url': 'ldap://localhost/', 'base': 'ou=People,dc=example,dc=org'},
 )
+
+# We want to managed puppet models while performing tests in order to create the
+# database tables
+MANAGED_PUPPET_MODELS = True

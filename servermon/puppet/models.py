@@ -21,6 +21,11 @@ inspecting the puppet database
 '''
 
 from django.db import models
+from django.conf import settings
+
+# We check from settings whether the puppet models should be managed or not.
+# Default is false
+MANAGED_PUPPET_MODELS = getattr(settings, 'MANAGED_PUPPET_MODELS', False)
 
 
 class SourceFile(models.Model):
@@ -35,7 +40,7 @@ class SourceFile(models.Model):
 
     class Meta:
         db_table = u'source_files'
-        managed = False
+        managed = MANAGED_PUPPET_MODELS
 
 
 class Fact(models.Model):
@@ -50,7 +55,7 @@ class Fact(models.Model):
     class Meta:
         db_table = u'fact_names'
         ordering = ['name']
-        managed = False
+        managed = MANAGED_PUPPET_MODELS
 
     def __unicode__(self):
         '''
@@ -79,7 +84,7 @@ class Host(models.Model):
     class Meta:
         db_table = u'hosts'
         ordering = ['name', ]
-        managed = False
+        managed = MANAGED_PUPPET_MODELS
 
     def __unicode__(self):
         '''
@@ -115,7 +120,7 @@ class Resource(models.Model):
 
     class Meta:
         db_table = u'resources'
-        managed = False
+        managed = MANAGED_PUPPET_MODELS
 
 
 class FactValue(models.Model):
@@ -131,7 +136,7 @@ class FactValue(models.Model):
 
     class Meta:
         db_table = u'fact_values'
-        managed = False
+        managed = MANAGED_PUPPET_MODELS
 
     @property
     def name(self):
@@ -160,7 +165,7 @@ class ParamNames(models.Model):
 
     class Meta:
         db_table = u'param_names'
-        managed = False
+        managed = MANAGED_PUPPET_MODELS
 
 
 class ParamValues(models.Model):
@@ -177,7 +182,7 @@ class ParamValues(models.Model):
 
     class Meta:
         db_table = u'param_values'
-        managed = False
+        managed = MANAGED_PUPPET_MODELS
 
 
 class PuppetTags(models.Model):
@@ -191,7 +196,7 @@ class PuppetTags(models.Model):
 
     class Meta:
         db_table = u'puppet_tags'
-        managed = False
+        managed = MANAGED_PUPPET_MODELS
 
 
 class ResourceTags(models.Model):
@@ -206,4 +211,4 @@ class ResourceTags(models.Model):
 
     class Meta:
         db_table = u'resource_tags'
-        managed = False
+        managed = MANAGED_PUPPET_MODELS
