@@ -132,12 +132,21 @@ class ViewsTestCase(unittest.TestCase):
         self.factvalue7 = FactValue.objects.create(
             value='G123456',
             fact_name=self.fact6, host=self.host3)
+        self.update1 = Update.objects.create(
+            package=self.package1, host=self.host1,
+            installedVersion='1.1', candidateVersion='1.2',
+            source='TestSource', origin='Debian')
+        self.update2 = Update.objects.create(
+            package=self.package2, host=self.host1, is_security=True,
+            installedVersion='1.1', candidateVersion='1.2',
+            source='TestSource', origin='Ubuntu')
 
     def tearDown(self):
         '''
         Commands run after every test
         '''
         Package.objects.all().delete()
+        Update.objects.all().delete()
         Host.objects.all().delete()
         Fact.objects.all().delete()
         FactValue.objects.all().delete()
