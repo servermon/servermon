@@ -40,9 +40,9 @@ doc:	$(BUILDDIR)/api $(BUILDDIR)/html $(BUILDDIR)/text
 
 test:
 	@cp servermon/settings.py.dist servermon/settings.py
-	@python servermon/manage.py syncdb --noinput --settings=settings-test
-	@python servermon/manage.py migrate --noinput --settings=settings-test
-	@python servermon/manage.py test --noinput --settings=settings-test
+	@python servermon/manage.py syncdb --noinput --settings=settings_test
+	@python servermon/manage.py migrate --noinput --settings=settings_test
+	@python servermon/manage.py test --noinput --settings=settings_test
 
 coverage:
 	@python-coverage run --source=servermon servermon/manage.py test --noinput

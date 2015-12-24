@@ -4,3 +4,15 @@ python:
 install: pip install tox
 script: tox
 sudo: false
+env:
+  - DB=sqlite
+  - DB=mysql
+  - DB=postgres
+services:
+  - mysql
+  - postgres
+before_script:
+  - mysql -e "CREATE DATABASE IF NOT EXISTS servermon;" -u root
+  - mysql -e "GRANT ALL PRIVILEGES ON servermon.* TO 'travis'@'localhost'" -u root
+  - psql -c "CREATE DATABASE servermon" -U postgres
+  - psql -c "GRANT ALL PRIVILEGES ON DATABASE servermon TO travis" -U postgres
