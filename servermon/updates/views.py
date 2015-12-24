@@ -21,22 +21,57 @@ updates views module
 
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.shortcuts import render
-from django.db.models import Count, Sum
+from django.db.models import Count
 from puppet.models import Host
 from updates.models import Package, Update
 from hwdoc.models import Equipment
 from IPy import IP
+from collections import OrderedDict
 
 
 def hostlist(request):
-    hosts = Host.objects.annotate(update_count=Count('update'),
-                                  security_count=Sum('update__is_security'))
+    hosts = Host.objects.annotate(update_count=Count('update'))
+    security_updates = Host.objects.filter(
+        update__is_security=True).annotate(security_count=Count('package'))
+
+    # Create a temporary structure to merge those 2 structures. Use OrderedDict
+    # to preserve the order returned by the QuerySet
+    hosts = OrderedDict(map(
+        lambda x: (x['name'], x),
+        hosts.values('name', 'update_count')
+    ))
+    security_updates = dict(map(
+        lambda x: (x['name'], x),
+        security_updates.values('name', 'security_count')
+    ))
+    for k, v in hosts.items():
+        if k in security_updates:
+            v.update(security_updates[k])
+    # And now get the final data structure
+    hosts = hosts.values()
     return render(request, 'hostlist.html', {'hosts': hosts})
 
 
 def packagelist(request):
-    packages = Package.objects.annotate(host_count=Count('hosts'),
-                                        security_count=Sum('update__is_security'))
+    packages = Package.objects.annotate(host_count=Count('hosts'))
+    security_updates = Package.objects.filter(
+        update__is_security=True).annotate(security_count=Count('hosts'))
+
+    # Create a temporary structure to merge those 2 structures. Use OrderedDict
+    # to preserve the order returned by the QuerySet
+    packages = OrderedDict(map(
+        lambda x: (x['name'], x),
+        packages.values('name', 'host_count')
+    ))
+    security_updates = dict(map(
+        lambda x: (x['name'], x),
+        security_updates.values('name', 'security_count')
+    ))
+    for k, v in packages.items():
+        if k in security_updates:
+            v.update(security_updates[k])
+    # And now getting the final data structure
+    packages = packages.values()
     return render(request, 'packagelist.html', {'packages': packages})
 
 
