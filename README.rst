@@ -64,3 +64,8 @@ Documentation
 
 The documentation is maintained using Sphinx (under /doc/) and is automatically
 generated at https://servermon.readthedocs.org/.
+
+Demo
+====
+
+Demo at http://servermon.herokuapp.com
