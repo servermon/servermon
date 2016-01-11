@@ -36,8 +36,9 @@ and management through Puppet.</p>
 
 <p>Servermon at this point offers two applications</p>
 
-<p>1) A Web frontend to the Puppet database.
-2) hwodc: A simple datacenter hardware documentation database</p>
+<p>1) A Web frontend to the Puppet database.</p>
+
+<p>2) hwodc: A simple datacenter hardware documentation database</p>
 
 <p>If you have no idea what Puppet is, it is possible that you don't need
 this software. Do note however that hwdoc will still be usable even
@@ -46,41 +47,24 @@ without a Puppet infrastructure</p>
 <h1>
 <a name="compatibility" class="anchor" href="#compatibility"><span class="octicon octicon-link"></span></a>Compatibility</h1>
 
-<p>For an up to date list of the Django versions we support, take a look into requirements.txt. Those are the versions tested and developed for</p>
+<p>For an up to date list of the Django versions we support, take a look into <a href="https://github.com/servermon/servermon/blob/master/requirements.txt">requirements.txt</a>.
+Those are the versions supported officially. The tested and developed for versions, are in <a href="https://github.com/servermon/servermon/blob/master/tox.ini#L16">tox.ini</a></p>
 
 <h1>
 <a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h1>
 
-<p>Get the python modules:</p>
-
-<p>.. code-block:: bash</p>
-
-<p>pip install -r requirements.txt</p>
-
-<p>Copy servermon/settings.py.dist to servermon/settings.py</p>
-
-<p>See doc/install.rst for details.</p>
-
-<p>.. code-block:: bash</p>
-
-<pre><code>./manage.py syncdb
-./manage.py migrate
-</code></pre>
-
-<p>Run!</p>
-
-<p>.. code-block:: bash</p>
-
-<pre><code>./manage.py runserver
-</code></pre>
-
-<p>More details in the <code>installation tutorial &lt;https://servermon.readthedocs.org/en/latest/install.html&gt;</code>_.</p>
+<p>Read how to install servermon at <a href="https://servermon.readthedocs.org/en/latest/install.html">installation tutorial</a></p>
 
 <h1>
 <a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h1>
 
 <p>The documentation is maintained using Sphinx (under /doc/) and is automatically
-generated at <a href="https://servermon.readthedocs.org/">https://servermon.readthedocs.org/</a>.</p>
+generated at <a href="https://servermon.readthedocs.org/">https://servermon.readthedocs.org/</a></p>
+
+<h1>
+<a name="demo" class="anchor" href="#demo"><span class="octicon octicon-link"></span></a>Demo</h1>
+
+<p>A demo using auto generated data is available at <a href="http://servermon.herokuapp.com">demo</a></p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/akosiaris">akosiaris</a></p>
@@ -88,6 +72,5 @@ generated at <a href="https://servermon.readthedocs.org/">https://servermon.read
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
-    
   </body>
 </html>
