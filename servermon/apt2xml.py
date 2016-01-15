@@ -22,10 +22,10 @@ CLI utility to get package update and print them in XML format
 
 
 from socket import getfqdn
+from xml.dom.minidom import Document
+import apt
 import warnings
 warnings.filterwarnings('ignore')
-import apt
-from xml.dom.minidom import Document
 
 
 # shamelessly stolen from /usr/lib/update-notifier/apt_check.py ported/modified
