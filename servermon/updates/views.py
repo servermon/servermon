@@ -169,7 +169,7 @@ def host(request, hostname):
 
     system.append({
         'name': 'Processor type',
-        'value': ', '.join([p['value'] for p in host.factvalue_set.filter(fact_name__name__startswith='processor').exclude(fact_name__name='processorcount').values('value').distinct()]),
+        'value': ', '.join([p['value'] for p in host.factvalue_set.filter(fact_name__name__startswith='processor').exclude(fact_name__name='processorcount').exclude(fact_name__name='processors').values('value').distinct()]),
     })
 
     system.append({
