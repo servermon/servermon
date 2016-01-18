@@ -38,7 +38,7 @@ def hostlist(request):
     # to preserve the order returned by the QuerySet
     hosts = OrderedDict(map(
         lambda x: (x['name'], x),
-        hosts.values('name', 'update_count')
+        hosts.values('name', 'update_count', 'updated_at')
     ))
     security_updates = dict(map(
         lambda x: (x['name'], x),
