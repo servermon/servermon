@@ -1,4 +1,3 @@
-pbr<0.11
 south
 whoosh
 ipy
