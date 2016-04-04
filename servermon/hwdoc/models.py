@@ -384,6 +384,7 @@ class ServerManagement(models.Model):
         ('ilo2', 'HP iLO 2'),
         ('ilo3', 'HP iLO 3'),
         ('irmc', 'Fujitsu iRMC'),
+        ('idrac', 'Dell iDRAC'),
         ('ipmi', 'Generic IPMI'),
         ('dummy', 'Dummy Method Backend'),
     )
