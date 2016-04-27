@@ -17,9 +17,13 @@
 
 import os
 import sys
-sys.path.append('/path/to/app/')
-os.environ['DJANGO_SETTINGS_MODULE'] = 'servermon.settings'
+parent_path = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.path.pardir))
+sys.path.append(parent_path)
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'servermon.settings')
 
-import django.core.handlers.wsgi
-
-application = django.core.handlers.wsgi.WSGIHandler()
+try:
+    from django.core.wsgi import get_wsgi_application
+    application = get_wsgi_application()
+except ImportError:
+    import django.core.handlers.wsgi
+    application = django.core.handlers.wsgi.WSGIHandler()
