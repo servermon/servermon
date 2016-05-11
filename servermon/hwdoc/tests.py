@@ -307,6 +307,15 @@ class ViewsTestCase(unittest.TestCase):
         c = Client()
         response = c.get('/hwdoc/equipment/%s/' % self.server.pk)
         self.assertEqual(response.status_code, 200)
+        response = c.get('/hwdoc/equipment/%s/' % self.server.serial)
+        self.assertEqual(response.status_code, 200)
+
+    def test_inexistent_equipment(self):
+        c = Client()
+        response = c.get('/hwdoc/equipment/%s/' % 20000)
+        self.assertEqual(response.status_code, 404)
+        response = c.get('/hwdoc/equipment/%s/' % 'INEXISTENT_SERIAL')
+        self.assertEqual(response.status_code, 404)
 
     def test_equipment_unracked(self):
         c = Client()

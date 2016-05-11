@@ -24,9 +24,10 @@ from hwdoc.models import Project, EquipmentModel, Equipment, \
 from hwdoc import functions
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseBadRequest
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
+from django.http import Http404
 import json
 
 
@@ -203,7 +204,7 @@ def unracked_equipment(request):
     return render(request, template, {'equipments': equipments})
 
 
-def equipment(request, equipment_id):
+def equipment(request, equipment_input):
     '''
     Equipment view. It should display all non-authenticated user viewable data
 
@@ -215,7 +216,23 @@ def equipment(request, equipment_id):
 
     template = 'equipment.html'
 
-    equipment = get_object_or_404(Equipment, pk=equipment_id)
+    # If we got an int, it's either a PK or a serial
+    try:
+        int(equipment_input)
+        equipment = Equipment.objects.get(
+            Q(pk=equipment_input) |
+            Q(serial=equipment_input)
+        )
+    except Equipment.DoesNotExist:
+        raise Http404
+    except ValueError:
+        # Otherwise it's a serial
+        try:
+            equipment = Equipment.objects.get(serial=equipment_input)
+        except Equipment.DoesNotExist:
+            # Otherwise it's nothing
+            raise Http404
+    # If not 404's got raised up to now, we got an equipment
     try:
         equipment.prev = Equipment.objects.filter(rack=equipment.rack, unit__lt=equipment.unit).order_by('-unit')[0]
     except (IndexError, ValueError):
