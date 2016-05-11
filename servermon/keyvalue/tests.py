@@ -64,7 +64,7 @@ class KeyTestCase(unittest.TestCase):
         self.assertEqual(self.keyvalue.value, 'Yo')
         self.assertEqual(self.keyvalue.owner, self.owner)
         # Test __unicode__ method on KeyValue
-        self.assertEqual(str(self.keyvalue), 'Key1 = Yo')
+        self.assertEqual(str(self.keyvalue), 'Key1 = Yo on Owner')
 
 
 class AdminViewsTestCase(unittest.TestCase):

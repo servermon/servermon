@@ -82,5 +82,8 @@ class KeyValue(models.Model):
         return self.owner_content_object
 
     def __unicode__(self):
-        res = u'%s = %s' % (self.key.name, self.value)
+        res = u'%s = %s on %s' % (
+            self.key.name,
+            self.value,
+            self.owner_content_object)
         return res
