@@ -330,7 +330,7 @@ class Equipment(models.Model):
 
     model = models.ForeignKey(EquipmentModel)
     allocation = models.ForeignKey(Project, null=True, blank=True)
-    serial = models.CharField(max_length=80)
+    serial = models.CharField(max_length=80, unique=True)
     rack = models.ForeignKey(Rack, null=True, blank=True)
     unit = models.PositiveIntegerField(null=True, blank=True)
     purpose = models.CharField(max_length=80, blank=True)
