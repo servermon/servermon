@@ -86,6 +86,7 @@ class Project(models.Model):
 
     name = models.CharField(max_length=80)
     contacts = models.ManyToManyField(Person, through='Role')
+    comments = models.TextField(blank=True)
 
     class Meta:
         ordering = ['name', ]

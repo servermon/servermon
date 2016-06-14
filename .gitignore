@@ -12,3 +12,4 @@
 AUTHORS
 ChangeLog
 .coverage
+servermon/staticfiles/*
