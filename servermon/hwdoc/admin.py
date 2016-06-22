@@ -20,9 +20,12 @@ Module configuring Django's admin interface for hwdoc
 
 from django.contrib import admin
 from django import forms
-from hwdoc.models import *  # noqa
 from django.utils.translation import ugettext as _
+
 from keyvalue.admin import KeyValueAdmin
+from hwdoc.models import Role, Person, Email, Phone, Project, Vendor, \
+    RackModel, Ticket, Storage, Datacenter, RackPosition, Rack, \
+    RackRow, ServerManagement, EquipmentModel, Equipment
 
 
 class RoleInline(admin.TabularInline):
