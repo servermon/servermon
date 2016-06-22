@@ -1,7 +1,7 @@
 from settings import *  # noqa
 
-DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
-DATABASES['default']['NAME'] = 'servermon-test.db'
+DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'  # noqa
+DATABASES['default']['NAME'] = 'servermon-test.db'  # noqa
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -16,7 +16,7 @@ INSTALLED_APPS = (
     'keyvalue',
 )
 
-if DJANGO_VERSION[:2] < (1, 7):
+if DJANGO_VERSION[:2] < (1, 7):  # noqa
         INSTALLED_APPS = INSTALLED_APPS + ('south',)
 
 AUTHENTICATION_BACKENDS = (
