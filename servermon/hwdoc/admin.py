@@ -88,6 +88,7 @@ class PersonAdmin(admin.ModelAdmin):
     search_fields = ('name', 'surname')
     exclude = ('phones', 'emails')
 
+
 admin.site.register(Email, EmailAdmin)
 admin.site.register(Phone, PhoneAdmin)
 admin.site.register(Person, PersonAdmin)
@@ -106,6 +107,7 @@ class DatacenterAdmin(admin.ModelAdmin):
 
     list_display = ('pk', 'name', )
     list_editable = ('name', )
+
 
 admin.site.register(Datacenter, DatacenterAdmin)
 
@@ -155,6 +157,7 @@ class RackAdmin(admin.ModelAdmin):
     list_editable = ('mounted_depth', 'model')
     inlines = [RackPositionInline, ]
 
+
 admin.site.register(Rack, RackAdmin)
 admin.site.register(RackRow)
 
@@ -171,6 +174,7 @@ def shutdown(modeladmin, request, queryset):
             continue
         obj.servermanagement.power_off_acpi()
 
+
 shutdown.short_description = _('Shuts down an equipment')
 
 
@@ -185,6 +189,7 @@ def startup(modeladmin, request, queryset):
         except ServerManagement.DoesNotExist:
             continue
         obj.servermanagement.power_on()
+
 
 startup.short_description = _('Starts up an equipment')
 
@@ -201,6 +206,7 @@ def shutdown_force(modeladmin, request, queryset):
             continue
         obj.servermanagement.power_off()
 
+
 shutdown_force.short_description = _('Force a shutdown of an equipment')
 
 
@@ -210,6 +216,7 @@ class EquipmentModelAdmin(admin.ModelAdmin):
     '''
 
     inlines = [KeyValueAdmin, ]
+
 
 admin.site.register(EquipmentModel, EquipmentModelAdmin)
 
@@ -359,5 +366,6 @@ class EquipmentAdmin(admin.ModelAdmin):
                 request.user.has_perm('hwdoc.change_equipment'):
             return True
         return False
+
 
 admin.site.register(Equipment, EquipmentAdmin)
