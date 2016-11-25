@@ -2,7 +2,7 @@ south
 whoosh
 ipy
 python-ldap
-flake8
+flake8==3.0.4
 epydoc
 sphinx
 pysqlite
