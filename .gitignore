@@ -2,6 +2,7 @@
 /dist/
 /servermon/settings.py
 .*.swp
+.venv
 /docbuild
 *.sqlite*
 *.db
