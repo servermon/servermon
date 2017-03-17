@@ -18,7 +18,8 @@
         <tr><th>{% trans "Project" %}:</th><td>{% if equipment.allocation %}<a href="{% url "hwdoc.views.project" equipment.allocation.pk %}">{{ equipment.allocation.name }}</a>{% else %}-{% endif %}</td></tr>
         <tr><th>{% trans "Model" %}:</th><td>{{ equipment.model }}</td></tr>
         <tr><th>{% trans "Serial" %}:</th><td>{{ equipment.serial }}</td></tr>
-        <tr><th>{% trans "Rack Unit" %}:</th><td>{% if equipment.rack %}{{ equipment.rack }}{% if equipment.unit %}{{ equipment.unit|stringformat:"02d" }}{% endif %}{% else %}-{% endif %}</td></tr>
+        <tr><th>{% trans "Rack" %}:</th><td>{% if equipment.rack %}<a href="{% url "hwdoc.views.rack" equipment.rack.pk %}">{{ equipment.rack }}</a>{% else %}-{% endif %}</td></tr>
+        <tr><th>{% trans "RackUnit" %}:</th><td>{% if equipment.rack %}{{ equipment.rack }}</a>{% if equipment.unit %}{{ equipment.unit|stringformat:"02d" }}{% endif %}{% else %}-{% endif %}</td></tr>
         <tr><th>{% trans "Purpose" %}:</th><td>{{ equipment.purpose }}</td></tr>
         <tr><th>{% trans "OOB MAC" %}:</th><td>{% if equipment.servermanagement %}{{ equipment.servermanagement.mac }}{% endif %}</td></tr>
         <tr><th>{% trans "OOB Hostname" %}:</th><td>{% if equipment.servermanagement %}<a href="https://{{ equipment.servermanagement.hostname }}">{{ equipment.servermanagement.hostname }}</a>{% endif %}</td></tr>

@@ -68,8 +68,8 @@
           {% endif %}
           {% endif %}
           <td>{{ result.model.vendor }}&nbsp;{{ result.model.name }}</td>
-          <td>{{ result.dc }}</td>
-          <td>{{ result.rack }}</td>
+          <td>{% if result.dc %}<a href="{% url "hwdoc.views.datacenter" result.dc.pk %}">{{ result.dc }}</a>{% endif %}</td>
+          <td>{% if result.rack %}<a href="{% url "hwdoc.views.rack" result.rack.pk %}">{{ result.rack }}</a>{% endif %}</td>
 	  <td>{% for unit in result.model.units %}{{ result.unit|add:unit|add:"-1"|stringformat:"02d" }}<br/>{% endfor %}</td>
           <td class="centered">{% if result.rack_front %}<i class="icon-ok-sign"></i>{% else %}&nbsp;{% endif %}</td>
           <td class="centered">{% if result.rack_interior %}<i class="icon-ok-sign"></i>{% else %}&nbsp;{% endif %}</td>
