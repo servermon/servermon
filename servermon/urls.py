@@ -19,6 +19,8 @@ urlpatterns = patterns('',
     # Opensearch
     url(r'^opensearch.xml$', 'projectwide.views.opensearch', name="opensearch"),
     url(r'^suggest/$', 'projectwide.views.suggest', name="opensearchsuggestions"),
+    # RestAPI urls
+    url(r'^api/', include('api.urls')),
 )
 if 'hwdoc' in settings.INSTALLED_APPS:
     urlpatterns += patterns('',

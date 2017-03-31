@@ -13,6 +13,7 @@ INSTALLED_APPS = (
     'updates',
     'puppet',
     'hwdoc',
+    'api',
     'keyvalue',
 )
 
