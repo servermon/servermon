@@ -13,7 +13,9 @@ servermon
    :target: https://coveralls.io/github/servermon/servermon?branch=master
    :alt: Code Coverage Status
 
-
+.. image:: https://img.shields.io/badge/license-ISC-green.svg
+   :target: https://github.com/servermon/servermon/blob/master/COPYING
+   :alt: License
 
 Servermon is a Django project with the aim of facilitating server monitoring
 and management through Puppet.
