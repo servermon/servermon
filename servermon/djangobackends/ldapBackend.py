@@ -25,7 +25,7 @@ from django.contrib.auth.models import User, Group
 from django.conf import settings
 
 
-class ldapBackend:
+class ldapBackend(object):
     def authenticate(self, username=None, password=None):
 
         ldap_settings = settings.LDAP_AUTH_SETTINGS
@@ -50,10 +50,10 @@ class ldapBackend:
     def _auth_user(self, base, username, password, l):
 
         scope = ldap.SCOPE_SUBTREE
-        filter = "(uid=%s)" % ldap.filter.escape_filter_chars(username, escape_mode=0)
+        f = "(uid=%s)" % ldap.filter.escape_filter_chars(username, escape_mode=0)
         ret = ['dn', 'mail', 'givenName', 'sn']
         try:
-            result_id = l.search(base, scope, filter, ret)
+            result_id = l.search(base, scope, f, ret)
             _, result_data = l.result(result_id, 0)
 
             # If the user does not exist in LDAP, Fail.
@@ -76,7 +76,7 @@ class ldapBackend:
             try:
                 user = User.objects.get(username__exact=username)
                 user.email = result_data[0][1]['mail'][0]
-            except:
+            except (User.DoesNotExist, KeyError, IndexError):
                 user = User.objects.create_user(username, result_data[0][1]['mail'][0], None)
                 user.is_staff = settings.LDAP_AUTH_IS_STAFF
                 user.is_superuser = False

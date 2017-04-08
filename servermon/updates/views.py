@@ -24,7 +24,7 @@ from django.shortcuts import render
 from django.db.models import Count
 from puppet.models import Host
 from updates.models import Package, Update
-from hwdoc.models import Equipment
+from hwdoc.models import Equipment, ServerManagement, Rack
 from IPy import IP
 from collections import OrderedDict
 
@@ -197,11 +197,11 @@ def host(request, hostname):
                     'name': attr['name'],
                     'value': attr['value'](eq)
                 }
-            except:
+            except (KeyError, AttributeError, ServerManagement.DoesNotExist):
                 continue
             try:
                 tmp['link'] = attr['link'](eq)
-            except:
+            except (KeyError, AttributeError, Rack.DoesNotExist):
                 pass
             location.append(tmp)
     # Updates info

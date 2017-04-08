@@ -162,6 +162,6 @@ def populate_hostnames(equipment_list):
         eq.hostname = None
         try:
             eq.hostname = factvalues[eq.serial]
-        except:
+        except (KeyError, AttributeError):
             pass
     return equipment_list

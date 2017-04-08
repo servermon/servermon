@@ -35,7 +35,7 @@ class StripWhitespaceMiddleware(object):
     def process_response(self, request, response):
         # HttpResponseNotModified does not have a Content-Type header.
         # See https://code.djangoproject.com/ticket/11340
-        if type(response) == HttpResponseNotModified:
+        if isinstance(response, HttpResponseNotModified):
             return response
         if 'text/plain' in response['Content-Type']:
             if hasattr(self, 'whitespace_lead'):
