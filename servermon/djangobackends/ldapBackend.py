@@ -54,7 +54,7 @@ class ldapBackend:
         ret = ['dn', 'mail', 'givenName', 'sn']
         try:
             result_id = l.search(base, scope, filter, ret)
-            result_type, result_data = l.result(result_id, 0)
+            _, result_data = l.result(result_id, 0)
 
             # If the user does not exist in LDAP, Fail.
             if (len(result_data) != 1):
