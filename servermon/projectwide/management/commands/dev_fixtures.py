@@ -281,7 +281,7 @@ class Command(BaseCommand):
     def create_puppet_facts(self, fact_number):
         facts = []
         print 'Creating %s puppet facts' % fact_number
-        for i in range(fact_number):
+        for _ in range(fact_number):
             fact_name = Command.id_generator(random.randint(6, 30))
             facts.append(Fact(name=fact_name))
         # And some well known facts
@@ -291,7 +291,7 @@ class Command(BaseCommand):
     def create_puppet_hosts(self, host_number, domain_name='example.com'):
         hosts = []
         print 'Creating %s puppet hosts' % host_number
-        for i in range(host_number):
+        for _ in range(host_number):
             hostname = '%s.%s' % (Command.id_generator(random.randint(6, 20)), domain_name)
             print 'Created host: %s' % hostname
             ip = '%s.%s.%s.%s' % (random.randint(1, 255), random.randint(1, 255), random.randint(1, 255), random.randint(1, 255))
@@ -306,7 +306,7 @@ class Command(BaseCommand):
         facts = list(Fact.objects.exclude(name__in=self.well_known_facts.keys()))  # Fetch them all as an optimization
         hosts = list(Host.objects.all())  # Fetch them all
         for host in hosts:
-            host_facts = [random.choice(facts) for i in range(random.randint(0, len(facts)))]
+            host_facts = [random.choice(facts) for _ in range(random.randint(0, len(facts)))]
             print 'Creating %s fact values for host %s' % (
                 len(host_facts), host)
             for fact in host_facts:
@@ -330,7 +330,7 @@ class Command(BaseCommand):
     def create_updates_packages(self, package_number):
         packages = []
         print 'Creating %s packages' % package_number
-        for i in range(package_number):
+        for _ in range(package_number):
             package_name = Command.id_generator(random.randint(6, 30))
             packages.append(Package(name=package_name, sourcename=package_name))
         Package.objects.bulk_create(packages)
@@ -341,7 +341,7 @@ class Command(BaseCommand):
         hosts = list(Host.objects.all())  # Fetch them all
         for host in hosts:
             host_packages = list(set(
-                [random.choice(packages) for x in range(random.randint(0, len(packages)))]))
+                [random.choice(packages) for _ in range(random.randint(0, len(packages)))]))
             print 'Creating %s package updates for host %s' % (
                 len(host_packages), host)
             for package in host_packages:
@@ -360,7 +360,7 @@ class Command(BaseCommand):
     def create_hwdoc_emails(self, email_number, domain_name='example.com'):
         emails = []
         print 'Creating %s emails' % email_number
-        for i in range(email_number):
+        for _ in range(email_number):
             email = Command.id_generator(random.randint(6, 10)) + '@%s' % domain_name
             emails.append(Email(email=email))
         Email.objects.bulk_create(emails)
@@ -368,7 +368,7 @@ class Command(BaseCommand):
     def create_hwdoc_phones(self, phone_number):
         phones = []
         print 'Creating %s phones' % phone_number
-        for i in range(phone_number):
+        for _ in range(phone_number):
             phone = Command.id_generator(10, chars='0123456789')
             phones.append(Phone(number=phone))
         Phone.objects.bulk_create(phones)
@@ -378,7 +378,7 @@ class Command(BaseCommand):
         emails = list(Email.objects.all())  # Fetch them all as an optimization
         phones = list(Phone.objects.all())  # Fetch them all
         print 'Creating %s persons' % person_number
-        for i in range(person_number):
+        for _ in range(person_number):
             person_emails = list(set(
                 [random.choice(emails) for i in range(random.randint(1, 2))]))
             person_phones = list(set(
@@ -393,7 +393,7 @@ class Command(BaseCommand):
     def create_hwdoc_projects(self, project_number):
         projects = []
         print 'Creating %s projects' % project_number
-        for i in range(project_number):
+        for _ in range(project_number):
             project = Command.id_generator(random.randint(6, 10)).capitalize()
             projects.append(Project(name=project))
         Project.objects.bulk_create(projects)
@@ -402,7 +402,7 @@ class Command(BaseCommand):
         roles = []
         projects = list(Project.objects.all())  # Fetch them all as an optimization
         people = list(Person.objects.all())
-        for project in set([random.choice(projects) for x in range(1, len(projects))]):
+        for project in set([random.choice(projects) for _ in range(1, len(projects))]):
             project_person = random.choice(people)
             print 'Creating 1 role for project %s' % project
             roles.append(Role(
@@ -426,7 +426,7 @@ class Command(BaseCommand):
         rackmodels = []
         vendors = list(Vendor.objects.all())  # Fetch them all as an optimization
         print 'Creating %s rackmodels' % rackmodel_number
-        for i in range(rackmodel_number):
+        for _ in range(rackmodel_number):
             rackmodel = Command.id_generator(random.randint(6, 10))
             rackmodels.append(RackModel(
                 name=rackmodel,
@@ -461,7 +461,7 @@ class Command(BaseCommand):
     def create_hwdoc_datacenters(self, datacenter_number):
         datacenters = []
         print 'Creating %s datacenters' % datacenter_number
-        for i in range(datacenter_number):
+        for _ in range(datacenter_number):
             datacenter = Command.id_generator(random.randint(6, 10)).capitalize()
             datacenters.append(Datacenter(name=datacenter))
         Datacenter.objects.bulk_create(datacenters)
@@ -470,7 +470,7 @@ class Command(BaseCommand):
         rackrows = []
         dcs = list(Datacenter.objects.all())  # Fetch them all as an optimization
         print 'Creating %s rackrows' % rackrow_number
-        for i in range(rackrow_number):
+        for _ in range(rackrow_number):
             rackrow = Command.id_generator(random.randint(6, 10)).upper()
             rackrows.append(
                 RackRow(name=rackrow, dc=random.choice(dcs))
@@ -481,7 +481,7 @@ class Command(BaseCommand):
         rackmodels = list(RackModel.objects.all())  # Fetch them all as an optimization
         rackrows = list(RackRow.objects.all())
         print 'Creating %s racks' % rack_number
-        for i in range(rack_number):
+        for _ in range(rack_number):
             rack = Command.id_generator(random.randint(4, 8)).upper()
             r = Rack(
                 name=rack,
@@ -497,7 +497,7 @@ class Command(BaseCommand):
         datacenters = list(Datacenter.objects.all())
         storages = []
         print 'Creating %s datacenters' % storage_number
-        for i in range(storage_number):
+        for _ in range(storage_number):
             storage = Command.id_generator(random.randint(6, 10)).capitalize()
             storages.append(Storage(name=storage,
                                     dc=random.choice(datacenters)))
@@ -547,7 +547,7 @@ class Command(BaseCommand):
             e = Equipment(
                 model=model,
                 serial=host.get_fact_value('serialnumber'))
-            r, u = assign_u(e)
+            r, _ = assign_u(e)
             if r:
                 e.rack, e.unit = assign_u(e)
             elif random.randint(1, 10) >= 9:
