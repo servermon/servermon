@@ -1,9 +1,9 @@
-function build_navs(obj) {
-  $.get($(obj).data('get'),
+function BuildNavs(obj) {
+  $.get($(obj).data("get"),
   function(data) {
-    var r = '';
-    for (item in data) {
-        r = r + '<li><a href="' + data[item].url + '">' + data[item].name + '</a></li>';
+    var r = "";
+    for (var item in data) {
+        r = r + "<li><a href='" + data[item].url + "'>" + data[item].name + "</a></li>";
       }
     $(obj).next().html(r);
     });
@@ -15,19 +15,19 @@ function labelFormatter(label, series) {
 }
 
 $(document).ready(function() {
-  var url = $('input#q').data('get');
-  $('input#q').typeahead({
+  var url = $("input#q").data("get");
+  $("input#q").typeahead({
     minLength: 2,
-    source: function(query, process) {
+    source(query, process) {
       $.get(url, { q: query, limit: 8 }, function(data) {
       process(data[1]);
     });
     },
-    updater: function(item) {
+    updater(item) {
       this.$element.context.parentNode.submit();
       return item;
     },
-    sorter: function(items) {
+    sorter(items) {
       items.unshift(this.query);
       return items;
     }
@@ -35,34 +35,34 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-  $('.sortable').tablesorter();
+  $(".sortable").tablesorter();
 });
 
 $(document).ready(function() {
-  $('.dist-upgrade').tooltip();
+  $(".dist-upgrade").tooltip();
 });
 
 $(document).ready(function() {
-  $('.hwdocfetchable').on('click', function(event) {
+  $(".hwdocfetchable").on("click", function(event) {
       event.preventDefault();
       event.stopPropagation();
-    }).on('mouseenter', function(event) {
-      build_navs(this);
+    }).on("mouseenter", function(event) {
+      BuildNavs(this);
     });
 });
 
 $(document).ready(function() {
-  $('.toggles').on('click', function(event) {
-    var toggle = $(this).data('toggle');
+  $(".toggles").on('click', function(event) {
+    var toggle = $(this).data("toggle");
     event.preventDefault();
     event.stopPropagation();
-    $(toggle).toggle('slow');
+    $(toggle).toggle("slow");
   });
 });
 
 $(document).ready(function() {
-  $('.hwdocgraph').each(function (index) {
-    var url = $(this).data('get');
+  $(".hwdocgraph").each(function (index) {
+    var url = $(this).data("get");
     var div = $(this);
     $.get(url, function(data) {
     div.plot(data, {
@@ -79,8 +79,8 @@ $(document).ready(function() {
           }
       },
       grid: {
-	  hoverable: true,
-	  clickable: true
+      hoverable: true,
+      clickable: true
       },
       legend: {
           show: true
