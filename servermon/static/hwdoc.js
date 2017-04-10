@@ -1,4 +1,4 @@
-function BuildNavs(obj) {
+function buildNavs(obj) {
   $.get($(obj).data("get"),
   function(data) {
     var r = "";
@@ -47,7 +47,7 @@ $(document).ready(function() {
       event.preventDefault();
       event.stopPropagation();
     }).on("mouseenter", function(event) {
-      BuildNavs(this);
+      buildNavs(this);
     });
 });
 
