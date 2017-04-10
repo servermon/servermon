@@ -84,7 +84,7 @@ class ldapBackend(object):
                     try:
                         g = Group.objects.get(name=settings.LDAP_AUTH_GROUP)
                         user.groups.add(g)
-                    except:
+                    except Group.DoesNotExist:
                         pass
             # Whatever the result of the two above, sync up non autorization
             # data from LDAP to django

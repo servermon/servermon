@@ -100,7 +100,7 @@ class Host(models.Model):
 
         try:
             return self.factvalue_set.get(fact_name__name=fact).value
-        except:
+        except FactValue.DoesNotExist:
             return default
 
 
