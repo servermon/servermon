@@ -512,7 +512,7 @@ def __mod_directory_command__(**kwargs):
     kwargs.setdefault('contexts', ())
     i = 0
     contexts_command = ''
-    for context in kwargs['contexts']:
+    for _ in kwargs['contexts']:
         contexts_command += '<DIR_USER_CONTEXT_%s VALUE="%s"/>' % (i + 1, kwargs['contexts'][i])
         i = i + 1
 
@@ -520,7 +520,7 @@ def __mod_directory_command__(**kwargs):
     kwargs.setdefault('groupnames', ())
     i = 0
     groupnames_command = ''
-    for groupname in kwargs['groupnames']:
+    for _ in kwargs['groupnames']:
         groupnames_command += '<DIR_GRPACCT%s_NAME VALUE="%s"/>' % (i + 1, kwargs['groupnames'][i])
         i = i + 1
 
@@ -528,7 +528,7 @@ def __mod_directory_command__(**kwargs):
     kwargs.setdefault('groupprivs', ())
     i = 0
     groupprivs_command = ''
-    for grouppriv in kwargs['groupprivs']:
+    for _ in kwargs['groupprivs']:
         groupprivs_command += '<DIR_GRPACCT%s_PRIV VALUE="%s"/>' % (i + 1, kwargs['groupprivs'][i])
         i = i + 1
 
@@ -536,7 +536,7 @@ def __mod_directory_command__(**kwargs):
     kwargs.setdefault('groupsids', ())
     i = 0
     groupsids_command = ''
-    for groupsid in kwargs['groupsids']:
+    for _ in kwargs['groupsids']:
         groupsids_command += '<DIR_GRPACCT%s_SID VALUE="%s"/>' % (i + 1, kwargs['groupsids'][i])
         i = i + 1
 
