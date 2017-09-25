@@ -4,6 +4,7 @@ python:
 install: pip install 'virtualenv==13.1.2' 'tox'
 script: tox
 sudo: false
+dist: precise
 env:
   - DB=sqlite
   - DB=mysql
