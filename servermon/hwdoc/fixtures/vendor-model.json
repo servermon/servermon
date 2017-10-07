@@ -35,6 +35,13 @@
     }
   }, 
   {
+    "pk": 6, 
+    "model": "hwdoc.vendor", 
+    "fields": {
+      "name": "Unknown/Unspecified Vendor"
+    }
+  }, 
+  {
     "pk": 1, 
     "model": "hwdoc.equipmentmodel", 
     "fields": {
@@ -104,6 +111,15 @@
       "u": 2, 
       "vendor": 4, 
       "name": "PowerVault MD3200i"
+    }
+  },
+  {
+    "pk": 9, 
+    "model": "hwdoc.equipmentmodel", 
+    "fields": {
+      "u": 2, 
+      "vendor": 6, 
+      "name": "Unknown Model"
     }
   },
   {

@@ -34,5 +34,23 @@
       "name": "Tag", 
       "description": ""
     }
+  },
+  {
+    "pk": 5, 
+    "model": "keyvalue.key", 
+    "fields": {
+      "verbose_name": "Decommission date", 
+      "name": "Decommission date", 
+      "description": ""
+    }
+  },
+  {
+    "pk": 6, 
+    "model": "keyvalue.key", 
+    "fields": {
+      "verbose_name": "Decommission Task", 
+      "name": "Decommission Task", 
+      "description": ""
+    }
   }
 ]
