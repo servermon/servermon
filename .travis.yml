@@ -4,6 +4,7 @@ python:
 install: pip install tox
 script: tox
 sudo: false
+dist: precise
 env:
   - DB=sqlite
   - DB=mysql
