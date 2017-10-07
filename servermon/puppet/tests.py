@@ -19,7 +19,7 @@ Unit tests for puppet package
 '''
 
 from django.test.client import Client
-from django.utils import unittest
+import unittest
 from puppet.models import Fact, Host, FactValue, ParamNames, \
     ParamValues, PuppetTags, ResourceTags, SourceFile, Resource
 

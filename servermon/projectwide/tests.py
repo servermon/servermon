@@ -20,7 +20,7 @@ Unit tests for projectwide package
 
 from mockldap import MockLdap
 
-from django.utils import unittest
+import unittest
 from django.test.client import Client
 from django.core.management import call_command
 

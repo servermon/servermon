@@ -19,7 +19,7 @@ Unit tests for updates package
 '''
 
 from django.test.client import Client
-from django.utils import unittest
+import unittest
 from django.core.management import call_command
 
 from puppet.models import Host, Resource, FactValue, Fact

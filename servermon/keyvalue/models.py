@@ -24,7 +24,7 @@ Each keyvalue has three items.
 
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes import admin
 
 
 class Key(models.Model):
@@ -60,7 +60,7 @@ class KeyValue(models.Model):
 
     owner_content_type = models.ForeignKey(ContentType)
     owner_object_id = models.PositiveIntegerField()
-    owner_content_object = generic.GenericForeignKey('owner_content_type', 'owner_object_id')
+    owner_content_object = admin.GenericForeignKey('owner_content_type', 'owner_object_id')
 
     class Meta:
         unique_together = ('key', 'owner_content_type', 'owner_object_id')

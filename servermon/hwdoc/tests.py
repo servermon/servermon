@@ -20,7 +20,7 @@ Unit tests for hwdoc package
 
 from django import VERSION as DJANGO_VERSION
 
-from django.utils import unittest
+import unittest
 from django.test.client import Client
 from django.core.management import call_command, CommandError
 from django.conf import settings

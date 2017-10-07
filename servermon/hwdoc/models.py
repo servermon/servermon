@@ -20,7 +20,7 @@ hwdoc module's functions documentation. Main models are Equipment and ServerMana
 
 from django.db import models
 from django.utils.translation import ugettext as _
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes import admin
 from keyvalue.models import KeyValue
 
 
@@ -301,7 +301,7 @@ class EquipmentModel(Model):
     '''
 
     u = models.PositiveIntegerField(verbose_name="Us")
-    attrs = generic.GenericRelation(KeyValue,
+    attrs = admin.GenericRelation(KeyValue,
                                     content_type_field='owner_content_type',
                                     object_id_field='owner_object_id')
 
@@ -343,7 +343,7 @@ class Equipment(models.Model):
     comments = models.TextField(blank=True)
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    attrs = generic.GenericRelation(KeyValue,
+    attrs = admin.GenericRelation(KeyValue,
                                     content_type_field='owner_content_type',
                                     object_id_field='owner_object_id')
 

@@ -20,7 +20,7 @@ Unit tests for keyvalue package
 
 from django.contrib.auth.models import User
 from django.test.client import Client
-from django.utils import unittest
+import unittest
 from keyvalue.models import Key, KeyValue
 
 
