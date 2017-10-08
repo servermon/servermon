@@ -1,10 +1,5 @@
 from django.conf import settings
-from django import VERSION as DJANGO_VERSION
-if DJANGO_VERSION[:2] >= (1, 4):
-    from django.conf.urls import patterns, include, url
-else:
-    from django.conf.urls.defaults import patterns, include, url
-
+from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
     (r'^/?$', 'projectwide.views.index'),  # noqa
