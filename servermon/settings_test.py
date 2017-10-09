@@ -13,7 +13,11 @@ INSTALLED_APPS = (
     'updates',
     'puppet',
     'hwdoc',
+    'api',
     'keyvalue',
+    'django_filters',
+    'rest_framework',
+
 )
 
 if DJANGO_VERSION[:2] < (1, 7):  # noqa
@@ -31,3 +35,12 @@ LDAP_AUTH_SETTINGS = (
 # We want to managed puppet models while performing tests in order to create the
 # database tables
 MANAGED_PUPPET_MODELS = True
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'api.permissions.ReadOnlyPermissions'
+    ],
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
+}
