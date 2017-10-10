@@ -66,34 +66,40 @@ Installing the software
 
 **Mandatory**.
 
-Python, Django, South is needed.
+Python, Django. South is required if using Django < 1.7
 
 Use system provided packages::
 
-  $ aptitude install python-django
-  $ aptitude install python-django-south
-  $ aptitude install python-whoosh
-  $ aptitude install python-ipy
-  $ aptitude install python-mysqldb (or sqlite or psycopg2)
-  $ aptitude install python-ldap (for user authentication via LDAP)
+  $ apt-get install python-django
+  $ apt-get install python-django-south
+  $ apt-get install python-whoosh
+  $ apt-get install python-ipy
+  $ apt-get install python-mysqldb (or sqlite or psycopg2)
+  $ apt-get install python-ldap (for user authentication via LDAP)
 
 Installation using pip::
 
   $ pip install -r requirements.txt
+
+But be prepared for some compilations
 
 Deploy the software::
 
   $ mkdir /path/to/servermon
   $ tar xfvz servermon-X.Y.tar.gz -C /path/to/servermon
 
-A Puppet infrastructure with an RDBMS (MySQL, PostgreSQL) is needed for
-everything else apart from hwdoc
+A Puppet infrastructure with an active record RDBMS (MySQL, PostgreSQL) is
+needed for everything else apart from hwdoc. SQLite can be used in
+development.
 
-An application server. Gunicorn should work, apache+mod_wsgi works, django runserver works
+An application server is required, at least for production. gunicorn is
+fine, apache+mod_wsgi is fine, uwsgi should be fine. In development
+django's builtin runserver is fine as well (but don't use it in
+production)
 
 For optional Jira ticketing interaction::
 
-  $ pip install jira (or easy_install jira)
+  $ pip install jira
 
 Setting up the environment for Servermon
 ----------------------------------------
@@ -146,11 +152,11 @@ This should probably tuned to each user's installation. Assuming an
 installation in to /srv/servermon the following line is sufficient
 in a crontab::
 
-  0 0 * * * <user> /srv/servermon/manage.py make_updates --pythonpath=/srv/servermon
+  0 0 * * * <user> /srv/servermon/servermon/manage.py make_updates
 
-where user is a valid system user capable of reading (root will work,
-but it is doubtfull it is a good choice. A dedicated user is probably
-better)
+where user is a valid system user capable of reading the configuration.
+root will work, but it is doubtfull it is a good choice. A dedicated
+user is probably safer. Note the double servermon path above
 
 Configuring settings.py
 +++++++++++++++++++++++
@@ -168,9 +174,10 @@ Then you need to configure the project. Things to pay attention to::
   DEBUG = False when in production
   DATABASES => Fill it with needed info
   TIME_ZONE => If you care about correct timestamps
-  STATIC_URL => (static media directory)
-  LDAP_AUTH_SETTINGS => if any
-  TEMPLATE_DIRS => at least '/path/to/servermon/templates' needed
+  STATIC_URL => static URL path, defaults to /static
+  STATIC_ROOT => where static data will reside on the filesystem, if autodiscovery does not suit you
+  LDAP_AUTH_SETTINGS => if any, fill in respectively
+  TEMPLATE_DIRS => if autodiscovery does not work use '/path/to/servermon/servermon/templates'
   INSTALLED_APPS => (uncomment needed apps). django admin apps are a must for hwdoc
   AUTHENTICATION_BACKENDS = > comment or uncomment
       'djangobackends.ldapBackend.ldapBackend',
@@ -184,15 +191,25 @@ Create standard Django tables::
 
 to create all the necessary tables in the database.
 
-Create application tables using south migrations::
+Create application tables using migrations::
 
 	./manage.py migrate
 
+Collect staticfiles in one place::
+
+	./manage.py collectstatic
+
 Load initial data
 +++++++++++++++++
-Optionally load vendor and model data::
+Load vendor and model data::
 
 	./manage.py loaddata vendor-model
+
+Load dummy data if developing
++++++++++++++++++++++++++++++
+Load dummy data if developing::
+
+	./manage.py loaddata sampledata
 
 Test run
 ++++++++
@@ -210,13 +227,13 @@ be able to easily search and  visualize equipments with open tickets.
 This is accomplished through a 'caching' layer in the database, where
 tickets are stored and their relationship to equipments. The system
 allows for vendor specific plugins for each ticketing system. To select
-you ticketing system edit settings.py and set::
+your ticketing system edit settings.py and set::
 
   TICKETING_SYSTEM = 'dummy' # dummy, comments, jira are possible values
 
 And then the configuration for you chosen ticketing system.
 
-For the comments ticketing system a single. Tickets are assumed to have
+For the "comments" ticketing system, tickets are assumed to have
 URLs in the form COMMENTS_TICKETING_URL/ticket_id
 
 In order to populate and update tickets a cron job running a django
@@ -228,16 +245,17 @@ This should probably tuned to each user's installation. Assuming an
 installation in to /srv/servermon the following line might be
 sufficient in a crontab::
 
-  0 0 * * * <user> /srv/servermon/manage.py hwdoc_populate_tickets --pythonpath=/srv/servermon ALL_EQS
+  0 0 * * * <user> /srv/servermon/servermon/manage.py hwdoc_populate_tickets ALL_EQS
 
-where user is a valid system user capable of reading (root will work,
-but it is doubtfull it is a good choice. A dedicated user is probably
-better)
+where user is a valid system user capable of reading the configuration.
+root will work, but it is doubtfull it is a good choice. A dedicated
+user is probably safer. The same use as for the make_updates command
+should be sufficient. Note the double servermon path above
 
 Branding
 ++++++++
 
-Inside the static folder you will find the standard django logo. Change it with
+Inside the servermon/static folder you will find the standard django logo. Change it with
 your organization's if you wish
 
 Further steps

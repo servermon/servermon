@@ -52,6 +52,7 @@ See doc/install.rst for details.
 
     ./manage.py syncdb
     ./manage.py migrate
+    ./manage.py collectstatic
 
 Run!
 
