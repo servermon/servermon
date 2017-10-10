@@ -24,6 +24,11 @@ DATABASES = {
     }
 }
 
+# Hosts/domain names that are valid for this site; required if DEBUG is False
+# See https://docs.djangoproject.com/en/1.4/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = []
+
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -95,17 +100,8 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'servermon.urls'
 
-AUTHENTICATION_BACKENDS = (
-    # 'djangobackends.ldapBackend.ldapBackend',
-    'django.contrib.auth.backends.ModelBackend',
-)
-
-LDAP_AUTH_SETTINGS = (
-    {'url': 'ldap://ldap.example.org/', 'base': 'ou=People,dc=example,dc=org'},
-)
-
-LDAP_AUTH_GROUP = 'not-auth'
-LDAP_AUTH_IS_STAFF = True
+# Python dotted path to the WSGI application used by Django's runserver.
+WSGI_APPLICATION = 'lalakis.wsgi.application'
 
 TEMPLATE_DIRS = (
     here('templates'),
@@ -127,6 +123,44 @@ INSTALLED_APPS = (
     # 'hwdoc',
     'keyvalue',
 )
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}
+
+
+AUTHENTICATION_BACKENDS = (
+    # 'djangobackends.ldapBackend.ldapBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+LDAP_AUTH_SETTINGS = (
+    {'url': 'ldap://ldap.example.org/', 'base': 'ou=People,dc=example,dc=org'},
+)
+
+LDAP_AUTH_GROUP = 'not-auth'
+LDAP_AUTH_IS_STAFF = True
+
 
 # South
 if DJANGO_VERSION[:2] < (1, 7):
@@ -173,6 +207,9 @@ SOUTH_MIGRATION_MODULES = {
 # Silence the erroneous 1_6.W001 check. It was removed in
 # https://code.djangoproject.com/ticket/23469 anyway
 SILENCED_SYSTEM_CHECKS = ['1_6.W001']
+
+# Use the old pre 1.6 testrunner
+TEST_RUNNER = 'django.test.simple.DjangoTestSuiteRunner'
 
 # Django extensions (apt-get install python-django-extensions)
 try:
