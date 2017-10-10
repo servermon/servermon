@@ -101,7 +101,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'servermon.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'lalakis.wsgi.application'
+WSGI_APPLICATION = 'servermon.wsgi.application'
 
 TEMPLATE_DIRS = (
     here('templates'),
