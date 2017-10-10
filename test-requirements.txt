@@ -3,7 +3,7 @@ ipy
 python-ldap
 flake8==3.0.4
 epydoc
-sphinx==1.6.3
+sphinx
 pysqlite
 mock<1.1.0
 mockldap
