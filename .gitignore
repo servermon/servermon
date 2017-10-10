@@ -1,6 +1,6 @@
 *.pyc
 /dist/
-/servermon/settings.py
+servermon/servermon/settings.py
 .*.swp
 .venv
 /docbuild

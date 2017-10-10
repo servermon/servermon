@@ -1,10 +1,10 @@
 CONFIG = {
     'mode': 'wsgi',
-    'working_dir': '/path/to/dir/servermon',
+    'working_dir': '/path/to/servermon',
     'args': (
         '--bind=0.0.0.0:8090',
         '--workers=4',
         '--timeout=10',
-	'wsgi',
+        'wsgi:application',
     ),
 }

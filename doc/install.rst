@@ -124,8 +124,8 @@ separate db from Puppet the above instructions must be modified
 accordingly (having servermon on a separate db could be useful if, for
 example, you are replicating the puppet db from a master elsewhere).
 
-Configuring urls.py
-+++++++++++++++++++
+Configuring app servers
++++++++++++++++++++++++
 
 **Mandatory**.
 
@@ -159,7 +159,8 @@ Configuring settings.py
 
 First you need to copy settings.py.dist::
 
-  $ cp /path/to/servermon
+  $ cp /path/to/servermon/
+  $ cd servermon/servermon
   $ cp settings.py.dist settings.py
 
 Then you need to configure the project. Things to pay attention to::
