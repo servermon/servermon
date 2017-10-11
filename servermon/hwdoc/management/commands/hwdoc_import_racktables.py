@@ -77,7 +77,7 @@ class Command(BaseCommand):
         Handle command
         '''
         if not options['user'] or not options['password']:
-            print 'Required option user or password not specified'
+            print('Required option user or password not specified')
             return
 
         db = MySQLdb.connect(
@@ -99,7 +99,7 @@ class Command(BaseCommand):
             dc_name = row['location_name']
             row_name = row['name']
             if row['location_name'] is None:
-                print 'Row: %s does not have a location, skipping' % row_name
+                print('Row: %s does not have a location, skipping' % row_name)
                 continue
             dc, created = Datacenter.objects.get_or_create(name=dc_name)
             if created:
@@ -124,13 +124,13 @@ class Command(BaseCommand):
             try:
                 row = RackRow.objects.get(dc__name=rack['location_name'], name=rack['row_name'])
             except RackRow.DoesNotExist:
-                print 'RackRow does not exist: %s. Skipping rack %s, probably it did not have a location' % (rack['row_name'], rack['name'])
+                print('RackRow does not exist: %s. Skipping rack %s, probably it did not have a location' % (rack['row_name'], rack['name']))
                 continue
             # TODO: Actually find the rack models
             try:
                 rm = RackModel.objects.get(id=1)
             except RackModel.DoesNotExist:
-                print 'No RackModels found, have you loaded vendor-model data?  Exiting'
+                print('No RackModels found, have you loaded vendor-model data?  Exiting')
                 return
             r, created = Rack.objects.get_or_create(
                 name=rack['name'],
@@ -222,13 +222,13 @@ class Command(BaseCommand):
                 if obj['row_name'] == 'decommissioned':
                     decommissioned = True
                 else:
-                    print 'Object: %s has a dc that does not exist: %s' % (object_name, dc_name)
+                    print('Object: %s has a dc that does not exist: %s' % (object_name, dc_name))
                     continue
             except RackRow.DoesNotExist:
-                print 'Object: %s has a row that does not exist: %s' % (object_name, row_name)
+                print('Object: %s has a row that does not exist: %s' % (object_name, row_name))
                 continue
             except Rack.DoesNotExist:
-                print 'Object: %s has a rack that does not exist: %s' % (object_name, rack_name)
+                print('Object: %s has a rack that does not exist: %s' % (object_name, rack_name))
                 continue
             try:
                 equipments[object_name]
@@ -284,7 +284,7 @@ class Command(BaseCommand):
                     equipments[object_name]['vendor'] = vendor
                     equipments[object_name]['eq_model'] = eq_model
                 else:
-                    print 'No HW Type!!!' + obj['dict_value']
+                    print('No HW Type!!!' + obj['dict_value'])
             if decommissioned:
                 equipments[object_name]['attrs']['Tag'] = 'decommissioned'
                 equipments[object_name]['rack'] = None
@@ -346,15 +346,15 @@ class Command(BaseCommand):
                     kv = KeyValue(key=key, value=attr_value, owner_content_object=e)
                     kv.save()
 
-        print '''
+        print('''
         Imported successfully:
         Datacenters: %s
         Rack Rows: %s
         Racks: %s
         Equipments: %s
-        ''' % (dc_count, row_count, rack_count, eq_count)
-        print 'Not migrated because:'
-        print 'Missing model:'
-        print ', '.join(sorted(model_missing))
-        print 'Missing serial:'
-        print ', '.join(sorted(serial_missing))
+        ''' % (dc_count, row_count, rack_count, eq_count))
+        print('Not migrated because:')
+        print('Missing model:')
+        print(', '.join(sorted(model_missing)))
+        print('Missing serial:')
+        print(', '.join(sorted(serial_missing)))

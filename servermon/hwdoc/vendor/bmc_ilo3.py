@@ -143,7 +143,7 @@ def firmware_update(hostname, username, password, **kwargs):
         f = open(kwargs['firmware_location']).read()
     except IOError:
         # TODO: Log this
-        print "Could not read firmware file"
+        print('Could not read firmware file')
         return False
 
     content_type, body = encode_multipart_formdata(
@@ -159,7 +159,7 @@ def firmware_update(hostname, username, password, **kwargs):
         extras = {'Cookie': extras['Cookie']}
     except IndexError:
         # TODO: Log this
-        print "Failed to get Cookie from iLO"
+        print('Failed to get Cookie from iLO')
         return False
     return __send__(hostname, username, password, __firmware_update_command__(**kwargs), extras)
 
@@ -191,7 +191,7 @@ def __send__(hostname, username, password, command, extras=None):
             url, 'POST', body=body, headers=headers)
     except (httplib2.ServerNotFoundError, socket.error) as e:
         # TODO: Log this. For now just print
-        print e
+        print(e)
         return
     if extras is not None and 'set-cookie' in resp:
         extras['Cookie'] = resp['set-cookie']

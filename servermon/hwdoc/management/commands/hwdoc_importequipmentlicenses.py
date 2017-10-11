@@ -52,6 +52,6 @@ class Command(BaseCommand):
             mgmt = eq.servermanagement
             mgmt.license = licenses.pop()
             mgmt.save()
-            print 'OK: %s' % eq.serial
+            print('OK: %s' % eq.serial)
 
-        print _('OK; %(licenses)s left') % {'licenses': len(licenses)}
+        print(_('OK; %s licenses left') % len(licenses))
