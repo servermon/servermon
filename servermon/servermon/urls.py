@@ -27,3 +27,8 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
         (r'^admin/', include(admin.site.urls)),  # noqa
         (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     )
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        (r'^static/(?P<path>.*)$', 'django.contrib.staticfiles.views.serve') # noqa
+    )

@@ -8,6 +8,9 @@ here = lambda x: os.path.join(os.path.abspath(os.path.dirname(__file__)), x)
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = 'CHANGE_THIS_IF_YOU_DONT_WANT_ALL_KINDS_OF_PROBLEMS'
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -28,7 +31,6 @@ DATABASES = {
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.4/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
-
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -71,8 +73,13 @@ STATIC_URL = '/static/'
 # Additional locations of static files
 STATICFILES_DIRS = (here('static'), )
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = 'CHANGE_THIS_IF_YOU_DONT_WANT_ALL_KINDS_OF_PROBLEMS'
+# List of finder classes that know how to find static files in
+# various locations.
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
