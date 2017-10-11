@@ -33,5 +33,5 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
 # file serving by gunicorn
 if settings.DEBUG or 'DATABASE_URL' in os.environ:
     urlpatterns += patterns('',
-        (r'^%s/(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), 'django.contrib.staticfiles.views.serve') # noqa
+        (r'^%s/(?P<path>.*)$' % settings.STATIC_URL.strip('/'), 'django.contrib.staticfiles.views.serve') # noqa
     )
