@@ -418,14 +418,14 @@ class ServerManagement(models.Model):
             sm = __import__('hwdoc.vendor.bmc_%s' % self.method, fromlist=['hwdoc.vendor'])
         except ImportError as e:
             # TODO: Log the error. For now just print
-            print e
+            print(e)
             return
 
         try:
             return getattr(sm, action)(self.hostname, username, password, **kwargs)
         except AttributeError as e:
             # TODO: Log the error. For now just print
-            print e
+            print(e)
             return
 
     def power_on(self, username=None, password=None, **kwargs):

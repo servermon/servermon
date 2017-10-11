@@ -16,8 +16,8 @@ class Migration(DataMigration):
                     rack_back=back)
 
     def backwards(self, orm):
-        print 'Backwards migration: Impossible to accurately populate equipment \
-        models rack occupation. Falling back to defaults'
+        print('Backwards migration: Impossible to accurately populate equipment \
+        models rack occupation. Falling back to defaults')
         orm['hwdoc.EquipmentModel'].objects.update(rack_front=True,
                 rack_interior=True, rack_back=True)
 

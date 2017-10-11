@@ -93,7 +93,7 @@ class ldapBackend(object):
                 user.last_name = result_data[0][1]['sn'][0]
             except KeyError:
                 # TODO: Log this
-                print "User has no givenName or sn attributes specified in LDAP. Please add them"
+                print('User has no givenName or sn attributes specified in LDAP')
                 return None
 
             user.is_active = True

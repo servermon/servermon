@@ -59,7 +59,7 @@ def monkey_patch_command_execute(name):
                 # Since this is only used for error catching an actual body in
                 # this is useless. Just pass
                 pass
-        except CommandError, e:
+        except CommandError as e:
                 self.stderr.write(smart_str(self.style.ERROR('Error: %s\n' % e)))
     setattr(klass, 'execute', types.MethodType(execute, klass))
     # Finalize command manipulation

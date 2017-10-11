@@ -101,8 +101,8 @@ class Command(BaseCommand):
                         s.mac = mac
                         s.save()
 
-                    print _('OK: %(eq)s %(sn)s') % {'eq': eq, 'sn': sn}
+                    print(_('OK: %(eq)s %(sn)s') % {'eq': eq, 'sn': sn})
                     count += 1
-                print _('Total ') + str(count)
+                print(_('Total ') + str(count))
         except IOError:
             raise CommandError(_('No such file or directory'))

@@ -122,7 +122,7 @@ def populate_tickets(equipment_list, closed=False):
                         fromlist=['hwdoc.vendor'])
     except ImportError as e:
         # TODO: Log ther error. For now just print
-        print e
+        print(e)
         return equipment_list
 
     for equipment in equipment_list:
@@ -130,7 +130,7 @@ def populate_tickets(equipment_list, closed=False):
             getattr(vm, 'get_tickets')(equipment, closed)
         except AttributeError as e:
             # TODO: Log the error. For now just print
-            print e
+            print(e)
             return equipment_list
     return equipment_list
 

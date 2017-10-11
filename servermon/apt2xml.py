@@ -83,4 +83,4 @@ def getUpdates():
 
 
 if __name__ == '__main__':
-    print getUpdates()
+    print(getUpdates())

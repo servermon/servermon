@@ -56,7 +56,7 @@ class Command(BaseCommand):
         try:
             key = args[0]
         except IndexError:
-            print _('Error in usage. See help')
+            print(_('Error in usage. See help'))
             sys.exit(1)
 
         es = search(key)

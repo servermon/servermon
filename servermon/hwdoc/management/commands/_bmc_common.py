@@ -52,7 +52,7 @@ def handle(self, *args, **options):
 
     es = search(key)
     if es.count() == 0:
-        print _('No Equipment found')
+        print(_('No Equipment found'))
         return
 
     for e in es:
@@ -61,7 +61,7 @@ def handle(self, *args, **options):
         except ServerManagement.DoesNotExist:
             continue
         if int(options['verbosity']) > 0:
-            print e
+            print(e)
         opts = options.copy()
         for term in ['username', 'password', 'command']:
             if term in opts:
@@ -70,5 +70,5 @@ def handle(self, *args, **options):
         result = command(options['username'], options['password'], **opts)
         # TODO: Figure out what to do with this
         if int(options['verbosity']) > 1:
-            print result
+            print(result)
     return
