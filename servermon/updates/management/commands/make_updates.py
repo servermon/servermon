@@ -68,10 +68,8 @@ class Command(BaseCommand):
             is_sec = (update.getAttribute("is_security") == "true")
 
             try:
-                p = Package.objects.filter(name=name)[0]
-            except IndexError:
-                p = None
-            if not p:
+                p = Package.objects.get(name=name)
+            except Package.DoesNotExist:
                 p = Package(name=name, sourcename=sn)
                 p.save()
 
