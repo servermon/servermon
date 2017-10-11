@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls import patterns, include, url
+import os
 
 urlpatterns = patterns('',
     (r'^/?$', 'projectwide.views.index'),  # noqa
@@ -28,7 +29,9 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
         (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     )
 
-if settings.DEBUG:
+# If we are debugging or we are running in a heroku environment, we want static
+# file serving by gunicorn
+if settings.DEBUG or 'DATABASE_URL' in os.environ:
     urlpatterns += patterns('',
-        (r'^static/(?P<path>.*)$', 'django.contrib.staticfiles.views.serve') # noqa
+        (r'^%s/(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), 'django.contrib.staticfiles.views.serve') # noqa
     )
