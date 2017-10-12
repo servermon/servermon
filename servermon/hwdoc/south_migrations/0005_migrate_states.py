@@ -9,7 +9,7 @@ class Migration(DataMigration):
 
     def forwards(self, orm):
         equipments = orm['hwdoc.Equipment'].objects.all()
-    	try:
+        try:
             # WORKING - OK => Functional
             equipments.filter(state='0').update(temp=orm['hwdoc.State'].objects.get(name='Functional'))
             # WORKING - RMA => Component RMA
