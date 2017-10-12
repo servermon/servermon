@@ -38,13 +38,19 @@ class StripWhitespaceMiddleware(object):
         if isinstance(response, HttpResponseNotModified):
             return response
         if 'text/plain' in response['Content-Type']:
+            # We need to convert to str to use regex in python3
+            # Note we assume here the encoding is going to be utf8
+            c = response.content.decode('utf8')
             if hasattr(self, 'whitespace_lead'):
-                response.content = self.whitespace_lead.sub('', response.content)
+                c = self.whitespace_lead.sub('', c)
             if hasattr(self, 'whitespace_trail'):
-                response.content = self.whitespace_trail.sub('\n', response.content)
+                c = self.whitespace_trail.sub('\n', c)
             # Uncomment the next line to remove empty lines
             if hasattr(self, 'whitespace'):
-                response.content = self.whitespace.sub('', response.content)
+                c = self.whitespace.sub('', c)
+            # And back to a bytes object
+            c = c.encode('utf8')
+            response.content = c
             return response
         else:
             return response
