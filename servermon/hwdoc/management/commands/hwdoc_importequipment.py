@@ -24,6 +24,7 @@ from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 import csv
 import re
+import io
 
 
 class Command(BaseCommand):
@@ -45,7 +46,7 @@ class Command(BaseCommand):
 
         count = 0
         try:
-            with open(csvname, 'rb') as f:
+            with io.open(csvname, 'r') as f:
                 reader = csv.reader(f)
                 for row in reader:
                     (aa, eq, sn, dns, passwd, rack, unit, pdua, pdub, mac) = row[:10]

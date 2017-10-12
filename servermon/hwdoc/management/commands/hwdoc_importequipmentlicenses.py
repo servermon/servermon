@@ -22,6 +22,7 @@ from django.core.management.base import BaseCommand, CommandError
 from hwdoc.models import Equipment
 from django.utils.translation import ugettext as _
 import csv
+import io
 
 
 class Command(BaseCommand):
@@ -42,7 +43,7 @@ class Command(BaseCommand):
         csvname = args[0]
         licenses = []
 
-        with open(csvname, 'rb') as f:
+        with io.open(csvname, 'r') as f:
             reader = csv.reader(f)
             for row in reader:
                 (foo, license, serial) = row
