@@ -21,7 +21,7 @@ Django management command to cold boot equipment
 from django.core.management.base import BaseCommand
 from django.utils.translation import ugettext_lazy as _l
 
-import _bmc_common
+from . import _bmc_common
 
 
 class Command(BaseCommand):

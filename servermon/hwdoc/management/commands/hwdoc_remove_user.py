@@ -24,7 +24,7 @@ from django.utils.translation import ugettext_lazy as _l
 
 from optparse import make_option
 
-import _bmc_common
+from . import _bmc_common
 
 
 class Command(BaseCommand):
