@@ -21,7 +21,7 @@ Django management command to start equipment
 from django.core.management.base import BaseCommand
 from django.utils.translation import ugettext as _
 
-import _bmc_common
+from . import _bmc_common
 
 
 class Command(BaseCommand):
