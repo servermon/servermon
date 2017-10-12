@@ -1,4 +1,4 @@
-from settings import *  # noqa
+from servermon.settings import *  # noqa
 
 DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'  # noqa
 DATABASES['default']['NAME'] = 'servermon-test.db'  # noqa
