@@ -81,6 +81,8 @@ def subnav(request, subnav):
                 args=(getattr(x, urls[subnav]['args']),) if urls[subnav]['args'] else None) +
                 ('?%s%s' % (urls[subnav]['append'], x.name) if urls[subnav]['append'] else '')
         }, data)
+    # map() is a generator in python3 and not serializable. Force list
+    data = list(data)
     data = json.dumps(data)
 
     return HttpResponse(data, content_type='application/json')
