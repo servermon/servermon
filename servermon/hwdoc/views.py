@@ -127,6 +127,8 @@ def flotdata(request, datatype):
             content_type='application/json')
 
     data = map(lambda x: {'label': x['name'], 'data': x['num_equipment']}, switch[datatype])
+    # map() is a generator in python3 and not serializable. Force list
+    data = list(data)
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 
