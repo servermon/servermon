@@ -52,9 +52,9 @@ class KeyTestCase(unittest.TestCase):
         self.assertEqual(self.key1, Key.objects.get(name='Key1'))
         # Test name field on Key
         self.assertEqual(self.key1.name, 'Key1')
-        # Test __unicode__ method on Key without description
+        # Test __str__ method on Key without description
         self.assertEqual(str(self.key1), 'Key1')
-        # Test __unicode__ method on Key with description
+        # Test __str__ method on Key with description
         self.assertEqual(str(self.key2), 'Key2 - Key 2')
 
     def test_keyvalue(self):
@@ -63,7 +63,7 @@ class KeyTestCase(unittest.TestCase):
         self.assertEqual(self.keyvalue.description, '')
         self.assertEqual(self.keyvalue.value, 'Yo')
         self.assertEqual(self.keyvalue.owner, self.owner)
-        # Test __unicode__ method on KeyValue
+        # Test __str__ method on KeyValue
         self.assertEqual(str(self.keyvalue), 'Key1 = Yo on Owner')
 
 

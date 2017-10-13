@@ -18,12 +18,13 @@
 updates module's functions documentation. Main models are Package and Update
 '''
 
-
+from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from puppet.models import Host
 import re
 
 
+@python_2_unicode_compatible
 class Package(models.Model):
     '''
     A Debian package
@@ -36,13 +37,14 @@ class Package(models.Model):
     class Meta:
         ordering = ('name', )
 
-    def __unicode__(self):
+    def __str__(self):
         if self.name == self.sourcename:
             return self.name
         else:
             return "%s (%s)" % (self.name, self.sourcename)
 
 
+@python_2_unicode_compatible
 class Update(models.Model):
     '''
     Modeling a potential update to a package
@@ -56,7 +58,7 @@ class Update(models.Model):
     origin = models.CharField(max_length=200, null=True)
     is_security = models.BooleanField(default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Returns the objects unicode representation
         '''

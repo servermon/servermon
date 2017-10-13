@@ -19,12 +19,14 @@ hwdoc module's functions documentation. Main models are Equipment and ServerMana
 '''
 
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext as _
 from django.contrib.contenttypes import generic
 from keyvalue.models import KeyValue
 
 
 # Allocation models #
+@python_2_unicode_compatible
 class Email(models.Model):
     '''
     Email Model. Represents an email. No special checks are done for user input
@@ -36,10 +38,11 @@ class Email(models.Model):
         verbose_name = _(u'Email')
         verbose_name_plural = _(u'Emails')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.email
 
 
+@python_2_unicode_compatible
 class Phone(models.Model):
     '''
     Phone Model. Represents a phone. No special checks are done for user input
@@ -51,10 +54,11 @@ class Phone(models.Model):
         verbose_name = _(u'Phone')
         verbose_name_plural = _(u'Phones')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.number
 
 
+@python_2_unicode_compatible
 class Person(models.Model):
     '''
     Person Model. Represents a Person with relations to Email, Phone
@@ -70,7 +74,7 @@ class Person(models.Model):
         verbose_name = _(u'Person')
         verbose_name_plural = _(u'People')
 
-    def __unicode__(self):
+    def __str__(self):
         result = u'%s %s ' % (self.name, self.surname)
         if self.emails.count() > 0:
             result += u'<%s> ' % ', '.join(map(lambda x: x[0], self.emails.values_list('email')))
@@ -79,6 +83,7 @@ class Person(models.Model):
         return result
 
 
+@python_2_unicode_compatible
 class Project(models.Model):
     '''
     Project Model. The idea is to allocate Equipments to Projects
@@ -93,10 +98,11 @@ class Project(models.Model):
         verbose_name = _(u'Project')
         verbose_name_plural = _(u'Projects')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class Role(models.Model):
     '''
     Roles for projects
@@ -114,7 +120,7 @@ class Role(models.Model):
         verbose_name = _(u'Role')
         verbose_name_plural = _(u'Roles')
 
-    def __unicode__(self):
+    def __str__(self):
         return _(u'Project: %(project)s, Person: %(name)s %(surname)s, Role: %(role)s') % {
             'project': self.project.name,
             'name': self.person.name,
@@ -124,6 +130,7 @@ class Role(models.Model):
 
 
 # Equipment models #
+@python_2_unicode_compatible
 class Datacenter(models.Model):
     '''
     Datacenters
@@ -136,7 +143,7 @@ class Datacenter(models.Model):
         verbose_name = _(u'Datacenter')
         verbose_name_plural = _(u'Datacenters')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     @models.permalink
@@ -144,6 +151,7 @@ class Datacenter(models.Model):
         return ('hwdoc.views.datacenter', [str(self.id)])
 
 
+@python_2_unicode_compatible
 class Vendor(models.Model):
     '''
     Equipments have Models and belong to Vendors
@@ -156,7 +164,7 @@ class Vendor(models.Model):
         verbose_name = _(u'Vendor')
         verbose_name_plural = _(u'Vendors')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -174,6 +182,7 @@ class Model(models.Model):
         verbose_name_plural = _(u'Models')
 
 
+@python_2_unicode_compatible
 class RackModel(Model):
     '''
     Rack vendor models
@@ -189,7 +198,7 @@ class RackModel(Model):
         verbose_name = _(u'Rack Model')
         verbose_name_plural = _(u'Rack Models')
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%s %s' % (self.vendor, self.name)
 
     @property
@@ -197,6 +206,7 @@ class RackModel(Model):
         return reversed(range(1, self.height + 1))
 
 
+@python_2_unicode_compatible
 class Rack(models.Model):
     '''
     Racks
@@ -211,7 +221,7 @@ class Rack(models.Model):
         verbose_name = _(u'Rack')
         verbose_name_plural = _(u'Racks')
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%s' % (self.name)
 
     def get_empty_units(self, related=None):
@@ -239,6 +249,7 @@ class Rack(models.Model):
         return ('hwdoc.views.rack', [str(self.id)])
 
 
+@python_2_unicode_compatible
 class RackRow(models.Model):
     '''
     Racks in a row are a RackRow
@@ -252,10 +263,11 @@ class RackRow(models.Model):
         verbose_name = _(u'Rack Row')
         verbose_name_plural = _(u'Rack Rows')
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%s in %s' % (self.name, self.dc)
 
 
+@python_2_unicode_compatible
 class Storage(models.Model):
     '''
     Datacenter may have storage facilities
@@ -269,10 +281,11 @@ class Storage(models.Model):
         verbose_name = _(u'Storage')
         verbose_name_plural = _(u'Storages')
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%s in %s' % (self.name, self.dc)
 
 
+@python_2_unicode_compatible
 class RackPosition(models.Model):
     '''
     Racks can be positioned in a RackRow
@@ -287,7 +300,7 @@ class RackPosition(models.Model):
         verbose_name = _(u'Rack Position in Rack Row')
         verbose_name_plural = _(u'Rack Positions in Rack Rows')
 
-    def __unicode__(self):
+    def __str__(self):
         return _(u'Rack: %(rack)s, Position: %(position)02d, RackRow: %(rackrow)s') % {
             'rack': self.rack,
             'position': self.position,
@@ -295,6 +308,7 @@ class RackPosition(models.Model):
         }
 
 
+@python_2_unicode_compatible
 class EquipmentModel(Model):
     '''
     Equipments have Models
@@ -310,7 +324,7 @@ class EquipmentModel(Model):
         verbose_name = _(u'Equipment Model')
         verbose_name_plural = _(u'Equipment Models')
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%s %s' % (self.vendor, self.name)
 
     @property
@@ -318,6 +332,7 @@ class EquipmentModel(Model):
         return reversed(range(1, self.u + 1))
 
 
+@python_2_unicode_compatible
 class Equipment(models.Model):
     '''
     Equipment model
@@ -355,7 +370,7 @@ class Equipment(models.Model):
         verbose_name = _(u'Equipment')
         verbose_name_plural = _(u'Equipments')
 
-    def __unicode__(self):
+    def __str__(self):
         out = u''
         if self.purpose:
             out += u'%s, ' % self.purpose
@@ -375,6 +390,7 @@ class Equipment(models.Model):
             return None
 
 
+@python_2_unicode_compatible
 class ServerManagement(models.Model):
     '''
     Equipments that can be managed have a ServerManagement counterpanrt
@@ -403,7 +419,7 @@ class ServerManagement(models.Model):
         verbose_name = _(u'Server Management')
         verbose_name_plural = _(u'Servers Management')
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s for %s' % (self.get_method_display(), self.equipment)
 
     def __sm__(self, action, username, password, **kwargs):
@@ -540,9 +556,9 @@ class ServerManagement(models.Model):
 
         return self.__sm__('firmware_update', username, password, **kwargs)
 
+
 # Auxiliary models
-
-
+@python_2_unicode_compatible
 class Ticket(models.Model):
     '''
     A ticket associated with a model
@@ -561,7 +577,7 @@ class Ticket(models.Model):
         verbose_name = _(u'Ticket')
         verbose_name_plural = _(u'Tickets')
 
-    def __unicode__(self):
+    def __str__(self):
         return u'Ticket: %s' % (self.name)
 
     def closed(self):

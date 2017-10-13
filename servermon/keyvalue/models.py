@@ -23,10 +23,12 @@ Each keyvalue has three items.
 '''
 
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
 
+@python_2_unicode_compatible
 class Key(models.Model):
     '''
     The key part of the key value pair
@@ -36,7 +38,7 @@ class Key(models.Model):
     verbose_name = models.CharField(max_length=100, blank=True, help_text='Human readable version of the name')
     description = models.CharField(max_length=150, blank=True, help_text='Description of what this key represents')
 
-    def __unicode__(self):
+    def __str__(self):
         if self.description != u'':
             return u'%s - %s' % (self.name, self.description)
         return u'%s' % (self.name)
@@ -50,6 +52,7 @@ class Key(models.Model):
         super(Key, self).save(*args, **kwargs)
 
 
+@python_2_unicode_compatible
 class KeyValue(models.Model):
     '''
     Attach a key and a value to any instance of any django model.
@@ -81,7 +84,7 @@ class KeyValue(models.Model):
     def owner(self):
         return self.owner_content_object
 
-    def __unicode__(self):
+    def __str__(self):
         res = u'%s = %s on %s' % (
             self.key.name,
             self.value,

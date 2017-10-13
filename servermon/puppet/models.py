@@ -20,6 +20,7 @@ puppet module's functions documentation. This has been create by django
 inspecting the puppet database
 '''
 
+from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.conf import settings
 
@@ -43,6 +44,7 @@ class SourceFile(models.Model):
         managed = MANAGED_PUPPET_MODELS
 
 
+@python_2_unicode_compatible
 class Fact(models.Model):
     '''
     Modeling the respective puppet concept.
@@ -57,7 +59,7 @@ class Fact(models.Model):
         ordering = ['name']
         managed = MANAGED_PUPPET_MODELS
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Get a string representation of the instance
         '''
@@ -65,6 +67,7 @@ class Fact(models.Model):
         return self.name.replace('_', ' ').rstrip()
 
 
+@python_2_unicode_compatible
 class Host(models.Model):
     '''
     Modeling the respective puppet concept.
@@ -86,7 +89,7 @@ class Host(models.Model):
         ordering = ['name', ]
         managed = MANAGED_PUPPET_MODELS
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Get a string representation of the instance
         '''
@@ -146,7 +149,7 @@ class FactValue(models.Model):
 
         return self.fact_name.name
 
-    def __unicode__(self):
+    def __str__(self):
         '''
         Get a string representation of the instance
         '''
