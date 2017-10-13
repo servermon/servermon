@@ -55,8 +55,12 @@ def search(q):
     # to create one than fail
     try:
         q.__iter__()
+        # But if we have a string, do it anyway to avoid python 3's __iter__()
+        # capable strings
+        if isinstance(q, str):
+            q = (q, )
     except AttributeError:
-        q = (q,)
+        q = (q, )
 
     ids = []
 
