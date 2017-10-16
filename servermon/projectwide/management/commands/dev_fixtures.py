@@ -269,7 +269,7 @@ class Command(BaseCommand):
                 sys.stdout = stdout
                 f.close()
         except Exception as e:
-            print('Error: %s, %s' % (e.__class__, e.message))
+            print('Error: %s, %s' % (e.__class__, e))
         # Unconditionally rollback always. We just pummeled the database for
         # nothing
         transaction.rollback()
