@@ -68,7 +68,7 @@ def search(q):
         for key in q:
             try:
                 dns = gethostbyaddr(key)[0]
-            except (herror, gaierror, IndexError, error, UnicodeEncodeError):
+            except (herror, gaierror, IndexError, error, UnicodeError):
                 dns = ''
             mac = canonicalize_mac(key)
             # A heuristic to allow user to filter queries down to the unit level
