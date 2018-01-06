@@ -21,6 +21,9 @@ Django management command to populate updatable packages in DB
 
 from django.core.management.base import BaseCommand
 from django.utils.translation import ugettext_lazy as _l
+from django.utils.timezone import now
+from django.conf import settings
+from datetime import timedelta
 
 from xml.dom.minidom import parseString
 from updates.models import Package, Update
@@ -40,9 +43,16 @@ class Command(BaseCommand):
         '''
         Handle command
         '''
+
+        # First clean all old hosts
+        d = now() - timedelta(days=settings.HOST_MAX_INACTIVE_DAYS)
+        Host.objects.filter(updated_at__lt=d)
+
+        # Then for all remaining ones generate updates
         for host in Host.objects.all():
             self.gen_host_updates(host)
 
+        # Then cleanup any leftover packages
         Package.objects.filter(hosts__isnull=True).delete()
 
     def gen_host_updates(self, host):
