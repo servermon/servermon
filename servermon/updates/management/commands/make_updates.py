@@ -46,7 +46,7 @@ class Command(BaseCommand):
 
         # First clean all old hosts
         d = now() - timedelta(days=settings.HOST_MAX_INACTIVE_DAYS)
-        Host.objects.filter(updated_at__lt=d)
+        Host.objects.filter(updated_at__lt=d).delete()
 
         # Then for all remaining ones generate updates
         for host in Host.objects.all():
