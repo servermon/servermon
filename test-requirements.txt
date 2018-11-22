@@ -10,4 +10,4 @@ mockldap
 coverage
 coveralls
 mysqlclient
-psycopg2==2.4.1
+psycopg2>=2.7.0

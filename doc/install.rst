@@ -90,7 +90,7 @@ Deploy the software::
 
 A Puppet infrastructure with an active record RDBMS (MySQL, PostgreSQL) is
 needed for everything else apart from hwdoc. SQLite can be used in
-development.
+development. Postgresql tests run on 10.1
 
 An application server is required, at least for production. gunicorn is
 fine, apache+mod_wsgi is fine, uwsgi should be fine. In development
